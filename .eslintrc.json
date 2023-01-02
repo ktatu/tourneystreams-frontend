@@ -44,14 +44,6 @@
         "prefer-const": "error",
         "arrow-spacing": "error",
         "block-spacing": "error",
-        "indent": [
-            "error",
-            "tab"
-        ],
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
         "quotes": [
             "error",
             "double"

@@ -1,0 +1,6 @@
+{
+    "tourneys": [
+        { "name": "tourney 1", "dateTime": "2023-02-10T15:00:00Z" },
+        { "name": "tourney 2", "dateTime": "2023-02-11T16:00:00Z" }
+    ]
+}

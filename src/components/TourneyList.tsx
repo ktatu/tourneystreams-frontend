@@ -21,12 +21,13 @@ const TourneyList = () => {
             bgcolor: "red",
             minWidth: "50%",
         }}>
-            <Paper elevation={20} variant="outlined">
+            <Paper elevation={20}>
                 <List>
                     {tourneyEntries.map((tourneyEntry: TourneyListEntryProps) => {
                         return (
-                            <TourneyListEntry 
+                            <TourneyListEntry
                                 key={tourneyEntry.name}
+                                id={tourneyEntry.id}
                                 name={tourneyEntry.name}
                                 dateTime={tourneyEntry.dateTime}
                             />

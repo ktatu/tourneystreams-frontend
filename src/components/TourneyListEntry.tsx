@@ -1,12 +1,17 @@
 import React from "react"
 import { ListItem, ListItemText } from "@mui/material"
 import { TourneyListEntryProps } from "../types"
+import { Link } from "react-router-dom"
 
-export const TourneyListEntry = ({ name, dateTime }: TourneyListEntryProps) => {
+export const TourneyListEntry = ({ id, name, dateTime }: TourneyListEntryProps) => {
+    const tourneyPageRelLink = `/tournaments/${id}`
+
     return (
-        <ListItem secondaryAction={<Timer dateTime={dateTime}/>}>
-            <ListItemText primary={name} />
-        </ListItem>
+        <Link to={tourneyPageRelLink}>
+            <ListItem secondaryAction={<Timer dateTime={dateTime}/>}>
+                <ListItemText primary={name} />
+            </ListItem>
+        </Link>
     )
 }
 

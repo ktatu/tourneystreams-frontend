@@ -6,7 +6,7 @@ import Footer from "./components/Footer"
 const Layout = () => {
     return (
 		<div>
-            <Container maxWidth="md">
+            <Container maxWidth="lg">
                 <Outlet />
             </Container>
             <Footer />

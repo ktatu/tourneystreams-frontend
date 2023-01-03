@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import tourneyDetailsService from "./services/tourneyDetails"
 
 import { useLoaderData } from "react-router-dom"
@@ -13,6 +13,8 @@ const TourneyPage = () => {
 
     const info = tourneyDetails.tourneyInfo
     const participants = tourneyDetails.participants
+
+    document.title = info.name
 
     return (
         <div>

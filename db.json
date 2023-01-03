@@ -11,6 +11,14 @@
                 { "teamName": "imaginary_team1", "players": [{ "name": "player1" }, { "name": "player2" }, { "name": "player3" }] },
                 { "teamName": "imaginary_team2", "players": [{ "name": "player4" }, { "name": "player5" }, { "name": "player6" }] }
             ]
+        },
+        {
+            "id": 2,
+            "tourneyInfo": { "name": "TEST TOURNAMENT", "dateTime": "2023-02-10T16:00:00Z" }, 
+            "participants": [
+                { "teamName": "imaginary_team1", "players": [{ "name": "player1" }, { "name": "player2" }, { "name": "player3" }] },
+                { "teamName": "imaginary_team2", "players": [{ "name": "player4" }, { "name": "player5" }, { "name": "player6" }] }
+            ]
         }
     ]
 }

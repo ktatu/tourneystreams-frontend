@@ -1,3 +1,4 @@
 29.12 1h frontendin aloitus, eslintin konfigurointi
 30.12 1.5h etusivun rungon rakentaminen ja suunnittelu
-1.1   2h Reititystä.
+1.1   2h reititystä
+2.2   2h lisää reititystä

@@ -1,7 +1,7 @@
 {
     "tourneylist": [
-        { "id": 1, "name": "tourney 1", "dateTime": "2023-02-10T15:00:00Z" },
-        { "id": 2, "name": "tourney 2", "dateTime": "2023-02-11T16:00:00Z" }
+        { "id": 1, "name": "tourney 1", "dateTime": "2023-02-10T15:00:00Z", "liquipediaPage": "https://example.com", "homePage": "https://example.com" },
+        { "id": 2, "name": "tourney 2", "dateTime": "2023-02-11T16:00:00Z", "liquipediaPage": "https://example.com", "homePage": "https://example.com" }
     ],
     "tourneydetails": [
         {

@@ -1,14 +1,14 @@
 import React from "react"
-import tourneyDetailsService from "./services/tourneyDetails"
+import tourneyDetailsService from "../services/tourneyDetails"
 
 import { useLoaderData } from "react-router-dom"
-import { Player, Team, TourneyDetailsProps } from "./types"
+import { Player, Team, TourneyDetailsProps } from "../types"
 
-export const tourneyPageLoader = async ({ params }: { params: any }) => {
+export const tourneyLoader = async ({ params }: { params: any }) => {
     return await tourneyDetailsService.getTourneyDetails(params.id)
 }
 
-const TourneyPage = () => {
+const Tourney = () => {
     const tourneyDetails = useLoaderData() as TourneyDetailsProps
 
     const info = tourneyDetails.tourneyInfo
@@ -36,4 +36,4 @@ const TourneyPage = () => {
     )
 }
 
-export default TourneyPage
+export default Tourney

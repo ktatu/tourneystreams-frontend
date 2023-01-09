@@ -5,3 +5,4 @@
 3.1   2h card-komponentti etusivulle
 4.1   2h -||-
 6.1   2.5h css-opettelu
+8.1   5h etusivun toteutus

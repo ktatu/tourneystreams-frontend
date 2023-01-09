@@ -1,9 +1,9 @@
 import React from "react"
 import { ListItem, ListItemText } from "@mui/material"
-import { TourneyListEntryProps } from "../types"
+import { TourneyCardProps } from "../types"
 import { Link } from "react-router-dom"
 
-export const TourneyListEntry = ({ id, name, dateTime }: TourneyListEntryProps) => {
+export const TourneyListEntry = ({ id, name, dateTime }: TourneyCardProps) => {
     const tourneyPageRelLink = `/tournaments/${id}`
 
     return (

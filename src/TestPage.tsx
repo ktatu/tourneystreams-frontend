@@ -1,49 +1,38 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 
-import { Box, Button, Card, CardActions, CardMedia, CardContent, Divider, IconButton, Menu, MenuItem, Tooltip, Typography } from "@mui/material"
+import { Stack, Box, Button, Card, CardActions, CardMedia, CardContent, Divider, IconButton, Menu, MenuItem, Tooltip, Typography, FormControlLabel, Switch, Slide, Container } from "@mui/material"
 import Grid from "@mui/material/Unstable_Grid2"
-import { ArrowCircleRightOutlined, ArrowForward, HomeOutlined, MoreHoriz } from "@mui/icons-material"
+import { ArrowCircleRightOutlined, ArrowForward, HomeOutlined, MoreHoriz, ArrowBackIos, ArrowForwardIos } from "@mui/icons-material"
 import TourneyCard from "./components/TourneyCard"
+import OutlinedCard from "./components/BasicCard"
+import { TourneyCardProps } from "./types"
 
 const TestPage = () => {
+    const [transform, setTransform] = React.useState("")
+    const [tourneyCards, setTourneyCards] = React.useState<TourneyCardProps>()
+
     return (
-        <Grid container marginTop={30} spacing={5}>
-            <Grid>
-                <TourneyCard tourneyName="Tourney 2"/>
-            </Grid>
-        </Grid>
+        <Container maxWidth="lg">
+            <Box bgcolor="yellow" display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
+                <Stack spacing={5} marginTop={10}>
+                    <h1>Tournaments</h1>
+                    <Grid container spacing={3} >
+                        <Grid marginTop={7}>
+                            <ArrowBackIos sx={{ transform: "scale(5.0)" }} />
+                        </Grid>
+                        <Grid>
+                            <Box minWidth="45vw" minHeight="60vh" bgcolor="blue">
+                            </Box>
+                        </Grid>
+                        <Grid>
+                            <ArrowForwardIos sx={{ transform: "scale(5.0)" }} />
+                        </Grid>
+                    </Grid>
+                </Stack>
+            </Box>
+        </Container>
     )
 }
 // Esports Arena: Series E Season 6 Pro Tournament #4
-
-const DotsMenuItem = () => {
-
-    return (
-        <MenuItem></MenuItem>
-    )
-}
-
+// <TourneyCard tourneyName="Tourney 2"/>
 export default TestPage
-
-/*
-                    <CardContent>
-                        <Grid2 container spacing={1}>
-                            <Grid2 xs={9}>
-                                <Typography gutterBottom variant="h6" component="div">
-                                    Esports Arena: Series E Season 6 Pro Tournament #4
-                                </Typography>
-                            </Grid2>
-                            <Grid2 xs={3} justifyContent="right">
-                                <Typography gutterBottom variant="h6" component="div">
-                                    Test
-                                </Typography>
-                            </Grid2>
-                        </Grid2>
-                    </CardContent>
-
-
-                    <a href="https://liquipedia.net/apexlegends/Main_Page" rel="noreferrer" target="_blank">
-                        <img src={require("./assets/liquipedia.png")} width={25} height={20} />
-                    </a>
-
-*/

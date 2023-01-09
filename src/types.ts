@@ -1,12 +1,14 @@
-export interface TourneyListEntryProps {
+export interface TourneyCardProps {
     id: number,
     name: string,
-    dateTime: string
+    dateTime: string,
+    liquipediaPage: string,
+    homePage: string
 }
 
 export interface TourneyDetailsProps {
     id: number,
-    tourneyInfo: TourneyListEntryProps,
+    tourneyInfo: TourneyCardProps,
     participants: Team[]
 }
 

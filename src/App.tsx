@@ -3,8 +3,8 @@ import "./App.css"
 
 import Layout from "./Layout"
 
-import TourneyList, { tourneyListLoader } from "./components/TourneyList"
-import TourneyPage, { tourneyPageLoader } from "./TourneyPage"
+import Home, { homeLoader } from "./pages/Home"
+import Tourney, { tourneyLoader } from "./pages/Tourney"
 
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
 import TestPage from "./TestPage"
@@ -12,8 +12,8 @@ import TestPage from "./TestPage"
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<Layout />}>
-            <Route index loader={tourneyListLoader} element={<TourneyList />} />
-            <Route path="tournaments/:id" loader={tourneyPageLoader} element={<TourneyPage />} />
+            <Route index loader={homeLoader} element={<Home />} />
+            <Route path="tournaments/:id" loader={tourneyLoader} element={<Tourney />} />
             <Route path="test" element={<TestPage />} />
         </Route>
     )

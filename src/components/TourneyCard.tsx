@@ -6,14 +6,14 @@ import React from "react"
 const TourneyCard = ({ tourneyName }: { tourneyName: string }) => {
 
     return (
-        <Card sx={{ width: 300, height: 400 }}>
+        <Card sx={{ width: 300, height: 300  }}>
             <CardMedia
                 component="img"
                 height="100"
                 image={require("../assets/kingscanyon.jpg")}
             />
             <CardContent>
-                <Box display="flex" flexDirection="row" justifyContent="space-between" height={150}>
+                <Box display="flex" flexDirection="row" justifyContent="space-between" height={75}>
                     <Typography gutterBottom variant="h6" component="div" paddingRight={5}>
                         {tourneyName}
                     </Typography>

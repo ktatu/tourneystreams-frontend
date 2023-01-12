@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 //import Grid from "@mui/material/Unstable_Grid2"
-import { Box, Stack } from "@mui/material"
+import { Box, Button, Stack } from "@mui/material"
 
 import { TourneyListEntry } from "../components/TourneyListEntry"
 
@@ -11,9 +11,10 @@ import tourneyEntriesService from "../services/tourneyEntries"
 import OutlinedCard from "../components/BasicCard"
 import TourneyCard from "../components/TourneyCard"
 
-import Carousel from "react-material-ui-carousel"
-
 import chunk from "lodash.chunk"
+
+import useEmblaCarousel from "embla-carousel-react"
+import "./Home.css"
 
 export const homeLoader = async () => {
     //return await tourneyEntriesService.getAll()
@@ -24,42 +25,65 @@ interface TestProps {
     text: string
 }
 
-const Home = () => {
-    const [cardProps, setCardProps] = useState<TestProps[]>([{ text: "test1" }, { text: "test2" }, { text: "test3" }, { text: "test4" }, { text: "test5" }])
+/*
+embla-carousel.com
 
-    const CardCarousel = () => {
-        return (
-            <Carousel sx={{ maxWidth: "50vw" }  }
-                animation="fade"
-                duration={200}
-                autoPlay={false}
-                cycleNavigation={false}
-                navButtonsAlwaysVisible={true}
-                swipe={false}
-            >
-                {chunk(cardProps, 3).map((propArray, mapIndex) => <CarouselSlideBox key={mapIndex} cardProps={propArray} />)}
-            </Carousel>
-        )
-    }
-    
-    const CarouselSlideBox = ({ cardProps }: { cardProps: TestProps[] }) => {
-        return (
-            <Box padding={20} display="flex" flexDirection="row" gap={10}>
-                {cardProps.map((props: TestProps, mapIndex) => {
-                    return (
-                        <OutlinedCard key={mapIndex} text={props.text} />
-                    )
-                })}
-            </Box>
-        )
-    }
+jos https://github.com/davidjerleke/embla-carousel/issues/387
+on ongelma, niin workaround: https://stackoverflow.com/questions/6131051/is-it-possible-to-find-out-what-is-the-monitor-frame-rate-in-javascript
+*/
+
+const Home = () => {
+    const [cardProps, setCardProps] = useState<TestProps[]>([{ text: "test1" }, { text: "test2" }, { text: "test3" }, { text: "test4" }, { text: "test5" }, { text: "test3" }, { text: "test3" }])
 
 
     return (
         <Stack spacing={3}>
             <h2>Tournaments</h2>
-            <CardCarousel />
+            <Carousel />
         </Stack>
+    )
+}
+    
+const Carousel = () => {
+    const [carouselRef] = useEmblaCarousel()
+    const [cardProps, setCardProps] = useState<TestProps[]>([{ text: "test1" }, { text: "test2" }, { text: "test3" }, { text: "test4" }, { text: "test5" }, { text: "test3" }, { text: "test3" }])
+    const [scrollNextEnabled, setSCrollNextEnabled] = useState(false)
+
+    return (
+        <>
+            <div className="carousel" ref={carouselRef}>
+                <div className="carousel_container">
+                    {chunk(cardProps, 3)
+                        .map((propArray, mapIndex) =>
+                            <Box
+                                className="carousel_slide"
+                                key={mapIndex}
+                            >
+                                <CarouselSlideBox cardProps={propArray} />
+                            </Box>
+                        )
+                    }
+                </div>
+        </div>
+      </>
+    )
+}
+
+// <Button onClick={scrollNext} enabled={scrollNextEnabled} />
+
+const CarouselSlideBox = ({ cardProps }: { cardProps: TestProps[] }) => {
+    return (
+        <Box
+            display="flex"
+            flexDirection="row"
+            gap={5}
+        >
+            {cardProps.map((props: TestProps, mapIndex) => {
+                return (
+                    <OutlinedCard key={mapIndex} text={props.text} />
+                )
+            })}
+        </Box>
     )
 }
 

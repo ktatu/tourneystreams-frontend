@@ -1,0 +1,40 @@
+.carousel {
+    overflow: hidden;
+}
+
+.carousel_container {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+}
+
+.carousel_slide {
+    flex: 0 0 100%;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.carousel_box {
+    display: block;
+}
+
+.embla {
+    --slide-spacing: 1rem;
+    --slide-size: 100%;
+    --slide-height: 19rem;
+    padding: 1.6rem;
+}
+
+.embla_container {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    margin-left: calc(var(--slide-spacing) * -1);
+    overflow: hidden;
+}
+.embla_slide {
+    flex: 0 0 var(--slide-size);
+    min-width: 0;
+    padding-left: var(--slide-spacing);
+    position: relative;
+}

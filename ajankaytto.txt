@@ -6,3 +6,4 @@
 4.1   2h -||-
 6.1   2.5h css-opettelu
 8.1   5h etusivun toteutus
+11.1 1.5h karuselli etusivulle

@@ -3,7 +3,7 @@ import IconButton from "@mui/material/IconButton"
 import Menu from "@mui/material/Menu"
 import Box from "@mui/material/Box"
 
-const ListMenu = ({
+const PopupMenu = ({
     menuIcon,
     menuContent,
 }: {
@@ -34,4 +34,4 @@ const ListMenu = ({
     )
 }
 
-export default ListMenu
+export default PopupMenu

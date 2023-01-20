@@ -1,6 +1,23 @@
-import React, { useState } from "react"
+import React, {
+    useCallback,
+    useEffect,
+    useState,
+    useRef,
+    MutableRefObject,
+} from "react"
 //import Grid from "@mui/material/Unstable_Grid2"
-import { Box, Button, Stack } from "@mui/material"
+import {
+    Box,
+    Button,
+    Checkbox,
+    ListItemIcon,
+    MenuItem,
+    MenuList,
+    ListItemText,
+    Stack,
+    FormGroup,
+    FormControlLabel,
+} from "@mui/material"
 
 import { TourneyListEntry } from "../components/TourneyListEntry"
 
@@ -16,6 +33,9 @@ import chunk from "lodash.chunk"
 import useEmblaCarousel from "embla-carousel-react"
 import "./Home.css"
 
+import SettingsIcon from "@mui/icons-material/Settings"
+import PopupMenu from "../components/PopupMenu"
+
 export const homeLoader = async () => {
     //return await tourneyEntriesService.getAll()
     return null
@@ -25,51 +45,104 @@ interface TestProps {
     text: string
 }
 
-/*
-embla-carousel.com
-
-jos https://github.com/davidjerleke/embla-carousel/issues/387
-on ongelma, niin workaround: https://stackoverflow.com/questions/6131051/is-it-possible-to-find-out-what-is-the-monitor-frame-rate-in-javascript
-*/
-
 const Home = () => {
-    const [cardProps, setCardProps] = useState<TestProps[]>([{ text: "test1" }, { text: "test2" }, { text: "test3" }, { text: "test4" }, { text: "test5" }, { text: "test3" }, { text: "test3" }])
-
+    const [cardProps, setCardProps] = useState<TestProps[]>([
+        { text: "test1" },
+        { text: "test2" },
+        { text: "test3" },
+        { text: "test4" },
+        { text: "test5" },
+        { text: "test3" },
+        { text: "test3" },
+    ])
 
     return (
-        <Stack spacing={3}>
-            <h2>Tournaments</h2>
+        <Stack spacing={1}>
+            <Box
+                display="flex"
+                flexDirection="row"
+                justifyContent="space-between"
+            >
+                <h2>Tournaments</h2>
+                <PopupMenu
+                    menuIcon={<SettingsIcon sx={{ marginTop: "5px" }} />}
+                    menuContent={<GameOptionsMenuContent />}
+                />
+            </Box>
             <Carousel />
+            <TourneyCard tourneyName="Tourney 1" />
         </Stack>
     )
 }
-    
-const Carousel = () => {
-    const [carouselRef] = useEmblaCarousel()
-    const [cardProps, setCardProps] = useState<TestProps[]>([{ text: "test1" }, { text: "test2" }, { text: "test3" }, { text: "test4" }, { text: "test5" }, { text: "test3" }, { text: "test3" }])
-    const [scrollNextEnabled, setSCrollNextEnabled] = useState(false)
+
+const GameOptionsMenuContent = () => {
+    const apexRef = useRef() as any
+
+    const handleCheckboxToggle = (refName: string) => {
+        if (refName === "apex") {
+            console.log(apexRef.current)
+        }
+    }
 
     return (
-        <>
-            <div className="carousel" ref={carouselRef}>
-                <div className="carousel_container">
-                    {chunk(cardProps, 3)
-                        .map((propArray, mapIndex) =>
-                            <Box
-                                className="carousel_slide"
-                                key={mapIndex}
-                            >
-                                <CarouselSlideBox cardProps={propArray} />
-                            </Box>
-                        )
-                    }
-                </div>
-        </div>
-      </>
+        <MenuList>
+            <MenuItem onClick={() => handleCheckboxToggle("apex")}>
+                <ListItemIcon>
+                    <SettingsIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Apex Legends</ListItemText>
+                <Checkbox ref={apexRef} />
+            </MenuItem>
+            <MenuItem>
+                <ListItemIcon>
+                    <SettingsIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>StarCraft 2</ListItemText>
+                <Checkbox />
+            </MenuItem>
+        </MenuList>
     )
 }
 
-// <Button onClick={scrollNext} enabled={scrollNextEnabled} />
+const Carousel = () => {
+    const [emblaRef, emblaApi] = useEmblaCarousel()
+    const [cardProps, setCardProps] = useState<TestProps[]>([
+        { text: "test1" },
+        { text: "test2" },
+        { text: "test3" },
+        { text: "test4" },
+        { text: "test5" },
+        { text: "test3" },
+        { text: "test3" },
+    ])
+    const [scrollNextEnabled, setSCrollNextEnabled] = useState(false)
+
+    const scrollNext = useCallback(() => {
+        return emblaApi && emblaApi.scrollNext()
+    }, [emblaApi])
+
+    return (
+        <Box bgcolor="red">
+            <div
+                className="carousel"
+                ref={emblaRef}
+            >
+                <div className="carousel_container">
+                    {chunk(cardProps, 3).map((propArray, mapIndex) => (
+                        <Box
+                            className="carousel_slide"
+                            key={mapIndex}
+                        >
+                            <CarouselSlideBox cardProps={propArray} />
+                        </Box>
+                    ))}
+                </div>
+            </div>
+        </Box>
+    )
+}
+
+// <Button onClick={scrollNext} enabled={scrollNextEnabled}>next</Button>
 
 const CarouselSlideBox = ({ cardProps }: { cardProps: TestProps[] }) => {
     return (
@@ -80,12 +153,14 @@ const CarouselSlideBox = ({ cardProps }: { cardProps: TestProps[] }) => {
         >
             {cardProps.map((props: TestProps, mapIndex) => {
                 return (
-                    <OutlinedCard key={mapIndex} text={props.text} />
+                    <OutlinedCard
+                        key={mapIndex}
+                        text={props.text}
+                    />
                 )
             })}
         </Box>
     )
 }
-
 
 export default Home

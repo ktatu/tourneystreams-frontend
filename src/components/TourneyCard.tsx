@@ -13,6 +13,7 @@ import {
     Divider,
     IconButton,
     Menu,
+    MenuList,
     MenuItem,
     Typography,
 } from "@mui/material"
@@ -20,7 +21,7 @@ import {
 import Grid from "@mui/material/Unstable_Grid2"
 import React from "react"
 
-import ListMenu from "./ListMenu"
+import PopupMenu from "./PopupMenu"
 
 const TourneyCard = ({ tourneyName }: { tourneyName: string }) => {
     return (
@@ -71,7 +72,7 @@ const TourneyCard = ({ tourneyName }: { tourneyName: string }) => {
                 </Box>
             </CardContent>
             <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-                <ListMenu
+                <PopupMenu
                     menuIcon={<MoreHoriz />}
                     menuContent={<CardMenuContent />}
                 />
@@ -82,7 +83,7 @@ const TourneyCard = ({ tourneyName }: { tourneyName: string }) => {
 
 const CardMenuContent = () => {
     return (
-        <>
+        <MenuList>
             <MenuItem>
                 <HomeOutlined
                     width={25}
@@ -99,7 +100,7 @@ const CardMenuContent = () => {
                 />{" "}
                 Liquipedia
             </MenuItem>
-        </>
+        </MenuList>
     )
 }
 

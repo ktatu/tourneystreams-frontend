@@ -15,8 +15,6 @@ import {
     MenuList,
     ListItemText,
     Stack,
-    FormGroup,
-    FormControlLabel,
 } from "@mui/material"
 
 import { TourneyListEntry } from "../components/TourneyListEntry"
@@ -35,6 +33,8 @@ import "./Home.css"
 
 import SettingsIcon from "@mui/icons-material/Settings"
 import PopupMenu from "../components/PopupMenu"
+
+import useCheckbox from "../hooks/useCheckbox"
 
 export const homeLoader = async () => {
     //return await tourneyEntriesService.getAll()
@@ -76,29 +76,24 @@ const Home = () => {
 }
 
 const GameOptionsMenuContent = () => {
-    const apexRef = useRef() as any
-
-    const handleCheckboxToggle = (refName: string) => {
-        if (refName === "apex") {
-            console.log(apexRef.current)
-        }
-    }
+    const apexCheckbox = useCheckbox()
+    const starcraftCheckbox = useCheckbox()
 
     return (
         <MenuList>
-            <MenuItem onClick={() => handleCheckboxToggle("apex")}>
+            <MenuItem onClick={apexCheckbox.handleToggle}>
                 <ListItemIcon>
                     <SettingsIcon fontSize="small" />
                 </ListItemIcon>
                 <ListItemText>Apex Legends</ListItemText>
-                <Checkbox ref={apexRef} />
+                <Checkbox checked={apexCheckbox.checked} />
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={starcraftCheckbox.handleToggle}>
                 <ListItemIcon>
                     <SettingsIcon fontSize="small" />
                 </ListItemIcon>
                 <ListItemText>StarCraft 2</ListItemText>
-                <Checkbox />
+                <Checkbox checked={starcraftCheckbox.checked} />
             </MenuItem>
         </MenuList>
     )

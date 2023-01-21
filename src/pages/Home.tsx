@@ -12,6 +12,8 @@ import {
     Box,
     Button,
     Checkbox,
+    Collapse,
+    IconButton,
     ListItemIcon,
     MenuItem,
     MenuList,
@@ -20,6 +22,8 @@ import {
 } from "@mui/material"
 
 import { TourneyListEntry } from "../components/TourneyListEntry"
+
+import MinimizeIcon from "@mui/icons-material/Minimize"
 
 import { useLoaderData } from "react-router-dom"
 import { TourneyCardProps } from "../types"
@@ -38,7 +42,8 @@ import PopupMenu from "../components/PopupMenu"
 
 import useCheckbox from "../hooks/useCheckbox"
 
-import Stream from "../components/Stream"
+import Streams from "../components/Streams"
+import Chats from "../components/Chats"
 
 export const homeLoader = async () => {
     //return await tourneyEntriesService.getAll()
@@ -60,6 +65,16 @@ const Home = () => {
         { text: "test3" },
     ])
 
+    const [carouselVisible, setCarouselVisibility] = useState(true)
+
+    const handleCollapse = () => {
+        setCarouselVisibility((prevValue) => !prevValue)
+    }
+
+    const handleCarouselIconsVisibility = () => {
+        console.log("transition end")
+    }
+
     return (
         <Stack spacing={1}>
             <Box
@@ -68,13 +83,24 @@ const Home = () => {
                 justifyContent="space-between"
             >
                 <Box flexGrow={1} />
-                <PopupMenu
-                    menuIcon={<SettingsIcon sx={{ marginTop: "5px" }} />}
-                    menuContent={<GameOptionsMenuContent />}
-                />
+                <Box>
+                    <PopupMenu
+                        menuIcon={<SettingsIcon sx={{ marginTop: "5px" }} />}
+                        menuContent={<GameOptionsMenuContent />}
+                    />
+                </Box>
+                <IconButton onClick={handleCollapse}>
+                    <MinimizeIcon />
+                </IconButton>
             </Box>
-            <Carousel />
-            <Stream />
+            <Collapse
+                in={carouselVisible}
+                onTransitionEnd={handleCarouselIconsVisibility}
+            >
+                <Carousel />
+            </Collapse>
+            <Streams />
+            <Chats />
         </Stack>
     )
 }

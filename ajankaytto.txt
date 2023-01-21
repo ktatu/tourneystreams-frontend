@@ -10,3 +10,4 @@
 18.1  2h cd-pipeline
 19.1  2h popup-valikko-komponentteja
 20.1  2h livestreamin katsomis-toiminnallisuuksia frontendissa
+21.1  2h livestream + chat-komponentit

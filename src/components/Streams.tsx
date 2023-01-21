@@ -5,13 +5,15 @@ import React, {
     useRef,
     MutableRefObject,
 } from "react"
-import { Box, Button, Typography } from "@mui/material"
+import { Box, Button, IconButton, Typography } from "@mui/material"
+import ReplayIcon from "@mui/icons-material/Replay"
+import CloseIcon from "@mui/icons-material/Close"
 
 interface EventHandler {
     (argument: string): void
 }
 
-const Stream = () => {
+const Streams = () => {
     const [channels, setChannels] = useState(["thijs"])
 
     const handleStreamClose: EventHandler = (channelName) => {
@@ -21,7 +23,7 @@ const Stream = () => {
     return (
         <Box>
             {channels.map((channel: string) => (
-                <StreamBox
+                <StreamContainer
                     key={channel}
                     channel={channel}
                     closeStream={handleStreamClose}
@@ -31,7 +33,7 @@ const Stream = () => {
     )
 }
 
-const StreamBox = ({
+const StreamContainer = ({
     channel,
     closeStream,
 }: {
@@ -59,9 +61,18 @@ const StreamBox = ({
                 display="flex"
                 flexDirection="row"
             >
-                <Typography sx={{ flexGrow: 1 }}>{channel}</Typography>
-                <Button onClick={reloadStream}>Reload</Button>
-                <Button onClick={() => closeStream(channel)}>Close</Button>
+                <Typography
+                    marginTop={1}
+                    sx={{ flexGrow: 1 }}
+                >
+                    {channel}
+                </Typography>
+                <IconButton onClick={reloadStream}>
+                    <ReplayIcon />
+                </IconButton>
+                <IconButton onClick={() => closeStream(channel)}>
+                    <CloseIcon />
+                </IconButton>
             </Box>
             <Box>
                 <iframe
@@ -78,4 +89,4 @@ const StreamBox = ({
     )
 }
 
-export default Stream
+export default Streams

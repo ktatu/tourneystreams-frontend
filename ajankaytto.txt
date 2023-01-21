@@ -9,3 +9,4 @@
 11.1 1.5h karuselli etusivulle
 18.1  2h cd-pipeline
 19.1  2h popup-valikko-komponentteja
+20.1  2h livestreamin katsomis-toiminnallisuuksia frontendissa

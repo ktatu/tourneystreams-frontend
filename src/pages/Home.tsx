@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unknown-property */
+
 import React, {
     useCallback,
     useEffect,
@@ -36,6 +38,8 @@ import PopupMenu from "../components/PopupMenu"
 
 import useCheckbox from "../hooks/useCheckbox"
 
+import Stream from "../components/Stream"
+
 export const homeLoader = async () => {
     //return await tourneyEntriesService.getAll()
     return null
@@ -63,14 +67,14 @@ const Home = () => {
                 flexDirection="row"
                 justifyContent="space-between"
             >
-                <h2>Tournaments</h2>
+                <Box flexGrow={1} />
                 <PopupMenu
                     menuIcon={<SettingsIcon sx={{ marginTop: "5px" }} />}
                     menuContent={<GameOptionsMenuContent />}
                 />
             </Box>
             <Carousel />
-            <TourneyCard tourneyName="Tourney 1" />
+            <Stream />
         </Stack>
     )
 }
@@ -99,40 +103,65 @@ const GameOptionsMenuContent = () => {
     )
 }
 
+const cardProps = [
+    { text: "test1" },
+    { text: "test2" },
+    { text: "test3" },
+    { text: "test4" },
+    { text: "test5" },
+    { text: "test6" },
+    { text: "test7" },
+]
+
 const Carousel = () => {
     const [emblaRef, emblaApi] = useEmblaCarousel()
-    const [cardProps, setCardProps] = useState<TestProps[]>([
-        { text: "test1" },
-        { text: "test2" },
-        { text: "test3" },
-        { text: "test4" },
-        { text: "test5" },
-        { text: "test3" },
-        { text: "test3" },
-    ])
+    const [slides, setSlides] = useState(chunk(cardProps, 3))
     const [scrollNextEnabled, setSCrollNextEnabled] = useState(false)
 
     const scrollNext = useCallback(() => {
         return emblaApi && emblaApi.scrollNext()
     }, [emblaApi])
 
+    const scrollPrev = useCallback(() => {
+        return emblaApi && emblaApi.scrollPrev()
+    }, [emblaApi])
+
     return (
-        <Box bgcolor="red">
+        <Box
+            bgcolor="red"
+            display="flex"
+            justifyContent="center"
+            flexDirection="column"
+            gap={3}
+        >
             <div
                 className="carousel"
                 ref={emblaRef}
             >
                 <div className="carousel_container">
-                    {chunk(cardProps, 3).map((propArray, mapIndex) => (
-                        <Box
-                            className="carousel_slide"
-                            key={mapIndex}
-                        >
-                            <CarouselSlideBox cardProps={propArray} />
-                        </Box>
-                    ))}
+                    {slides.map((slideArray, mapIndex) => {
+                        return (
+                            <Box
+                                className="carousel_slide"
+                                key={mapIndex}
+                            >
+                                <CarouselSlideBox cardProps={slideArray} />
+                            </Box>
+                        )
+                    })}
                 </div>
             </div>
+            <Box
+                display="flex"
+                flexDirection="row"
+            >
+                <Box>
+                    <Button onClick={scrollPrev}>Click</Button>
+                </Box>
+                <Box>
+                    <Button onClick={scrollNext}>Click</Button>
+                </Box>
+            </Box>
         </Box>
     )
 }
@@ -148,9 +177,9 @@ const CarouselSlideBox = ({ cardProps }: { cardProps: TestProps[] }) => {
         >
             {cardProps.map((props: TestProps, mapIndex) => {
                 return (
-                    <OutlinedCard
+                    <TourneyCard
                         key={mapIndex}
-                        text={props.text}
+                        tourneyName={props.text}
                     />
                 )
             })}

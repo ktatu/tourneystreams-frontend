@@ -1,12 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 
-import React, {
-    useCallback,
-    useEffect,
-    useState,
-    useRef,
-    MutableRefObject,
-} from "react"
+import React, { useCallback, useEffect, useState, useRef, MutableRefObject } from "react"
 //import Grid from "@mui/material/Unstable_Grid2"
 import {
     Box,
@@ -85,7 +79,9 @@ const Home = () => {
                 <Box flexGrow={1} />
                 <Box>
                     <PopupMenu
-                        menuIcon={<SettingsIcon sx={{ marginTop: "5px" }} />}
+                        buttonProps={{
+                            buttonIcon: <SettingsIcon sx={{ marginTop: "5px" }} />,
+                        }}
                         menuContent={<GameOptionsMenuContent />}
                     />
                 </Box>

@@ -1,8 +1,4 @@
-import {
-    ArrowCircleRightOutlined,
-    HomeOutlined,
-    MoreHoriz,
-} from "@mui/icons-material"
+import { ArrowCircleRightOutlined, HomeOutlined, MoreHoriz } from "@mui/icons-material"
 
 import {
     Box,
@@ -53,7 +49,7 @@ const TourneyCard = ({ tourneyName }: { tourneyName: string }) => {
                         display="flex"
                         justifyContent="flex-end"
                     >
-                        3d 45min
+                        3d 45 min
                     </Typography>
                 </Box>
                 <Box
@@ -61,19 +57,23 @@ const TourneyCard = ({ tourneyName }: { tourneyName: string }) => {
                     flexDirection="row"
                     justifyContent="space-between"
                 >
-                    <Typography variant="body2">
-                        Region / country: Europe
-                    </Typography>
+                    <Box
+                        display="flex"
+                        flexDirection="column"
+                        gap={1}
+                    >
+                        <Typography variant="body2">Region: Europe</Typography>
+                        <Typography variant="body2">Tournament tier: 1</Typography>
+                        <Typography variant="body2">Online tournament</Typography>
+                    </Box>
                     <IconButton disabled={false}>
-                        <ArrowCircleRightOutlined
-                            sx={{ transform: "scale(3.0)" }}
-                        />
+                        <ArrowCircleRightOutlined sx={{ transform: "scale(3.0)" }} />
                     </IconButton>
                 </Box>
             </CardContent>
             <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
                 <PopupMenu
-                    menuIcon={<MoreHoriz />}
+                    buttonProps={{ buttonIcon: <MoreHoriz /> }}
                     menuContent={<CardMenuContent />}
                 />
             </CardActions>

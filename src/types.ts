@@ -1,22 +1,26 @@
 export interface TourneyCardProps {
-    id: number,
-    name: string,
-    dateTime: string,
-    liquipediaPage: string,
+    id: number
+    name: string
+    dateTime: string
+    liquipediaPage: string
     homePage: string
 }
 
 export interface TourneyDetailsProps {
-    id: number,
-    tourneyInfo: TourneyCardProps,
+    id: number
+    tourneyInfo: TourneyCardProps
     participants: Team[]
 }
 
 export interface Team {
-    teamName: string,
+    teamName: string
     players: Player[]
 }
 
 export interface Player {
     name: string
+}
+
+export interface MouseEventHandler {
+    (event: React.MouseEvent<HTMLElement>): void
 }

@@ -10,4 +10,6 @@
 18.1  2h cd-pipeline
 19.1  2h popup-valikko-komponentteja
 20.1  2h livestreamin katsomis-toiminnallisuuksia frontendissa
-21.1  2h livestream + chat-komponentit
+21.1  2h livestream- ja chat-komponentit
+22.1  1.5h popup-menun refaktorointi
+23.1  2h popup-menu chat-komponentille, popupmenun refaktorointia

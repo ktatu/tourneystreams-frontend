@@ -1,4 +1,5 @@
-import React, { useState } from "react"
+/* eslint-disable react/display-name */
+import React, { useState, forwardRef, useImperativeHandle } from "react"
 import IconButton from "@mui/material/IconButton"
 import { Button } from "@mui/material"
 import Menu from "@mui/material/Menu"
@@ -20,39 +21,51 @@ type TextButtonProps = {
     buttonText: string
 }
 
-const PopupMenu = ({
-    buttonProps,
-    menuContent,
-}: {
+type PopupMenuProps = {
     buttonProps: ButtonProps
     menuContent: JSX.Element
-}) => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const isOpen = Boolean(anchorEl)
-
-    const handleClick: MouseEventHandler = (event: React.MouseEvent<HTMLElement>): void => {
-        setAnchorEl(event.currentTarget)
-    }
-    const handleClose = () => {
-        setAnchorEl(null)
-    }
-
-    return (
-        <Box>
-            <OpenMenuButton
-                handleClick={handleClick}
-                buttonProps={buttonProps}
-            />
-            <Menu
-                anchorEl={anchorEl}
-                open={isOpen}
-                onClose={handleClose}
-            >
-                {menuContent}
-            </Menu>
-        </Box>
-    )
 }
+
+export interface PopupMenuClose {
+    handleClose: () => void
+}
+
+const PopupMenu = forwardRef<PopupMenuClose, PopupMenuProps>(
+    ({ buttonProps, menuContent }, ref) => {
+        const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+        const isOpen = Boolean(anchorEl)
+
+        const handleClick: MouseEventHandler = (event: React.MouseEvent<HTMLElement>): void => {
+            setAnchorEl(event.currentTarget)
+        }
+
+        const handleClose = () => {
+            setAnchorEl(null)
+        }
+
+        useImperativeHandle(ref, () => {
+            return {
+                handleClose,
+            }
+        })
+
+        return (
+            <Box>
+                <OpenMenuButton
+                    handleClick={handleClick}
+                    buttonProps={buttonProps}
+                />
+                <Menu
+                    anchorEl={anchorEl}
+                    open={isOpen}
+                    onClose={handleClose}
+                >
+                    {menuContent}
+                </Menu>
+            </Box>
+        )
+    }
+)
 
 const OpenMenuButton = ({
     buttonProps,

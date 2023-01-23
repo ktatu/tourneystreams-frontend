@@ -64,10 +64,11 @@ const OpenMenuButton = ({
     if (isTextAndIconButtonProps(buttonProps)) {
         return (
             <Button
+                variant="contained"
                 onClick={handleClick}
                 endIcon={buttonProps.buttonIcon}
             >
-                {buttonProps.buttonIcon}
+                {buttonProps.buttonText}
             </Button>
         )
     } else if (isIconButtonProps(buttonProps)) {

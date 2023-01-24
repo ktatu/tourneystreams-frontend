@@ -13,3 +13,4 @@
 21.1  2h livestream- ja chat-komponentit
 22.1  1.5h popup-menun refaktorointi
 23.1  2h popup-menu chat-komponentille, popupmenun refaktorointia
+24.1  1.5h Karuselli-komponentti

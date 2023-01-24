@@ -18,6 +18,7 @@ import {
 import { TourneyListEntry } from "../components/TourneyListEntry"
 
 import MinimizeIcon from "@mui/icons-material/Minimize"
+import MaximizeIcon from "@mui/icons-material/Maximize"
 
 import { useLoaderData } from "react-router-dom"
 import { TourneyCardProps } from "../types"
@@ -30,6 +31,9 @@ import chunk from "lodash.chunk"
 
 import useEmblaCarousel from "embla-carousel-react"
 import "./Home.css"
+
+import UnfoldLessIcon from "@mui/icons-material/UnfoldLess"
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore"
 
 import SettingsIcon from "@mui/icons-material/Settings"
 import PopupMenu from "../components/PopupMenu"
@@ -48,25 +52,25 @@ interface TestProps {
     text: string
 }
 
-const Home = () => {
-    const [cardProps, setCardProps] = useState<TestProps[]>([
-        { text: "test1" },
-        { text: "test2" },
-        { text: "test3" },
-        { text: "test4" },
-        { text: "test5" },
-        { text: "test3" },
-        { text: "test3" },
-    ])
+enum CollapseStatus {
+    Maximized = "MAX",
+    Minimized = "MIN",
+}
 
+const Home = () => {
     const [carouselVisible, setCarouselVisibility] = useState(true)
+    const [collapseStatus, setCollapseStatus] = useState<CollapseStatus>(CollapseStatus.Maximized)
 
     const handleCollapse = () => {
         setCarouselVisibility((prevValue) => !prevValue)
     }
 
     const handleCarouselIconsVisibility = () => {
-        console.log("transition end")
+        if (collapseStatus === "MAX") {
+            setCollapseStatus(CollapseStatus.Minimized)
+        } else {
+            setCollapseStatus(CollapseStatus.Maximized)
+        }
     }
 
     return (
@@ -76,29 +80,44 @@ const Home = () => {
                 flexDirection="row"
                 justifyContent="space-between"
             >
-                <Box flexGrow={1} />
-                <Box>
-                    <PopupMenu
-                        buttonProps={{
-                            buttonIcon: <SettingsIcon sx={{ marginTop: "5px" }} />,
-                        }}
-                        menuContent={<GameOptionsMenuContent />}
-                    />
+                <Box
+                    display={collapseStatus === CollapseStatus.Maximized ? "flex" : "none"}
+                    flexDirection="row"
+                    flexGrow={1000}
+                >
+                    <Button variant="contained">Left</Button>
+                    <Button variant="contained">Right</Button>
+                    <Box flexGrow={1} />
+                    <Box>
+                        <PopupMenu
+                            buttonProps={{
+                                buttonIcon: <SettingsIcon sx={{ marginTop: "5px" }} />,
+                            }}
+                            menuContent={<GameOptionsMenuContent />}
+                        />
+                    </Box>
                 </Box>
+                <Box flexGrow={1} />
                 <IconButton onClick={handleCollapse}>
-                    <MinimizeIcon />
+                    <CollapseIcon collapseStatus={collapseStatus} />
                 </IconButton>
             </Box>
             <Collapse
                 in={carouselVisible}
-                onTransitionEnd={handleCarouselIconsVisibility}
+                onExited={handleCarouselIconsVisibility}
+                onEntered={handleCarouselIconsVisibility}
             >
                 <Carousel />
             </Collapse>
-            <Streams />
-            <Chats />
         </Stack>
     )
+}
+
+const CollapseIcon = ({ collapseStatus }: { collapseStatus: CollapseStatus }) => {
+    if (collapseStatus === "MAX") {
+        return <UnfoldLessIcon sx={{ marginTop: "5px" }} />
+    }
+    return <UnfoldMoreIcon sx={{ marginTop: "5px" }} />
 }
 
 const GameOptionsMenuContent = () => {

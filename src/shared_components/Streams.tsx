@@ -1,23 +1,22 @@
-import React, {
-    useState,
-    createRef,
-    forwardRef,
-    useRef,
-    MutableRefObject,
-} from "react"
+import React, { useState, createRef, forwardRef, useRef, MutableRefObject } from "react"
 import { Box, Button, IconButton, Typography } from "@mui/material"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
+import { useDispatch, useSelector } from "react-redux"
+import { removeChannel, ChannelState } from "../reducers/channelReducer"
 
 interface EventHandler {
     (argument: string): void
 }
 
 const Streams = () => {
-    const [channels, setChannels] = useState(["thijs"])
+    const channels = useSelector(({ channels }: { channels: ChannelState }) => {
+        return channels.selectedChannels
+    })
+    const dispatch = useDispatch()
 
     const handleStreamClose: EventHandler = (channelName) => {
-        setChannels(channels.filter((channel) => channel !== channelName))
+        dispatch(removeChannel(channelName))
     }
 
     return (
@@ -77,7 +76,7 @@ const StreamContainer = ({
             <Box>
                 <iframe
                     ref={iframeRef}
-                    src={`https://player.twitch.tv/?channel=${channel}&parent=localhost`}
+                    src={`https://player.twitch.tv/?channel=${channel}&muted=true&parent=localhost`}
                     style={{ border: 0 }}
                     height="300"
                     width="532"

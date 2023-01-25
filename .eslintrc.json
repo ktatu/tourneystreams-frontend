@@ -23,7 +23,6 @@
         "no-duplicate-imports": ["error", { "includeExports": true }],
         "no-new-native-nonconstructor": "error",
         "camelcase": "error",
-        "complexity": ["warn", 3],
         "curly": "error",
         "default-case": "error",
         "dot-notation": "error",

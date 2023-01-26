@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { NavLink, Link, useNavigate, useSearchParams } from "react-router-dom"
 import {
     AppBar,
     Button,
@@ -14,12 +15,20 @@ import {
 } from "@mui/material"
 import { useDispatch } from "react-redux"
 import { addChannel } from "./reducers/channelReducer"
+import useChannels from "./hooks/useChannels"
 
 const Toolbar = () => {
-    const [pageValue, setPageValue] = useState("home")
+    const [togglePageValue, setTogglePageValue] = useState("/")
+    const navigate = useNavigate()
 
-    const handleChange = (event: React.MouseEvent<HTMLElement>, newAlignment: string) => {
-        setPageValue(newAlignment)
+    const handlePageToggle = (
+        event: React.MouseEvent<HTMLElement>,
+        newTogglePageValue: string | null
+    ) => {
+        if (newTogglePageValue !== null) {
+            setTogglePageValue(newTogglePageValue)
+        }
+        navigate(togglePageValue)
     }
 
     return (
@@ -27,12 +36,12 @@ const Toolbar = () => {
             <AppBar position="static">
                 <MuiToolbar sx={{ gap: "50px" }}>
                     <ToggleButtonGroup
-                        value={pageValue}
-                        onChange={handleChange}
+                        value={togglePageValue}
+                        onChange={handlePageToggle}
                         exclusive
                     >
-                        <ToggleButton value="home">Home</ToggleButton>
-                        <ToggleButton value="streamview">Streamview</ToggleButton>
+                        <ToggleButton value="/">Home</ToggleButton>
+                        <ToggleButton value="/streamview">Streamview</ToggleButton>
                     </ToggleButtonGroup>
                     <AddStreamField />
                 </MuiToolbar>
@@ -43,13 +52,10 @@ const Toolbar = () => {
 
 const AddStreamField = () => {
     const [fieldValue, setFieldValue] = useState("")
-    const dispatch = useDispatch()
+    const channelsHook = useChannels()
 
     const handleAddStream = () => {
-        if (fieldValue !== "") {
-            dispatch(addChannel(fieldValue))
-            setFieldValue("")
-        }
+        channelsHook.addStream(fieldValue)
     }
 
     return (
@@ -59,7 +65,7 @@ const AddStreamField = () => {
         >
             <TextField
                 sx={{ bgcolor: "grey" }}
-                label="twitch.tv/stream"
+                label="channel"
                 variant="outlined"
                 value={fieldValue}
                 onChange={(event) => setFieldValue(event.target.value)}

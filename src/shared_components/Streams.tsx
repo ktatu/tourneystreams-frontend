@@ -1,9 +1,10 @@
-import React, { useState, createRef, forwardRef, useRef, MutableRefObject } from "react"
+import React, { useRef } from "react"
 import { Box, Button, IconButton, Typography } from "@mui/material"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
-import { useDispatch, useSelector } from "react-redux"
-import { removeChannel, ChannelState } from "../reducers/channelReducer"
+import { useSelector } from "react-redux"
+import { ChannelState } from "../reducers/channelReducer"
+import useChannels from "../hooks/useChannels"
 
 interface EventHandler {
     (argument: string): void
@@ -13,14 +14,18 @@ const Streams = () => {
     const channels = useSelector(({ channels }: { channels: ChannelState }) => {
         return channels.selectedChannels
     })
-    const dispatch = useDispatch()
+    const channelsHook = useChannels()
 
     const handleStreamClose: EventHandler = (channelName) => {
-        dispatch(removeChannel(channelName))
+        channelsHook.removeStream(channelName)
     }
 
     return (
-        <Box>
+        <Box
+            display="flex"
+            flexDirection="row"
+            flexWrap="wrap"
+        >
             {channels.map((channel: string) => (
                 <StreamContainer
                     key={channel}

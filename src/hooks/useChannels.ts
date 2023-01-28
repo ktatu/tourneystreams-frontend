@@ -1,13 +1,16 @@
-import { useDispatch } from "react-redux"
+import { useAppDispatch } from "./reduxHooks"
 import { addChannel, removeChannel } from "../reducers/channelReducer"
+import useQueryParams from "./useQueryParams"
 
 const useChannels = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
+    const queryParams = useQueryParams()
 
     const addStream = (channel: string) => {
         if (!isValidChannelName(channel)) {
             return
         }
+        queryParams.addStream(channel)
         dispatch(addChannel(channel))
     }
 
@@ -15,13 +18,15 @@ const useChannels = () => {
         dispatch(removeChannel(channel))
     }
 
-    const initializeStreamsFromParams = () => {
-        console.log("---")
+    const initializeStreams = () => {
+        queryParams.getStreams().forEach((channel: string) => {
+            addStream(channel)
+        })
     }
 
     return {
         addStream,
-        initializeStreamsFromParams,
+        initializeStreams,
         removeStream,
     }
 }

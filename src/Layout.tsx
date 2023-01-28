@@ -10,7 +10,7 @@ const Layout = () => {
     const channelsHook = useChannels()
 
     useEffect(() => {
-        channelsHook.initializeStreamsFromParams()
+        channelsHook.initializeStreams()
     }, [])
 
     return (

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export interface ChannelState {
     selectedChannels: string[]
@@ -14,14 +14,14 @@ const channelSlice = createSlice({
     name: "channels",
     initialState,
     reducers: {
-        addChannel(state, action) {
-            const channel: string = action.payload
+        addChannel(state, action: PayloadAction<string>) {
+            const channel = action.payload
             if (!state.selectedChannels.includes(channel)) {
                 state.selectedChannels.push(channel)
             }
         },
-        removeChannel(state, action) {
-            const channel: string = action.payload
+        removeChannel(state, action: PayloadAction<string>) {
+            const channel = action.payload
             const filteredChannels = state.selectedChannels.filter(
                 (stateChannel) => stateChannel !== channel
             )

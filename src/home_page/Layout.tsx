@@ -1,6 +1,7 @@
 import { Box, Unstable_Grid2 as Grid, Stack } from "@mui/material"
 import TourneyCarousel from "./TourneyCarousel"
 import Streams from "../shared_components/Streams"
+import Chats from "../shared_components/Chats"
 
 const Layout = () => {
     return (
@@ -17,17 +18,18 @@ const Layout = () => {
                 />
             </Grid>
             <Grid xs>
-                <Stack spacing={5}>
-                    <TourneyCarousel />
-                    <Streams />
-                </Stack>
+                <Box
+                    overflow="auto"
+                    height="800px"
+                >
+                    <Stack spacing={5}>
+                        <TourneyCarousel />
+                        <Streams />
+                    </Stack>
+                </Box>
             </Grid>
             <Grid xs={3}>
-                <Box
-                    flexGrow={1}
-                    bgcolor="blue"
-                    height="50vh"
-                />
+                <Chats />
             </Grid>
         </Grid>
     )

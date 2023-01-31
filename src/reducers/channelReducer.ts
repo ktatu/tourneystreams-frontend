@@ -2,12 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 export interface ChannelState {
     selectedChannels: string[]
-    activeChatChannel: string
 }
 
 const initialState: ChannelState = {
     selectedChannels: [],
-    activeChatChannel: "",
 }
 
 const channelSlice = createSlice({

@@ -1,15 +1,27 @@
-import { useState, useRef } from "react"
-import { Box, MenuList, MenuItem } from "@mui/material"
+import { useEffect, useState, useRef } from "react"
+import { Box, MenuList, MenuItem, Paper } from "@mui/material"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import PopupMenu, { PopupMenuClose } from "./PopupMenu"
+import { useAppSelector } from "../hooks/reduxHooks"
+import { ChannelState } from "../reducers/channelReducer"
 
 type ChangeChannelHandler = (newChannel: string) => void
 
 const Chats = () => {
-    const [channels, setChannels] = useState(["tfue", "imaqtpie", "thijs"])
-    const [selectedChannel, setSelectedChannel] = useState<string>("thijs")
+    const [selectedChannel, setSelectedChannel] = useState<string>("")
+    const channels = useAppSelector(({ channels }: { channels: ChannelState }) => {
+        return channels.selectedChannels
+    })
 
-    const changeChatChannel: ChangeChannelHandler = (newChannel: string): void => {
+    useEffect(() => {
+        if (channels.length !== 0) {
+            setSelectedChannel(channels[0])
+        } else {
+            setSelectedChannel("")
+        }
+    }, [channels])
+
+    const handleChatChange: ChangeChannelHandler = (newChannel: string): void => {
         setSelectedChannel(newChannel)
         if (chatMenuRef.current) {
             chatMenuRef.current.handleClose()
@@ -17,6 +29,10 @@ const Chats = () => {
     }
 
     const chatMenuRef = useRef<PopupMenuClose>(null)
+
+    if (!selectedChannel) {
+        return null
+    }
 
     return (
         <Box
@@ -33,20 +49,20 @@ const Chats = () => {
                         <ChatMenuContent
                             channels={channels}
                             selectedChannel={selectedChannel}
-                            handleClick={changeChatChannel}
+                            handleClick={handleChatChange}
                         />
                     }
                     ref={chatMenuRef}
                 />
             </Box>
-            <Box>
+            <Paper sx={{ height: "750px", width: "375px" }}>
                 <iframe
                     src={`https://www.twitch.tv/embed/${selectedChannel}/chat?parent=localhost`}
                     style={{ border: 0 }}
-                    height="800"
-                    width="350"
+                    height="750px"
+                    width="375px"
                 ></iframe>
-            </Box>
+            </Paper>
         </Box>
     )
 }

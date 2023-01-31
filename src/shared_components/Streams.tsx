@@ -2,58 +2,46 @@ import React, { useRef } from "react"
 import { Box, Button, IconButton, Typography } from "@mui/material"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
-import { useSelector } from "react-redux"
 import { ChannelState } from "../reducers/channelReducer"
 import useChannels from "../hooks/useChannels"
-
-interface EventHandler {
-    (argument: string): void
-}
+import { useAppSelector } from "../hooks/reduxHooks"
 
 const Streams = () => {
-    const channels = useSelector(({ channels }: { channels: ChannelState }) => {
+    const channels = useAppSelector(({ channels }: { channels: ChannelState }) => {
         return channels.selectedChannels
     })
-    const channelsHook = useChannels()
-
-    const handleStreamClose: EventHandler = (channelName) => {
-        channelsHook.removeStream(channelName)
-    }
-
-    console.log("rerender")
 
     return (
         <Box
             display="flex"
             flexDirection="row"
             flexWrap="wrap"
+            gap="10px"
         >
             {channels.map((channel: string) => (
                 <StreamContainer
                     key={channel}
                     channel={channel}
-                    closeStream={handleStreamClose}
                 />
             ))}
         </Box>
     )
 }
 
-const StreamContainer = ({
-    channel,
-    closeStream,
-}: {
-    channel: string
-    closeStream: EventHandler
-}) => {
+const StreamContainer = ({ channel }: { channel: string }) => {
     const iframeRef = useRef<HTMLIFrameElement>(null)
+    const channelsHook = useChannels()
 
-    const reloadStream = () => {
+    const handleStreamReload = () => {
         if (iframeRef.current) {
             // https://stackoverflow.com/questions/86428/what-s-the-best-way-to-reload-refresh-an-iframe/4062084#4062084
             // eslint-disable-next-line no-self-assign
             iframeRef.current.src = iframeRef.current.src
         }
+    }
+
+    const handleStreamClose = (channel: string) => {
+        channelsHook.removeStream(channel)
     }
 
     return (
@@ -73,10 +61,10 @@ const StreamContainer = ({
                 >
                     {channel}
                 </Typography>
-                <IconButton onClick={reloadStream}>
+                <IconButton onClick={handleStreamReload}>
                     <ReplayIcon />
                 </IconButton>
-                <IconButton onClick={() => closeStream(channel)}>
+                <IconButton onClick={() => handleStreamClose(channel)}>
                     <CloseIcon />
                 </IconButton>
             </Box>

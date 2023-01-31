@@ -16,12 +16,30 @@ const useQueryParams = () => {
         const streams = searchParams.getAll("stream")
 
         return streams
-        //return parseParams(streams)
+    }
+
+    const removeStream = (channel: string) => {
+        const params = searchParams
+        let values = params.getAll("stream")
+
+        values = values.filter((value) => value !== channel)
+        params.delete("stream")
+        values.forEach((value) => params.append("stream", value))
+
+        setSearchParams(params.toString())
+        /*
+        const newParams = searchParams
+            .getAll("stream")
+            .filter((channelInParams) => channelInParams !== channel)
+
+        console.log("new params to string ", newParams)
+        setSearchParams(newParams.toString())*/
     }
 
     return {
         addStream,
         getStreams,
+        removeStream,
     }
 }
 

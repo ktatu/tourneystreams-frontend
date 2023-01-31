@@ -15,6 +15,7 @@ const useChannels = () => {
     }
 
     const removeStream = (channel: string) => {
+        queryParams.removeStream(channel)
         dispatch(removeChannel(channel))
     }
 

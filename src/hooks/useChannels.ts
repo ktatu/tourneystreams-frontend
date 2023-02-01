@@ -34,7 +34,8 @@ const useChannels = () => {
 
 const isValidChannelName = (channel: string) => {
     // https://discuss.dev.twitch.tv/t/twitch-channel-name-regex/3855/2
-    const regex = /[a-zA-Z0-9][\w]{2,24}$/
+
+    const regex = /^(#)?[a-zA-Z0-9]{2,25}$/
 
     return regex.test(channel)
 }

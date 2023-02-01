@@ -80,14 +80,30 @@ const OpenMenuButton = ({
                 variant="contained"
                 onClick={handleClick}
                 endIcon={buttonProps.buttonIcon}
+                sx={{
+                    maxWidth: "200px",
+                }}
             >
-                {buttonProps.buttonText}
+                <Box
+                    overflow="hidden"
+                    textOverflow="ellipsis"
+                    whiteSpace="nowrap"
+                >
+                    {buttonProps.buttonText}
+                </Box>
             </Button>
         )
     } else if (isIconButtonProps(buttonProps)) {
         return <IconButton onClick={handleClick}>{buttonProps.buttonIcon}</IconButton>
     } else if (isTextButtonProps(buttonProps)) {
-        return <Button onClick={handleClick}>{buttonProps.buttonText}</Button>
+        return (
+            <Button
+                onClick={handleClick}
+                sx={{ maxWidth: "200px", overflow: "hidden" }}
+            >
+                {buttonProps.buttonText}
+            </Button>
+        )
     }
     return <Button>Click</Button>
 }

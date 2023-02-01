@@ -20,7 +20,7 @@ const Layout = () => {
             <Grid xs>
                 <Box
                     overflow="auto"
-                    height="800px"
+                    height="750px"
                 >
                     <Stack spacing={5}>
                         <TourneyCarousel />

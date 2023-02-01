@@ -5,6 +5,7 @@ import Layout from "./Layout"
 
 import Tourney, { tourneyLoader } from "./pages/Tourney"
 import HomeLayout from "./home_page/Layout"
+import StreamViewLayout from "./streamview_page/Layout"
 
 import {
     createBrowserRouter,
@@ -23,6 +24,10 @@ const router = createBrowserRouter(
             <Route
                 index
                 element={<HomeLayout />}
+            />
+            <Route
+                path="streamview"
+                element={<StreamViewLayout />}
             />
             <Route
                 path="tournaments/:id"

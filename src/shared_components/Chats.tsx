@@ -14,10 +14,8 @@ const Chats = () => {
     })
 
     useEffect(() => {
-        if (channels.length !== 0) {
-            setSelectedChannel(channels[0])
-        } else {
-            setSelectedChannel("")
+        if (!channels.includes(selectedChannel)) {
+            setSelectedChannel(channels[0] || "")
         }
     }, [channels])
 
@@ -55,12 +53,12 @@ const Chats = () => {
                     ref={chatMenuRef}
                 />
             </Box>
-            <Paper sx={{ height: "750px", width: "375px" }}>
+            <Paper sx={{ height: "750px", width: "310px" }}>
                 <iframe
                     src={`https://www.twitch.tv/embed/${selectedChannel}/chat?parent=localhost`}
                     style={{ border: 0 }}
                     height="750px"
-                    width="375px"
+                    width="320px"
                 ></iframe>
             </Paper>
         </Box>

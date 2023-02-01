@@ -16,7 +16,7 @@ const Streams = () => {
             display="flex"
             flexDirection="row"
             flexWrap="wrap"
-            gap="10px"
+            gap="5px"
         >
             {channels.map((channel: string) => (
                 <StreamContainer
@@ -48,7 +48,7 @@ const StreamContainer = ({ channel }: { channel: string }) => {
         <Box
             display="flex"
             flexDirection="column"
-            maxWidth="532px"
+            maxWidth="520px"
             bgcolor="red"
         >
             <Box
@@ -73,8 +73,8 @@ const StreamContainer = ({ channel }: { channel: string }) => {
                     ref={iframeRef}
                     src={`https://player.twitch.tv/?channel=${channel}&muted=true&parent=localhost`}
                     style={{ border: 0 }}
-                    height="300"
-                    width="532"
+                    height="300px"
+                    width="520px"
                     title="stream"
                     allowFullScreen
                 ></iframe>

@@ -17,3 +17,5 @@
 25.1  2h Reduxiin kanavien tilanhallinta
 26.1  2h Lisää tilanhallinnan logiikkaa
 27.1  1.5 Hakuparametrien käsittely
+30.1  4h streamien käsittely twitch-react-embed kirjastolla
+1.2   2h UI-parannuksia, streamview-sivu

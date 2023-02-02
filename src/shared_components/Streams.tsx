@@ -1,5 +1,5 @@
 import React, { useRef } from "react"
-import { Box, Button, IconButton, Typography } from "@mui/material"
+import { Box, Button, IconButton, Paper, Typography } from "@mui/material"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
 import { ChannelState } from "../reducers/channelReducer"
@@ -45,41 +45,47 @@ const StreamContainer = ({ channel }: { channel: string }) => {
     }
 
     return (
-        <Box
-            display="flex"
-            flexDirection="column"
-            maxWidth="520px"
-            bgcolor="red"
+        <Paper
+            elevation={10}
+            sx={{ height: "max-content" }}
         >
             <Box
                 display="flex"
-                flexDirection="row"
+                flexDirection="column"
+                maxWidth="520px"
+                height="340px"
             >
-                <Typography
-                    marginTop={1}
-                    sx={{ flexGrow: 1 }}
+                <Box
+                    display="flex"
+                    flexDirection="row"
+                    height="40px"
                 >
-                    {channel}
-                </Typography>
-                <IconButton onClick={handleStreamReload}>
-                    <ReplayIcon />
-                </IconButton>
-                <IconButton onClick={() => handleStreamClose(channel)}>
-                    <CloseIcon />
-                </IconButton>
+                    <Typography
+                        marginTop={1}
+                        sx={{ flexGrow: 1 }}
+                    >
+                        {channel}
+                    </Typography>
+                    <IconButton onClick={handleStreamReload}>
+                        <ReplayIcon />
+                    </IconButton>
+                    <IconButton onClick={() => handleStreamClose(channel)}>
+                        <CloseIcon />
+                    </IconButton>
+                </Box>
+                <Box>
+                    <iframe
+                        ref={iframeRef}
+                        src={`https://player.twitch.tv/?channel=${channel}&muted=true&parent=localhost`}
+                        style={{ border: 0 }}
+                        height="300px"
+                        width="520px"
+                        title="stream"
+                        allowFullScreen
+                    ></iframe>
+                </Box>
             </Box>
-            <Box>
-                <iframe
-                    ref={iframeRef}
-                    src={`https://player.twitch.tv/?channel=${channel}&muted=true&parent=localhost`}
-                    style={{ border: 0 }}
-                    height="300px"
-                    width="520px"
-                    title="stream"
-                    allowFullScreen
-                ></iframe>
-            </Box>
-        </Box>
+        </Paper>
     )
 }
 

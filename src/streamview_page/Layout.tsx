@@ -14,7 +14,6 @@ const Layout = () => {
                     height="700px"
                     display="flex"
                     justifyContent="center"
-                    bgcolor="Purple"
                 >
                     <Streams />
                 </Box>

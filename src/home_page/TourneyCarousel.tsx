@@ -60,6 +60,17 @@ enum CollapseStatus {
 const TourneyCarousel = () => {
     const [carouselVisible, setCarouselVisibility] = useState(true)
     const [collapseStatus, setCollapseStatus] = useState<CollapseStatus>(CollapseStatus.Maximized)
+    const [emblaRef, emblaApi] = useEmblaCarousel()
+    const [slides, setSlides] = useState(chunk(cardProps, 3))
+    const [scrollNextEnabled, setSCrollNextEnabled] = useState(false)
+
+    const scrollNext = useCallback(() => {
+        return emblaApi && emblaApi.scrollNext()
+    }, [emblaApi])
+
+    const scrollPrev = useCallback(() => {
+        return emblaApi && emblaApi.scrollPrev()
+    }, [emblaApi])
 
     const handleCollapse = () => {
         setCarouselVisibility((prevValue) => !prevValue)
@@ -77,6 +88,7 @@ const TourneyCarousel = () => {
         <Stack
             spacing={1}
             marginTop="20px"
+            paddingLeft="10px"
         >
             <Box
                 display="flex"
@@ -88,8 +100,23 @@ const TourneyCarousel = () => {
                     flexDirection="row"
                     flexGrow={1000}
                 >
-                    <Button variant="contained">Left</Button>
-                    <Button variant="contained">Right</Button>
+                    <Box
+                        display="flex"
+                        flexDirection="row"
+                    >
+                        <Button
+                            variant="contained"
+                            onClick={scrollPrev}
+                        >
+                            Previous
+                        </Button>
+                        <Button
+                            variant="contained"
+                            onClick={scrollNext}
+                        >
+                            next
+                        </Button>
+                    </Box>
                     <Box flexGrow={1} />
                     <Box>
                         <PopupMenu
@@ -110,7 +137,25 @@ const TourneyCarousel = () => {
                 onExited={handleCarouselIconsVisibility}
                 onEntered={handleCarouselIconsVisibility}
             >
-                <Carousel />
+                <Box>
+                    <div
+                        className="carousel"
+                        ref={emblaRef}
+                    >
+                        <div className="carousel_container">
+                            {slides.map((slideArray, mapIndex) => {
+                                return (
+                                    <Box
+                                        className="carousel_slide"
+                                        key={mapIndex}
+                                    >
+                                        <CarouselSlideBox cardProps={slideArray} />
+                                    </Box>
+                                )
+                            })}
+                        </div>
+                    </div>
+                </Box>
             </Collapse>
         </Stack>
     )
@@ -238,12 +283,5 @@ const CarouselSlideBox = ({ cardProps }: { cardProps: TestProps[] }) => {
         </Box>
     )
 }
-
-/*
-                    <TourneyCard
-                        key={mapIndex}
-                        tourneyName={props.text}
-                    />
-*/
 
 export default TourneyCarousel

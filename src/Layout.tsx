@@ -14,10 +14,10 @@ const Layout = () => {
     }, [])
 
     return (
-        <div>
+        <Box>
             <Toolbar />
             <Outlet />
-        </div>
+        </Box>
     )
 }
 

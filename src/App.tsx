@@ -18,6 +18,7 @@ import {
     RouterProvider,
 } from "react-router-dom"
 import TestPage from "./TestPage"
+import User from "./user"
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -47,32 +48,10 @@ const router = createBrowserRouter(
 )
 
 const App = () => {
-    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
-    console.log("prefers dark mode ", prefersDarkMode)
-
-    /*
-    const theme = React.useMemo(
-        () =>
-            createTheme({
-                palette: {
-                    mode: "light",
-                    primary: {
-                        main: "#3f51b5",
-                    },
-                    secondary: {
-                        main: "#f50057",
-                    },
-                    divider: "rgba(255,181,181,0.12)",
-                    background: {
-                        paper: "#FDF7F7",
-                    },
-                },
-            }),
-        [prefersDarkMode]
-    )*/
+    const user = new User()
 
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme(user)}>
             <CssBaseline />
             <RouterProvider router={router} />
         </ThemeProvider>

@@ -1,40 +1,48 @@
+import { useMediaQuery } from "@mui/material"
 import { createTheme, ThemeOptions } from "@mui/material/styles"
+import { useMemo } from "react"
+import User from "./user"
 
-const lightTheme: ThemeOptions = {
-    palette: {
-        mode: "light",
-        primary: {
-            main: "#3f51b5",
+const theme = (user: User) => {
+    const lightTheme: ThemeOptions = {
+        palette: {
+            mode: "light",
+            primary: {
+                main: "#3f51b5",
+            },
+            secondary: {
+                main: "#f50057",
+            },
+            divider: "rgba(255,181,181,0.12)",
+            background: {
+                paper: "#FDF7F7",
+            },
         },
-        secondary: {
-            main: "#f50057",
+    }
+
+    const darkTheme: ThemeOptions = {
+        palette: {
+            mode: "dark",
+            primary: {
+                main: "#3f51b5",
+            },
+            secondary: {
+                main: "#f50057",
+            },
+            background: {
+                paper: "#2e2f31",
+                default: "#191c1e",
+            },
+            text: {
+                primary: "#ffffff",
+            },
         },
-        divider: "rgba(255,181,181,0.12)",
-        background: {
-            paper: "#FDF7F7",
-        },
-    },
+    }
+
+    if (user.colorModePreference === "UNKNOWN" || user.colorModePreference === "DARK") {
+        return createTheme(darkTheme)
+    }
+    return createTheme(lightTheme)
 }
-
-const darkTheme: ThemeOptions = {
-    palette: {
-        mode: "dark",
-        primary: {
-            main: "#3f51b5",
-        },
-        secondary: {
-            main: "#f50057",
-        },
-        background: {
-            paper: "#2e2f31",
-            default: "#191c1e",
-        },
-        text: {
-            primary: "#ffffff",
-        },
-    },
-}
-
-const theme = createTheme(darkTheme)
 
 export default theme

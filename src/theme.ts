@@ -3,7 +3,7 @@ import { createTheme, ThemeOptions } from "@mui/material/styles"
 import { useMemo } from "react"
 import User from "./user"
 
-const theme = (user: User) => {
+const theme = (darkMode: boolean) => {
     const lightTheme: ThemeOptions = {
         palette: {
             mode: "light",
@@ -39,7 +39,7 @@ const theme = (user: User) => {
         },
     }
 
-    if (user.colorModePreference === "UNKNOWN" || user.colorModePreference === "DARK") {
+    if (darkMode) {
         return createTheme(darkTheme)
     }
     return createTheme(lightTheme)

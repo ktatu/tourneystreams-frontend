@@ -76,19 +76,19 @@ const TourneyCarousel = () => {
         setCarouselVisibility((prevValue) => !prevValue)
     }
 
-    const handleCarouselIconsVisibility = () => {
-        if (collapseStatus === "MAX") {
-            setCollapseStatus(CollapseStatus.Minimized)
-        } else {
-            setCollapseStatus(CollapseStatus.Maximized)
-        }
+    const handleIconsAppear = () => {
+        setCollapseStatus(CollapseStatus.Maximized)
+    }
+
+    const handleIconsDisappear = () => {
+        setCollapseStatus(CollapseStatus.Minimized)
     }
 
     return (
         <Stack
             spacing={1}
-            marginTop="20px"
-            paddingLeft="10px"
+            paddingTop={1}
+            paddingLeft={5}
         >
             <Box
                 display="flex"
@@ -103,6 +103,7 @@ const TourneyCarousel = () => {
                     <Box
                         display="flex"
                         flexDirection="row"
+                        gap={1}
                     >
                         <Button
                             variant="contained"
@@ -118,10 +119,10 @@ const TourneyCarousel = () => {
                         </Button>
                     </Box>
                     <Box flexGrow={1} />
-                    <Box>
+                    <Box paddingTop="7px">
                         <PopupMenu
                             buttonProps={{
-                                buttonIcon: <SettingsIcon sx={{ marginTop: "5px" }} />,
+                                buttonText: "Games",
                             }}
                             menuContent={<GameOptionsMenuContent />}
                         />
@@ -134,8 +135,8 @@ const TourneyCarousel = () => {
             </Box>
             <Collapse
                 in={carouselVisible}
-                onExited={handleCarouselIconsVisibility}
-                onEntered={handleCarouselIconsVisibility}
+                onExited={handleIconsDisappear}
+                onEntered={handleIconsAppear}
             >
                 <Box>
                     <div

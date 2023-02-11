@@ -5,21 +5,27 @@ import {
     Button,
     Box,
     Toolbar as MuiToolbar,
-    Tab,
-    Tabs,
     TextField,
     ToggleButton,
     ToggleButtonGroup,
     styled,
     alpha,
 } from "@mui/material"
-import { useDispatch } from "react-redux"
-import { addChannel } from "./reducers/channelReducer"
 import useChannels from "./hooks/useChannels"
 
 const Toolbar = () => {
     const [togglePageValue, setTogglePageValue] = useState("/")
     const navigate = useNavigate()
+
+    const [preferencesDialogOpen, setPreferencesDialogOpen] = useState(false)
+
+    const handlePreferencesDialogOpen = () => {
+        return setPreferencesDialogOpen(true)
+    }
+
+    const handlePreferencesDialogClose = () => {
+        setPreferencesDialogOpen(false)
+    }
 
     const handlePageToggle = (
         event: React.MouseEvent<HTMLElement>,
@@ -43,7 +49,15 @@ const Toolbar = () => {
                         <ToggleButton value="/">Home</ToggleButton>
                         <ToggleButton value="/streamview">Streamview</ToggleButton>
                     </ToggleButtonGroup>
-                    <AddStreamField />
+                    <Box flexGrow={1}>
+                        <AddStreamField />
+                    </Box>
+                    <Button
+                        color="inherit"
+                        onClick={handlePreferencesDialogOpen}
+                    >
+                        Change color scheme
+                    </Button>
                 </MuiToolbar>
             </AppBar>
         </Box>

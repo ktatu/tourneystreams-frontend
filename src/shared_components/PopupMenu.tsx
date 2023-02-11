@@ -98,6 +98,7 @@ const OpenMenuButton = ({
     } else if (isTextButtonProps(buttonProps)) {
         return (
             <Button
+                color="inherit"
                 onClick={handleClick}
                 sx={{ maxWidth: "200px", overflow: "hidden" }}
             >

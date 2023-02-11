@@ -55,7 +55,7 @@ const Chats = () => {
             </Box>
             <Paper sx={{ height: "750px", width: "310px" }}>
                 <iframe
-                    src={`https://www.twitch.tv/embed/${selectedChannel}/chat?parent=localhost`}
+                    src={`https://www.twitch.tv/embed/${selectedChannel}/chat?darkpopout&parent=localhost`}
                     style={{ border: 0 }}
                     height="750px"
                     width="320px"

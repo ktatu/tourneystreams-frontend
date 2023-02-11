@@ -7,6 +7,8 @@ const Layout = () => {
         <Grid
             container
             marginTop="50px"
+            xs={12}
+            spacing={2}
         >
             <Grid xs={10}>
                 <Box

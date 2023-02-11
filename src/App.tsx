@@ -20,6 +20,12 @@ import {
 import TestPage from "./TestPage"
 import User from "./user"
 
+/*
+const streamLoader = ({ request }) => {
+    const url = new URL(request.url)
+
+}*/
+
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route
@@ -48,10 +54,10 @@ const router = createBrowserRouter(
 )
 
 const App = () => {
-    const user = new User()
+    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
 
     return (
-        <ThemeProvider theme={theme(user)}>
+        <ThemeProvider theme={theme(prefersDarkMode)}>
             <CssBaseline />
             <RouterProvider router={router} />
         </ThemeProvider>

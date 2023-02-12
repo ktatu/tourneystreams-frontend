@@ -20,3 +20,4 @@
 30.1  4h streamien käsittely twitch-react-embed kirjastolla
 1.2   2h UI-parannuksia, streamview-sivu
 6.2   3h Väriteema
+11.2  2h Refaktorointia: reduxin poisto

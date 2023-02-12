@@ -1,6 +1,6 @@
 import { useAppDispatch } from "./reduxHooks"
 import { addChannel, removeChannel } from "../reducers/channelReducer"
-import useQueryParams from "./useQueryParams"
+import useQueryParams from "./useQueryParams_old"
 
 const useChannels = () => {
     const dispatch = useAppDispatch()

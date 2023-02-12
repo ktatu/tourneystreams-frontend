@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { NavLink, Link, useNavigate, useSearchParams } from "react-router-dom"
+import { NavLink, Link, useNavigate } from "react-router-dom"
 import {
     AppBar,
     Button,
@@ -11,21 +11,11 @@ import {
     styled,
     alpha,
 } from "@mui/material"
-import useChannels from "./hooks/useChannels"
+import useQueryParams from "./hooks/useQueryParams"
 
 const Toolbar = () => {
     const [togglePageValue, setTogglePageValue] = useState("/")
     const navigate = useNavigate()
-
-    const [preferencesDialogOpen, setPreferencesDialogOpen] = useState(false)
-
-    const handlePreferencesDialogOpen = () => {
-        return setPreferencesDialogOpen(true)
-    }
-
-    const handlePreferencesDialogClose = () => {
-        setPreferencesDialogOpen(false)
-    }
 
     const handlePageToggle = (
         event: React.MouseEvent<HTMLElement>,
@@ -52,12 +42,7 @@ const Toolbar = () => {
                     <Box flexGrow={1}>
                         <AddStreamField />
                     </Box>
-                    <Button
-                        color="inherit"
-                        onClick={handlePreferencesDialogOpen}
-                    >
-                        Change color scheme
-                    </Button>
+                    <Button color="inherit">Change color scheme</Button>
                 </MuiToolbar>
             </AppBar>
         </Box>
@@ -66,10 +51,10 @@ const Toolbar = () => {
 
 const AddStreamField = () => {
     const [fieldValue, setFieldValue] = useState("")
-    const channelsHook = useChannels()
+    const channels = useQueryParams("channel")
 
     const handleAddStream = () => {
-        channelsHook.addStream(fieldValue)
+        channels.addValue(fieldValue)
     }
 
     return (
@@ -94,21 +79,5 @@ const AddStreamField = () => {
         </Box>
     )
 }
-
-const Search = styled("div")(({ theme }) => ({
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    "&:hover": {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-        marginLeft: theme.spacing(3),
-        width: "auto",
-    },
-}))
 
 export default Toolbar

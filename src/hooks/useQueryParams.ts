@@ -1,62 +1,41 @@
 import { useSearchParams } from "react-router-dom"
 
-const useQueryParams = () => {
+const useQueryParams = (key: string) => {
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const addStream = (channel: string) => {
+    const addValue = (value: string) => {
         const newParams = searchParams
 
-        if (!newParams.getAll("stream").includes(channel)) {
-            newParams.append("stream", channel)
+        if (!newParams.getAll(key).includes(value)) {
+            newParams.append(key, value)
             setSearchParams(newParams.toString())
         }
     }
 
-    const getStreams = (): string[] => {
-        const streams = searchParams.getAll("stream")
+    const getValues = (): string[] => {
+        const values = searchParams.getAll("channel")
 
-        return streams
+        return values
     }
 
-    const removeStream = (channel: string) => {
+    const removeValue = (valueToRemove: string) => {
         const params = searchParams
-        let values = params.getAll("stream")
+        let valuesInSearchParams = params.getAll(key)
 
-        values = values.filter((value) => value !== channel)
-        params.delete("stream")
-        values.forEach((value) => params.append("stream", value))
+        valuesInSearchParams = valuesInSearchParams.filter(
+            (valueInParams) => valueInParams !== valueToRemove
+        )
+        params.delete(key)
+        valuesInSearchParams.forEach((value) => params.append(key, value))
 
         setSearchParams(params.toString())
-        /*
-        const newParams = searchParams
-            .getAll("stream")
-            .filter((channelInParams) => channelInParams !== channel)
-
-        console.log("new params to string ", newParams)
-        setSearchParams(newParams.toString())*/
     }
 
     return {
-        addStream,
-        getStreams,
-        removeStream,
+        addValue,
+        getValues,
+        removeValue,
     }
 }
 
-// URLSearchParams only supports param format ?key=value1&key=value2
-// Separate parsing so that ?key=value1,value2 format works
-/*
-const parseParams = (params: string[]): string[] => {
-    if (params.length === 1) {
-        return params[0].split(",")
-    }
-    return params
-}*/
-
 export default useQueryParams
-
-/*
-const serializeParams = (paramsArray: string[]) => {
-    let query = "?"
-
-}*/

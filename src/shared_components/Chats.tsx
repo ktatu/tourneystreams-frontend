@@ -4,20 +4,25 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import PopupMenu, { PopupMenuClose } from "./PopupMenu"
 import { useAppSelector } from "../hooks/reduxHooks"
 import { ChannelState } from "../reducers/channelReducer"
+import useQueryParams from "../hooks/useQueryParams"
 
 type ChangeChannelHandler = (newChannel: string) => void
 
 const Chats = () => {
     const [selectedChannel, setSelectedChannel] = useState<string>("")
-    const channels = useAppSelector(({ channels }: { channels: ChannelState }) => {
-        return channels.selectedChannels
-    })
+
+    const useChannels = useQueryParams("channel")
+    const channels = useChannels.getValues()
 
     useEffect(() => {
         if (!channels.includes(selectedChannel)) {
             setSelectedChannel(channels[0] || "")
         }
     }, [channels])
+
+    const getChannels = () => {
+        return useChannels.getValues()
+    }
 
     const handleChatChange: ChangeChannelHandler = (newChannel: string): void => {
         setSelectedChannel(newChannel)

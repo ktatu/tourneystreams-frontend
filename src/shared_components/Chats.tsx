@@ -12,7 +12,7 @@ const Chats = () => {
     const [selectedChannel, setSelectedChannel] = useState<string>("")
 
     const useChannels = useQueryParams("channel")
-    const channels = useChannels.getValues()
+    const channels = useChannels.getValuesAsArray()
 
     useEffect(() => {
         if (!channels.includes(selectedChannel)) {
@@ -21,7 +21,7 @@ const Chats = () => {
     }, [channels])
 
     const getChannels = () => {
-        return useChannels.getValues()
+        return useChannels.getValuesAsArray()
     }
 
     const handleChatChange: ChangeChannelHandler = (newChannel: string): void => {

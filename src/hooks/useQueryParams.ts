@@ -12,10 +12,14 @@ const useQueryParams = (key: string) => {
         }
     }
 
-    const getValues = (): string[] => {
+    const getValuesAsArray = (): string[] => {
         const values = searchParams.getAll("channel")
 
         return values
+    }
+
+    const getValuesAsQueryString = () => {
+        return searchParams.toString()
     }
 
     const removeValue = (valueToRemove: string) => {
@@ -33,7 +37,8 @@ const useQueryParams = (key: string) => {
 
     return {
         addValue,
-        getValues,
+        getValuesAsArray,
+        getValuesAsQueryString,
         removeValue,
     }
 }

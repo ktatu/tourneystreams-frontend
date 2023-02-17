@@ -10,6 +10,7 @@ const Layout = () => {
             spacing={2}
             paddingLeft={5}
             paddingTop={2}
+            paddingRight={5}
             xs={12}
         >
             <Grid xs={2}>
@@ -19,10 +20,10 @@ const Layout = () => {
                     height="50vh"
                 />
             </Grid>
-            <Grid xs={7}>
+            <Grid xs={8}>
                 <Box
                     overflow="auto"
-                    height="850px"
+                    height="800px"
                 >
                     <Stack spacing={5}>
                         <TourneyCarousel />
@@ -30,7 +31,7 @@ const Layout = () => {
                     </Stack>
                 </Box>
             </Grid>
-            <Grid xs={3}>
+            <Grid xs={2}>
                 <Chats />
             </Grid>
         </Grid>

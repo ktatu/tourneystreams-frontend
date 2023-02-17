@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { NavLink, Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import {
     AppBar,
     Button,
@@ -8,8 +8,6 @@ import {
     TextField,
     ToggleButton,
     ToggleButtonGroup,
-    styled,
-    alpha,
 } from "@mui/material"
 import useQueryParams from "./hooks/useQueryParams"
 
@@ -17,14 +15,18 @@ const Toolbar = () => {
     const [togglePageValue, setTogglePageValue] = useState("/")
     const navigate = useNavigate()
 
-    const handlePageToggle = (
-        event: React.MouseEvent<HTMLElement>,
-        newTogglePageValue: string | null
-    ) => {
-        if (newTogglePageValue !== null) {
-            setTogglePageValue(newTogglePageValue)
+    const channels = useQueryParams("channel")
+
+    const handlePageNavigation = (event: React.MouseEvent<HTMLElement>, newPage: string | null) => {
+        if (newPage === null) {
+            return
         }
-        navigate(togglePageValue)
+
+        setTogglePageValue(newPage)
+        navigate({
+            pathname: newPage,
+            search: `?${channels.getValuesAsQueryString()}`,
+        })
     }
 
     return (
@@ -33,7 +35,7 @@ const Toolbar = () => {
                 <MuiToolbar sx={{ gap: "50px" }}>
                     <ToggleButtonGroup
                         value={togglePageValue}
-                        onChange={handlePageToggle}
+                        onChange={handlePageNavigation}
                         exclusive
                     >
                         <ToggleButton value="/">Home</ToggleButton>

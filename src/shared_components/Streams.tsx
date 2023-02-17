@@ -11,7 +11,7 @@ const Streams = () => {
     const channels = useQueryParams("channel")
 
     const getChannels = () => {
-        return channels.getValues()
+        return channels.getValuesAsArray()
     }
     const removeChannel = (channel: string) => {
         channels.removeValue(channel)

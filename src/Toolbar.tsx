@@ -10,6 +10,7 @@ import {
     ToggleButtonGroup,
 } from "@mui/material"
 import useQueryParams from "./hooks/useQueryParams"
+import TourneyDrawer from "./TourneyDrawer"
 
 const Toolbar = () => {
     const [togglePageValue, setTogglePageValue] = useState("/")
@@ -31,7 +32,10 @@ const Toolbar = () => {
 
     return (
         <Box flexGrow={1}>
-            <AppBar position="static">
+            <AppBar
+                position="relative"
+                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            >
                 <MuiToolbar sx={{ gap: "50px" }}>
                     <ToggleButtonGroup
                         value={togglePageValue}

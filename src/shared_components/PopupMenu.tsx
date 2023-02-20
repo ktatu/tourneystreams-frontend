@@ -99,6 +99,7 @@ const OpenMenuButton = ({
         return (
             <Button
                 color="inherit"
+                variant="outlined"
                 onClick={handleClick}
                 sx={{ maxWidth: "200px", overflow: "hidden" }}
             >

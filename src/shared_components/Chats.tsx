@@ -2,8 +2,6 @@ import { useEffect, useState, useRef } from "react"
 import { Box, MenuList, MenuItem, Paper } from "@mui/material"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import PopupMenu, { PopupMenuClose } from "./PopupMenu"
-import { useAppSelector } from "../hooks/reduxHooks"
-import { ChannelState } from "../reducers/channelReducer"
 import useQueryParams from "../hooks/useQueryParams"
 
 type ChangeChannelHandler = (newChannel: string) => void

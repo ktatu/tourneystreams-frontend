@@ -2,9 +2,7 @@ import React, { useRef } from "react"
 import { Box, Button, IconButton, Paper, Typography } from "@mui/material"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
-import { ChannelState } from "../reducers/channelReducer"
 import useChannels from "../hooks/useChannels"
-import { useAppSelector } from "../hooks/reduxHooks"
 import useQueryParams from "../hooks/useQueryParams"
 
 const Streams = () => {

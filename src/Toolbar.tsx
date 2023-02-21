@@ -8,6 +8,7 @@ import {
     TextField,
     ToggleButton,
     ToggleButtonGroup,
+    Typography,
 } from "@mui/material"
 import useQueryParams from "./hooks/useQueryParams"
 import TourneyDrawer from "./TourneyDrawer"
@@ -42,8 +43,8 @@ const Toolbar = () => {
                         onChange={handlePageNavigation}
                         exclusive
                     >
-                        <ToggleButton value="/">Home</ToggleButton>
-                        <ToggleButton value="/streamview">Streamview</ToggleButton>
+                        <ToggleButton value="/">Show</ToggleButton>
+                        <ToggleButton value="/streamview">Hide</ToggleButton>
                     </ToggleButtonGroup>
                     <Box flexGrow={1}>
                         <AddStreamField />
@@ -67,10 +68,11 @@ const AddStreamField = () => {
         <Box
             display="flex"
             marginLeft="10px"
+            gap={1}
         >
             <TextField
                 sx={{ bgcolor: "grey" }}
-                label="channel"
+                label="channel name"
                 variant="outlined"
                 value={fieldValue}
                 onChange={(event) => setFieldValue(event.target.value)}

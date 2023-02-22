@@ -3,15 +3,20 @@ import {
     AccordionDetails,
     AccordionSummary,
     Box,
+    Switch,
     Tooltip,
     Typography,
 } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import HomeIcon from "@mui/icons-material/Home"
 import TourneyStartTime from "./TourneyStartTime"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import BoyIcon from "@mui/icons-material/Boy"
+
+import useQueryParams from "./hooks/useQueryParams"
+
+import "/node_modules/flag-icons/css/flag-icons.min.css"
 
 const TourneyAccordion = () => {
     const [accordionExpanded, setAccordionExpanded] = useState(false)
@@ -19,6 +24,8 @@ const TourneyAccordion = () => {
     const handleAccordionExpandedStatus = () => {
         setAccordionExpanded(!accordionExpanded)
     }
+
+    console.log("render")
 
     return (
         <Accordion
@@ -72,7 +79,7 @@ const TourneyAccordion = () => {
                             />
                         </Box>
                         <HomeIcon sx={{ transform: "scale(1.5)", marginTop: "2px" }} />
-                        <Tooltip title="1000 viewers total">
+                        <Tooltip title="Total viewers">
                             <Box
                                 alignItems="center"
                                 display="flex"
@@ -81,17 +88,25 @@ const TourneyAccordion = () => {
                                 paddingLeft={6}
                             >
                                 <Typography
-                                    color="red"
+                                    color="#F75750"
                                     variant="h6"
                                 >
                                     1000
                                 </Typography>
-                                <BoyIcon sx={{ color: "red" }} />
+                                <BoyIcon sx={{ color: "#F75750" }} />
                             </Box>
                         </Tooltip>
                     </Box>
-                    <Box>
-                        <Typography>Official streams:</Typography>
+                    <Box
+                        display="flex"
+                        flexDirection="column"
+                        gap={1}
+                    >
+                        <Typography>Streams:</Typography>
+                        <AccordionStreamInfo
+                            channelLink="https://twitch.tv/imaqtpie"
+                            channelName="imaqtpie"
+                        />
                     </Box>
                     <Typography>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
@@ -116,6 +131,63 @@ const AccordionTitle = ({ tourneyName, accordionExpanded }: AccordionTitleProps)
     }
 
     return <Typography variant="h6">{`${tourneyName.substring(0, CHARACTER_LIMIT)}...`}</Typography>
+}
+
+interface AccordionStreamInfoProps {
+    channelLink: string
+    channelName: string
+}
+
+const AccordionStreamInfo = ({ channelLink, channelName }: AccordionStreamInfoProps) => {
+    const [streamToggled, setStreamToggled] = useState(false)
+    const channels = useQueryParams("channel")
+
+    const handleStreamToggle = (previousToggleValue: boolean) => {
+        if (previousToggleValue) {
+            channels.removeValue(channelName)
+        } else {
+            channels.addValue(channelName)
+        }
+    }
+
+    useEffect(() => {
+        if (channels.getValuesAsArray().includes(channelName)) {
+            setStreamToggled(true)
+        } else {
+            setStreamToggled(false)
+        }
+    }, [channels])
+
+    return (
+        <Box
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+            gap={1}
+        >
+            <Tooltip title="Finnish">
+                <span
+                    id="country-flag"
+                    className="fi fi-fi"
+                />
+            </Tooltip>
+            <Typography>
+                <a
+                    style={{ textDecoration: "none", color: "#347deb" }}
+                    href={channelLink}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    {channelName}
+                </a>
+            </Typography>
+            <span style={{ color: "#F75750" }}>(1000)</span>
+            <Switch
+                checked={streamToggled}
+                onChange={() => handleStreamToggle(streamToggled)}
+            />
+        </Box>
+    )
 }
 
 export default TourneyAccordion

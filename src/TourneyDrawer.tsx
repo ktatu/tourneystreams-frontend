@@ -1,12 +1,10 @@
 import {
-    Accordion,
-    AccordionSummary,
-    AccordionDetails,
     Box,
     Button,
     Checkbox,
     Divider,
     Drawer,
+    IconButton,
     Input,
     ListItemIcon,
     ListItemText,
@@ -21,14 +19,17 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import useCheckbox from "./hooks/useCheckbox"
 import PopupMenu from "./shared_components/PopupMenu"
 
-import HomeIcon from "@mui/icons-material/Home"
+import CloseIcon from "@mui/icons-material/Close"
 
 import TourneyStartTime from "./TourneyStartTime"
 
 import "./TourneyDrawer.css"
 import TourneyAccordion from "./TourneyAccordion"
+import { useState } from "react"
 
 const TourneyDrawer = () => {
+    const [tourneyNameFilter, setTourneyNameFilter] = useState("")
+
     return (
         <Drawer
             variant="permanent"
@@ -53,7 +54,21 @@ const TourneyDrawer = () => {
                                 }}
                                 menuContent={<GameOptionsMenuContent />}
                             />
-                            <Input placeholder="Tournament name" />
+                            <Input
+                                placeholder="Tournament name"
+                                onChange={(event) => setTourneyNameFilter(event.target.value)}
+                                value={tourneyNameFilter}
+                                endAdornment={
+                                    <IconButton
+                                        onClick={() => setTourneyNameFilter("")}
+                                        sx={{
+                                            visibility: tourneyNameFilter ? "visible" : "hidden",
+                                        }}
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>
+                                }
+                            />
                         </Box>
                     </Box>
                 </Box>

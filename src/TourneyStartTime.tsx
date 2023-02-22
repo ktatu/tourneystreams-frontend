@@ -1,6 +1,7 @@
 import { Typography } from "@mui/material"
 
 const TourneyStartTime = ({ startTimeAsDate }: { startTimeAsDate: Date }) => {
+    console.log("render tourney start time")
     if (Date.now() > startTimeAsDate.valueOf()) {
         return (
             <Typography
@@ -12,7 +13,16 @@ const TourneyStartTime = ({ startTimeAsDate }: { startTimeAsDate: Date }) => {
         )
     }
 
-    return <Typography>{startTimeAsDate.toString()}</Typography>
+    return (
+        <Typography
+            color="red"
+            variant="h6"
+        >
+            LIVE
+        </Typography>
+    )
+
+    //return <Typography>{startTimeAsDate.toString()}</Typography>
 }
 
 export default TourneyStartTime

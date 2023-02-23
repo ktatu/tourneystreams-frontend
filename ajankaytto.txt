@@ -23,3 +23,4 @@
 11.2  2h Refaktorointia: reduxin poisto
 16.2  1h Navigaatio yläpalkista
 20.2  4h MUI-drawer-komponentti turnausten listaukselle
+22.2  3h Drawer-komponentti

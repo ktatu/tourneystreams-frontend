@@ -1,4 +1,4 @@
-import React from "react"
+import React, { StrictMode } from "react"
 import ReactDOM from "react-dom/client"
 import App from "./App"
 import theme from "./theme"
@@ -11,4 +11,8 @@ import "@fontsource/roboto/500.css"
 import "@fontsource/roboto/700.css"
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
-root.render(<App />)
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
+)

@@ -18,7 +18,11 @@ import useQueryParams from "./hooks/useQueryParams"
 
 import "/node_modules/flag-icons/css/flag-icons.min.css"
 
-const TourneyAccordion = () => {
+interface TourneyAccordionProps {
+    tourneyName: string
+}
+
+const TourneyAccordion = ({ tourneyName }: TourneyAccordionProps) => {
     const [accordionExpanded, setAccordionExpanded] = useState(false)
 
     const handleAccordionExpandedStatus = () => {
@@ -40,7 +44,7 @@ const TourneyAccordion = () => {
                     paddingRight={2}
                 >
                     <AccordionTitle
-                        tourneyName="BLAST.tv Paris Major 2023: European RMR A"
+                        tourneyName={tourneyName}
                         accordionExpanded={accordionExpanded}
                     />
                     <Box flexGrow={1} />

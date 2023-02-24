@@ -25,13 +25,32 @@ import TourneyStartTime from "./TourneyStartTime"
 
 import "./TourneyDrawer.css"
 import TourneyAccordion from "./TourneyAccordion"
-import { useState } from "react"
+import { useState, useTransition } from "react"
 
 const TourneyDrawer = () => {
+    const [tourneyDetailsArray, setTourneyDetailsArray] = useState([
+        { tourneyName: "BLAST.tv Paris Major 2023: European RMR A" },
+    ])
     const [tourneyNameFilter, setTourneyNameFilter] = useState("")
+    const [isPending, startTransition] = useTransition()
+
+    const detailsFilteredByName = tourneyDetailsArray.filter((details) =>
+        details.tourneyName.includes(tourneyNameFilter)
+    )
+
+    const handleTourneyNameFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        startTransition(() => {
+            setTourneyNameFilter(event.target.value)
+        })
+    }
+
+    if (isPending) {
+        console.log("pending")
+    }
 
     return (
         <Drawer
+            PaperProps={{ sx: { width: "25%" } }}
             variant="permanent"
             anchor="left"
         >
@@ -43,20 +62,23 @@ const TourneyDrawer = () => {
                     <Box paddingTop={3}>
                         <Typography variant="body1">Filters:</Typography>
                         <Box
+                            alignItems="center"
                             display="flex"
                             flexDirection="row"
                             paddingTop={1}
                             gap={1}
                         >
-                            <PopupMenu
-                                buttonProps={{
-                                    buttonText: "Games",
-                                }}
-                                menuContent={<GameOptionsMenuContent />}
-                            />
+                            <Box paddingTop={1}>
+                                <PopupMenu
+                                    buttonProps={{
+                                        buttonText: "Games",
+                                    }}
+                                    menuContent={<GameOptionsMenuContent />}
+                                />
+                            </Box>
                             <Input
                                 placeholder="Tournament name"
-                                onChange={(event) => setTourneyNameFilter(event.target.value)}
+                                onChange={handleTourneyNameFilterChange}
                                 value={tourneyNameFilter}
                                 endAdornment={
                                     <IconButton
@@ -76,7 +98,12 @@ const TourneyDrawer = () => {
             <Divider />
             <Box className="drawer-container">
                 <Typography variant="h5">Today</Typography>
-                <TourneyAccordion />
+                {detailsFilteredByName.map((details) => (
+                    <TourneyAccordion
+                        key={details.tourneyName}
+                        tourneyName={details.tourneyName}
+                    />
+                ))}
             </Box>
         </Drawer>
     )

@@ -23,7 +23,6 @@ import User from "./user"
 /*
 const streamLoader = ({ request }) => {
     const url = new URL(request.url)
-
 }*/
 
 const router = createBrowserRouter(

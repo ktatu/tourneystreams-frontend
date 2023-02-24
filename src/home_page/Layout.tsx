@@ -5,20 +5,20 @@ import Chats from "../shared_components/Chats"
 import TourneyDrawer from "../TourneyDrawer"
 
 const Layout = () => {
+    /*
     return (
         <Grid
             container
             spacing={2}
-            paddingLeft={5}
             paddingTop={2}
-            paddingRight={5}
-            xs={12}
+            paddingRight={1}
+            xs={9}
+            bgcolor="red"
         >
             <Grid
-                xs={2}
-                sx={{ bgcolor: "red" }}
-            ></Grid>
-            <Grid xs={8}>
+                xs={10}
+                bgcolor="purple"
+            >
                 <Box
                     overflow="auto"
                     height="800px"
@@ -28,20 +28,29 @@ const Layout = () => {
                     </Stack>
                 </Box>
             </Grid>
-            <Grid xs={2}>
-                <Chats />
-            </Grid>
         </Grid>
+    )*/
+
+    return (
+        <Box
+            display="flex"
+            flexDirection="row"
+        >
+            <Box
+                overflow="auto"
+                height="800px"
+            >
+                <Streams />
+            </Box>
+            <Box flexGrow={1} />
+            <Box
+                paddingLeft={1}
+                paddingRight={2}
+            >
+                <Chats />
+            </Box>
+        </Box>
     )
 }
 
 export default Layout
-
-/*
-                <Box
-                    flexGrow={1}
-                    bgcolor="red"
-                    height="50vh"
-                />
-
-*/

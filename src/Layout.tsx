@@ -11,7 +11,13 @@ const Layout = () => {
         <Box>
             <Toolbar />
             <TourneyDrawer />
-            <Outlet />
+            <Box
+                marginLeft="24%"
+                width="75%"
+                paddingTop={2}
+            >
+                <Outlet />
+            </Box>
         </Box>
     )
 }

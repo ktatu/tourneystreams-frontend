@@ -24,3 +24,4 @@
 16.2  1h Navigaatio yläpalkista
 20.2  4h MUI-drawer-komponentti turnausten listaukselle
 22.2  3h Drawer-komponentti
+24.2  1.5h Layout-korjauksia

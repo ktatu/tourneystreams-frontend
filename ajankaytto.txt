@@ -26,3 +26,4 @@
 22.2  3h Drawer-komponentti
 24.2  1.5h Layout-korjauksia
 27.2  3h Turnausten suodatus-asetuksia
+28.2  2h Kaikkien pelien yhteisiä suodatus-asetuksia

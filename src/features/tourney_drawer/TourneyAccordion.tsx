@@ -9,12 +9,12 @@ import {
 } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import HomeIcon from "@mui/icons-material/Home"
-import TourneyStartTime from "./TourneyStartTime"
+import TourneyStartTime from "../../TourneyStartTime"
 import { useEffect, useRef, useState } from "react"
 
 import BoyIcon from "@mui/icons-material/Boy"
 
-import useQueryParams from "./hooks/useQueryParams"
+import useQueryParams from "../../hooks/useQueryParams"
 
 import "/node_modules/flag-icons/css/flag-icons.min.css"
 

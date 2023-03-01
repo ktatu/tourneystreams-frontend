@@ -1,152 +1,35 @@
 import {
     Box,
-    Button,
-    Checkbox,
+    Typography,
+    Stack,
+    Tabs,
+    Tab,
     Chip,
-    Divider,
-    Drawer,
-    IconButton,
-    Input,
+    TextField,
+    Checkbox,
     ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
     MenuItem,
     MenuList,
-    Stack,
-    Tab,
-    Tabs,
-    TextField,
-    Toolbar,
-    Typography,
 } from "@mui/material"
-import SettingsIcon from "@mui/icons-material/Settings"
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
-import useCheckbox from "./hooks/useCheckbox"
-import PopupMenu, { PopupMenuClose } from "./shared_components/PopupMenu"
-
-import CloseIcon from "@mui/icons-material/Close"
-
-import TourneyStartTime from "./TourneyStartTime"
-
-import "./TourneyDrawer.css"
-import TourneyAccordion from "./TourneyAccordion"
-import { startTransition, useEffect, useRef, useState } from "react"
-
-import ISO from "iso-639-1"
+import { useState, useEffect, useRef } from "react"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
+import useCheckbox from "../../hooks/useCheckbox"
+import PopupMenu, { PopupMenuClose } from "../../shared_components/PopupMenu"
+import { TourneyInfo } from "../../types"
+import TourneyAccordion from "./TourneyAccordion"
+import ISO from "iso-639-1"
 
-import { TourneyInfo } from "./types"
+import SettingsIcon from "@mui/icons-material/Settings"
 
-const TourneyDrawer = () => {
-    const [tourneyDetailsArray, setTourneyDetailsArray] = useState<Array<TourneyInfo>>([
-        { tourneyName: "BLAST.tv Paris Major 2023: European RMR A", game: "apexlegends" },
-    ])
-    const [tourneyNameFilter, setTourneyNameFilter] = useState("")
-    const [selectedGames, setSelectedGames] = useState()
-
-    const [settingsViewOpen, setSettingsViewOpen] = useState(false)
-
-    let filteredTourneys
-
-    //useEffect(() => {}, [tourneyNameFilter, selectedGames])
-
-    const detailsFilteredByName = tourneyDetailsArray.filter((details) =>
-        details.tourneyName.includes(tourneyNameFilter)
-    )
-
-    const handleTourneyNameFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        startTransition(() => {
-            setTourneyNameFilter(event.target.value)
-        })
-    }
-
-    const handleSettingsViewVisibility = () => {
-        setSettingsViewOpen(!settingsViewOpen)
-    }
-
-    //const handleSelectedTourneysChange = () => {}
-
-    return (
-        <Drawer
-            PaperProps={{ sx: { width: "25%" } }}
-            variant="permanent"
-            anchor="left"
-        >
-            <Toolbar />
-            <Divider />
-            <Box className="drawer-container">
-                <Box>
-                    <Typography variant="h4">Tournaments</Typography>
-                    <Box paddingTop={3}>
-                        <Typography variant="body1">Filters:</Typography>
-                        <Box
-                            alignItems="center"
-                            display="flex"
-                            flexDirection="row"
-                            paddingTop={1}
-                            gap={1}
-                        >
-                            <Box paddingTop={1}>
-                                <PopupMenu
-                                    buttonProps={{
-                                        buttonText: "Games",
-                                    }}
-                                    menuContent={<GameSelectionMenuContent />}
-                                />
-                            </Box>
-                            <Input
-                                disabled={settingsViewOpen}
-                                placeholder="Tournament name"
-                                onChange={handleTourneyNameFilterChange}
-                                value={tourneyNameFilter}
-                                endAdornment={
-                                    <IconButton
-                                        onClick={() => setTourneyNameFilter("")}
-                                        sx={{
-                                            visibility: tourneyNameFilter ? "visible" : "hidden",
-                                        }}
-                                    >
-                                        <CloseIcon />
-                                    </IconButton>
-                                }
-                            />
-                            <Box flexGrow={1} />
-                            <Box marginTop={1}>
-                                <IconButton onClick={handleSettingsViewVisibility}>
-                                    {settingsViewOpen ? (
-                                        <CloseIcon fontSize="medium" />
-                                    ) : (
-                                        <SettingsIcon fontSize="medium" />
-                                    )}
-                                </IconButton>
-                            </Box>
-                        </Box>
-                    </Box>
-                </Box>
-            </Box>
-            <Divider />
-            <TourneyDrawerContentContainer
-                handleSettingsViewClose={handleSettingsViewVisibility}
-                settingsViewOpen={settingsViewOpen}
-                tourneyInfoArray={detailsFilteredByName}
-            />
-        </Drawer>
-    )
-}
-
-interface TourneyDrawerContentContainerProps {
-    handleSettingsViewClose: () => void
-    settingsViewOpen: boolean
+interface ContentContainerProps {
+    filterOptionsViewOpen: boolean
     tourneyInfoArray: Array<TourneyInfo>
 }
 
-const TourneyDrawerContentContainer = ({
-    handleSettingsViewClose,
-    settingsViewOpen,
-    tourneyInfoArray,
-}: TourneyDrawerContentContainerProps) => {
+const ContentContainer = ({ filterOptionsViewOpen, tourneyInfoArray }: ContentContainerProps) => {
     const [tabsValue, setTabsValue] = useState(0)
     const [languages, setLanguages] = useState([
         "English",
@@ -179,7 +62,7 @@ const TourneyDrawerContentContainer = ({
         popupMenuRef.current?.handleClose()
     }
 
-    if (!settingsViewOpen) {
+    if (!filterOptionsViewOpen) {
         return (
             <Box className="drawer-container">
                 <Typography variant="h5">Today</Typography>
@@ -269,9 +152,13 @@ const TourneyDrawerContentContainer = ({
                             <Stack
                                 direction="row"
                                 gap={1}
+                                alignItems="center"
                             >
-                                <Typography variant="h6">Viewership min. threshold:</Typography>
+                                <Typography variant="h6">Minimum viewership:</Typography>
                                 <TextField
+                                    sx={{ width: "125px" }}
+                                    label="Enter a number"
+                                    InputLabelProps={{ shrink: true }}
                                     inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                                 />
                             </Stack>
@@ -330,46 +217,4 @@ const LanguageListRow = ({ data, index, style }: ListChildComponentProps) => {
     )
 }
 
-const GameSelectionMenuContent = () => {
-    const apexCheckbox = useCheckbox()
-    const starcraftCheckbox = useCheckbox()
-
-    return (
-        <MenuList>
-            <MenuItem onClick={apexCheckbox.handleToggle}>
-                <ListItemIcon>
-                    <SettingsIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>Apex Legends</ListItemText>
-                <Checkbox checked={apexCheckbox.checked} />
-            </MenuItem>
-            <MenuItem onClick={starcraftCheckbox.handleToggle}>
-                <ListItemIcon>
-                    <SettingsIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>StarCraft 2</ListItemText>
-                <Checkbox checked={starcraftCheckbox.checked} />
-            </MenuItem>
-        </MenuList>
-    )
-}
-
-interface MenuItemGameProps {
-    gameId: string
-    displayName: string
-}
-
-const MenuItemGame = ({ gameId, displayName }: MenuItemGameProps) => {
-    const gameCheckbox = useCheckbox()
-
-    return (
-        <MenuItem>
-            <ListItemIcon>
-                <SettingsIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText>{displayName}</ListItemText>
-        </MenuItem>
-    )
-}
-
-export default TourneyDrawer
+export default ContentContainer

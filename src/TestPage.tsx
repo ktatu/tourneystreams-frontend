@@ -16,7 +16,6 @@ import {
     Typography,
 } from "@mui/material"
 
-import "./TourneyDrawer.css"
 import PopupMenu from "./shared_components/PopupMenu"
 
 import SettingsIcon from "@mui/icons-material/Settings"

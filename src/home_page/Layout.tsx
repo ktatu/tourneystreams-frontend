@@ -1,7 +1,7 @@
 import { Box, Unstable_Grid2 as Grid, Stack } from "@mui/material"
 import Streams from "../shared_components/Streams"
 import Chats from "../shared_components/Chats"
-import TourneyDrawer from "../TourneyDrawer"
+import TourneyDrawer from "../features/tourney_drawer/TourneyDrawer"
 
 const Layout = () => {
     return (

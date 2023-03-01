@@ -11,7 +11,7 @@ import {
     Typography,
 } from "@mui/material"
 import useQueryParams from "./hooks/useQueryParams"
-import TourneyDrawer from "./TourneyDrawer"
+import TourneyDrawer from "./features/tourney_drawer/TourneyDrawer"
 
 const Toolbar = () => {
     const [togglePageValue, setTogglePageValue] = useState("/")

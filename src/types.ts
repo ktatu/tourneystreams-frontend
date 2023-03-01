@@ -24,3 +24,8 @@ export interface Player {
 export interface MouseEventHandler {
     (event: React.MouseEvent<HTMLElement>): void
 }
+
+export interface TourneyInfo {
+    tourneyName: string
+    game: string
+}

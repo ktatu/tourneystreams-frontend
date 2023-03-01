@@ -7,6 +7,8 @@ import {
     Drawer,
     IconButton,
     Input,
+    ListItem,
+    ListItemButton,
     ListItemIcon,
     ListItemText,
     MenuItem,
@@ -14,6 +16,7 @@ import {
     Stack,
     Tab,
     Tabs,
+    TextField,
     Toolbar,
     Typography,
 } from "@mui/material"
@@ -21,7 +24,7 @@ import SettingsIcon from "@mui/icons-material/Settings"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import useCheckbox from "./hooks/useCheckbox"
-import PopupMenu from "./shared_components/PopupMenu"
+import PopupMenu, { PopupMenuClose } from "./shared_components/PopupMenu"
 
 import CloseIcon from "@mui/icons-material/Close"
 
@@ -29,9 +32,10 @@ import TourneyStartTime from "./TourneyStartTime"
 
 import "./TourneyDrawer.css"
 import TourneyAccordion from "./TourneyAccordion"
-import { useState, startTransition, useEffect } from "react"
+import { startTransition, useEffect, useRef, useState } from "react"
 
 import ISO from "iso-639-1"
+import { FixedSizeList, ListChildComponentProps } from "react-window"
 
 import { TourneyInfo } from "./types"
 
@@ -153,16 +157,26 @@ const TourneyDrawerContentContainer = ({
         "Russian",
     ])
 
+    useEffect(() => {
+        const sortedLanguages = languages.sort((languageA, languageB) =>
+            languageA < languageB ? -1 : 1
+        )
+        setLanguages(sortedLanguages)
+    }, [languages])
+
+    const popupMenuRef = useRef<PopupMenuClose>(null)
+
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabsValue(newValue)
     }
 
-    const handleLanguageChipDeletion = () => {
-        console.log("delete")
+    const handleLanguageChipDeletion = (languageToDelete: string) => {
+        setLanguages(languages.filter((language) => language !== languageToDelete))
     }
 
     const handleLanguageSelection = (language: string) => {
         setLanguages(languages.concat(language))
+        popupMenuRef.current?.handleClose()
     }
 
     if (!settingsViewOpen) {
@@ -202,46 +216,70 @@ const TourneyDrawerContentContainer = ({
                 <Box className="drawer-container">
                     <Stack
                         direction="column"
-                        gap={1}
+                        gap={5}
                     >
-                        <Box
-                            display="flex"
-                            flexDirection="row"
-                            gap={2}
-                        >
-                            <Typography variant="h6">Languages</Typography>
-                            <Box>
-                                <PopupMenu
-                                    buttonProps={{
-                                        buttonText: "Add More",
-                                    }}
-                                    menuContent={
-                                        <LanguageSelectionMenuContent
-                                            handleLanguageSelection={handleLanguageSelection}
-                                            selectedLanguages={languages}
-                                        />
-                                    }
-                                />
-                            </Box>
-                        </Box>
-                        <span>
-                            Displayed tournaments must include a stream in at least one of the
-                            following languages:
-                        </span>
-                        <Box
-                            display="flex"
-                            flexDirection="row"
-                            flexWrap="wrap"
+                        <Stack
+                            direction="column"
                             gap={1}
                         >
-                            {languages.map((language) => (
-                                <Chip
-                                    key={language}
-                                    label={language}
-                                    onDelete={handleLanguageChipDeletion}
+                            <Box
+                                display="flex"
+                                flexDirection="row"
+                                gap={2}
+                            >
+                                <Typography variant="h6">Languages</Typography>
+                                <Box>
+                                    <PopupMenu
+                                        buttonProps={{
+                                            buttonText: "Add More",
+                                        }}
+                                        menuContent={
+                                            <LanguageSelectionMenuContent
+                                                handleLanguageSelection={handleLanguageSelection}
+                                                selectedLanguages={languages}
+                                            />
+                                        }
+                                        ref={popupMenuRef}
+                                    />
+                                </Box>
+                            </Box>
+                            <span>
+                                A tournament must include a stream in at least one of the following
+                                languages:
+                            </span>
+                            <Box
+                                display="flex"
+                                flexDirection="row"
+                                flexWrap="wrap"
+                                gap={1}
+                            >
+                                {languages.map((language) => (
+                                    <Chip
+                                        key={language}
+                                        label={language}
+                                        onDelete={() => handleLanguageChipDeletion(language)}
+                                    />
+                                ))}
+                            </Box>
+                        </Stack>
+                        <Stack
+                            direction="column"
+                            gap={1}
+                        >
+                            <Stack
+                                direction="row"
+                                gap={1}
+                            >
+                                <Typography variant="h6">Viewership min. threshold:</Typography>
+                                <TextField
+                                    inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                                 />
-                            ))}
-                        </Box>
+                            </Stack>
+                            <span>
+                                A live tournament&apos;s viewership from all of its streams must
+                                exceed this number for it to be shown.
+                            </span>
+                        </Stack>
                     </Stack>
                 </Box>
             </Stack>
@@ -259,19 +297,36 @@ const LanguageSelectionMenuContent = ({
     selectedLanguages,
 }: LanguageSelectionMenuContentProps) => {
     const languages = ISO.getAllNames().sort((a, b) => (a < b ? -1 : 1))
+    const itemData = { languages, handleLanguageSelection, selectedLanguages }
 
     return (
-        <MenuList sx={{ maxHeight: "200px" }}>
-            {languages.map((language) => (
-                <MenuItem
-                    key={language}
-                    onClick={() => handleLanguageSelection(language)}
-                    disabled={selectedLanguages.includes(language) ? true : false}
-                >
-                    <ListItemText>{language}</ListItemText>
-                </MenuItem>
-            ))}
-        </MenuList>
+        <FixedSizeList
+            height={240}
+            itemCount={languages.length}
+            itemData={itemData}
+            itemSize={46}
+            overscanCount={5}
+            width={250}
+        >
+            {LanguageListRow}
+        </FixedSizeList>
+    )
+}
+
+const LanguageListRow = ({ data, index, style }: ListChildComponentProps) => {
+    const { languages, handleLanguageSelection, selectedLanguages } = data
+    const language = languages[index]
+    const isDisabled = selectedLanguages.includes(language) ? true : false
+
+    return (
+        <ListItem style={style}>
+            <ListItemButton
+                disabled={isDisabled}
+                onClick={() => handleLanguageSelection(language)}
+            >
+                <ListItemText primary={language} />
+            </ListItemButton>
+        </ListItem>
     )
 }
 

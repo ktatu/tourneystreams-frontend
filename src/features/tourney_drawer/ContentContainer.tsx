@@ -1,19 +1,4 @@
-import {
-    Box,
-    Typography,
-    Stack,
-    Tabs,
-    Tab,
-    Chip,
-    TextField,
-    Checkbox,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    MenuItem,
-    MenuList,
-} from "@mui/material"
+import { Box, Typography, Stack, Tabs, Tab } from "@mui/material"
 import { useState, useEffect, useRef } from "react"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 import useCheckbox from "../../hooks/useCheckbox"
@@ -27,12 +12,17 @@ interface ContentContainerProps {
     tourneyInfoArray: Array<TourneyInfo>
 }
 
-const ContentContainer = ({ filterOptionsViewOpen, tourneyInfoArray }: ContentContainerProps) => {
-    const [tabsValue, setTabsValue] = useState(0)
+export enum OptionsTab {
+    All = "all",
+    ApexLegends = "apexlegends",
+    Test = "test",
+}
 
-    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-        console.log("new tab value ", newValue)
-        setTabsValue(newValue)
+const ContentContainer = ({ filterOptionsViewOpen, tourneyInfoArray }: ContentContainerProps) => {
+    const [optionsTabValue, setOptionsTabValue] = useState<OptionsTab>(OptionsTab.All)
+
+    const handleTabChange = (event: React.SyntheticEvent, newValue: OptionsTab) => {
+        setOptionsTabValue(newValue)
     }
 
     if (!filterOptionsViewOpen) {
@@ -57,19 +47,27 @@ const ContentContainer = ({ filterOptionsViewOpen, tourneyInfoArray }: ContentCo
             >
                 <Box>
                     <Tabs
-                        value={tabsValue}
+                        value={optionsTabValue}
                         onChange={handleTabChange}
                         scrollButtons
                         allowScrollButtonsMobile
                         variant="scrollable"
                     >
-                        <Tab label="All" />
-                        <Tab label="Apex Legends" />
-                        <Tab label="Counter Strike" />
-                        <Tab label="Valorant" />
+                        <Tab
+                            value={OptionsTab.All}
+                            label="All"
+                        />
+                        <Tab
+                            value={OptionsTab.ApexLegends}
+                            label="Apex Legends"
+                        />
+                        <Tab
+                            value={OptionsTab.Test}
+                            label="Test tab"
+                        />
                     </Tabs>
                 </Box>
-                <FilterOptions selectedIndex={tabsValue} />
+                <FilterOptions selectedTab={optionsTabValue} />
             </Stack>
         </Box>
     )

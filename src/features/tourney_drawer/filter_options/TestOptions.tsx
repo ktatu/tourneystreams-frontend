@@ -5,7 +5,7 @@ import InfoIcon from "@mui/icons-material/Info"
 const APEX_EVENT_REGIONS = ["International", "APAC-N", "APAC-S", "EMEA", "NA", "SA"]
 const APEX_TOURNAMENT_TIERS = ["S-Tier", "A-Tier", "B-Tier", "C-Tier", "D-Tier"]
 
-const ApexLegendsOptions = () => {
+const TestOptions = () => {
     const [selectedRegions, setSelectedRegions] = useState(["International", "APAC-N", "APAC-S"])
 
     // TODO: useEffect for setting initial values based on saved user options fetched from localStorage
@@ -23,10 +23,7 @@ const ApexLegendsOptions = () => {
     }
 
     return (
-        <Stack
-            direction="column"
-            gap={8}
-        >
+        <div>
             <Stack
                 direction="column"
                 gap={1}
@@ -81,8 +78,8 @@ const ApexLegendsOptions = () => {
                     ))}
                 </Box>
             </Stack>
-        </Stack>
+        </div>
     )
 }
 
-export default ApexLegendsOptions
+export default TestOptions

@@ -46,7 +46,7 @@ const AllGames = () => {
     return (
         <Stack
             direction="column"
-            gap={5}
+            gap={8}
         >
             <Stack
                 direction="column"

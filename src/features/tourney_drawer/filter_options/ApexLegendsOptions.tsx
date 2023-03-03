@@ -1,11 +1,25 @@
-import { Box, Chip, Stack, Typography } from "@mui/material"
+import { Box, Chip, Stack, Tooltip, Typography } from "@mui/material"
+import { useEffect, useState } from "react"
+import InfoIcon from "@mui/icons-material/Info"
+
+const APEX_EVENT_REGIONS = ["International", "APAC-N", "APAC-S", "EMEA", "NA", "SA"]
+const APEX_TOURNAMENT_TIERS = ["S-Tier", "A-Tier", "B-Tier", "C-Tier", "D-Tier"]
 
 const ApexLegendsOptions = () => {
-    const APEX_EVENT_REGIONS = ["International", "APAC-N", "APAC-S", "EMEA", "NA", "SA"]
-    const APEX_TOURNAMENT_TIERS = ["S-Tier", "A-Tier", "B-Tier", "C-Tier", "D-Tier"]
+    const [selectedRegions, setSelectedRegions] = useState(["International", "APAC-N", "APAC-S"])
 
-    const handleChipChange = () => {
-        console.log("chip click")
+    // TODO: useEffect for setting initial values based on saved user options fetched from localStorage
+
+    const handleRegionChange = (changedValue: string) => {
+        if (selectedRegions.includes(changedValue)) {
+            setSelectedRegions(selectedRegions.filter((region) => region !== changedValue))
+        } else {
+            setSelectedRegions(selectedRegions.concat(changedValue))
+        }
+    }
+
+    const handleTierChange = () => {
+        console.log("tier change")
     }
 
     return (
@@ -25,9 +39,11 @@ const ApexLegendsOptions = () => {
                 >
                     {APEX_EVENT_REGIONS.map((region) => (
                         <Chip
+                            color={selectedRegions.includes(region) ? "primary" : "default"}
                             key={region}
                             label={region}
-                            onClick={handleChipChange}
+                            onClick={() => handleRegionChange(region)}
+                            variant="filled"
                         />
                     ))}
                 </Box>
@@ -36,11 +52,20 @@ const ApexLegendsOptions = () => {
                 direction="column"
                 gap={1}
             >
-                <Typography variant="h6">Tournament tiers</Typography>
-                <span>
-                    Tournaments featured on Liquipedia are ranked based on factors such as level of
-                    competition and prize pool
-                </span>
+                <Box
+                    display="flex"
+                    flexDirection="row"
+                >
+                    <Typography variant="h6">Tournament tiers</Typography>
+                    <Tooltip
+                        placement="right-end"
+                        color="info"
+                        title="Tournaments on Liquipedia are ranked based on factors such as level of
+                    competition and prize pool"
+                    >
+                        <InfoIcon fontSize="small" />
+                    </Tooltip>
+                </Box>
                 <Box
                     display="flex"
                     flexDirection="row"
@@ -51,7 +76,7 @@ const ApexLegendsOptions = () => {
                         <Chip
                             key={tier}
                             label={tier}
-                            onClick={handleChipChange}
+                            onClick={handleTierChange}
                         />
                     ))}
                 </Box>

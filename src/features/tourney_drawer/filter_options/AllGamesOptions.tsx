@@ -7,11 +7,13 @@ import {
     ListItem,
     ListItemButton,
     ListItemText,
+    Tooltip,
 } from "@mui/material"
 import PopupMenu, { PopupMenuClose } from "../../../shared_components/PopupMenu"
 import ISO from "iso-639-1"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 import { useState, useEffect, useRef } from "react"
+import InfoIcon from "@mui/icons-material/Info"
 
 const AllGames = () => {
     const [languages, setLanguages] = useState([
@@ -55,7 +57,19 @@ const AllGames = () => {
                     flexDirection="row"
                     gap={2}
                 >
-                    <Typography variant="h6">Languages</Typography>
+                    <Box
+                        display="flex"
+                        flexDirection="row"
+                    >
+                        <Typography variant="h6">Languages</Typography>
+                        <Tooltip
+                            color="info"
+                            placement="right-end"
+                            title="A tournament must include a stream in at least one of the selected languages"
+                        >
+                            <InfoIcon fontSize="small" />
+                        </Tooltip>
+                    </Box>
                     <Box>
                         <PopupMenu
                             buttonProps={{
@@ -71,9 +85,6 @@ const AllGames = () => {
                         />
                     </Box>
                 </Box>
-                <span>
-                    A tournament must include a stream in at least one of the following languages:
-                </span>
                 <Box
                     display="flex"
                     flexDirection="row"
@@ -82,6 +93,7 @@ const AllGames = () => {
                 >
                     {languages.map((language) => (
                         <Chip
+                            color="primary"
                             key={language}
                             label={language}
                             onDelete={() => handleLanguageChipDeletion(language)}
@@ -98,7 +110,19 @@ const AllGames = () => {
                     gap={1}
                     alignItems="center"
                 >
-                    <Typography variant="h6">Minimum viewership:</Typography>
+                    <Box
+                        display="flex"
+                        flexDirection="row"
+                    >
+                        <Typography variant="h6">Minimum viewership</Typography>
+                        <Tooltip
+                            color="info"
+                            placement="right-end"
+                            title="A live tournament's viewership from all of its streams must exceed this number for it to be shown"
+                        >
+                            <InfoIcon fontSize="small" />
+                        </Tooltip>
+                    </Box>
                     <TextField
                         sx={{ width: "125px" }}
                         label="Enter a number"
@@ -106,10 +130,6 @@ const AllGames = () => {
                         inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                     />
                 </Stack>
-                <span>
-                    A live tournament&apos;s viewership from all of its streams must exceed this
-                    number for it to be shown
-                </span>
             </Stack>
         </Stack>
     )

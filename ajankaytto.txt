@@ -30,3 +30,4 @@
  1.3  2h Drawer-komponentin refaktorointia, suodatus-asetuksia
  2.3  0.5h Suodatus-asetuksia
  3.3  1.5h Suodatus-asetusten refaktorointia
+ 4.3  2h Suodatus-asetusten refaktorointia ja custom-hook

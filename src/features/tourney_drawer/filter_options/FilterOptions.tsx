@@ -6,6 +6,7 @@ import InfoIcon from "@mui/icons-material/Info"
 
 import { OptionsTab } from "../ContentContainer"
 import { useState } from "react"
+import TestOptions from "./TestOptions"
 
 const FilterOptions = ({ selectedTab }: { selectedTab: OptionsTab }) => {
     return (
@@ -16,60 +17,11 @@ const FilterOptions = ({ selectedTab }: { selectedTab: OptionsTab }) => {
             <div hidden={selectedTab !== OptionsTab.ApexLegends}>
                 <ApexLegendsOptions />
             </div>
-            <FilterTabContainer
-                optionsTabValue={OptionsTab.Test}
-                selectedTab={selectedTab}
-            >
-                <FilterOption>
-                    <FilterOptionHeader
-                        optionTitle="Test title"
-                        tooltipText="This is a test"
-                    />
-                </FilterOption>
-            </FilterTabContainer>
+            <div hidden={selectedTab !== OptionsTab.Test}>
+                <TestOptions />
+            </div>
         </Box>
     )
-}
-
-export default FilterOptions
-
-interface FilterTabContainerProps {
-    children: JSX.Element
-    optionsTabValue: OptionsTab
-    selectedTab: OptionsTab
-}
-
-const FilterTabContainer = ({
-    children,
-    optionsTabValue,
-    selectedTab,
-}: FilterTabContainerProps) => {
-    return (
-        <div hidden={selectedTab !== optionsTabValue}>
-            <Stack
-                direction="column"
-                gap={8}
-            >
-                <Box
-                    display="flex"
-                    flexDirection="row"
-                    gap={1}
-                >
-                    {children}
-                </Box>
-            </Stack>
-        </div>
-    )
-}
-
-interface FilterOptionProps {
-    children: JSX.Element
-}
-
-const FilterOption = ({ children }: FilterOptionProps) => {
-    const [optionData, setOptionData] = useState([])
-
-    return <>{children}</>
 }
 
 interface FilterOptionHeaderProps {
@@ -77,7 +29,7 @@ interface FilterOptionHeaderProps {
     tooltipText?: string
 }
 
-const FilterOptionHeader = ({ optionTitle, tooltipText }: FilterOptionHeaderProps) => {
+export const FilterOptionHeader = ({ optionTitle, tooltipText }: FilterOptionHeaderProps) => {
     return (
         <>
             <Typography variant="h6">{optionTitle}</Typography>
@@ -93,3 +45,5 @@ const FilterOptionHeader = ({ optionTitle, tooltipText }: FilterOptionHeaderProp
         </>
     )
 }
+
+export default FilterOptions

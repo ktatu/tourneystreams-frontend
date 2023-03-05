@@ -1,6 +1,7 @@
 import { Box, Chip, Stack, Tooltip, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import InfoIcon from "@mui/icons-material/Info"
+import { FilterOptionHeader } from "./FilterOptions"
 
 const APEX_EVENT_REGIONS = ["International", "APAC-N", "APAC-S", "EMEA", "NA", "SA"]
 const APEX_TOURNAMENT_TIERS = ["S-Tier", "A-Tier", "B-Tier", "C-Tier", "D-Tier"]
@@ -31,7 +32,7 @@ const ApexLegendsOptions = () => {
                 direction="column"
                 gap={1}
             >
-                <Typography variant="h6">Regions</Typography>
+                <FilterOptionHeader optionTitle="Regions" />
                 <Box
                     display="flex"
                     flexDirection="row"
@@ -56,15 +57,10 @@ const ApexLegendsOptions = () => {
                     display="flex"
                     flexDirection="row"
                 >
-                    <Typography variant="h6">Tournament tiers</Typography>
-                    <Tooltip
-                        placement="right-end"
-                        color="info"
-                        title="Tournaments on Liquipedia are ranked based on factors such as level of
-                    competition and prize pool"
-                    >
-                        <InfoIcon fontSize="small" />
-                    </Tooltip>
+                    <FilterOptionHeader 
+                        optionTitle="Tournament tiers" 
+                        tooltipText="Tournaments on Liquipedia are ranked based on factors such as level of competition and prize pool" 
+                    />
                 </Box>
                 <Box
                     display="flex"

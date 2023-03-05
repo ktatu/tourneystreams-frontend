@@ -1,20 +1,31 @@
 import { Box, Chip, Stack, Tooltip, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import InfoIcon from "@mui/icons-material/Info"
+import useFilterOptions from "./useFilterOptions"
 
 const APEX_EVENT_REGIONS = ["International", "APAC-N", "APAC-S", "EMEA", "NA", "SA"]
+const APEX_EVENT_REGIONS_DEFAULT_SELECTED = [
+    "International",
+    "APAC-N",
+    "APAC-S",
+    "EMEA",
+    "NA",
+    "SA",
+]
 const APEX_TOURNAMENT_TIERS = ["S-Tier", "A-Tier", "B-Tier", "C-Tier", "D-Tier"]
 
 const TestOptions = () => {
-    const [selectedRegions, setSelectedRegions] = useState(["International", "APAC-N", "APAC-S"])
+    const regions = useFilterOptions("regions", APEX_EVENT_REGIONS_DEFAULT_SELECTED)
 
     // TODO: useEffect for setting initial values based on saved user options fetched from localStorage
 
     const handleRegionChange = (changedValue: string) => {
-        if (selectedRegions.includes(changedValue)) {
-            setSelectedRegions(selectedRegions.filter((region) => region !== changedValue))
+        if (regions.getAll().includes(changedValue)) {
+            if (regions.getAll().length > 1) {
+                regions.remove(changedValue)
+            }
         } else {
-            setSelectedRegions(selectedRegions.concat(changedValue))
+            regions.add(changedValue)
         }
     }
 
@@ -36,7 +47,7 @@ const TestOptions = () => {
                 >
                     {APEX_EVENT_REGIONS.map((region) => (
                         <Chip
-                            color={selectedRegions.includes(region) ? "primary" : "default"}
+                            color={regions.getAll().includes(region) ? "primary" : "default"}
                             key={region}
                             label={region}
                             onClick={() => handleRegionChange(region)}

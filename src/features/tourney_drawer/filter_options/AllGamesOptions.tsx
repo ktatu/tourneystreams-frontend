@@ -14,6 +14,7 @@ import ISO from "iso-639-1"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 import { useState, useEffect, useRef } from "react"
 import InfoIcon from "@mui/icons-material/Info"
+import { FilterOptionHeader } from "./FilterOptions"
 
 const AllGames = () => {
     const [languages, setLanguages] = useState([
@@ -61,14 +62,10 @@ const AllGames = () => {
                         display="flex"
                         flexDirection="row"
                     >
-                        <Typography variant="h6">Languages</Typography>
-                        <Tooltip
-                            color="info"
-                            placement="right-end"
-                            title="A tournament must include a stream in at least one of the selected languages"
-                        >
-                            <InfoIcon fontSize="small" />
-                        </Tooltip>
+                        <FilterOptionHeader
+                            optionTitle="Languages"
+                            tooltipText="A tournament must include a stream in at least one of the selected languages"
+                        />
                     </Box>
                     <Box>
                         <PopupMenu
@@ -114,14 +111,10 @@ const AllGames = () => {
                         display="flex"
                         flexDirection="row"
                     >
-                        <Typography variant="h6">Minimum viewership</Typography>
-                        <Tooltip
-                            color="info"
-                            placement="right-end"
-                            title="A live tournament's viewership from all of its streams must exceed this number for it to be shown"
-                        >
-                            <InfoIcon fontSize="small" />
-                        </Tooltip>
+                        <FilterOptionHeader
+                            optionTitle="Minimum viewership"
+                            tooltipText="A live tournament's viewership from all of its streams must exceed this number for it to be shown"
+                        />
                     </Box>
                     <TextField
                         sx={{ width: "125px" }}

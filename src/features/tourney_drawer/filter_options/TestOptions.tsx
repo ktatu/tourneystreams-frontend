@@ -15,18 +15,10 @@ const APEX_EVENT_REGIONS_DEFAULT_SELECTED = [
 const APEX_TOURNAMENT_TIERS = ["S-Tier", "A-Tier", "B-Tier", "C-Tier", "D-Tier"]
 
 const TestOptions = () => {
-    const regions = useFilterOptions("regions", APEX_EVENT_REGIONS_DEFAULT_SELECTED)
-
-    // TODO: useEffect for setting initial values based on saved user options fetched from localStorage
+    const regions = useFilterOptions("testRegions", APEX_EVENT_REGIONS_DEFAULT_SELECTED)
 
     const handleRegionChange = (changedValue: string) => {
-        if (regions.getAll().includes(changedValue)) {
-            if (regions.getAll().length > 1) {
-                regions.remove(changedValue)
-            }
-        } else {
-            regions.add(changedValue)
-        }
+        return null
     }
 
     const handleTierChange = () => {

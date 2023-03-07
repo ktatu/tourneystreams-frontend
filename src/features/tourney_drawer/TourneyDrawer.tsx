@@ -38,22 +38,14 @@ import ISO from "iso-639-1"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 
 import { TourneyInfo } from "../../types"
-import ContentContainer from "./ContentContainer"
+import FilterOptionsSelection from "./FilterOptionsSelection"
+import TourneyAccordionList from "./TourneyAccordionList"
 
 const TourneyDrawer = () => {
-    const [tourneyDetailsArray, setTourneyDetailsArray] = useState<Array<TourneyInfo>>([
-        { tourneyName: "BLAST.tv Paris Major 2023: European RMR A", game: "apexlegends" },
-    ])
-    const [tourneyNameFilter, setTourneyNameFilter] = useState("")
     const [selectedGames, setSelectedGames] = useState()
+    const [tourneyNameFilter, setTourneyNameFilter] = useState("")
 
     const [filterOptionsViewOpen, setFilterOptionsViewOpen] = useState(false)
-
-    //useEffect(() => {}, [tourneyNameFilter, selectedGames])
-
-    const detailsFilteredByName = tourneyDetailsArray.filter((details) =>
-        details.tourneyName.includes(tourneyNameFilter)
-    )
 
     const handleTourneyNameFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         startTransition(() => {
@@ -64,8 +56,6 @@ const TourneyDrawer = () => {
     const handleSettingsViewVisibility = () => {
         setFilterOptionsViewOpen(!filterOptionsViewOpen)
     }
-
-    //const handleSelectedTourneysChange = () => {}
 
     return (
         <Drawer
@@ -126,10 +116,11 @@ const TourneyDrawer = () => {
                 </Box>
             </Box>
             <Divider />
-            <ContentContainer
-                filterOptionsViewOpen={filterOptionsViewOpen}
-                tourneyInfoArray={detailsFilteredByName}
-            />
+            {filterOptionsViewOpen ? (
+                <FilterOptionsSelection />
+            ) : (
+                <TourneyAccordionList tourneyNameFilter={tourneyNameFilter} />
+            )}
         </Drawer>
     )
 }

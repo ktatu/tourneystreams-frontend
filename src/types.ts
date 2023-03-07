@@ -29,3 +29,8 @@ export interface TourneyInfo {
     tourneyName: string
     game: string
 }
+
+export enum Game {
+    ApexLegends = "Apex Legends",
+    Valorant = "Valorant",
+}

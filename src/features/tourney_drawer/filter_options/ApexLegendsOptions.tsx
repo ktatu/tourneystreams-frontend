@@ -2,26 +2,20 @@ import { Box, Chip, Stack, Tooltip, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import InfoIcon from "@mui/icons-material/Info"
 import { FilterOptionHeader } from "./FilterOptions"
+import useFilterOptions from "./useFilterOptions"
 
 const APEX_EVENT_REGIONS = ["International", "APAC-N", "APAC-S", "EMEA", "NA", "SA"]
-const APEX_TOURNAMENT_TIERS = ["S-Tier", "A-Tier", "B-Tier", "C-Tier", "D-Tier"]
+const APEX_EVENT_REGIONS_DEFAULTS = ["International", "APAC-N", "APAC-S", "EMEA", "NA", "SA"]
+
+const APEXLEGENDS_TOURNAMENT_TIERS = ["S-Tier", "A-Tier", "B-Tier", "C-Tier", "D-Tier"]
+const APEXLEGENDS_TOURNAMENTS_TIERS_DEFAULTS = ["S-Tier", "A-Tier", "B-Tier"]
 
 const ApexLegendsOptions = () => {
-    const [selectedRegions, setSelectedRegions] = useState(["International", "APAC-N", "APAC-S"])
-
-    // TODO: useEffect for setting initial values based on saved user options fetched from localStorage
-
-    const handleRegionChange = (changedValue: string) => {
-        if (selectedRegions.includes(changedValue)) {
-            setSelectedRegions(selectedRegions.filter((region) => region !== changedValue))
-        } else {
-            setSelectedRegions(selectedRegions.concat(changedValue))
-        }
-    }
-
-    const handleTierChange = () => {
-        console.log("tier change")
-    }
+    const regions = useFilterOptions("apexlegendsRegions", APEX_EVENT_REGIONS_DEFAULTS)
+    const tournamentTiers = useFilterOptions(
+        "apexlegendsTournamentTiers",
+        APEXLEGENDS_TOURNAMENTS_TIERS_DEFAULTS
+    )
 
     return (
         <Stack
@@ -30,7 +24,7 @@ const ApexLegendsOptions = () => {
         >
             <Stack
                 direction="column"
-                gap={1}
+                gap={2}
             >
                 <FilterOptionHeader optionTitle="Regions" />
                 <Box
@@ -40,10 +34,10 @@ const ApexLegendsOptions = () => {
                 >
                     {APEX_EVENT_REGIONS.map((region) => (
                         <Chip
-                            color={selectedRegions.includes(region) ? "primary" : "default"}
+                            color={regions.getAll().includes(region) ? "primary" : "default"}
                             key={region}
                             label={region}
-                            onClick={() => handleRegionChange(region)}
+                            onClick={() => regions.handleChange(region)}
                             variant="filled"
                         />
                     ))}
@@ -51,15 +45,15 @@ const ApexLegendsOptions = () => {
             </Stack>
             <Stack
                 direction="column"
-                gap={1}
+                gap={2}
             >
                 <Box
                     display="flex"
                     flexDirection="row"
                 >
-                    <FilterOptionHeader 
-                        optionTitle="Tournament tiers" 
-                        tooltipText="Tournaments on Liquipedia are ranked based on factors such as level of competition and prize pool" 
+                    <FilterOptionHeader
+                        optionTitle="Tournament tiers"
+                        tooltipText="Tournaments on Liquipedia are ranked based on factors such as level of competition and prize pool"
                     />
                 </Box>
                 <Box
@@ -68,11 +62,12 @@ const ApexLegendsOptions = () => {
                     flexWrap="wrap"
                     gap={1}
                 >
-                    {APEX_TOURNAMENT_TIERS.map((tier) => (
+                    {APEXLEGENDS_TOURNAMENT_TIERS.map((tier) => (
                         <Chip
+                            color={tournamentTiers.getAll().includes(tier) ? "primary" : "default"}
                             key={tier}
                             label={tier}
-                            onClick={handleTierChange}
+                            onClick={() => tournamentTiers.handleChange(tier)}
                         />
                     ))}
                 </Box>

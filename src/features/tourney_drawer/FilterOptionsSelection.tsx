@@ -7,36 +7,17 @@ import { TourneyInfo } from "../../types"
 import FilterOptions from "./filter_options/FilterOptions"
 import TourneyAccordion from "./TourneyAccordion"
 
-interface ContentContainerProps {
-    filterOptionsViewOpen: boolean
-    tourneyInfoArray: Array<TourneyInfo>
+export enum FilterOptionsTab {
+    All = "All",
+    ApexLegends = "Apex Legends",
+    Test = "Test",
 }
 
-export enum OptionsTab {
-    All = "all",
-    ApexLegends = "apexlegends",
-    Test = "test",
-}
+const FilterOptionsSelection = () => {
+    const [optionsTabValue, setOptionsTabValue] = useState<FilterOptionsTab>(FilterOptionsTab.All)
 
-const ContentContainer = ({ filterOptionsViewOpen, tourneyInfoArray }: ContentContainerProps) => {
-    const [optionsTabValue, setOptionsTabValue] = useState<OptionsTab>(OptionsTab.All)
-
-    const handleTabChange = (event: React.SyntheticEvent, newValue: OptionsTab) => {
+    const handleTabChange = (event: React.SyntheticEvent, newValue: FilterOptionsTab) => {
         setOptionsTabValue(newValue)
-    }
-
-    if (!filterOptionsViewOpen) {
-        return (
-            <Box className="drawer-container">
-                <Typography variant="h5">Today</Typography>
-                {tourneyInfoArray.map((tourney) => (
-                    <TourneyAccordion
-                        key={tourney.tourneyName}
-                        tourneyName={tourney.tourneyName}
-                    />
-                ))}
-            </Box>
-        )
     }
 
     return (
@@ -54,15 +35,15 @@ const ContentContainer = ({ filterOptionsViewOpen, tourneyInfoArray }: ContentCo
                         variant="scrollable"
                     >
                         <Tab
-                            value={OptionsTab.All}
+                            value={FilterOptionsTab.All}
                             label="All"
                         />
                         <Tab
-                            value={OptionsTab.ApexLegends}
+                            value={FilterOptionsTab.ApexLegends}
                             label="Apex Legends"
                         />
                         <Tab
-                            value={OptionsTab.Test}
+                            value={FilterOptionsTab.Test}
                             label="Test tab"
                         />
                     </Tabs>
@@ -73,4 +54,4 @@ const ContentContainer = ({ filterOptionsViewOpen, tourneyInfoArray }: ContentCo
     )
 }
 
-export default ContentContainer
+export default FilterOptionsSelection

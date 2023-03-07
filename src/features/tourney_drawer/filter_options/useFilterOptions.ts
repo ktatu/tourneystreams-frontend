@@ -21,19 +21,24 @@ const useFilterOptions = (optionType: string, defaultFilterValues: Array<string>
         localStorage.setItem(optionType, JSON.stringify(filterValues))
     }, [filterValues])
 
-    const add = (filterValue: string) => setFilterValues(filterValues.concat(filterValue))
-
-    const remove = (valueToRemove: string) =>
-        setFilterValues(filterValues.filter((savedValue) => savedValue !== valueToRemove))
-
     const getAll = () => {
         return filterValues
     }
 
+    const handleChange = (filterValue: string) =>
+        filterValues.includes(filterValue) ? remove(filterValue) : add(filterValue)
+
+    const add = (filterValue: string) => setFilterValues(filterValues.concat(filterValue))
+
+    const remove = (valueToRemove: string) => {
+        if (filterValues.length > 1) {
+            setFilterValues(filterValues.filter((savedValue) => savedValue !== valueToRemove))
+        }
+    }
+
     return {
-        add,
         getAll,
-        remove,
+        handleChange,
     }
 }
 

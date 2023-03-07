@@ -8,40 +8,49 @@ import {
     ListItemButton,
     ListItemText,
     Tooltip,
+    Button,
 } from "@mui/material"
 import PopupMenu, { PopupMenuClose } from "../../../shared_components/PopupMenu"
 import ISO from "iso-639-1"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, ChangeEvent } from "react"
 import InfoIcon from "@mui/icons-material/Info"
 import { FilterOptionHeader } from "./FilterOptions"
+import useFilterOptions from "./useFilterOptions"
+
+const ALLGAMES_LANGUAGES_DEFAULTS = ["English"]
+const MIN_VIEWERSHIP_DEFAULT = 100
 
 const AllGames = () => {
-    const [languages, setLanguages] = useState([
-        "English",
-        "Finnish",
-        "Swedish",
-        "German",
-        "French",
-        "Russian",
-    ])
-
-    useEffect(() => {
-        const sortedLanguages = languages.sort((languageA, languageB) =>
-            languageA < languageB ? -1 : 1
-        )
-        setLanguages(sortedLanguages)
-    }, [languages])
+    const languages = useFilterOptions("allgamesLanguages", ALLGAMES_LANGUAGES_DEFAULTS)
+    const [minViewership, setMinViewership] = useState<string>("")
 
     const popupMenuRef = useRef<PopupMenuClose>(null)
 
-    const handleLanguageChipDeletion = (languageToDelete: string) => {
-        setLanguages(languages.filter((language) => language !== languageToDelete))
-    }
+    useEffect(() => {
+        const savedViewershipValue = localStorage.getItem("allgamesMinViewership")
+
+        if (savedViewershipValue) {
+            setMinViewership(savedViewershipValue)
+        } else {
+            setMinViewership(MIN_VIEWERSHIP_DEFAULT.toString())
+        }
+    }, [])
 
     const handleLanguageSelection = (language: string) => {
-        setLanguages(languages.concat(language))
+        languages.handleChange(language)
         popupMenuRef.current?.handleClose()
+    }
+
+    const handleMinViewershipSubmit = () => {
+        const newMinValue = parseInt(minViewership)
+
+        if (newMinValue) {
+            localStorage.setItem("allgamesMinViewership", JSON.stringify(newMinValue))
+        } else {
+            localStorage.setItem("allgamesMinViewership", JSON.stringify(MIN_VIEWERSHIP_DEFAULT))
+            setMinViewership(MIN_VIEWERSHIP_DEFAULT.toString())
+        }
     }
 
     return (
@@ -51,7 +60,7 @@ const AllGames = () => {
         >
             <Stack
                 direction="column"
-                gap={1}
+                gap={2}
             >
                 <Box
                     display="flex"
@@ -75,7 +84,7 @@ const AllGames = () => {
                             menuContent={
                                 <LanguageSelectionMenuContent
                                     handleLanguageSelection={handleLanguageSelection}
-                                    selectedLanguages={languages}
+                                    selectedLanguages={languages.getAll()}
                                 />
                             }
                             ref={popupMenuRef}
@@ -88,19 +97,22 @@ const AllGames = () => {
                     flexWrap="wrap"
                     gap={1}
                 >
-                    {languages.map((language) => (
-                        <Chip
-                            color="primary"
-                            key={language}
-                            label={language}
-                            onDelete={() => handleLanguageChipDeletion(language)}
-                        />
-                    ))}
+                    {languages
+                        .getAll()
+                        .sort((languageA, languageB) => (languageA < languageB ? -1 : 1))
+                        .map((language) => (
+                            <Chip
+                                color="primary"
+                                key={language}
+                                label={language}
+                                onDelete={() => languages.handleChange(language)}
+                            />
+                        ))}
                 </Box>
             </Stack>
             <Stack
                 direction="column"
-                gap={1}
+                gap={2}
             >
                 <Stack
                     direction="row"
@@ -116,12 +128,26 @@ const AllGames = () => {
                             tooltipText="A live tournament's viewership from all of its streams must exceed this number for it to be shown"
                         />
                     </Box>
+                </Stack>
+                <Stack
+                    direction="row"
+                    gap={1}
+                >
                     <TextField
                         sx={{ width: "125px" }}
                         label="Enter a number"
                         InputLabelProps={{ shrink: true }}
+                        type="number"
+                        value={minViewership}
                         inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                        onChange={(event) => setMinViewership(event.target.value.toString())}
                     />
+                    <Button
+                        onClick={handleMinViewershipSubmit}
+                        variant="contained"
+                    >
+                        Save
+                    </Button>
                 </Stack>
             </Stack>
         </Stack>

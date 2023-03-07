@@ -29,8 +29,6 @@ const TourneyAccordion = ({ tourneyName }: TourneyAccordionProps) => {
         setAccordionExpanded(!accordionExpanded)
     }
 
-    console.log("render")
-
     return (
         <Accordion
             TransitionProps={{ unmountOnExit: true }}
@@ -112,10 +110,6 @@ const TourneyAccordion = ({ tourneyName }: TourneyAccordionProps) => {
                             channelName="imaqtpie"
                         />
                     </Box>
-                    <Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                    </Typography>
                 </Box>
             </AccordionDetails>
         </Accordion>

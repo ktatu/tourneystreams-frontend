@@ -1,5 +1,4 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import React, { useState } from "react"
 import {
     AppBar,
     Button,
@@ -11,25 +10,16 @@ import {
     Typography,
 } from "@mui/material"
 import useQueryParams from "./hooks/useQueryParams"
-import TourneyDrawer from "./features/tourney_drawer/TourneyDrawer"
+import TourneyDrawer from "./features/tourney_drawer"
 
-const Toolbar = () => {
+interface ToolbarProps {
+    addStream: (stream: string) => void
+}
+
+const Toolbar = ({ addStream }: ToolbarProps) => {
     const [togglePageValue, setTogglePageValue] = useState("/")
-    const navigate = useNavigate()
 
     const channels = useQueryParams("channel")
-
-    const handlePageNavigation = (event: React.MouseEvent<HTMLElement>, newPage: string | null) => {
-        if (newPage === null) {
-            return
-        }
-
-        setTogglePageValue(newPage)
-        navigate({
-            pathname: newPage,
-            search: `?${channels.getValuesAsQueryString()}`,
-        })
-    }
 
     return (
         <Box flexGrow={1}>
@@ -40,14 +30,13 @@ const Toolbar = () => {
                 <MuiToolbar sx={{ gap: "50px" }}>
                     <ToggleButtonGroup
                         value={togglePageValue}
-                        onChange={handlePageNavigation}
                         exclusive
                     >
                         <ToggleButton value="/">Show</ToggleButton>
                         <ToggleButton value="/streamview">Hide</ToggleButton>
                     </ToggleButtonGroup>
                     <Box flexGrow={1}>
-                        <AddStreamField />
+                        <AddStreamField addStream={addStream} />
                     </Box>
                     <Button color="inherit">Change color scheme</Button>
                 </MuiToolbar>
@@ -56,12 +45,13 @@ const Toolbar = () => {
     )
 }
 
-const AddStreamField = () => {
+const AddStreamField = ({ addStream }: { addStream: (stream: string) => void }) => {
     const [fieldValue, setFieldValue] = useState("")
     const channels = useQueryParams("channel")
 
     const handleAddStream = () => {
-        channels.addValue(fieldValue)
+        addStream(fieldValue)
+        //channels.addValue(fieldValue)
     }
 
     return (

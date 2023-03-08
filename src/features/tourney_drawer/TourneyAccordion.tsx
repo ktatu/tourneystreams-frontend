@@ -3,6 +3,7 @@ import {
     AccordionDetails,
     AccordionSummary,
     Box,
+    Stack,
     Switch,
     Tooltip,
     Typography,
@@ -10,7 +11,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import HomeIcon from "@mui/icons-material/Home"
 import TourneyStartTime from "../../TourneyStartTime"
-import { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
 import BoyIcon from "@mui/icons-material/Boy"
 
@@ -55,16 +56,27 @@ const TourneyAccordion = ({ tourneyName }: TourneyAccordionProps) => {
                     </Box>
                 </Box>
             </AccordionSummary>
-            <AccordionDetails>
+            <TourneyAccordionDetails />
+        </Accordion>
+    )
+}
+
+const TourneyAccordionDetails = () => {
+    return (
+        <AccordionDetails>
+            <Box
+                display="flex"
+                flexDirection="column"
+                gap={2}
+            >
                 <Box
                     display="flex"
-                    flexDirection="column"
-                    gap={2}
+                    flexDirection="row"
+                    gap={1}
                 >
-                    <Box
-                        display="flex"
-                        flexDirection="row"
-                        paddingRight={5}
+                    <Stack
+                        direction="row"
+                        gap={1}
                     >
                         <Box paddingRight="8px">
                             <img
@@ -81,38 +93,44 @@ const TourneyAccordion = ({ tourneyName }: TourneyAccordionProps) => {
                             />
                         </Box>
                         <HomeIcon sx={{ transform: "scale(1.5)", marginTop: "2px" }} />
-                        <Tooltip title="Total viewers">
-                            <Box
-                                alignItems="center"
-                                display="flex"
-                                flexDirection="row"
-                                gap={1}
-                                paddingLeft={6}
+                    </Stack>
+                    <Tooltip title="Total viewers">
+                        <Box
+                            alignItems="center"
+                            display="flex"
+                            flexDirection="row"
+                            gap={1}
+                            paddingLeft={6}
+                        >
+                            <Typography
+                                color="#F75750"
+                                variant="h6"
                             >
-                                <Typography
-                                    color="#F75750"
-                                    variant="h6"
-                                >
-                                    1000
-                                </Typography>
-                                <BoyIcon sx={{ color: "#F75750" }} />
-                            </Box>
-                        </Tooltip>
-                    </Box>
-                    <Box
-                        display="flex"
-                        flexDirection="column"
-                        gap={1}
+                                1000
+                            </Typography>
+                            <BoyIcon sx={{ color: "#F75750" }} />
+                        </Box>
+                    </Tooltip>
+                    <Typography
+                        paddingLeft={3}
+                        variant="h6"
                     >
-                        <Typography>Streams:</Typography>
-                        <AccordionStreamInfo
-                            channelLink="https://twitch.tv/imaqtpie"
-                            channelName="imaqtpie"
-                        />
-                    </Box>
+                        A-Tier
+                    </Typography>
                 </Box>
-            </AccordionDetails>
-        </Accordion>
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    gap={1}
+                >
+                    <Typography>Streams:</Typography>
+                    <AccordionStreamInfo
+                        channelLink="https://twitch.tv/imaqtpie"
+                        channelName="imaqtpie"
+                    />
+                </Box>
+            </Box>
+        </AccordionDetails>
     )
 }
 

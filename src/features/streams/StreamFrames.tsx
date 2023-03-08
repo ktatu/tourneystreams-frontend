@@ -1,11 +1,17 @@
-import React, { useRef } from "react"
+import React, { useContext, useRef } from "react"
 import { Box, Button, IconButton, Paper, Typography } from "@mui/material"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
-import useChannels from "../hooks/useChannels"
-import useQueryParams from "../hooks/useQueryParams"
+import useChannels from "../../hooks/useChannels"
+import useQueryParams from "../../hooks/useQueryParams"
+import StreamContext from "../../streamReducer"
 
-const Streams = () => {
+interface StreamFramesProps {
+    removeStream: (stream: string) => void
+    streams: Array<string>
+}
+
+const StreamFrames = ({ removeStream, streams }: StreamFramesProps) => {
     const channels = useQueryParams("channel")
 
     const getChannels = () => {
@@ -23,23 +29,23 @@ const Streams = () => {
             paddingLeft={5}
             gap="5px"
         >
-            {getChannels().map((channel: string) => (
-                <StreamContainer
+            {streams.map((channel: string) => (
+                <StreamFrameContainer
                     key={channel}
                     channel={channel}
-                    removeChannel={removeChannel}
+                    removeChannel={removeStream}
                 />
             ))}
         </Box>
     )
 }
 
-interface StreamContainerProps {
+interface StreamFrameContainerProps {
     channel: string
     removeChannel: (channel: string) => void
 }
 
-const StreamContainer = ({ channel, removeChannel }: StreamContainerProps) => {
+const StreamFrameContainer = ({ channel, removeChannel }: StreamFrameContainerProps) => {
     const iframeRef = useRef<HTMLIFrameElement>(null)
 
     const handleStreamReload = () => {
@@ -62,8 +68,8 @@ const StreamContainer = ({ channel, removeChannel }: StreamContainerProps) => {
             <Box
                 display="flex"
                 flexDirection="column"
-                maxWidth="520px"
-                height="340px"
+                maxWidth="500px"
+                height="300px"
             >
                 <Box
                     display="flex"
@@ -90,7 +96,7 @@ const StreamContainer = ({ channel, removeChannel }: StreamContainerProps) => {
                         src={`https://player.twitch.tv/?channel=${channel}&muted=true&parent=localhost`}
                         style={{ border: 0 }}
                         height="300px"
-                        width="520px"
+                        width="500px"
                         title="stream"
                         allowFullScreen
                     ></iframe>
@@ -100,4 +106,4 @@ const StreamContainer = ({ channel, removeChannel }: StreamContainerProps) => {
     )
 }
 
-export default Streams
+export default StreamFrames

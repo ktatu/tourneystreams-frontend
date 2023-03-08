@@ -1,7 +1,6 @@
 import { useMediaQuery } from "@mui/material"
 import { createTheme, ThemeOptions } from "@mui/material/styles"
 import { useMemo } from "react"
-import User from "./user"
 
 const theme = (darkMode: boolean) => {
     const lightTheme: ThemeOptions = {

@@ -1,26 +1,26 @@
-import { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { Box, MenuList, MenuItem, Paper } from "@mui/material"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
-import PopupMenu, { PopupMenuClose } from "./PopupMenu"
-import useQueryParams from "../hooks/useQueryParams"
+import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
+import useQueryParams from "../../hooks/useQueryParams"
 
 type ChangeChannelHandler = (newChannel: string) => void
 
-const Chats = () => {
+const Chats = ({ streams }: { streams: Array<string> }) => {
     const [selectedChannel, setSelectedChannel] = useState<string>("")
 
-    const useChannels = useQueryParams("channel")
-    const channels = useChannels.getValuesAsArray()
+    //const useChannels = useQueryParams("channel")
 
     useEffect(() => {
-        if (!channels.includes(selectedChannel)) {
-            setSelectedChannel(channels[0] || "")
+        if (!streams.includes(selectedChannel)) {
+            setSelectedChannel(streams[0] || "")
         }
-    }, [channels])
+    }, [streams])
 
+    /*
     const getChannels = () => {
         return useChannels.getValuesAsArray()
-    }
+    }*/
 
     const handleChatChange: ChangeChannelHandler = (newChannel: string): void => {
         setSelectedChannel(newChannel)
@@ -48,7 +48,7 @@ const Chats = () => {
                     }}
                     menuContent={
                         <ChatMenuContent
-                            channels={channels}
+                            channels={streams}
                             selectedChannel={selectedChannel}
                             handleClick={handleChatChange}
                         />

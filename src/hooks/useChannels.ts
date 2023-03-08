@@ -1,3 +1,4 @@
+/*
 import useQueryParams from "./useQueryParams_old"
 
 const useChannels = () => {
@@ -36,3 +37,5 @@ const isValidChannelName = (channel: string) => {
 }
 
 export default useChannels
+*/
+export default {}

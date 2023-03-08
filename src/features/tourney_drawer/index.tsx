@@ -24,7 +24,7 @@ import SettingsIcon from "@mui/icons-material/Settings"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import useCheckbox from "../../hooks/useCheckbox"
-import PopupMenu, { PopupMenuClose } from "../../shared_components/PopupMenu"
+import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
 
 import CloseIcon from "@mui/icons-material/Close"
 
@@ -32,7 +32,7 @@ import TourneyStartTime from "../../TourneyStartTime"
 
 import "./TourneyDrawer.css"
 import TourneyAccordion from "./TourneyAccordion"
-import { startTransition, useEffect, useRef, useState } from "react"
+import React, { startTransition, useEffect, useRef, useState } from "react"
 
 import ISO from "iso-639-1"
 import { FixedSizeList, ListChildComponentProps } from "react-window"

@@ -1,5 +1,4 @@
-import { useSearchParams } from "react-router-dom"
-
+/*
 const useQueryParams = (key: string) => {
     const [searchParams, setSearchParams] = useSearchParams()
 
@@ -40,6 +39,17 @@ const useQueryParams = (key: string) => {
         getValuesAsArray,
         getValuesAsQueryString,
         removeValue,
+    }
+}
+
+export default useQueryParams*/
+
+const useQueryParams = (key: string) => {
+    return {
+        addValue: (key: string) => null,
+        getValuesAsArray: () => ["imaqtpie"],
+        getValuesAsQueryString: () => null,
+        removeValue: (key: string) => null,
     }
 }
 

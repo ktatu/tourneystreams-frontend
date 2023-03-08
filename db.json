@@ -1,72 +1,21 @@
 {
-    "tourneylist": [
-        {
-            "id": 1,
-            "game": "Apex Legends",
-            "name": "tourney 1",
-            "dateTime": "2023-02-10T15:00:00Z",
-            "liquipediaPage": "https://example.com",
-            "homePage": "https://example.com"
-        },
-        {
-            "id": 2,
-            "game": "StarCraft 2",
-            "name": "tourney 2",
-            "dateTime": "2023-02-11T16:00:00Z",
-            "liquipediaPage": "https://example.com",
-            "homePage": "https://example.com"
+    "tourneyInfo": {
+        "2023-03-06": {
+            "ApexLegends": [
+                { "id": 1, "time": "19:00", "name": "Apex Legends Weekly Tournament 1" }
+            ],
+            "Test": []
         }
-    ],
-    "tourneydetails": [
-        {
-            "id": 1,
-            "tourneyInfo": {
-                "name": "tourney 1",
-                "dateTime": "2023-02-10T15:00:00Z"
+    },
+
+    "tourneyDetails": {
+        "1": {
+            "webLinks": {
+                "homepage": "https://google.com",
+                "liquipedia": "https://liquipedia.net",
+                "twitter": "https://twitter.com"
             },
-            "participants": [
-                {
-                    "teamName": "imaginary_team1",
-                    "players": [
-                        { "name": "player1" },
-                        { "name": "player2" },
-                        { "name": "player3" }
-                    ]
-                },
-                {
-                    "teamName": "imaginary_team2",
-                    "players": [
-                        { "name": "player4" },
-                        { "name": "player5" },
-                        { "name": "player6" }
-                    ]
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "tourneyInfo": {
-                "name": "TEST TOURNAMENT",
-                "dateTime": "2023-02-10T16:00:00Z"
-            },
-            "participants": [
-                {
-                    "teamName": "imaginary_team1",
-                    "players": [
-                        { "name": "player1" },
-                        { "name": "player2" },
-                        { "name": "player3" }
-                    ]
-                },
-                {
-                    "teamName": "imaginary_team2",
-                    "players": [
-                        { "name": "player4" },
-                        { "name": "player5" },
-                        { "name": "player6" }
-                    ]
-                }
-            ]
+            "officialStreams": "imaqtpie"
         }
-    ]
+    }
 }

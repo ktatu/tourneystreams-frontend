@@ -29,14 +29,12 @@ const App = () => {
     return (
         <ThemeProvider theme={theme(prefersDarkMode)}>
             <CssBaseline />
-            <div>
-                <Toolbar addStream={handleAddStream} />
-                <TourneyDrawer />
-                <Streams
-                    streams={streams}
-                    removeStream={handleRemoveStream}
-                />
-            </div>
+            <Toolbar addStream={handleAddStream} />
+            <TourneyDrawer />
+            <Streams
+                streams={streams}
+                removeStream={handleRemoveStream}
+            />
         </ThemeProvider>
     )
 }

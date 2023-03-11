@@ -8,7 +8,9 @@ export interface TourneyInfo {
     date: string
     game: Game
     name: string
+    streams: Array<StreamInfo>
     time: string
+    webLinks: Array<WebLink>
 }
 
 export enum WebLink {
@@ -17,13 +19,7 @@ export enum WebLink {
     Twitter,
 }
 
-export interface TourneyDetails {
-    id: number
-    streams: Array<Stream>
-    webLinks: Array<WebLink>
-}
-
-export interface Stream {
+export interface StreamInfo {
     channelLink: string
     channel: string
 }

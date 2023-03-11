@@ -4,7 +4,7 @@ import { FixedSizeList, ListChildComponentProps } from "react-window"
 import useCheckbox from "../../hooks/useCheckbox"
 import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
 import FilterOptions from "./filter_options/FilterOptions"
-import TourneyAccordion from "./TourneyAccordion"
+import TourneyAccordion from "./tourney_accordion/TourneyAccordion"
 
 export enum FilterOptionsTab {
     All = "All",

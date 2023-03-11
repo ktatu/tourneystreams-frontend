@@ -5,7 +5,16 @@
             "date": "2023-3-10",
             "game": "Apex Legends",
             "name": "Weekly tourney 1",
-            "time": "19:00"
+            "time": "19:00",
+            "webLinks": {
+                "homepage": "https://google.com",
+                "liquipedia": "https://liquipedia.net",
+                "twitter": "https://twitter.com"
+            },
+            "streams": [
+                { "channelLink": "https://twitch.tv/imaqtpie", "channel": "imaqtpie" },
+                { "channelLink": "https://twitch.tv/shiphtur", "channel": "Shiphtur" }
+            ]
         }
     ],
 

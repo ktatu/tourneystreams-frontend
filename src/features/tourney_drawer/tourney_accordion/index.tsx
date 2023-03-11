@@ -3,13 +3,13 @@ import { useState } from "react"
 //import { TourneyInfo } from "../../types"
 import TourneyAccordion from "./TourneyAccordion"
 import { useQuery } from "react-query"
-import { getTourneyInfos } from "./requests"
-import "./TourneyDrawer.css"
+import { getTourneyInfos } from "../requests"
+import "../TourneyDrawer.css"
 import axios from "axios"
-import { TourneyInfo } from "./types"
-import useGameFilter from "./useGameFilter"
+import { TourneyInfo } from "../types"
+import useGameFilter from "../useGameFilter"
 
-const TourneyAccordionList = ({ tourneyNameFilter }: { tourneyNameFilter: string }) => {
+const TourneyAccordions = ({ tourneyNameFilter }: { tourneyNameFilter: string }) => {
     /*const [tourneyInfoArray, setTourneyInfoArray] = useState<Array<TourneyInfo>>([
         { tourneyName: "BLAST.tv Paris Major 2023: European RMR A", game: "apexlegends" },
     ])*/
@@ -111,4 +111,4 @@ const TourneyAccordionSkeletonGroup = () => {
     )
 }
 
-export default TourneyAccordionList
+export default TourneyAccordions

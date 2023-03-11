@@ -1,28 +1,18 @@
 import {
     Box,
-    Button,
     Checkbox,
-    Chip,
     Divider,
     Drawer,
     IconButton,
     Input,
-    ListItem,
-    ListItemButton,
     ListItemIcon,
     ListItemText,
     MenuItem,
     MenuList,
-    Stack,
-    Tab,
-    Tabs,
-    TextField,
     Toolbar,
     Typography,
 } from "@mui/material"
 import SettingsIcon from "@mui/icons-material/Settings"
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined"
 import useCheckbox from "../../hooks/useCheckbox"
 import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
 
@@ -31,14 +21,14 @@ import CloseIcon from "@mui/icons-material/Close"
 import TourneyStartTime from "./TourneyStartTime"
 
 import "./TourneyDrawer.css"
-import TourneyAccordion from "./TourneyAccordion"
+import TourneyAccordion from "./tourney_accordion/TourneyAccordion"
 import React, { startTransition, useEffect, useRef, useState } from "react"
 
 import ISO from "iso-639-1"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 
 import FilterOptionsSelection from "./FilterOptionsSelection"
-import TourneyAccordionList from "./TourneyAccordionList"
+import TourneyAccordions from "./tourney_accordion"
 
 const TourneyDrawer = () => {
     const [selectedGames, setSelectedGames] = useState()
@@ -118,7 +108,7 @@ const TourneyDrawer = () => {
             {filterOptionsViewOpen ? (
                 <FilterOptionsSelection />
             ) : (
-                <TourneyAccordionList tourneyNameFilter={tourneyNameFilter} />
+                <TourneyAccordions tourneyNameFilter={tourneyNameFilter} />
             )}
         </Drawer>
     )

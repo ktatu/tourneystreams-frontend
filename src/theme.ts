@@ -23,7 +23,7 @@ const theme = (darkMode: boolean) => {
         palette: {
             mode: "dark",
             primary: {
-                main: "#3f51b5",
+                main: "#9851d6",
             },
             secondary: {
                 main: "#f50057",

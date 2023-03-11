@@ -10,20 +10,23 @@ import {
 } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import HomeIcon from "@mui/icons-material/Home"
-import TourneyStartTime from "../../TourneyStartTime"
-import React, { useEffect, useRef, useState } from "react"
+import TourneyStartTime from "./TourneyStartTime"
+import { useEffect, useRef, useState } from "react"
+import axios from "axios"
 
 import BoyIcon from "@mui/icons-material/Boy"
 
 import useQueryParams from "../../hooks/useQueryParams"
 
 import "/node_modules/flag-icons/css/flag-icons.min.css"
+import { TourneyDetails, TourneyInfo } from "./types"
+import { useQuery } from "react-query"
 
 interface TourneyAccordionProps {
-    tourneyName: string
+    tourneyInfo: TourneyInfo
 }
 
-const TourneyAccordion = ({ tourneyName }: TourneyAccordionProps) => {
+const TourneyAccordion = ({ tourneyInfo }: TourneyAccordionProps) => {
     const [accordionExpanded, setAccordionExpanded] = useState(false)
 
     const handleAccordionExpandedStatus = () => {
@@ -38,30 +41,45 @@ const TourneyAccordion = ({ tourneyName }: TourneyAccordionProps) => {
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Box
                     display="flex"
+                    flexGrow={1}
                     flexDirection="row"
                     gap={3}
-                    paddingRight={2}
                 >
                     <AccordionTitle
-                        tourneyName={tourneyName}
+                        tourneyName={tourneyInfo.name}
                         accordionExpanded={accordionExpanded}
                     />
                     <Box flexGrow={1} />
-                    <Box
-                        display="flex"
-                        alignItems="center"
-                        gap={2}
-                    >
+                    <Box paddingRight={2}>
                         <TourneyStartTime startTimeAsDate={new Date(Date.now())} />
                     </Box>
                 </Box>
             </AccordionSummary>
-            <TourneyAccordionDetails />
+            <TourneyAccordionDetails tourneyDetailsId={tourneyInfo.id} />
         </Accordion>
     )
 }
 
-const TourneyAccordionDetails = () => {
+interface TourneyAccordionDetailsProps {
+    tourneyDetailsId: number
+}
+
+const TourneyAccordionDetails = ({ tourneyDetailsId }: TourneyAccordionDetailsProps) => {
+    const { isLoading, isError, data, error } = useQuery<TourneyDetails>(
+        "tourneyDetails",
+        async () => {
+            const res = await axios.get<TourneyDetails>(
+                `http://localhost:3001/tourneyDetails/${tourneyDetailsId}`
+            )
+
+            if (res.data === undefined) {
+                throw new Error("Error loading tournament details")
+            }
+
+            return res.data
+        }
+    )
+
     return (
         <AccordionDetails>
             <Box

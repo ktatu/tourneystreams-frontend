@@ -28,7 +28,7 @@ import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
 
 import CloseIcon from "@mui/icons-material/Close"
 
-import TourneyStartTime from "../../TourneyStartTime"
+import TourneyStartTime from "./TourneyStartTime"
 
 import "./TourneyDrawer.css"
 import TourneyAccordion from "./TourneyAccordion"
@@ -37,7 +37,6 @@ import React, { startTransition, useEffect, useRef, useState } from "react"
 import ISO from "iso-639-1"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 
-import { TourneyInfo } from "../../types"
 import FilterOptionsSelection from "./FilterOptionsSelection"
 import TourneyAccordionList from "./TourneyAccordionList"
 

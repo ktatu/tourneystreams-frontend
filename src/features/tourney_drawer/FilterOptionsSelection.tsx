@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
 import useCheckbox from "../../hooks/useCheckbox"
 import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
-import { TourneyInfo } from "../../types"
 import FilterOptions from "./filter_options/FilterOptions"
 import TourneyAccordion from "./TourneyAccordion"
 

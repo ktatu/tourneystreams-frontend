@@ -34,3 +34,6 @@
  5.3  3h Drawer-komponentin refaktorointia
  7.3  3h Frontendin rakenteen refaktorointi, react-router poisto
  8.3  1h react-queryn käyttöönotto
+
+
+76,5 8.3

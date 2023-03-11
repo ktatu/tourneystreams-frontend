@@ -25,12 +25,16 @@ export interface MouseEventHandler {
     (event: React.MouseEvent<HTMLElement>): void
 }
 
-export interface TourneyInfo {
-    tourneyName: string
-    game: string
+interface TourneyGeneralInfo {
+    id: number
+    time: string
+    name: string
 }
 
-export enum Game {
-    ApexLegends = "Apex Legends",
-    Valorant = "Valorant",
+interface TourneyDate {
+    [game: string]: TourneyGeneralInfo[]
+}
+
+interface TourneyInfos {
+    [date: string]: TourneyDate
 }

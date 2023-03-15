@@ -35,6 +35,7 @@
  7.3  3h Frontendin rakenteen refaktorointi, react-router poisto
  8.3  1h react-queryn käyttöönotto
 10.3  1h Lisää react-queryä
-11.3  1h TourneyAccordionin refaktorointia
+11.3  1h TourneyAccordionin refaktorointia ja kehitystä
+15.3  2h Turnauksen streamien listaus
 
 76,5 8.3

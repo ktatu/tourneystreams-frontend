@@ -42,7 +42,7 @@ const TourneyAccordion = ({ tourneyInfo }: TourneyAccordionProps) => {
                 </Box>
             </AccordionSummary>
             <TourneyAccordionDetails
-                streams={tourneyInfo.streams}
+                streamInfoArray={tourneyInfo.streams}
                 webLinks={tourneyInfo.webLinks}
             />
         </Accordion>

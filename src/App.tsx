@@ -6,33 +6,30 @@ import theme from "./theme"
 import CssBaseline from "@mui/material/CssBaseline"
 import { StreamContextProvider } from "./streamReducer"
 
-import { Box } from "@mui/material"
 import TourneyDrawer from "./features/tourney_drawer"
-import StreamFrames from "./features/streams/StreamFrames"
-import Chats from "./features/streams/Chats"
 import Toolbar from "./Toolbar"
 import Streams from "./features/streams"
 
 const App = () => {
-    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
+    //const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
     // TODO: moving stream state handling to useReducer + context
-    const [streams, setStreams] = useState<Array<string>>([])
+    const [liveStreams, setLiveStreams] = useState<Array<string>>([])
 
     const handleAddStream = (stream: string) => {
-        setStreams(streams.concat(stream))
+        setLiveStreams(liveStreams.concat(stream))
     }
 
     const handleRemoveStream = (stream: string) => {
-        setStreams(streams.filter((streamInState) => streamInState !== stream))
+        setLiveStreams(liveStreams.filter((streamInState) => streamInState !== stream))
     }
 
     return (
-        <ThemeProvider theme={theme(prefersDarkMode)}>
+        <ThemeProvider theme={theme}>
             <CssBaseline />
             <Toolbar addStream={handleAddStream} />
             <TourneyDrawer />
             <Streams
-                streams={streams}
+                streams={liveStreams}
                 removeStream={handleRemoveStream}
             />
         </ThemeProvider>

@@ -1,17 +1,15 @@
-import { AccordionDetails, Box, Skeleton, Stack, Tooltip, Typography } from "@mui/material"
-import axios from "axios"
-import { useQuery } from "react-query"
-import { StreamInfo, WebLink } from "../types"
+import { AccordionDetails, Box, IconButton, Link, Tooltip, Typography } from "@mui/material"
+import { StreamInfo, WebLinks } from "../types"
 import HomeIcon from "@mui/icons-material/Home"
 import BoyIcon from "@mui/icons-material/Boy"
-import AccordionStreamInfo from "./AccordionStreamInfo"
+import StreamInfoList from "./StreamInfoList"
 
 interface TourneyAccordionDetailsProps {
-    streams: Array<StreamInfo>
-    webLinks: Array<WebLink>
+    streamInfoArray: Array<StreamInfo>
+    webLinks: WebLinks
 }
 
-const TourneyAccordionDetails = ({ streams, webLinks }: TourneyAccordionDetailsProps) => {
+const TourneyAccordionDetails = ({ streamInfoArray, webLinks }: TourneyAccordionDetailsProps) => {
     return (
         <AccordionDetails>
             <Box
@@ -20,48 +18,37 @@ const TourneyAccordionDetails = ({ streams, webLinks }: TourneyAccordionDetailsP
                 gap={2}
             >
                 <Box
+                    alignItems="center"
                     display="flex"
                     flexDirection="row"
                     gap={1}
                 >
-                    <Stack
-                        direction="row"
-                        gap={1}
+                    <WebLinksWithIcons webLinks={webLinks} />
+                    <Box
+                        display="flex"
+                        alignSelf="flex-end"
                     >
-                        <Box paddingRight="8px">
-                            <img
-                                src={require("../assets/liquipedia.png")}
-                                width={32}
-                                height={26}
-                            />
-                        </Box>
-                        <Box paddingRight="10px">
-                            <img
-                                src={require("../assets/twitter.png")}
-                                width={32}
-                                height={26}
-                            />
-                        </Box>
-                        <HomeIcon sx={{ transform: "scale(1.5)", marginTop: "2px" }} />
-                    </Stack>
-                    <Tooltip title="Total viewers">
-                        <Box
-                            alignItems="center"
-                            display="flex"
-                            flexDirection="row"
-                            gap={1}
-                            paddingLeft={6}
-                        >
-                            <Typography
-                                color="#F75750"
-                                variant="h6"
+                        <Tooltip title="Total viewers">
+                            <Box
+                                alignItems="center"
+                                display="flex"
+                                flexDirection="row"
+                                gap={1}
+                                paddingLeft={6}
                             >
-                                1000
-                            </Typography>
-                            <BoyIcon sx={{ color: "#F75750" }} />
-                        </Box>
-                    </Tooltip>
+                                <Typography
+                                    color="#F75750"
+                                    variant="h6"
+                                >
+                                    1000
+                                </Typography>
+                                <BoyIcon sx={{ color: "#F75750" }} />
+                            </Box>
+                        </Tooltip>
+                    </Box>
                     <Typography
+                        display="flex"
+                        alignSelf="flex-end"
                         paddingLeft={3}
                         variant="h6"
                     >
@@ -71,18 +58,65 @@ const TourneyAccordionDetails = ({ streams, webLinks }: TourneyAccordionDetailsP
                 <Box
                     display="flex"
                     flexDirection="column"
-                    gap={1}
+                    gap={0}
                 >
                     <span>Streams:</span>
-                    {streams.map((stream) => (
-                        <AccordionStreamInfo
-                            key={stream.channel}
-                            streamInfo={stream}
-                        />
-                    ))}
+                    <StreamInfoList streamInfoArray={streamInfoArray} />
                 </Box>
             </Box>
         </AccordionDetails>
+    )
+}
+
+const WebLinksWithIcons = ({ webLinks }: { webLinks: WebLinks }) => {
+    const imageDimensions = { width: 32, height: 26 }
+
+    return (
+        <Box
+            alignItems="center"
+            display="flex"
+            flexDirection="row"
+        >
+            {webLinks.liquipedia ? (
+                <Link
+                    href={webLinks.liquipedia}
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <IconButton>
+                        <img
+                            src={require("../assets/liquipedia.png")}
+                            style={imageDimensions}
+                        />
+                    </IconButton>
+                </Link>
+            ) : null}
+            {webLinks.twitter ? (
+                <Link
+                    href={webLinks.twitter}
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <IconButton>
+                        <img
+                            src={require("../assets/twitter.png")}
+                            style={imageDimensions}
+                        />
+                    </IconButton>
+                </Link>
+            ) : null}
+            {webLinks.liquipedia ? (
+                <Link
+                    href={webLinks.liquipedia}
+                    rel="noreferrer"
+                    target="_blank"
+                >
+                    <IconButton>
+                        <HomeIcon sx={{ transform: "scale(1.5)" }} />
+                    </IconButton>
+                </Link>
+            ) : null}
+        </Box>
     )
 }
 

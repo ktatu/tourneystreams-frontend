@@ -11,14 +11,6 @@ import TestOptions from "./TestOptions"
 const FilterOptions = ({ selectedTab }: { selectedTab: FilterOptionsTab }) => {
     const [filterValuesHaveChanged, setFilterValuesHaveChanged] = useState(false)
 
-    useEffect(() => {
-        return () => {
-            // filterValuesHaveChanged? Send updated values to backend
-            // pass handler function to all filter-option tabs
-            // fire when any filter value in tab gets changed from initial values (and is still changed on unmount)
-        }
-    }, [])
-
     return (
         <Box className="drawer-container">
             <div hidden={selectedTab !== FilterOptionsTab.All}>

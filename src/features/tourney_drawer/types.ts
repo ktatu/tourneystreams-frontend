@@ -10,13 +10,13 @@ export interface TourneyInfo {
     name: string
     streams: Array<StreamInfo>
     time: string
-    webLinks: Array<WebLink>
+    webLinks: WebLinks
 }
 
-export enum WebLink {
-    Homepage,
-    Liquipedia,
-    Twitter,
+export interface WebLinks {
+    liquipedia?: string
+    twitter?: string
+    homePage?: string
 }
 
 export interface StreamInfo {

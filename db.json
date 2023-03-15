@@ -12,8 +12,16 @@
                 "twitter": "https://twitter.com"
             },
             "streams": [
-                { "channelLink": "https://twitch.tv/imaqtpie", "channel": "imaqtpie" },
-                { "channelLink": "https://twitch.tv/shiphtur", "channel": "Shiphtur" }
+                {
+                    "channelLink": "https://twitch.tv/imaqtpie",
+                    "channel": "imaqtpieaaaa"
+                },
+                { "channelLink": "https://twitch.tv/shiphtur", "channel": "Shiphtur" },
+                { "channelLink": "https://twitch.tv/nohandsgamer", "channel": "nohandsgamer" },
+                {
+                    "channelLink": "https://twitch.tv/thijs",
+                    "channel": "thijs"
+                }
             ]
         }
     ],
@@ -26,7 +34,9 @@
                 "liquipedia": "https://liquipedia.net",
                 "twitter": "https://twitter.com"
             },
-            "streams": [{ "channelLink": "https://twitch.tv/imaqtpie", "channel": "imaqtpie" }]
+            "streams": [
+                { "channelLink": "https://twitch.tv/imaqtpie", "channel": "imaqtpieaaaaaaaaaa" }
+            ]
         }
     ]
 }

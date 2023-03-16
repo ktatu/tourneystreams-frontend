@@ -27,7 +27,7 @@ const StreamFrames = ({ removeStream, streams }: StreamFramesProps) => {
             flexDirection="row"
             flexWrap="wrap"
             paddingLeft={5}
-            gap="5px"
+            gap={1}
         >
             {streams.map((channel: string) => (
                 <StreamFrameContainer
@@ -61,15 +61,12 @@ const StreamFrameContainer = ({ channel, removeChannel }: StreamFrameContainerPr
     }
 
     return (
-        <Paper
-            elevation={10}
-            sx={{ height: "max-content" }}
-        >
+        <Paper elevation={10}>
             <Box
                 display="flex"
                 flexDirection="column"
                 maxWidth="500px"
-                height="300px"
+                maxHeight="340px"
             >
                 <Box
                     display="flex"

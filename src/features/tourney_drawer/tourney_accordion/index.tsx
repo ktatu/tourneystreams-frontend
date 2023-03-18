@@ -9,7 +9,11 @@ import axios from "axios"
 import { TourneyInfo } from "../types"
 import useGameFilter from "../useGameFilter"
 
-const TourneyAccordions = ({ tourneyNameFilter }: { tourneyNameFilter: string }) => {
+interface TourneyAccordionsProps {
+    tourneyNameFilter: string
+}
+
+const TourneyAccordions = ({ tourneyNameFilter }: TourneyAccordionsProps) => {
     /*const [tourneyInfoArray, setTourneyInfoArray] = useState<Array<TourneyInfo>>([
         { tourneyName: "BLAST.tv Paris Major 2023: European RMR A", game: "apexlegends" },
     ])*/
@@ -25,18 +29,6 @@ const TourneyAccordions = ({ tourneyNameFilter }: { tourneyNameFilter: string })
 
         return tourneyInfoFilteredByGame
     })
-
-    /*
-    const tourneysFilteredByName = tourneyInfoArray.filter((tourney) =>
-        tourney.tourneyName.includes(tourneyNameFilter)
-    )*/
-
-    // Ehkä ajatellaan liian monimutkaisesti
-    // Kokeillaan rakennetta flat-rakennetta tietokannassa: { id, game, date, time, name }
-
-    // Miten toimii: haetaan päivämäärän perusteella tämän ja muutaman seuraavan päivän turnaukset
-    // Filtteröidään pelin mukaan frontendissä
-    // Kun scrollataan alemmas AccordionListissä, niin haetaan lisää tulevien päivien pelejä jne.
 
     if (isLoading) {
         return (

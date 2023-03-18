@@ -3,11 +3,13 @@ import { Box, MenuList, MenuItem, Paper } from "@mui/material"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
 import useQueryParams from "../../hooks/useQueryParams"
+import { useStreamState } from "../../commons/streamReducer"
 
 type ChangeChannelHandler = (newChannel: string) => void
 
-const Chats = ({ streams }: { streams: Array<string> }) => {
+const Chats = () => {
     const [selectedChannel, setSelectedChannel] = useState<string>("")
+    const [{ streams }] = useStreamState()
 
     //const useChannels = useQueryParams("channel")
 

@@ -24,7 +24,11 @@ jos Listiin on asetettu dense tai Listiin tai ListItemiin on asetettu disablePad
 ==> väännetään vipua, niin alapuolella olevat listan jäsenet välkkyvät
 */
 
-const StreamInfoList = ({ streamInfoArray }: { streamInfoArray: StreamInfo[] }) => {
+interface StreamInfoListProps {
+    streamInfoArray: StreamInfo[]
+}
+
+const StreamInfoList = ({ streamInfoArray }: StreamInfoListProps) => {
     /*
     const [toggledStreams, setToggledStreams] = useState<Array<string>>([])
 
@@ -36,13 +40,11 @@ const StreamInfoList = ({ streamInfoArray }: { streamInfoArray: StreamInfo[] }) 
         }
     }*/
 
-    console.log("stream info list")
-
     return (
         <Box>
             <List dense>
                 {streamInfoArray.map((stream) => (
-                    <StreamInfoRow2
+                    <StreamInfoRow
                         key={stream.channel}
                         streamInfo={stream}
                     />
@@ -56,34 +58,9 @@ interface StreamInfoRowProps {
     streamInfo: StreamInfo
 }
 
-const StreamInfoRow = ({ streamInfo }: StreamInfoRowProps) => {
-    console.log("no memo render ", streamInfo.channel)
-    return (
-        <ListItem
-            sx={{ padding: "1px" }}
-            key={streamInfo.channel}
-        >
-            <Box paddingRight={2}>
-                <Tooltip title="Finnish">
-                    <span
-                        id="country-flag"
-                        className="fi fi-fi"
-                    />
-                </Tooltip>
-            </Box>
-            <ListItemText>{streamInfo.channel}</ListItemText>
-            <Switch
-                edge="end"
-                size="small"
-            />
-        </ListItem>
-    )
-}
-
 // Copy of StreamInfoRow but wrapped in a React.memo
 // const StreamInfoRowMemo = React.memo(StreamInfoRow)
-const StreamInfoRow2 = memo(function StreamInfoRow2({ streamInfo }: StreamInfoRowProps) {
-    console.log("memo render ", streamInfo.channel)
+const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowProps) {
     return (
         <ListItem key={streamInfo.channel}>
             <Box paddingRight={1}>
@@ -128,64 +105,5 @@ const StreamInfoRow2 = memo(function StreamInfoRow2({ streamInfo }: StreamInfoRo
         </ListItem>
     )
 })
-
-const SwitchListSecondary = () => {
-    const [checked, setChecked] = useState(["wifi"])
-
-    const handleToggle = (value: string) => () => {
-        const currentIndex = checked.indexOf(value)
-        const newChecked = [...checked]
-
-        if (currentIndex === -1) {
-            newChecked.push(value)
-        } else {
-            newChecked.splice(currentIndex, 1)
-        }
-
-        setChecked(newChecked)
-    }
-
-    return (
-        <List
-            sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-            subheader={<ListSubheader>Settings</ListSubheader>}
-        >
-            <ListItem>
-                <ListItemIcon>
-                    <WifiIcon />
-                </ListItemIcon>
-                <ListItemText
-                    id="switch-list-label-wifi"
-                    primary="Wi-Fi"
-                />
-                <Switch
-                    edge="end"
-                    onChange={handleToggle("wifi")}
-                    checked={checked.indexOf("wifi") !== -1}
-                    inputProps={{
-                        "aria-labelledby": "switch-list-label-wifi",
-                    }}
-                />
-            </ListItem>
-            <ListItem>
-                <ListItemIcon>
-                    <BluetoothIcon />
-                </ListItemIcon>
-                <ListItemText
-                    id="switch-list-label-bluetooth"
-                    primary="Bluetooth"
-                />
-                <Switch
-                    edge="end"
-                    onChange={handleToggle("bluetooth")}
-                    checked={checked.indexOf("bluetooth") !== -1}
-                    inputProps={{
-                        "aria-labelledby": "switch-list-label-bluetooth",
-                    }}
-                />
-            </ListItem>
-        </List>
-    )
-}
 
 export default StreamInfoList

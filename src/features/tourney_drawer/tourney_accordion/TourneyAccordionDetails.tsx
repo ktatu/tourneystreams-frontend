@@ -60,7 +60,7 @@ const TourneyAccordionDetails = ({ streamInfoArray, webLinks }: TourneyAccordion
                     flexDirection="column"
                     gap={0}
                 >
-                    <span>Streams:</span>
+                    <span>Official streams:</span>
                     <StreamInfoList streamInfoArray={streamInfoArray} />
                 </Box>
             </Box>

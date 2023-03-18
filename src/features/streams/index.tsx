@@ -2,12 +2,7 @@ import { Box } from "@mui/material"
 import Chats from "./Chats"
 import StreamFrames from "./StreamFrames"
 
-interface StreamsProps {
-    removeStream: (stream: string) => void
-    streams: Array<string>
-}
-
-const Streams = ({ removeStream, streams }: StreamsProps) => {
+const Streams = () => {
     return (
         <Box
             marginLeft="24%"
@@ -20,19 +15,16 @@ const Streams = ({ removeStream, streams }: StreamsProps) => {
             >
                 <Box
                     overflow="auto"
-                    height="800px"
+                    height="875px"
                 >
-                    <StreamFrames
-                        streams={streams}
-                        removeStream={removeStream}
-                    />
+                    <StreamFrames />
                 </Box>
                 <Box flexGrow={1} />
                 <Box
                     paddingLeft={1}
                     paddingRight={2}
                 >
-                    <Chats streams={streams} />
+                    <Chats />
                 </Box>
             </Box>
         </Box>

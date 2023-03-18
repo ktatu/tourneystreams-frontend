@@ -7,10 +7,9 @@ import {
     TextField,
     ToggleButton,
     ToggleButtonGroup,
-    Typography,
 } from "@mui/material"
 import useQueryParams from "./hooks/useQueryParams"
-import TourneyDrawer from "./features/tourney_drawer"
+import { useStreamState } from "./commons/streamReducer"
 
 interface ToolbarProps {
     addStream: (stream: string) => void
@@ -48,9 +47,11 @@ const Toolbar = ({ addStream }: ToolbarProps) => {
 const AddStreamField = ({ addStream }: { addStream: (stream: string) => void }) => {
     const [fieldValue, setFieldValue] = useState("")
     const channels = useQueryParams("channel")
+    const [, dispatch] = useStreamState()
 
     const handleAddStream = () => {
         addStream(fieldValue)
+        dispatch({ type: "ADD", payload: fieldValue })
         //channels.addValue(fieldValue)
     }
 

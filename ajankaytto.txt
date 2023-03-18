@@ -37,5 +37,6 @@
 10.3  1h Lisää react-queryä
 11.3  1h TourneyAccordionin refaktorointia ja kehitystä
 15.3  2h Turnauksen streamien listaus
+17.3  1.5 Streamien tilanhallinta Reactin useReducer+useContext
 
 76,5 8.3

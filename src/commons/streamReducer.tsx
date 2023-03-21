@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useReducer } from "react"
+import React, { createContext, useContext, useEffect, useReducer } from "react"
+import useSearchParams from "./useSearchParams"
 
 type StreamState = {
     streams: Array<string>
@@ -16,13 +17,9 @@ type Action =
 
 export const streamReducer = (state: StreamState, action: Action) => {
     const channel = action.payload
-    console.log("calling reducer with action: ", action)
 
     switch (action.type) {
         case "ADD":
-            if (state.streams.includes(channel)) {
-                return state
-            }
             return {
                 ...state,
                 streams: state.streams.concat(channel),
@@ -41,10 +38,12 @@ const initialState: StreamState = {
     streams: [],
 }
 
-const StateContext = createContext<[StreamState, React.Dispatch<Action>]>([
-    initialState,
-    () => initialState,
-])
+const StateContext = createContext<{
+    streamState: StreamState
+    addStream: (channel: string) => void
+    removeStream: (channel: string) => void
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+}>({ streamState: initialState, addStream: () => {}, removeStream: () => {} })
 
 interface StreamContextProviderProps {
     reducer: React.Reducer<StreamState, Action>
@@ -52,9 +51,31 @@ interface StreamContextProviderProps {
 }
 
 export const StreamContextProvider = ({ reducer, children }: StreamContextProviderProps) => {
-    const [state, dispatch] = useReducer(reducer, initialState)
+    const [streamState, dispatch] = useReducer(reducer, initialState)
+    const streamsInSearchParams = useSearchParams("streams")
 
-    return <StateContext.Provider value={[state, dispatch]}>{children}</StateContext.Provider>
+    useEffect(() => {
+        streamsInSearchParams.setParams(streamState.streams)
+    }, [streamState])
+
+    const addStream = (channel: string) => {
+        if (streamState.streams.includes(channel)) {
+            return
+        }
+        dispatch({ type: "ADD", payload: channel })
+    }
+
+    const removeStream = (channel: string) => {
+        dispatch({ type: "REMOVE", payload: channel })
+    }
+
+    const contextValue = {
+        streamState,
+        addStream,
+        removeStream,
+    }
+
+    return <StateContext.Provider value={contextValue}>{children}</StateContext.Provider>
 }
 
-export const useStreamState = () => useContext(StateContext)
+export const useStreamContext = () => useContext(StateContext)

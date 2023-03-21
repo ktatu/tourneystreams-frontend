@@ -9,13 +9,9 @@ import {
     ToggleButtonGroup,
 } from "@mui/material"
 import useQueryParams from "./hooks/useQueryParams"
-import { useStreamState } from "./commons/streamReducer"
+import { useStreamContext } from "./commons/streamReducer"
 
-interface ToolbarProps {
-    addStream: (stream: string) => void
-}
-
-const Toolbar = ({ addStream }: ToolbarProps) => {
+const Toolbar = () => {
     const [togglePageValue, setTogglePageValue] = useState("/")
 
     const channels = useQueryParams("channel")
@@ -35,7 +31,7 @@ const Toolbar = ({ addStream }: ToolbarProps) => {
                         <ToggleButton value="/streamview">Hide</ToggleButton>
                     </ToggleButtonGroup>
                     <Box flexGrow={1}>
-                        <AddStreamField addStream={addStream} />
+                        <AddStreamField />
                     </Box>
                     <Button color="inherit">Change color scheme</Button>
                 </MuiToolbar>
@@ -44,15 +40,16 @@ const Toolbar = ({ addStream }: ToolbarProps) => {
     )
 }
 
-const AddStreamField = ({ addStream }: { addStream: (stream: string) => void }) => {
+const AddStreamField = () => {
     const [fieldValue, setFieldValue] = useState("")
     const channels = useQueryParams("channel")
-    const [, dispatch] = useStreamState()
+    const { addStream } = useStreamContext()
 
     const handleAddStream = () => {
+        if (fieldValue === "") {
+            return
+        }
         addStream(fieldValue)
-        dispatch({ type: "ADD", payload: fieldValue })
-        //channels.addValue(fieldValue)
     }
 
     return (

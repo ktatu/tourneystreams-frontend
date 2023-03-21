@@ -11,20 +11,12 @@ import Toolbar from "./Toolbar"
 import Streams from "./features/streams"
 
 const App = () => {
-    //const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
-    // TODO: moving stream state handling to useReducer + context
-    const [liveStreams, setLiveStreams] = useState<Array<string>>([])
-
-    const handleAddStream = (channel: string) => {
-        setLiveStreams(liveStreams.concat(channel))
-    }
-
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <StreamContextProvider reducer={streamReducer}>
                 <>
-                    <Toolbar addStream={handleAddStream} />
+                    <Toolbar />
                     <TourneyDrawer />
                     <Streams />
                 </>

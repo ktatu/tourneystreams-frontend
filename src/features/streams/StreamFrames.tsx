@@ -4,11 +4,11 @@ import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
 import useChannels from "../../hooks/useChannels"
 import useQueryParams from "../../hooks/useQueryParams"
-import { useStreamState } from "../../commons/streamReducer"
+import { useStreamContext } from "../../commons/streamReducer"
 
 const StreamFrames = () => {
     const channels = useQueryParams("channel")
-    const [{ streams }] = useStreamState()
+    const { streamState } = useStreamContext()
 
     return (
         <Box
@@ -18,7 +18,7 @@ const StreamFrames = () => {
             paddingLeft={5}
             gap={1}
         >
-            {streams.map((channel: string) => (
+            {streamState.streams.map((channel: string) => (
                 <StreamFrameContainer
                     key={channel}
                     channel={channel}
@@ -33,7 +33,7 @@ interface StreamFrameContainerProps {
 }
 
 const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
-    const [, dispatch] = useStreamState()
+    const { removeStream } = useStreamContext()
     const iframeRef = useRef<HTMLIFrameElement>(null)
 
     const handleStreamReload = () => {
@@ -44,8 +44,8 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
         }
     }
 
-    const handleStreamClose = (channel: string) => {
-        dispatch({ type: "REMOVE", payload: channel })
+    const handleStreamClose = () => {
+        removeStream(channel)
     }
 
     return (
@@ -71,7 +71,7 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
                     <IconButton onClick={handleStreamReload}>
                         <ReplayIcon />
                     </IconButton>
-                    <IconButton onClick={() => handleStreamClose(channel)}>
+                    <IconButton onClick={handleStreamClose}>
                         <CloseIcon />
                     </IconButton>
                 </Box>

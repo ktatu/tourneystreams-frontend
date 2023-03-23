@@ -7,8 +7,9 @@ import CssBaseline from "@mui/material/CssBaseline"
 import { StreamContextProvider, streamReducer } from "./commons/streamReducer"
 
 import TourneyDrawer from "./features/tourney_drawer"
-import Toolbar from "./Toolbar"
+import AppBar from "./AppBar"
 import Streams from "./features/streams"
+import { Box, Toolbar as MuiToolbar } from "@mui/material"
 
 const App = () => {
     return (
@@ -16,8 +17,7 @@ const App = () => {
             <CssBaseline />
             <StreamContextProvider reducer={streamReducer}>
                 <>
-                    <Toolbar />
-                    <TourneyDrawer />
+                    <AppBar />
                     <Streams />
                 </>
             </StreamContextProvider>

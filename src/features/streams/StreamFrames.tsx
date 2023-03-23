@@ -15,7 +15,7 @@ const StreamFrames = () => {
             display="flex"
             flexDirection="row"
             flexWrap="wrap"
-            paddingLeft={5}
+            paddingLeft={1}
             gap={1}
         >
             {streamState.streams.map((channel: string) => (

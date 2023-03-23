@@ -1,33 +1,31 @@
-import { Box } from "@mui/material"
-import Chats from "./Chats"
+import { Box, Stack, Toolbar } from "@mui/material"
+import Chat from "./Chat"
 import StreamFrames from "./StreamFrames"
 
 const Streams = () => {
     return (
-        <Box
-            marginLeft="24%"
-            width="75%"
-            paddingTop={2}
-        >
+        <Stack height="100vh">
+            <Toolbar />
             <Box
                 display="flex"
                 flexDirection="row"
+                bgcolor="red"
+                height="100%"
             >
                 <Box
+                    height="100%"
                     overflow="auto"
-                    height="875px"
+                    paddingTop={3}
                 >
                     <StreamFrames />
                 </Box>
-                <Box flexGrow={1} />
                 <Box
-                    paddingLeft={1}
-                    paddingRight={2}
-                >
-                    <Chats />
-                </Box>
+                    flexGrow={1}
+                    bgcolor="blue"
+                />
+                <Chat />
             </Box>
-        </Box>
+        </Stack>
     )
 }
 

@@ -1,36 +1,31 @@
 import React, { useEffect, useState, useRef } from "react"
-import { Box, MenuList, MenuItem, Paper } from "@mui/material"
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
+import { Box, MenuList, MenuItem, Paper, Typography } from "@mui/material"
 import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
 import useQueryParams from "../../hooks/useQueryParams"
 import { useStreamContext } from "../../commons/streamReducer"
 
 type ChangeChannelHandler = (newChannel: string) => void
 
-const Chats = () => {
-    const [selectedChannel, setSelectedChannel] = useState("")
+const Chat = () => {
+    //const [selectedChannel, setSelectedChannel] = useState("")
     const { streamState } = useStreamContext()
     const streams = streamState.streams
+    const selectedChannel = streamState.selectedChannel
 
-    //const useChannels = useQueryParams("channel")
-
+    /*
     useEffect(() => {
         if (!streams.includes(selectedChannel)) {
             setSelectedChannel(streams[0] || "")
         }
-    }, [streams])
+    }, [streams])*/
 
     /*
-    const getChannels = () => {
-        return useChannels.getValuesAsArray()
-    }*/
-
     const handleChatChange: ChangeChannelHandler = (newChannel: string): void => {
         setSelectedChannel(newChannel)
         if (chatMenuRef.current) {
             chatMenuRef.current.handleClose()
         }
-    }
+    }*/
 
     const chatMenuRef = useRef<PopupMenuClose>(null)
 
@@ -39,35 +34,11 @@ const Chats = () => {
     }
 
     return (
-        <Box
-            display="flex"
-            flexDirection="column"
-        >
-            <Box>
-                <PopupMenu
-                    buttonProps={{
-                        buttonText: selectedChannel,
-                        buttonIcon: <KeyboardArrowDownIcon />,
-                    }}
-                    menuContent={
-                        <ChatMenuContent
-                            channels={streams}
-                            selectedChannel={selectedChannel}
-                            handleClick={handleChatChange}
-                        />
-                    }
-                    ref={chatMenuRef}
-                />
-            </Box>
-            <Paper sx={{ height: "750px", width: "310px" }}>
-                <iframe
-                    src={`https://www.twitch.tv/embed/${selectedChannel}/chat?darkpopout&parent=localhost`}
-                    style={{ border: 0 }}
-                    height="750px"
-                    width="320px"
-                ></iframe>
-            </Paper>
-        </Box>
+        <iframe
+            src={`https://www.twitch.tv/embed/${selectedChannel}/chat?darkpopout&parent=localhost`}
+            style={{ border: "none" }}
+            width="320px"
+        ></iframe>
     )
 }
 
@@ -97,4 +68,23 @@ const ChatMenuContent = ({
     )
 }
 
-export default Chats
+export default Chat
+
+/*
+            <Box>
+                <PopupMenu
+                    buttonProps={{
+                        buttonText: selectedChannel,
+                        buttonIcon: <KeyboardArrowDownIcon />,
+                    }}
+                    menuContent={
+                        <ChatMenuContent
+                            channels={streams}
+                            selectedChannel={selectedChannel}
+                            handleClick={handleChatChange}
+                        />
+                    }
+                    ref={chatMenuRef}
+                />
+            </Box>
+*/

@@ -38,7 +38,8 @@
 11.3  1h TourneyAccordionin refaktorointia ja kehitystä
 15.3  2h Turnauksen streamien listaus
 17.3  1.5h Streamien tilanhallinta Reactin useReducer+useContext
-20.3  3h Tilanhallinta ja streamien asetus kyselyparametreihin
+20.3  3h Tilanhallinta
 22.3  1.5h Layoutin parannuksia
+25.3  2h Layoutin parannuksia
 
 76,5 8.3

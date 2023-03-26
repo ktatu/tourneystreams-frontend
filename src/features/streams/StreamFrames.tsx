@@ -2,12 +2,10 @@ import React, { useContext, useRef } from "react"
 import { Box, Button, IconButton, Paper, Typography } from "@mui/material"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
-import useChannels from "../../hooks/useChannels"
 import useQueryParams from "../../hooks/useQueryParams"
 import { useStreamContext } from "../../commons/streamReducer"
 
 const StreamFrames = () => {
-    const channels = useQueryParams("channel")
     const { streamState } = useStreamContext()
 
     return (

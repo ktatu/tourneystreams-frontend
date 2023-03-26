@@ -6,6 +6,7 @@ import useSearchParams from "./useSearchParams"
 type StreamState = {
     streams: Array<string>
     selectedChannel: string
+    chatIsVisible: boolean
 }
 
 type Action =
@@ -21,26 +22,29 @@ type Action =
           type: "SELECT_CHAT_CHANNEL"
           payload: string
       }
+    | {
+          type: "SET_CHAT_VISIBILITY"
+          payload: boolean
+      }
 
 export const streamReducer = (state: StreamState, action: Action) => {
-    const channel = action.payload
-
     switch (action.type) {
         case "ADD_STREAM":
-            return {
-                ...state,
-                streams: state.streams.concat(channel),
-            }
+            return { ...state, streams: [...state.streams, action.payload] }
         case "REMOVE_STREAM":
             return {
                 ...state,
-                streams: state.streams.filter((streamInState) => streamInState !== channel),
+                streams: state.streams.filter((streamInState) => streamInState !== action.payload),
             }
         case "SELECT_CHAT_CHANNEL":
             return {
                 ...state,
-                selectedChannel: channel,
+                selectedChannel: action.payload,
             }
+        case "SET_CHAT_VISIBILITY":
+            console.log("SET_CHAT_VISIBILITY", action.payload)
+            return { ...state, chatIsVisible: action.payload }
+
         default:
             return state
     }
@@ -49,6 +53,7 @@ export const streamReducer = (state: StreamState, action: Action) => {
 const initialState: StreamState = {
     streams: [],
     selectedChannel: "",
+    chatIsVisible: true,
 }
 
 const StateContext = createContext<{
@@ -56,11 +61,13 @@ const StateContext = createContext<{
     addStream: (channel: string) => void
     removeStream: (channel: string) => void
     selectChatChannel: (channel: string) => void
+    setChatVisibility: (visibility: boolean) => void
 }>({
     streamState: initialState,
     addStream: () => {},
     removeStream: () => {},
     selectChatChannel: () => {},
+    setChatVisibility: () => {},
 })
 
 interface StreamContextProviderProps {
@@ -97,11 +104,16 @@ export const StreamContextProvider = ({ reducer, children }: StreamContextProvid
         dispatch({ type: "SELECT_CHAT_CHANNEL", payload: channel })
     }
 
+    const setChatVisibility = (visibility: boolean) => {
+        dispatch({ type: "SET_CHAT_VISIBILITY", payload: visibility })
+    }
+
     const contextValue = {
         streamState,
         addStream,
         removeStream,
         selectChatChannel,
+        setChatVisibility,
     }
 
     return <StateContext.Provider value={contextValue}>{children}</StateContext.Provider>

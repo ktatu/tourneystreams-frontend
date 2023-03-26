@@ -9,7 +9,6 @@ const Streams = () => {
             <Box
                 display="flex"
                 flexDirection="row"
-                bgcolor="red"
                 height="100%"
             >
                 <Box
@@ -19,10 +18,7 @@ const Streams = () => {
                 >
                     <StreamFrames />
                 </Box>
-                <Box
-                    flexGrow={1}
-                    bgcolor="blue"
-                />
+                <Box flexGrow={1} />
                 <Chat />
             </Box>
         </Stack>

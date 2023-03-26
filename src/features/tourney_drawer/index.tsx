@@ -9,7 +9,6 @@ import {
     ListItemText,
     MenuItem,
     MenuList,
-    Toolbar,
     Typography,
 } from "@mui/material"
 import SettingsIcon from "@mui/icons-material/Settings"
@@ -29,8 +28,14 @@ import { FixedSizeList, ListChildComponentProps } from "react-window"
 
 import FilterOptionsSelection from "./FilterOptionsSelection"
 import TourneyAccordions from "./tourney_accordion"
+import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 
-const TourneyDrawer = () => {
+interface TourneyDrawerProps {
+    open: boolean
+    handleTourneyDrawerClose: () => void
+}
+
+const TourneyDrawer = ({ open, handleTourneyDrawerClose }: TourneyDrawerProps) => {
     const [selectedGames, setSelectedGames] = useState()
     const [tourneyNameFilter, setTourneyNameFilter] = useState("")
 
@@ -49,14 +54,26 @@ const TourneyDrawer = () => {
     return (
         <Drawer
             PaperProps={{ sx: { width: "25%" } }}
-            variant="permanent"
+            variant="persistent"
+            open={open}
             anchor="left"
         >
-            <Toolbar />
-            <Divider />
-            <Box className="drawer-container">
-                <Box>
-                    <Typography variant="h4">Tournaments</Typography>
+            <Box
+                className="drawer-container"
+                sx={{ paddingTop: (theme) => theme.spacing(1) }}
+            >
+                <>
+                    <Box
+                        display="flex"
+                        flexDirection="row"
+                        alignItems="center"
+                        justifyContent="space-between"
+                    >
+                        <Typography variant="h4">Tournaments</Typography>
+                        <IconButton onClick={handleTourneyDrawerClose}>
+                            <ArrowBackIcon fontSize="large" />
+                        </IconButton>
+                    </Box>
                     <Box paddingTop={3}>
                         <Typography variant="body1">Filters:</Typography>
                         <Box
@@ -102,7 +119,7 @@ const TourneyDrawer = () => {
                             </Box>
                         </Box>
                     </Box>
-                </Box>
+                </>
             </Box>
             <Divider />
             {filterOptionsViewOpen ? (

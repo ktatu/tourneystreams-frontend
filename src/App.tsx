@@ -1,23 +1,34 @@
-import { useState } from "react"
-
-import { createTheme, ThemeOptions, ThemeProvider } from "@mui/material/styles"
-import useMediaQuery from "@mui/material/useMediaQuery"
+import { ThemeProvider } from "@mui/material/styles"
 import theme from "./theme"
 import CssBaseline from "@mui/material/CssBaseline"
 import { StreamContextProvider, streamReducer } from "./commons/streamReducer"
 
 import TourneyDrawer from "./features/tourney_drawer"
-import AppBar from "./AppBar"
+import AppBar from "./features/app_bar"
 import Streams from "./features/streams"
-import { Box, Toolbar as MuiToolbar } from "@mui/material"
+import { useState } from "react"
 
 const App = () => {
+    const [tourneyDrawerOpen, setTourneyDrawerOpen] = useState(true)
+
+    const handleTourneyDrawerOpen = () => {
+        setTourneyDrawerOpen(true)
+    }
+
+    const handleTourneyDrawerClose = () => {
+        setTourneyDrawerOpen(false)
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <StreamContextProvider reducer={streamReducer}>
                 <>
-                    <AppBar />
+                    <TourneyDrawer
+                        open={tourneyDrawerOpen}
+                        handleTourneyDrawerClose={handleTourneyDrawerClose}
+                    />
+                    <AppBar handleTourneyDrawerOpen={handleTourneyDrawerOpen} />
                     <Streams />
                 </>
             </StreamContextProvider>

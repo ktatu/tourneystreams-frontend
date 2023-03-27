@@ -10,8 +10,12 @@ const Chat = () => {
     return (
         <iframe
             src={`https://www.twitch.tv/embed/${streamState.selectedChannel}/chat?darkpopout&parent=localhost`}
-            style={{ border: "none" }}
-            width="320px"
+            style={{
+                display: "block",
+                border: "none",
+            }}
+            height="100%"
+            width="340px"
         ></iframe>
     )
 }

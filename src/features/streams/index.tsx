@@ -1,26 +1,33 @@
-import { Box, Stack, Toolbar } from "@mui/material"
+import { Stack, Toolbar, Unstable_Grid2 as Grid, useTheme } from "@mui/material"
 import Chat from "./Chat"
 import StreamFrames from "./StreamFrames"
 
 const Streams = () => {
+    const theme = useTheme()
+
     return (
-        <Stack height="100vh">
+        <Stack
+            height="100vh"
+            marginLeft="27%"
+        >
             <Toolbar />
-            <Box
-                display="flex"
-                flexDirection="row"
-                height="100%"
+            <Grid
+                container
+                justifyContent="space-between"
+                sx={{ height: `calc(100% - ${theme.mixins.toolbar.minHeight}px)` }}
             >
-                <Box
-                    height="100%"
-                    overflow="auto"
-                    paddingTop={3}
+                <Grid
+                    xs
+                    paddingRight={2}
+                    paddingTop={2}
+                    overflow="hidden"
                 >
                     <StreamFrames />
-                </Box>
-                <Box flexGrow={1} />
-                <Chat />
-            </Box>
+                </Grid>
+                <Grid xs="auto">
+                    <Chat />
+                </Grid>
+            </Grid>
         </Stack>
     )
 }

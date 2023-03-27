@@ -1,8 +1,7 @@
-import React, { useContext, useRef } from "react"
-import { Box, Button, IconButton, Paper, Typography } from "@mui/material"
+import { useEffect, useRef } from "react"
+import { Box, IconButton, Paper, Typography } from "@mui/material"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
-import useQueryParams from "../../hooks/useQueryParams"
 import { useStreamContext } from "../../commons/streamReducer"
 
 const StreamFrames = () => {
@@ -33,7 +32,6 @@ interface StreamFrameContainerProps {
 const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
     const { removeStream } = useStreamContext()
     const iframeRef = useRef<HTMLIFrameElement>(null)
-
     const handleStreamReload = () => {
         if (iframeRef.current) {
             // https://stackoverflow.com/questions/86428/what-s-the-best-way-to-reload-refresh-an-iframe/4062084#4062084
@@ -45,6 +43,20 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
     const handleStreamClose = () => {
         removeStream(channel)
     }
+
+    useEffect(() => {
+        const handleVisibilityChange = () => {
+            if (!document.hidden && iframeRef.current) {
+                iframeRef.current.blur()
+            }
+        }
+
+        document.addEventListener("visibilitychange", handleVisibilityChange)
+
+        return () => {
+            document.removeEventListener("visibilitychange", handleVisibilityChange)
+        }
+    }, [])
 
     return (
         <Paper elevation={10}>

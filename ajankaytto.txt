@@ -41,5 +41,6 @@
 20.3  3h Tilanhallinta
 22.3  1.5h Layoutin parannuksia
 25.3  2h Layoutin parannuksia
+27.3  4h Chat-layoutin ja streamien iframen parannuksia
 
 76,5 8.3

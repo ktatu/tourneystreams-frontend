@@ -1,8 +1,10 @@
 import { useEffect, useRef } from "react"
-import { Box, IconButton, Paper, Typography } from "@mui/material"
+import { Box, IconButton, Paper, TextField, Typography } from "@mui/material"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
 import { useStreamContext } from "../../commons/streamReducer"
+import TwitchPlayer from "react-player/twitch"
+import { stubTrue } from "lodash"
 
 const StreamFrames = () => {
     const { streamState } = useStreamContext()
@@ -32,6 +34,11 @@ interface StreamFrameContainerProps {
 const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
     const { removeStream } = useStreamContext()
     const iframeRef = useRef<HTMLIFrameElement>(null)
+    const inputRef = useRef<HTMLInputElement>(null)
+
+    const playerRef = useRef<TwitchPlayer>(null)
+    const boxRef = useRef<HTMLDivElement>(null)
+
     const handleStreamReload = () => {
         if (iframeRef.current) {
             // https://stackoverflow.com/questions/86428/what-s-the-best-way-to-reload-refresh-an-iframe/4062084#4062084
@@ -46,9 +53,10 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
 
     useEffect(() => {
         const handleVisibilityChange = () => {
-            if (!document.hidden && iframeRef.current) {
-                iframeRef.current.blur()
+            if (!document.hidden && inputRef.current) {
+                inputRef.current.focus()
             }
+            //playerRef.current?.getInternalPlayer().blur()
         }
 
         document.addEventListener("visibilitychange", handleVisibilityChange)
@@ -65,6 +73,7 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
                 flexDirection="column"
                 maxWidth="500px"
                 maxHeight="340px"
+                ref={boxRef}
             >
                 <Box
                     display="flex"
@@ -86,6 +95,29 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
                     </IconButton>
                 </Box>
                 <Box>
+                    <div onKeyDown={() => console.log("click")}>
+                        <TwitchPlayer
+                            url={`https://www.twitch.tv/${channel}`}
+                            height="300px"
+                            width="500px"
+                            playing={true}
+                            ref={playerRef}
+                            controls={true}
+                        />
+                    </div>
+                    <input
+                        type="text"
+                        ref={inputRef}
+                    />
+                </Box>
+            </Box>
+        </Paper>
+    )
+}
+
+export default StreamFrames
+
+/*
                     <iframe
                         ref={iframeRef}
                         src={`https://player.twitch.tv/?channel=${channel}&muted=true&parent=localhost`}
@@ -94,11 +126,8 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
                         width="500px"
                         title="stream"
                         allowFullScreen
+                        onBlur={() => console.log("blur")}
+                        onFocus={() => console.log("focus")}
                     ></iframe>
-                </Box>
-            </Box>
-        </Paper>
-    )
-}
 
-export default StreamFrames
+*/

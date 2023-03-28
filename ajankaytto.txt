@@ -42,5 +42,6 @@
 22.3  1.5h Layoutin parannuksia
 25.3  2h Layoutin parannuksia
 27.3  4h Chat-layoutin ja streamien iframen parannuksia
+28.3  3h Lisää stream-framejen säätämistä
 
 76,5 8.3

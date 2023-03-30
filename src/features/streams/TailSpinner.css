@@ -1,0 +1,20 @@
+.tail-spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tail-spinner {
+    width: 200px;
+    height: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #ffffff;
+    border-radius: 90%;
+    animation: tail-spinner 0.75s linear infinite;
+}
+
+@keyframes tail-spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -8,7 +8,7 @@ const Streams = () => {
     return (
         <Stack
             height="100vh"
-            marginLeft="27%"
+            bgcolor="black"
         >
             <Toolbar />
             <Grid
@@ -18,9 +18,8 @@ const Streams = () => {
             >
                 <Grid
                     xs
-                    paddingRight={2}
-                    paddingTop={2}
                     overflow="hidden"
+                    height="100%"
                 >
                     <StreamFrames />
                 </Grid>

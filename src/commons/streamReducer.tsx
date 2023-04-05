@@ -42,7 +42,6 @@ export const streamReducer = (state: StreamState, action: Action) => {
                 selectedChannel: action.payload,
             }
         case "SET_CHAT_VISIBILITY":
-            console.log("SET_CHAT_VISIBILITY", action.payload)
             return { ...state, chatIsVisible: action.payload }
 
         default:

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { Box, IconButton, Paper, Typography } from "@mui/material"
+import { Box } from "@mui/material"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
 import { useStreamContext } from "../../commons/streamReducer"
@@ -12,16 +12,16 @@ const StreamFrames = () => {
     const invisibleButtonRef = useRef<HTMLButtonElement>(null)
 
     useEffect(() => {
-        const handleVisibilityChange = () => {
+        const handleStreamFocus = () => {
             if (!document.hidden && invisibleButtonRef.current) {
                 invisibleButtonRef.current.focus()
             }
         }
 
-        document.addEventListener("visibilitychange", handleVisibilityChange)
+        document.addEventListener("visibilitychange", handleStreamFocus)
 
         return () => {
-            document.removeEventListener("visibilitychange", handleVisibilityChange)
+            document.removeEventListener("visibilitychange", handleStreamFocus)
         }
     }, [])
 
@@ -38,13 +38,12 @@ const StreamFrames = () => {
                 display="flex"
                 flexDirection="row"
                 flexWrap="wrap"
-                paddingLeft={1}
-                gap={1}
             >
-                {streamState.streams.map((channel: string) => (
+                {streamState.streams.map((channel: string, index: number) => (
                     <StreamFrameContainer
                         key={channel}
                         channel={channel}
+                        frameSize={getStreamFrameSize(streamState.streams.length, index)}
                     />
                 ))}
             </Box>
@@ -54,9 +53,12 @@ const StreamFrames = () => {
 
 interface StreamFrameContainerProps {
     channel: string
+    frameSize: { width: number; height: number }
 }
 
-const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
+const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps) => {
+    // Streamkey is used for reloading the stream
+    const [streamKey, setStreamKey] = useState(Math.random())
     const [streamReady, setStreamReady] = useState(false)
     const { removeStream } = useStreamContext()
 
@@ -72,91 +74,111 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
         }
     }, [streamReady])
 
-    const iframeRef = useRef<HTMLIFrameElement>(null)
-
     const handleStreamReload = () => {
-        if (iframeRef.current) {
-            // https://stackoverflow.com/questions/86428/what-s-the-best-way-to-reload-refresh-an-iframe/4062084#4062084
-            // eslint-disable-next-line no-self-assign
-            iframeRef.current.src = iframeRef.current.src
-        }
+        setStreamReady(false)
+        setStreamKey((streamKey) => streamKey + 1)
     }
 
     const handleStreamReady = () => {
         setStreamReady(true)
     }
 
-    const handleStreamClose = () => {
-        removeStream(channel)
+    const handleStreamEnded = () => {
+        // reload because sometimes ended stream gets frozen on ads
+        handleStreamReload()
+        // TODO: notification to user
     }
 
+    // box maxwidth 500px maxheight 340px
+    // player height 300px width 500px
+    /*
+                    height={`${width * 0.5625}px`}
+                    width={`${width}px`}
+    */
+
     return (
-        <Paper elevation={10}>
-            <Box
-                display="flex"
-                flexDirection="column"
-                maxWidth="500px"
-                maxHeight="340px"
-            >
-                <Box
-                    display="flex"
-                    flexDirection="row"
-                    height="40px"
-                >
-                    <Typography
-                        marginLeft={1}
-                        marginTop={1}
-                        sx={{ flexGrow: 1 }}
-                    >
-                        {channel}
-                    </Typography>
-                    <IconButton onClick={handleStreamReload}>
-                        <ReplayIcon />
-                    </IconButton>
-                    <IconButton onClick={handleStreamClose}>
-                        <CloseIcon />
-                    </IconButton>
-                </Box>
-                <>
-                    <div hidden={!streamReady}>
-                        <TwitchPlayer
-                            id={`${channel}-player`}
-                            url={`https://www.twitch.tv/${channel}`}
-                            height="300px"
-                            width="500px"
-                            playing={true}
-                            onReady={handleStreamReady}
-                            volume={0}
-                            controls={true}
-                        />
-                    </div>
-                    <div hidden={streamReady}>
-                        <StreamFramePlaceholder />
-                    </div>
-                </>
-            </Box>
-        </Paper>
+        <>
+            <div hidden={!streamReady}>
+                <TwitchPlayer
+                    key={streamKey}
+                    id={`${channel}-player`}
+                    url={`https://www.twitch.tv/${channel}`}
+                    height={frameSize.height}
+                    width={frameSize.width}
+                    playing={true}
+                    onReady={handleStreamReady}
+                    volume={0}
+                    controls={true}
+                    onEnded={handleStreamEnded}
+                />
+            </div>
+            <div hidden={streamReady}>
+                <StreamFramePlaceholder />
+            </div>
+        </>
     )
 }
 
 const StreamFramePlaceholder = () => {
+    const baseWidth = 1550
+    const baseHeight = 900
+
     return (
         <Box
             bgcolor="black"
             display="flex"
             alignContent="center"
             justifyContent="center"
-            width="500px"
-            height="300px"
+            height={`${baseHeight}px`}
+            width={`${baseWidth}px`}
         >
             <TailSpinner
                 color="#FFFFFF"
                 spinnerWidth="5px"
-                containerWidth="300px"
-                containerHeight="300px"
+                containerHeight={`${baseHeight}px`}
+                containerWidth={`${baseWidth}px`}
             />
         </Box>
     )
+}
+
+// TODO: % based sizes
+const getStreamFrameSize = (streamCount: number, streamIndex: number) => {
+    const baseWidth = 1550
+    const baseHeight = 900
+
+    switch (streamCount) {
+        case 1:
+            return { width: baseWidth, height: baseHeight }
+        case 2:
+            return { width: baseWidth, height: baseHeight / 2 }
+        case 3:
+            if (streamIndex === 0) {
+                return { width: baseWidth, height: baseHeight / 2 }
+            } else {
+                return { width: baseWidth / 2, height: baseHeight / 2 }
+            }
+        case 4:
+            return { width: baseWidth / 2, height: baseHeight / 2 }
+        case 5:
+            if (streamIndex <= 1) {
+                return { width: baseWidth / 2, height: baseHeight / 2 }
+            } else {
+                return { width: baseWidth / 3, height: baseHeight / 2 }
+            }
+        case 6:
+            return { width: baseWidth / 3, height: baseHeight / 2 }
+        case 7:
+            if (streamIndex <= 2) {
+                return { width: baseWidth / 3, height: baseHeight / 2 }
+            } else {
+                return { width: baseWidth / 4, height: baseHeight / 3 }
+            }
+        case 8:
+            return { width: baseWidth / 4, height: baseHeight / 2 }
+        default:
+            return { width: baseWidth / 3, height: baseHeight / 3 }
+    }
 }
 
 export default StreamFrames

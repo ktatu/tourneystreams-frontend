@@ -5,6 +5,8 @@ import theme from "./theme"
 import { ThemeProvider } from "@mui/material"
 import "./index.css"
 import { QueryClient, QueryClientProvider } from "react-query"
+import { StreamContextProvider, streamReducer } from "./commons/streamReducer"
+import CssBaseline from "@mui/material/CssBaseline"
 
 import "@fontsource/roboto/300.css"
 import "@fontsource/roboto/400.css"
@@ -17,7 +19,12 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
     <StrictMode>
         <QueryClientProvider client={queryClient}>
-            <App />
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <StreamContextProvider reducer={streamReducer}>
+                    <App />
+                </StreamContextProvider>
+            </ThemeProvider>
         </QueryClientProvider>
     </StrictMode>
 )

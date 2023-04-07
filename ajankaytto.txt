@@ -46,5 +46,6 @@
 29.3  3h -||-
 6.4   3h Stream layout
 7.4   1h Streamien alustus kyselyparametrien avulla
+7.4   1h Pieniä käyttöliittymän parannuksia
 
 95.5 29.3

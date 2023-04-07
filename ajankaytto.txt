@@ -45,5 +45,6 @@
 28.3  3h Lisää stream-framejen säätämistä
 29.3  3h -||-
 6.4   3h Stream layout
+7.4   1h Streamien alustus kyselyparametrien avulla
 
 95.5 29.3

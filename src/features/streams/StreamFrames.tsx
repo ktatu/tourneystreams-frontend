@@ -113,30 +113,31 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
                 />
             </div>
             <div hidden={streamReady}>
-                <StreamFramePlaceholder />
+                <StreamFramePlaceholder frameSize={frameSize} />
             </div>
         </>
     )
 }
 
-const StreamFramePlaceholder = () => {
-    const baseWidth = 1550
-    const baseHeight = 900
+interface StreamPlaceholderProps {
+    frameSize: { width: number; height: number }
+}
 
+const StreamFramePlaceholder = ({ frameSize }: StreamPlaceholderProps) => {
     return (
         <Box
             bgcolor="black"
             display="flex"
             alignContent="center"
             justifyContent="center"
-            height={`${baseHeight}px`}
-            width={`${baseWidth}px`}
+            height={frameSize.height}
+            width={frameSize.width}
         >
             <TailSpinner
                 color="#FFFFFF"
                 spinnerWidth="5px"
-                containerHeight={`${baseHeight}px`}
-                containerWidth={`${baseWidth}px`}
+                containerHeight={`${frameSize.height}px`}
+                containerWidth={`${frameSize.width}px`}
             />
         </Box>
     )

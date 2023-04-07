@@ -4,9 +4,6 @@ import { useStreamContext } from "../../commons/streamReducer"
 import MenuIcon from "@mui/icons-material/Menu"
 import ChatControls from "./ChatControls"
 
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined"
-import InfoIcon from "@mui/icons-material/Info"
-
 interface AppBarProps {
     handleTourneyDrawerOpen: () => void
 }
@@ -35,24 +32,6 @@ const AppBar = ({ handleTourneyDrawerOpen }: AppBarProps) => {
         </Box>
     )
 }
-
-/*
-
-                    <InfoIcon
-                        fontSize="large"
-                        color="info"
-                        sx={{ transform: "scale(1.8)" }}
-                    />
-
-style={{
-                            backgroundColor: "#30bb36",
-                            borderTopRightRadius: "10px",
-                            borderBottomRightRadius: "10px",
-                            border: "solid 3px #FFFFFF",
-                            paddingLeft: "10px",
-                            paddingRight: "10px",
-                        }}
-*/
 
 const AddStreamField = () => {
     const [fieldValue, setFieldValue] = useState("")

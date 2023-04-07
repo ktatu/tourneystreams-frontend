@@ -1,5 +1,5 @@
-import { Box, IconButton } from "@mui/material"
-import { useState, useRef } from "react"
+import { Box, IconButton, Tooltip } from "@mui/material"
+import { useRef } from "react"
 import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
 import { useStreamContext } from "../../commons/streamReducer"
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
@@ -22,26 +22,32 @@ const ChatControls = () => {
 
     return (
         <>
-            {streamState.selectedChannel && streamState.chatIsVisible && (
-                <>
-                    <PopupMenu
-                        buttonProps={{
-                            buttonText: streamState.selectedChannel,
-                            buttonIcon: <KeyboardArrowDownIcon />,
-                        }}
-                        menuContent={<ChatSelectMenu />}
-                        ref={chatMenuRef}
-                    />
-                </>
-            )}
+            {streamState.selectedChannel &&
+                streamState.chatIsVisible &&
+                streamState.streams.length > 1 && (
+                    <>
+                        <PopupMenu
+                            buttonProps={{
+                                buttonText: streamState.selectedChannel,
+                                buttonIcon: <KeyboardArrowDownIcon />,
+                            }}
+                            menuContent={<ChatSelectMenu />}
+                            ref={chatMenuRef}
+                        />
+                    </>
+                )}
             <Box paddingLeft={5}>
                 {streamState.chatIsVisible ? (
                     <IconButton onClick={() => handleChatVisibilityChange(false)}>
-                        <VisibilityOffIcon />
+                        <Tooltip title="Hide chat">
+                            <VisibilityOffIcon />
+                        </Tooltip>
                     </IconButton>
                 ) : (
                     <IconButton onClick={() => handleChatVisibilityChange(true)}>
-                        <VisibilityIcon />
+                        <Tooltip title="Show chat">
+                            <VisibilityIcon />
+                        </Tooltip>
                     </IconButton>
                 )}
             </Box>

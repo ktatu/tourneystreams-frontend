@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import { Box } from "@mui/material"
-import ReplayIcon from "@mui/icons-material/Replay"
-import CloseIcon from "@mui/icons-material/Close"
 import { useStreamContext } from "../../commons/streamReducer"
 import TwitchPlayer from "react-player/twitch"
 import TailSpinner from "./TailSpinner"
@@ -29,6 +27,7 @@ const StreamFrames = () => {
         <Box
             display="flex"
             flexDirection="column"
+            paddingLeft={1}
         >
             <button
                 style={{ backgroundColor: "transparent", border: "none" }}
@@ -38,6 +37,8 @@ const StreamFrames = () => {
                 display="flex"
                 flexDirection="row"
                 flexWrap="wrap"
+                justifyContent="center"
+                alignContent="center"
             >
                 {streamState.streams.map((channel: string, index: number) => (
                     <StreamFrameContainer
@@ -97,7 +98,10 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
     */
 
     return (
-        <>
+        <Box
+            alignContent="center"
+            justifyContent="center"
+        >
             <div hidden={!streamReady}>
                 <TwitchPlayer
                     key={streamKey}
@@ -115,7 +119,7 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
             <div hidden={streamReady}>
                 <StreamFramePlaceholder frameSize={frameSize} />
             </div>
-        </>
+        </Box>
     )
 }
 
@@ -128,8 +132,6 @@ const StreamFramePlaceholder = ({ frameSize }: StreamPlaceholderProps) => {
         <Box
             bgcolor="black"
             display="flex"
-            alignContent="center"
-            justifyContent="center"
             height={frameSize.height}
             width={frameSize.width}
         >
@@ -145,8 +147,8 @@ const StreamFramePlaceholder = ({ frameSize }: StreamPlaceholderProps) => {
 
 // TODO: % based sizes
 const getStreamFrameSize = (streamCount: number, streamIndex: number) => {
-    const baseWidth = 1550
-    const baseHeight = 900
+    const baseWidth = 1500
+    const baseHeight = 875
 
     switch (streamCount) {
         case 1:

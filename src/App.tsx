@@ -2,8 +2,9 @@ import TourneyDrawer from "./features/tourney_drawer"
 import AppBar from "./features/app_bar"
 import Streams from "./features/streams"
 import { useState, useEffect } from "react"
-import { Alert } from "@mui/material"
+import { Alert, Box, Stack, Toolbar } from "@mui/material"
 import { useStreamContext } from "./commons/streamReducer"
+import WelcomeContent from "./WelcomeContent"
 
 const App = () => {
     const [tourneyDrawerOpen, setTourneyDrawerOpen] = useState(false)
@@ -30,7 +31,19 @@ const App = () => {
                 open={tourneyDrawerOpen}
                 handleTourneyDrawerClose={handleTourneyDrawerClose}
             />
-            <Streams />
+            <Stack
+                height="100vh"
+                bgcolor="black"
+            >
+                <Toolbar />
+                {streamState.streams.length === 0 ? (
+                    <Box marginLeft="27%">
+                        <WelcomeContent />
+                    </Box>
+                ) : (
+                    <Streams />
+                )}
+            </Stack>
         </>
     )
 }

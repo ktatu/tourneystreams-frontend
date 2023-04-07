@@ -1,4 +1,4 @@
-import { Stack, Toolbar, Unstable_Grid2 as Grid, useTheme } from "@mui/material"
+import { Unstable_Grid2 as Grid, useTheme } from "@mui/material"
 import Chat from "./Chat"
 import StreamFrames from "./StreamFrames"
 
@@ -6,28 +6,22 @@ const Streams = () => {
     const theme = useTheme()
 
     return (
-        <Stack
-            height="100vh"
-            bgcolor="black"
+        <Grid
+            container
+            justifyContent="space-between"
+            sx={{ height: `calc(100% - ${theme.mixins.toolbar.minHeight}px)` }}
         >
-            <Toolbar />
             <Grid
-                container
-                justifyContent="space-between"
-                sx={{ height: `calc(100% - ${theme.mixins.toolbar.minHeight}px)` }}
+                xs
+                overflow="auto"
+                height="100%"
             >
-                <Grid
-                    xs
-                    overflow="hidden"
-                    height="100%"
-                >
-                    <StreamFrames />
-                </Grid>
-                <Grid xs="auto">
-                    <Chat />
-                </Grid>
+                <StreamFrames />
             </Grid>
-        </Stack>
+            <Grid xs="auto">
+                <Chat />
+            </Grid>
+        </Grid>
     )
 }
 

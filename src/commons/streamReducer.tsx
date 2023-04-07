@@ -19,6 +19,10 @@ type Action =
           payload: string
       }
     | {
+          type: "SET_STREAMS"
+          payload: Array<string>
+      }
+    | {
           type: "SELECT_CHAT_CHANNEL"
           payload: string
       }
@@ -36,6 +40,11 @@ export const streamReducer = (state: StreamState, action: Action) => {
                 ...state,
                 streams: state.streams.filter((streamInState) => streamInState !== action.payload),
             }
+        case "SET_STREAMS":
+            return {
+                ...state,
+                streams: action.payload,
+            }
         case "SELECT_CHAT_CHANNEL":
             return {
                 ...state,
@@ -50,7 +59,7 @@ export const streamReducer = (state: StreamState, action: Action) => {
 }
 
 const initialState: StreamState = {
-    streams: [],
+    streams: useSearchParams("streams").getAll(),
     selectedChannel: "",
     chatIsVisible: true,
 }
@@ -79,7 +88,9 @@ export const StreamContextProvider = ({ reducer, children }: StreamContextProvid
     const streamsInSearchParams = useSearchParams("streams")
 
     useEffect(() => {
-        streamsInSearchParams.setParams(streamState.streams)
+        if (streamState.streams.length !== 0) {
+            streamsInSearchParams.setParams(streamState.streams)
+        }
     }, [streamState.streams])
 
     useEffect(() => {

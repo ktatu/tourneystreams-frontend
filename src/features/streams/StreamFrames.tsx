@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from "react"
-import { Box } from "@mui/material"
+import { Box, IconButton, Tooltip, Typography } from "@mui/material"
 import { useStreamContext } from "../../commons/streamReducer"
 import TwitchPlayer from "react-player/twitch"
 import TailSpinner from "./TailSpinner"
+
+import ReplayIcon from "@mui/icons-material/Replay"
+import CloseIcon from "@mui/icons-material/Close"
+import PanToolIcon from "@mui/icons-material/PanTool"
 
 const StreamFrames = () => {
     const { streamState } = useStreamContext()
@@ -61,7 +65,23 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
     // Streamkey is used for reloading the stream
     const [streamKey, setStreamKey] = useState(Math.random())
     const [streamReady, setStreamReady] = useState(false)
-    const { removeStream } = useStreamContext()
+    const [showControlsOverlay, setShowControlsOverlay] = useState(false)
+
+    const { removeStream, streamState } = useStreamContext()
+
+    const handleMouseEnterAndLeave = () => {
+        setShowControlsOverlay((prevValue) => !prevValue)
+    }
+
+    useEffect(() => {
+        let timeoutId
+
+        if (showControlsOverlay) {
+            timeoutId = setTimeout(() => {
+                setShowControlsOverlay(false)
+            }, 5000)
+        }
+    }, [showControlsOverlay])
 
     useEffect(() => {
         const timeoutID = setTimeout(() => {
@@ -103,23 +123,95 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
             justifyContent="center"
         >
             <div hidden={!streamReady}>
-                <TwitchPlayer
-                    key={streamKey}
-                    id={`${channel}-player`}
-                    url={`https://www.twitch.tv/${channel}`}
-                    height={frameSize.height}
-                    width={frameSize.width}
-                    playing={true}
-                    onReady={handleStreamReady}
-                    volume={0}
-                    controls={true}
-                    onEnded={handleStreamEnded}
-                />
+                <div
+                    style={{ position: "relative", display: "flex" }}
+                    onMouseMove={() => null}
+                    onMouseEnter={handleMouseEnterAndLeave}
+                    onMouseLeave={handleMouseEnterAndLeave}
+                >
+                    <TwitchPlayer
+                        key={streamKey}
+                        id={`${channel}-player`}
+                        url={`https://www.twitch.tv/${channel}`}
+                        height={frameSize.height}
+                        width={frameSize.width}
+                        playing={true}
+                        onReady={handleStreamReady}
+                        volume={0}
+                        controls={true}
+                        onEnded={handleStreamEnded}
+                    />
+                    {showControlsOverlay ? (
+                        <Box
+                            display="flex"
+                            position="absolute"
+                            width="100%"
+                            top="0%"
+                            justifyContent="center"
+                            gap={2}
+                        >
+                            <Box
+                                display="flex"
+                                paddingTop={2}
+                                gap={5}
+                            >
+                                <IconButton>
+                                    <Tooltip title="Reload stream">
+                                        <ReplayIcon
+                                            fontSize="large"
+                                            sx={{ transform: "scale(2.0)" }}
+                                        />
+                                    </Tooltip>
+                                </IconButton>
+                                {streamState.streams.length > 1 ? (
+                                    <IconButton>
+                                        <Tooltip title="Move stream (hold and drag)">
+                                            <PanToolIcon
+                                                fontSize="large"
+                                                sx={{ transform: "scale(1.5)" }}
+                                            />
+                                        </Tooltip>
+                                    </IconButton>
+                                ) : null}
+                                <IconButton>
+                                    <Tooltip title="Close stream">
+                                        <CloseIcon
+                                            fontSize="large"
+                                            sx={{ transform: "scale(2.0)" }}
+                                        />
+                                    </Tooltip>
+                                </IconButton>
+                            </Box>
+                        </Box>
+                    ) : null}
+                </div>
             </div>
             <div hidden={streamReady}>
                 <StreamFramePlaceholder frameSize={frameSize} />
             </div>
         </Box>
+    )
+}
+
+interface StreamFrameWrapperProps {
+    children: JSX.Element
+}
+
+const StreamFrameWrapper = ({ children }: StreamFrameWrapperProps) => {
+    const [mouseEntered, setMouseEntered] = useState(false)
+
+    const handleMouseEnterAndLeave = () => {
+        setMouseEntered((prevValue) => !prevValue)
+    }
+
+    return (
+        <div
+            style={{ position: "relative" }}
+            onMouseEnter={() => handleMouseEnterAndLeave}
+            onMouseLeave={() => handleMouseEnterAndLeave}
+        >
+            {children}
+        </div>
     )
 }
 

@@ -102,12 +102,44 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
 
     const handleStreamReady = () => {
         setStreamReady(true)
+
+        const playerElement = document.getElementById(`${channel}-player`)
+        const iframe = playerElement?.getElementsByTagName("iframe")[0]
+
+        console.log("player el ", playerElement)
+
+        if (iframe) {
+            iframe.addEventListener("mousemove", () => console.log("iframe move in ready"))
+        } else {
+            console.log("no iframe")
+        }
     }
 
     const handleStreamEnded = () => {
-        // reload because sometimes ended stream gets frozen on ads
+        // reload because sometimes ended stream freezes on ads
         handleStreamReload()
         // TODO: notification to user
+    }
+
+    const timeoutRef = useRef<number>()
+
+    const handleMouseMove = () => {
+        console.log("mouse move")
+        clearTimeout(timeoutRef.current)
+        setShowControlsOverlay(true)
+
+        // Typescript infers timeoutId without window. as type NodeJS.Timeout
+        const timeoutId = window.setTimeout(() => {
+            setShowControlsOverlay(false)
+        }, 5000)
+
+        timeoutRef.current = timeoutId
+    }
+
+    const handleMouseLeave = () => {
+        clearTimeout(timeoutRef.current)
+
+        setShowControlsOverlay(false)
     }
 
     // box maxwidth 500px maxheight 340px
@@ -117,6 +149,21 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
                     width={`${width}px`}
     */
 
+    const twitchPlayerRef = useRef<TwitchPlayer>(null)
+
+    useEffect(() => {
+        const playerElement = document.getElementById(`${channel}-player`)
+        const iframe = playerElement?.getElementsByTagName("iframe")[0]
+
+        console.log("player el ", playerElement)
+
+        if (iframe) {
+            iframe.addEventListener("mouseenter", () => console.log("iframe move in useeffect"))
+        } else {
+            console.log("no iframe")
+        }
+    }, [])
+
     return (
         <Box
             alignContent="center"
@@ -124,10 +171,14 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
         >
             <div hidden={!streamReady}>
                 <div
-                    style={{ position: "relative", display: "flex" }}
-                    onMouseMove={() => null}
-                    onMouseEnter={handleMouseEnterAndLeave}
-                    onMouseLeave={handleMouseEnterAndLeave}
+                    style={{
+                        position: "relative",
+                        display: "flex",
+                        height: frameSize.height,
+                        width: frameSize.width,
+                    }}
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
                 >
                     <TwitchPlayer
                         key={streamKey}
@@ -138,8 +189,20 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
                         playing={true}
                         onReady={handleStreamReady}
                         volume={0}
-                        controls={true}
+                        controls={false}
                         onEnded={handleStreamEnded}
+                        ref={twitchPlayerRef}
+                    />
+                    {}
+                    <div
+                        style={{
+                            position: "absolute",
+                            top: "50%",
+                            width: "50px",
+                            backgroundColor: "blue",
+                            height: "50px",
+                        }}
+                        onMouseMove={() => console.log("mouse move in div")}
                     />
                     {showControlsOverlay ? (
                         <Box
@@ -193,26 +256,8 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
     )
 }
 
-interface StreamFrameWrapperProps {
-    children: JSX.Element
-}
-
-const StreamFrameWrapper = ({ children }: StreamFrameWrapperProps) => {
-    const [mouseEntered, setMouseEntered] = useState(false)
-
-    const handleMouseEnterAndLeave = () => {
-        setMouseEntered((prevValue) => !prevValue)
-    }
-
-    return (
-        <div
-            style={{ position: "relative" }}
-            onMouseEnter={() => handleMouseEnterAndLeave}
-            onMouseLeave={() => handleMouseEnterAndLeave}
-        >
-            {children}
-        </div>
-    )
+const testIframe = ({ frameSize }: StreamPlaceholderProps) => {
+    return null
 }
 
 interface StreamPlaceholderProps {

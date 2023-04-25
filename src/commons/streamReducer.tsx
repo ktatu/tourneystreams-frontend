@@ -88,12 +88,6 @@ export const StreamContextProvider = ({ reducer, children }: StreamContextProvid
     const streamsInSearchParams = useSearchParams("streams")
 
     useEffect(() => {
-        if (streamState.streams.length !== 0) {
-            streamsInSearchParams.setParams(streamState.streams)
-        }
-    }, [streamState.streams])
-
-    useEffect(() => {
         if (!streamState.streams.includes(streamState.selectedChannel)) {
             selectChatChannel(streamState.streams[0] || "")
         }
@@ -103,10 +97,13 @@ export const StreamContextProvider = ({ reducer, children }: StreamContextProvid
         if (streamState.streams.includes(channel)) {
             return
         }
+
+        streamsInSearchParams.addToParams(channel)
         dispatch({ type: "ADD_STREAM", payload: channel })
     }
 
     const removeStream = (channel: string) => {
+        streamsInSearchParams.removeFromParams(channel)
         dispatch({ type: "REMOVE_STREAM", payload: channel })
     }
 

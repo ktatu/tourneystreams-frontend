@@ -1,34 +1,47 @@
 import queryString from "query-string"
 
-const useSearchParams = (searchParam: string) => {
+const useSearchParams = (searchParamKey: string) => {
     const getAll = () => {
-        const searchParams = queryString.parse(location.search, { arrayFormat: "comma" })
-        const streamsInParams = searchParams[searchParam]
-        const validatedParams = validateSearchParams(streamsInParams)
-
-        return validatedParams
+        return getValidatedSearchParamValues(searchParamKey)
     }
 
-    const setParams = (params: Array<string>) => {
+    const addToParams = (newParamValue: string) => {
+        const paramValues = getValidatedSearchParamValues(searchParamKey)
+
+        setParams(paramValues.concat(newParamValue))
+    }
+
+    const removeFromParams = (paramValueToRemove: string) => {
+        const paramValues = getValidatedSearchParamValues(searchParamKey)
+
+        setParams(paramValues.filter((paramValue) => paramValue !== paramValueToRemove))
+    }
+
+    const setParams = (modifiedParam: Array<string>) => {
         const searchParams = queryString.parse(location.search)
-        searchParams[searchParam] = params
+        searchParams[searchParamKey] = modifiedParam
         const newSearch = queryString.stringify(searchParams, { arrayFormat: "comma" })
-        history.pushState(params, "", `${location.pathname}?${newSearch}`)
+        history.pushState(modifiedParam, "", `${location.pathname}?${newSearch}`)
     }
 
-    return { getAll, setParams }
+    return { getAll, addToParams, removeFromParams }
 }
 
-const validateSearchParams = (streamsInParams: string | (string | null)[] | null) => {
-    if (typeof streamsInParams === "string") {
-        return [streamsInParams]
+const getValidatedSearchParamValues = (searchParamKey: string): string[] => {
+    const searchParams = queryString.parse(location.search, { arrayFormat: "comma" })
+    const valuesInParams = searchParams[searchParamKey]
+
+    if (typeof valuesInParams === "string") {
+        return [valuesInParams]
     }
 
-    if (Array.isArray(streamsInParams)) {
-        return streamsInParams.flatMap((param) => (param ? [param] : []))
+    if (Array.isArray(valuesInParams)) {
+        return valuesInParams.flatMap((param) => (param ? [param] : []))
     }
 
     return []
 }
+
+// streamsInParams: string | (string | null)[] | null
 
 export default useSearchParams

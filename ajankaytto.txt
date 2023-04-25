@@ -49,5 +49,6 @@
 7.4   1h Pieniä käyttöliittymän parannuksia
 8.4   3h Stream-overlay stream-kontrolleille
 9.4   2.5h -||-
+25.4  2h Stream-overlay ja bugfix kyselyparametreihin
 
 95.5 29.3

@@ -7,6 +7,7 @@ import TailSpinner from "./TailSpinner"
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
 import PanToolOutlinedIcon from "@mui/icons-material/PanToolOutlined"
+import StreamFrameDragButton from "./StreamFrameDragButton"
 
 interface StreamFrameContainerProps {
     channel: string
@@ -20,6 +21,8 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
     const [showControlsOverlay, setShowControlsOverlay] = useState(false)
 
     const { removeStream, streamState } = useStreamContext()
+
+    const timeoutRef = useRef<number>()
 
     useEffect(() => {
         let timeoutId
@@ -56,8 +59,6 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
         setStreamReady(true)
     }
 
-    const timeoutRef = useRef<number>()
-
     const handleMouseMove = () => {
         clearTimeout(timeoutRef.current)
         setShowControlsOverlay(true)
@@ -82,8 +83,6 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
                     height={`${width * 0.5625}px`}
                     width={`${width}px`}
     */
-
-    const twitchPlayerRef = useRef<TwitchPlayer>(null)
 
     return (
         <Box
@@ -112,14 +111,13 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
                         volume={0}
                         controls={false}
                         onEnded={handleStreamReload} // Reload because sometimes ended streams freeze on ads
-                        ref={twitchPlayerRef}
                     />
 
                     <Box
                         display="flex"
                         position="absolute"
                         width="100%"
-                        minHeight="10%"
+                        minHeight="15%"
                         top="0%"
                         justifyContent="center"
                         gap={2}
@@ -147,26 +145,9 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
                                         </Tooltip>
                                     </ButtonBase>
                                 </div>
-                                <div>
-                                    {streamState.streams.length > 1 ? (
-                                        <ButtonBase
-                                            disableRipple
-                                            sx={{ padding: 2 }}
-                                        >
-                                            <Tooltip title="Move stream (hold and drag)">
-                                                <PanToolOutlinedIcon
-                                                    fontSize="large"
-                                                    sx={{
-                                                        transform: "scale(1.5)",
-                                                        "&hover": {
-                                                            backgroundColor: "transparent",
-                                                        },
-                                                    }}
-                                                />
-                                            </Tooltip>
-                                        </ButtonBase>
-                                    ) : null}
-                                </div>
+                                <StreamFrameDragButton
+                                    dragButtonVisible={streamState.streams.length > 1}
+                                />
                                 <div>
                                     <ButtonBase
                                         disableRipple

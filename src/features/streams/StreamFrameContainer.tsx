@@ -6,7 +6,6 @@ import TailSpinner from "./TailSpinner"
 
 import ReplayIcon from "@mui/icons-material/Replay"
 import CloseIcon from "@mui/icons-material/Close"
-import PanToolOutlinedIcon from "@mui/icons-material/PanToolOutlined"
 import StreamFrameDragButton from "./StreamFrameDragButton"
 
 interface StreamFrameContainerProps {
@@ -21,18 +20,6 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
     const [showControlsOverlay, setShowControlsOverlay] = useState(false)
 
     const { removeStream, streamState } = useStreamContext()
-
-    const timeoutRef = useRef<number>()
-
-    useEffect(() => {
-        let timeoutId
-
-        if (showControlsOverlay) {
-            timeoutId = setTimeout(() => {
-                setShowControlsOverlay(false)
-            }, 5000)
-        }
-    }, [showControlsOverlay])
 
     useEffect(() => {
         const timeoutID = setTimeout(() => {
@@ -58,6 +45,8 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
     const handleStreamReady = () => {
         setStreamReady(true)
     }
+
+    const timeoutRef = useRef<number>()
 
     const handleMouseMove = () => {
         clearTimeout(timeoutRef.current)

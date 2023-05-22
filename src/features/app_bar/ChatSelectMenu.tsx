@@ -1,11 +1,16 @@
 import { MenuList, MenuItem } from "@mui/material"
 import { useStreamContext } from "../../commons/streamReducer"
 
-const ChatSelectMenu = () => {
+interface ChatSelectMenuProps {
+    handleMenuClose: () => void
+}
+
+const ChatSelectMenu = ({ handleMenuClose }: ChatSelectMenuProps) => {
     const { streamState, selectChatChannel } = useStreamContext()
 
     const handleChatChange = (newChannel: string): void => {
         selectChatChannel(newChannel)
+        handleMenuClose()
     }
 
     return (

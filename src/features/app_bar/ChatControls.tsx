@@ -20,6 +20,12 @@ const ChatControls = () => {
         return null
     }
 
+    const handleMenuClose = () => {
+        if (chatMenuRef.current) {
+            chatMenuRef.current.handleClose()
+        }
+    }
+
     return (
         <>
             {streamState.selectedChannel &&
@@ -31,7 +37,7 @@ const ChatControls = () => {
                                 buttonText: streamState.selectedChannel,
                                 buttonIcon: <KeyboardArrowDownIcon />,
                             }}
-                            menuContent={<ChatSelectMenu />}
+                            menuContent={<ChatSelectMenu handleMenuClose={handleMenuClose} />}
                             ref={chatMenuRef}
                         />
                     </>

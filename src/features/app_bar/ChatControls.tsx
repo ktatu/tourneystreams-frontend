@@ -37,9 +37,10 @@ const ChatControls = () => {
                                 buttonText: streamState.selectedChannel,
                                 buttonIcon: <KeyboardArrowDownIcon />,
                             }}
-                            menuContent={<ChatSelectMenu handleMenuClose={handleMenuClose} />}
                             ref={chatMenuRef}
-                        />
+                        >
+                            <ChatSelectMenu handleMenuClose={handleMenuClose} />
+                        </PopupMenu>
                     </>
                 )}
             <Box paddingLeft={5}>

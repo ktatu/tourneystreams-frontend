@@ -13,7 +13,7 @@ import {
 } from "@mui/material"
 import SettingsIcon from "@mui/icons-material/Settings"
 import useCheckbox from "../../hooks/useCheckbox"
-import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
+import PopupMenu from "../../commons/PopupMenu"
 
 import CloseIcon from "@mui/icons-material/Close"
 
@@ -21,7 +21,7 @@ import TourneyStartTime from "./TourneyStartTime"
 
 import "./TourneyDrawer.css"
 import TourneyAccordion from "./tourney_accordion/TourneyAccordion"
-import React, { startTransition, useEffect, useRef, useState } from "react"
+import React, { startTransition, useState } from "react"
 
 import ISO from "iso-639-1"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
@@ -88,8 +88,9 @@ const TourneyDrawer = ({ open, handleTourneyDrawerClose }: TourneyDrawerProps) =
                                     buttonProps={{
                                         buttonText: "Games",
                                     }}
-                                    menuContent={<GameSelectionMenuContent />}
-                                />
+                                >
+                                    <GameSelectionMenuContent />
+                                </PopupMenu>
                             </Box>
                             <Input
                                 disabled={filterOptionsViewOpen}

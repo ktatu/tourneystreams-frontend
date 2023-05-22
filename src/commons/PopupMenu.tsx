@@ -23,49 +23,47 @@ type TextButtonProps = {
 
 type PopupMenuProps = {
     buttonProps: ButtonProps
-    menuContent: JSX.Element
+    children: JSX.Element
 }
 
 export interface PopupMenuClose {
     handleClose: () => void
 }
 
-const PopupMenu = forwardRef<PopupMenuClose, PopupMenuProps>(
-    ({ buttonProps, menuContent }, ref) => {
-        const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-        const isOpen = Boolean(anchorEl)
+const PopupMenu = forwardRef<PopupMenuClose, PopupMenuProps>(({ buttonProps, children }, ref) => {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const isOpen = Boolean(anchorEl)
 
-        const handleClick: MouseEventHandler = (event: React.MouseEvent<HTMLElement>): void => {
-            setAnchorEl(event.currentTarget)
-        }
-
-        const handleClose = () => {
-            setAnchorEl(null)
-        }
-
-        useImperativeHandle(ref, () => {
-            return {
-                handleClose,
-            }
-        })
-
-        return (
-            <Box>
-                <OpenMenuButton
-                    handleClick={handleClick}
-                    buttonProps={buttonProps}
-                />
-                <Menu
-                    anchorEl={anchorEl}
-                    open={isOpen}
-                    onClose={handleClose}
-                >
-                    {menuContent}
-                </Menu>
-            </Box>
-        )
+    const handleClick: MouseEventHandler = (event: React.MouseEvent<HTMLElement>): void => {
+        setAnchorEl(event.currentTarget)
     }
-)
+
+    const handleClose = () => {
+        setAnchorEl(null)
+    }
+
+    useImperativeHandle(ref, () => {
+        return {
+            handleClose,
+        }
+    })
+
+    return (
+        <Box>
+            <OpenMenuButton
+                handleClick={handleClick}
+                buttonProps={buttonProps}
+            />
+            <Menu
+                anchorEl={anchorEl}
+                open={isOpen}
+                onClose={handleClose}
+            >
+                {children}
+            </Menu>
+        </Box>
+    )
+})
 
 const OpenMenuButton = ({
     buttonProps,
@@ -98,8 +96,7 @@ const OpenMenuButton = ({
     } else if (isTextButtonProps(buttonProps)) {
         return (
             <Button
-                color="inherit"
-                variant="outlined"
+                variant="contained"
                 onClick={handleClick}
                 sx={{ maxWidth: "200px", overflow: "hidden" }}
             >

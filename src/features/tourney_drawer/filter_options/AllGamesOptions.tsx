@@ -81,14 +81,13 @@ const AllGames = () => {
                             buttonProps={{
                                 buttonText: "Add More",
                             }}
-                            menuContent={
-                                <LanguageSelectionMenuContent
-                                    handleLanguageSelection={handleLanguageSelection}
-                                    selectedLanguages={languages.getAll()}
-                                />
-                            }
                             ref={popupMenuRef}
-                        />
+                        >
+                            <LanguageSelectionMenuContent
+                                handleLanguageSelection={handleLanguageSelection}
+                                selectedLanguages={languages.getAll()}
+                            />
+                        </PopupMenu>
                     </Box>
                 </Box>
                 <Box

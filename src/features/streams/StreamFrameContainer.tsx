@@ -4,10 +4,6 @@ import TwitchPlayer from "react-player/twitch"
 import { useStreamContext } from "../../commons/streamReducer"
 import TailSpinner from "./TailSpinner"
 
-import ReplayIcon from "@mui/icons-material/Replay"
-import CloseIcon from "@mui/icons-material/Close"
-import StreamFrameDragButton from "./StreamFrameDragButton"
-
 interface StreamFrameContainerProps {
     channel: string
     frameSize: { width: number; height: number }
@@ -17,7 +13,6 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
     // Streamkey is used for reloading the stream
     const [streamKey, setStreamKey] = useState(1)
     const [streamReady, setStreamReady] = useState(false)
-    const [showControlsOverlay, setShowControlsOverlay] = useState(false)
 
     const { removeStream, streamState } = useStreamContext()
 
@@ -46,26 +41,6 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
         setStreamReady(true)
     }
 
-    const timeoutRef = useRef<number>()
-
-    const handleMouseMove = () => {
-        clearTimeout(timeoutRef.current)
-        setShowControlsOverlay(true)
-
-        // Typescript infers timeoutId without window. as type NodeJS.Timeout
-        const timeoutId = window.setTimeout(() => {
-            setShowControlsOverlay(false)
-        }, 5000)
-
-        timeoutRef.current = timeoutId
-    }
-
-    const handleMouseLeave = () => {
-        clearTimeout(timeoutRef.current)
-
-        setShowControlsOverlay(false)
-    }
-
     // box maxwidth 500px maxheight 340px
     // player height 300px width 500px
     /*
@@ -86,8 +61,6 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
                         height: frameSize.height,
                         width: frameSize.width,
                     }}
-                    onMouseMove={handleMouseMove}
-                    onMouseLeave={handleMouseLeave}
                 >
                     <TwitchPlayer
                         key={streamKey}
@@ -101,59 +74,6 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
                         controls={false}
                         onEnded={handleStreamReload} // Reload because sometimes ended streams freeze on ads
                     />
-
-                    <Box
-                        display="flex"
-                        position="absolute"
-                        width="100%"
-                        minHeight="15%"
-                        top="0%"
-                        justifyContent="center"
-                        gap={2}
-                        onMouseMove={handleMouseMove}
-                    >
-                        <div hidden={!showControlsOverlay ? true : false}>
-                            <Box
-                                position="relative"
-                                display="flex"
-                                padding={1}
-                                gap={3}
-                                border="10px double white"
-                            >
-                                <div>
-                                    <ButtonBase
-                                        disableRipple
-                                        sx={{ padding: 2 }}
-                                        onClick={handleStreamReload}
-                                    >
-                                        <Tooltip title="Reload stream">
-                                            <ReplayIcon
-                                                fontSize="large"
-                                                sx={{ transform: "scale(2.0)" }}
-                                            />
-                                        </Tooltip>
-                                    </ButtonBase>
-                                </div>
-                                <StreamFrameDragButton
-                                    dragButtonVisible={streamState.streams.length > 1}
-                                />
-                                <div>
-                                    <ButtonBase
-                                        disableRipple
-                                        sx={{ padding: 2 }}
-                                        onClick={handleStreamClose}
-                                    >
-                                        <Tooltip title="Close stream">
-                                            <CloseIcon
-                                                fontSize="large"
-                                                sx={{ transform: "scale(2.0)" }}
-                                            />
-                                        </Tooltip>
-                                    </ButtonBase>
-                                </div>
-                            </Box>
-                        </div>
-                    </Box>
                 </div>
             </div>
             <div hidden={streamReady}>

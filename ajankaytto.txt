@@ -51,5 +51,6 @@
 9.4   2.5h -||-
 25.4  2h Stream-overlay ja bugfix kyselyparametreihin
 26.4  1.5h dnd-kit kirjastoon tutustuminen
+23.5  1h Refaktorointia, streamien hallinta-valikko
 
 108 25.4

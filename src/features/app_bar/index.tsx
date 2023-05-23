@@ -3,7 +3,7 @@ import { AppBar as MuiAppBar, Button, Box, Toolbar, TextField, IconButton } from
 import { useStreamContext } from "../../commons/streamReducer"
 import MenuIcon from "@mui/icons-material/Menu"
 import ChatControls from "./ChatControls"
-import StreamsControls from "./StreamsControls"
+import StreamsMenu from "./StreamsMenu"
 
 interface AppBarProps {
     handleTourneyDrawerOpen: () => void
@@ -24,7 +24,7 @@ const AppBar = ({ handleTourneyDrawerOpen }: AppBarProps) => {
                         marginLeft="24%"
                         paddingRight={10}
                     >
-                        <StreamsControls />
+                        <StreamsMenu />
                     </Box>
                     <Box flexGrow={1} />
                     <ChatControls />

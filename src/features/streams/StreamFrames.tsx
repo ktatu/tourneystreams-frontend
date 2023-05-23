@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { Box } from "@mui/material"
 import { useStreamContext } from "../../commons/streamReducer"
+import getStreamDimensions from "../../commons/streamDimensions"
 
 import StreamFrameContainer from "./StreamFrameContainer"
 
@@ -8,6 +9,9 @@ const StreamFrames = () => {
     const { streamState } = useStreamContext()
 
     const invisibleButtonRef = useRef<HTMLButtonElement>(null)
+
+    const STREAM_BASEWIDTH = 1500
+    const STREAM_BASEHEIGHT = 875
 
     useEffect(() => {
         const handleStreamFocus = () => {
@@ -44,51 +48,17 @@ const StreamFrames = () => {
                     <StreamFrameContainer
                         key={channel}
                         channel={channel}
-                        frameSize={getStreamFrameSize(streamState.streams.length, index)}
+                        frameSize={getStreamDimensions(
+                            streamState.streams.length,
+                            index,
+                            STREAM_BASEWIDTH,
+                            STREAM_BASEHEIGHT
+                        )}
                     />
                 ))}
             </Box>
         </Box>
     )
-}
-
-// TODO: % based sizes
-const getStreamFrameSize = (streamCount: number, streamIndex: number) => {
-    const baseWidth = 1500
-    const baseHeight = 875
-
-    switch (streamCount) {
-        case 1:
-            return { width: baseWidth, height: baseHeight }
-        case 2:
-            return { width: baseWidth, height: baseHeight / 2 }
-        case 3:
-            if (streamIndex === 0) {
-                return { width: baseWidth, height: baseHeight / 2 }
-            } else {
-                return { width: baseWidth / 2, height: baseHeight / 2 }
-            }
-        case 4:
-            return { width: baseWidth / 2, height: baseHeight / 2 }
-        case 5:
-            if (streamIndex <= 1) {
-                return { width: baseWidth / 2, height: baseHeight / 2 }
-            } else {
-                return { width: baseWidth / 3, height: baseHeight / 2 }
-            }
-        case 6:
-            return { width: baseWidth / 3, height: baseHeight / 2 }
-        case 7:
-            if (streamIndex <= 2) {
-                return { width: baseWidth / 3, height: baseHeight / 2 }
-            } else {
-                return { width: baseWidth / 4, height: baseHeight / 3 }
-            }
-        case 8:
-            return { width: baseWidth / 4, height: baseHeight / 2 }
-        default:
-            return { width: baseWidth / 3, height: baseHeight / 3 }
-    }
 }
 
 export default StreamFrames

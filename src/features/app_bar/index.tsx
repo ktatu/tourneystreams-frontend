@@ -3,7 +3,6 @@ import { AppBar as MuiAppBar, Button, Box, Toolbar, TextField, IconButton } from
 import { useStreamContext } from "../../commons/streamReducer"
 import MenuIcon from "@mui/icons-material/Menu"
 import ChatControls from "./ChatControls"
-import StreamsMenu from "./StreamsMenu"
 import StreamControls from "./StreamControls"
 
 interface AppBarProps {

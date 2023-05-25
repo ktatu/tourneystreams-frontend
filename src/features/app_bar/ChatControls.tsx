@@ -2,10 +2,10 @@ import { Box, IconButton, Tooltip } from "@mui/material"
 import { useRef } from "react"
 import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
 import { useStreamContext } from "../../commons/streamReducer"
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
-import VisibilityIcon from "@mui/icons-material/Visibility"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import ChatSelectMenu from "./ChatSelectMenu"
+import CommentIcon from "@mui/icons-material/Comment"
+import CommentsDisabledIcon from "@mui/icons-material/CommentsDisabled"
 
 const ChatControls = () => {
     const { streamState, setChatVisibility } = useStreamContext()
@@ -47,13 +47,13 @@ const ChatControls = () => {
                 {streamState.chatIsVisible ? (
                     <IconButton onClick={() => handleChatVisibilityChange(false)}>
                         <Tooltip title="Hide chat">
-                            <VisibilityOffIcon />
+                            <CommentsDisabledIcon />
                         </Tooltip>
                     </IconButton>
                 ) : (
                     <IconButton onClick={() => handleChatVisibilityChange(true)}>
                         <Tooltip title="Show chat">
-                            <VisibilityIcon />
+                            <CommentIcon />
                         </Tooltip>
                     </IconButton>
                 )}

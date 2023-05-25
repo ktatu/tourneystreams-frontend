@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { Box } from "@mui/material"
 import { useStreamContext } from "../../commons/streamReducer"
-import getStreamDimensions from "../../commons/streamDimensions"
+import getStreamDimensions from "./streamDimensions"
 
 import StreamFrameContainer from "./StreamFrameContainer"
 

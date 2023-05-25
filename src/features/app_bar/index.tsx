@@ -4,6 +4,7 @@ import { useStreamContext } from "../../commons/streamReducer"
 import MenuIcon from "@mui/icons-material/Menu"
 import ChatControls from "./ChatControls"
 import StreamsMenu from "./StreamsMenu"
+import StreamControls from "./StreamControls"
 
 interface AppBarProps {
     handleTourneyDrawerOpen: () => void
@@ -24,7 +25,7 @@ const AppBar = ({ handleTourneyDrawerOpen }: AppBarProps) => {
                         marginLeft="24%"
                         paddingRight={10}
                     >
-                        <StreamsMenu />
+                        <StreamControls />
                     </Box>
                     <Box flexGrow={1} />
                     <ChatControls />

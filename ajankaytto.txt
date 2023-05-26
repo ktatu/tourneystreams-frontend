@@ -53,7 +53,8 @@
 26.4  1.5h dnd-kit kirjastoon tutustuminen
 23.5  1h Refaktorointia, streamien hallinta-valikko
 24.5  1.5h -||-
-25.5  1.5 Streamien hallinta-komponentit yläpalkissa
+25.5  1.5h Streamien hallinta-komponentit yläpalkissa
+26.5  2h -||-
 
 
 108 25.4

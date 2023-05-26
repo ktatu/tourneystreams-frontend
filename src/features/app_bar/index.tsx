@@ -1,6 +1,4 @@
-import { useState } from "react"
-import { AppBar as MuiAppBar, Button, Box, Toolbar, TextField, IconButton } from "@mui/material"
-import { useStreamContext } from "../../commons/streamReducer"
+import { AppBar as MuiAppBar, Box, Toolbar, IconButton } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu"
 import ChatControls from "./ChatControls"
 import StreamControls from "./StreamControls"
@@ -30,41 +28,6 @@ const AppBar = ({ handleTourneyDrawerOpen }: AppBarProps) => {
                     <ChatControls />
                 </Toolbar>
             </MuiAppBar>
-        </Box>
-    )
-}
-
-const AddStreamField = () => {
-    const [fieldValue, setFieldValue] = useState("")
-    const { addStream } = useStreamContext()
-
-    const handleAddStream = () => {
-        if (fieldValue === "") {
-            return
-        }
-        addStream(fieldValue)
-    }
-
-    return (
-        <Box
-            display="flex"
-            marginLeft="10px"
-            gap={1}
-        >
-            <TextField
-                sx={{ bgcolor: "grey" }}
-                label="Channel"
-                variant="outlined"
-                value={fieldValue}
-                onChange={(event) => setFieldValue(event.target.value)}
-            />
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleAddStream}
-            >
-                Add stream
-            </Button>
         </Box>
     )
 }

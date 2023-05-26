@@ -23,6 +23,10 @@ type Action =
           payload: Array<string>
       }
     | {
+          type: "SWAP_POSITIONS"
+          payload: { channel1: string; channel2: string }
+      }
+    | {
           type: "SELECT_CHAT_CHANNEL"
           payload: string
       }

@@ -55,6 +55,7 @@
 24.5  1.5h -||-
 25.5  1.5h Streamien hallinta-komponentit yläpalkissa
 26.5  2h -||-
+27.5  2h Streamien paikkojen vaihtaminen yläpalkissa
 
 
 108 25.4

@@ -1,15 +1,16 @@
 import { Box } from "@mui/material"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import TwitchPlayer from "react-player/twitch"
 import { useStreamContext } from "../../commons/streamReducer"
 import TailSpinner from "./TailSpinner"
 
 interface StreamFrameContainerProps {
     channel: string
-    frameSize: { width: number; height: number }
+    frameWidth: number
+    frameHeight: number
 }
 
-const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps) => {
+const StreamFrameContainer = ({ channel, frameWidth, frameHeight }: StreamFrameContainerProps) => {
     // Streamkey is used for reloading the stream
     const [streamKey, setStreamKey] = useState(1)
     const [streamReady, setStreamReady] = useState(false)
@@ -47,16 +48,16 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
                     style={{
                         position: "relative",
                         display: "flex",
-                        height: frameSize.height,
-                        width: frameSize.width,
+                        height: frameHeight,
+                        width: frameWidth,
                     }}
                 >
                     <TwitchPlayer
                         key={streamKey}
                         id={`${channel}-player`}
                         url={`https://www.twitch.tv/${channel}`}
-                        height={frameSize.height}
-                        width={frameSize.width}
+                        height={frameHeight}
+                        width={frameWidth}
                         playing={true}
                         onReady={handleStreamReady}
                         volume={0}
@@ -66,29 +67,33 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
                 </div>
             </div>
             <div hidden={streamReady}>
-                <StreamFramePlaceholder frameSize={frameSize} />
+                <StreamFramePlaceholder
+                    frameWidth={frameWidth}
+                    frameHeight={frameHeight}
+                />
             </div>
         </Box>
     )
 }
 
 interface StreamPlaceholderProps {
-    frameSize: { width: number; height: number }
+    frameWidth: number
+    frameHeight: number
 }
 
-const StreamFramePlaceholder = ({ frameSize }: StreamPlaceholderProps) => {
+const StreamFramePlaceholder = ({ frameWidth, frameHeight }: StreamPlaceholderProps) => {
     return (
         <Box
             bgcolor="black"
             display="flex"
-            height={frameSize.height}
-            width={frameSize.width}
+            height={frameHeight}
+            width={frameWidth}
         >
             <TailSpinner
                 color="#FFFFFF"
                 spinnerWidth="5px"
-                containerHeight={`${frameSize.height}px`}
-                containerWidth={`${frameSize.width}px`}
+                containerHeight={`${frameHeight}px`}
+                containerWidth={`${frameWidth}px`}
             />
         </Box>
     )

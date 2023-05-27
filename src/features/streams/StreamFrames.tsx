@@ -44,18 +44,22 @@ const StreamFrames = () => {
                 justifyContent="center"
                 alignContent="center"
             >
-                {streamState.streams.map((channel: string, index: number) => (
-                    <StreamFrameContainer
-                        key={channel}
-                        channel={channel}
-                        frameSize={getStreamDimensions(
-                            streamState.streams.length,
-                            index,
-                            STREAM_BASEWIDTH,
-                            STREAM_BASEHEIGHT
-                        )}
-                    />
-                ))}
+                {streamState.streams.map((channel: string, index: number) => {
+                    const { width, height } = getStreamDimensions(
+                        streamState.streams.length,
+                        index,
+                        STREAM_BASEWIDTH,
+                        STREAM_BASEHEIGHT
+                    )
+                    return (
+                        <StreamFrameContainer
+                            key={channel}
+                            channel={channel}
+                            frameWidth={width}
+                            frameHeight={height}
+                        />
+                    )
+                })}
             </Box>
         </Box>
     )

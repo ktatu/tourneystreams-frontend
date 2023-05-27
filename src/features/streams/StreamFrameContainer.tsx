@@ -1,4 +1,4 @@
-import { Box, ButtonBase, Tooltip } from "@mui/material"
+import { Box } from "@mui/material"
 import { useState, useEffect, useRef } from "react"
 import TwitchPlayer from "react-player/twitch"
 import { useStreamContext } from "../../commons/streamReducer"
@@ -14,7 +14,7 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
     const [streamKey, setStreamKey] = useState(1)
     const [streamReady, setStreamReady] = useState(false)
 
-    const { removeStream, streamState } = useStreamContext()
+    const { removeStream } = useStreamContext()
 
     useEffect(() => {
         const timeoutID = setTimeout(() => {
@@ -28,10 +28,6 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
         }
     }, [streamReady])
 
-    const handleStreamClose = () => {
-        removeStream(channel)
-    }
-
     const handleStreamReload = () => {
         setStreamReady(false)
         setStreamKey((streamKey) => streamKey + 1)
@@ -40,13 +36,6 @@ const StreamFrameContainer = ({ channel, frameSize }: StreamFrameContainerProps)
     const handleStreamReady = () => {
         setStreamReady(true)
     }
-
-    // box maxwidth 500px maxheight 340px
-    // player height 300px width 500px
-    /*
-                    height={`${width * 0.5625}px`}
-                    width={`${width}px`}
-    */
 
     return (
         <Box

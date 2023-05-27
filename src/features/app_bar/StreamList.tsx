@@ -4,16 +4,19 @@ import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core"
 import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable"
 import { restrictToHorizontalAxis, restrictToParentElement } from "@dnd-kit/modifiers"
 import { Box } from "@mui/material"
+import { isString } from "../../commons/typeValidation"
 
 const StreamList = () => {
-    const { streamState } = useStreamContext()
+    const { streamState, swapStreamPositions } = useStreamContext()
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event
 
-        if (over !== null && active.id !== over.id) {
-            return null
+        if (over === null || !isString(active.id) || !isString(over.id)) {
+            return
         }
+
+        swapStreamPositions(active.id as string, over.id as string)
     }
 
     return (

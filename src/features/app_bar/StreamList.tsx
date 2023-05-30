@@ -1,13 +1,13 @@
 import { useStreamContext } from "../../commons/streamReducer"
 import StreamListItem from "./StreamListItem"
 import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core"
-import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable"
+import { SortableContext, horizontalListSortingStrategy, arrayMove } from "@dnd-kit/sortable"
 import { restrictToHorizontalAxis, restrictToParentElement } from "@dnd-kit/modifiers"
 import { Box } from "@mui/material"
 import { isString } from "../../commons/typeValidation"
 
 const StreamList = () => {
-    const { streamState, swapStreamPositions } = useStreamContext()
+    const { streamState, setStreams } = useStreamContext()
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event
@@ -16,7 +16,18 @@ const StreamList = () => {
             return
         }
 
-        swapStreamPositions(active.id as string, over.id as string)
+        if (active.id !== over.id) {
+            const draggedStreamOldPositionIndex = streamState.streams.indexOf(active.id as string)
+            const draggedStreamNewPositionIndex = streamState.streams.indexOf(over.id as string)
+
+            const newStreamArray = arrayMove(
+                streamState.streams,
+                draggedStreamOldPositionIndex,
+                draggedStreamNewPositionIndex
+            )
+
+            setStreams(newStreamArray)
+        }
     }
 
     return (

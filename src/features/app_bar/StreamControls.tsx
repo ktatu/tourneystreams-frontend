@@ -30,6 +30,7 @@ const StreamControls = () => {
                 placeholder="Channel name"
                 variant="outlined"
                 onChange={handleStreamField}
+                value={addStreamFieldValue}
             />
             <Button
                 variant="contained"
@@ -38,8 +39,14 @@ const StreamControls = () => {
             >
                 <Typography variant="h4">+</Typography>
             </Button>
-            <Box paddingRight={10} />
-            <StreamList />
+            <Box
+                marginLeft={10}
+                width={700}
+                bgcolor="red"
+                overflow="hidden"
+            >
+                <StreamList />
+            </Box>
         </Box>
     )
 }

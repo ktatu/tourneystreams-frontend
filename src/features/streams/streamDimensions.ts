@@ -26,13 +26,17 @@ const getStreamDimensions = (
         case 6:
             return { width: baseWidth / 3, height: baseHeight / 2 }
         case 7:
-            if (streamIndex <= 2) {
-                return { width: baseWidth / 3, height: baseHeight / 2 }
+            if (streamIndex <= 3) {
+                return { width: baseWidth / 2, height: baseHeight / 3 }
             } else {
-                return { width: baseWidth / 4, height: baseHeight / 3 }
+                return { width: baseWidth / 3, height: baseHeight / 3 }
             }
         case 8:
-            return { width: baseWidth / 4, height: baseHeight / 2 }
+            if (streamIndex <= 1) {
+                return { width: baseWidth / 2, height: baseHeight / 3 }
+            } else {
+                return { width: baseWidth / 3, height: baseHeight / 3 }
+            }
         default:
             return { width: baseWidth / 3, height: baseHeight / 3 }
     }

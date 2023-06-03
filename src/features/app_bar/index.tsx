@@ -4,10 +4,15 @@ import ChatControls from "./ChatControls"
 import StreamControls from "./StreamControls"
 
 interface AppBarProps {
-    handleTourneyDrawerOpen: () => void
+    setTourneyDrawerOpen: (newDisplayStatus: boolean) => void
+    tourneyDrawerOpen: boolean
 }
 
-const AppBar = ({ handleTourneyDrawerOpen }: AppBarProps) => {
+const AppBar = ({ setTourneyDrawerOpen, tourneyDrawerOpen }: AppBarProps) => {
+    const handleTourneyDrawerDisplayButtonClick = () => {
+        tourneyDrawerOpen ? setTourneyDrawerOpen(false) : setTourneyDrawerOpen(true)
+    }
+
     return (
         <Box flexGrow={1}>
             <MuiAppBar
@@ -20,7 +25,7 @@ const AppBar = ({ handleTourneyDrawerOpen }: AppBarProps) => {
                         marginRight="auto"
                         gap={10}
                     >
-                        <IconButton onClick={handleTourneyDrawerOpen}>
+                        <IconButton onClick={handleTourneyDrawerDisplayButtonClick}>
                             <MenuIcon fontSize="large" />
                         </IconButton>
                         <Box>

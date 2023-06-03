@@ -32,10 +32,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 
 interface TourneyDrawerProps {
     open: boolean
-    handleTourneyDrawerClose: () => void
+    setTourneyDrawerOpen: (newDisplayStatus: boolean) => void
 }
 
-const TourneyDrawer = ({ open, handleTourneyDrawerClose }: TourneyDrawerProps) => {
+const TourneyDrawer = ({ open, setTourneyDrawerOpen }: TourneyDrawerProps) => {
     const [selectedGames, setSelectedGames] = useState()
     const [tourneyNameFilter, setTourneyNameFilter] = useState("")
 
@@ -72,7 +72,7 @@ const TourneyDrawer = ({ open, handleTourneyDrawerClose }: TourneyDrawerProps) =
                         justifyContent="space-between"
                     >
                         <Typography variant="h4">Tournaments</Typography>
-                        <IconButton onClick={handleTourneyDrawerClose}>
+                        <IconButton onClick={() => setTourneyDrawerOpen(false)}>
                             <ArrowBackIcon fontSize="large" />
                         </IconButton>
                     </Box>

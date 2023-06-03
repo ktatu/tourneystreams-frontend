@@ -16,20 +16,15 @@ const App = () => {
         }
     }, [])
 
-    const handleTourneyDrawerOpen = () => {
-        setTourneyDrawerOpen(true)
-    }
-
-    const handleTourneyDrawerClose = () => {
-        setTourneyDrawerOpen(false)
-    }
-
     return (
         <>
-            <AppBar handleTourneyDrawerOpen={handleTourneyDrawerOpen} />
+            <AppBar
+                setTourneyDrawerOpen={setTourneyDrawerOpen}
+                tourneyDrawerOpen={tourneyDrawerOpen}
+            />
             <TourneyDrawer
                 open={tourneyDrawerOpen}
-                handleTourneyDrawerClose={handleTourneyDrawerClose}
+                setTourneyDrawerOpen={setTourneyDrawerOpen}
             />
             <Stack
                 height="100vh"

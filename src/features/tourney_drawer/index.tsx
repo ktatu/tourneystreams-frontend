@@ -53,7 +53,9 @@ const TourneyDrawer = ({ open, handleTourneyDrawerClose }: TourneyDrawerProps) =
 
     return (
         <Drawer
-            PaperProps={{ sx: { width: "25%" } }}
+            PaperProps={{
+                sx: { width: "25vw", marginTop: (theme) => `${theme.mixins.toolbar.minHeight}px` },
+            }}
             variant="persistent"
             open={open}
             anchor="left"

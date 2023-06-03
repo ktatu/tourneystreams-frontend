@@ -12,19 +12,21 @@ const AppBar = ({ handleTourneyDrawerOpen }: AppBarProps) => {
         <Box flexGrow={1}>
             <MuiAppBar
                 position="fixed"
-                sx={{ zIndex: (theme) => theme.zIndex.drawer - 1 }}
+                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
             >
                 <Toolbar>
-                    <IconButton onClick={handleTourneyDrawerOpen}>
-                        <MenuIcon fontSize="large" />
-                    </IconButton>
                     <Box
-                        marginLeft="24%"
-                        paddingRight={10}
+                        display="flex"
+                        marginRight="auto"
+                        gap={10}
                     >
-                        <StreamControls />
+                        <IconButton onClick={handleTourneyDrawerOpen}>
+                            <MenuIcon fontSize="large" />
+                        </IconButton>
+                        <Box>
+                            <StreamControls />
+                        </Box>
                     </Box>
-                    <Box flexGrow={1} />
                     <ChatControls />
                 </Toolbar>
             </MuiAppBar>

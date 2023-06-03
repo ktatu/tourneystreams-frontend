@@ -4,7 +4,7 @@ import { useStreamContext } from "../../commons/streamReducer"
 import StreamList from "./StreamList"
 
 const StreamControls = () => {
-    const { addStream } = useStreamContext()
+    const { addStream, streamState } = useStreamContext()
     const [addStreamFieldValue, setAddStreamFieldValue] = useState("")
 
     const handleAddStream = () => {
@@ -39,12 +39,7 @@ const StreamControls = () => {
             >
                 <Typography variant="h4">+</Typography>
             </Button>
-            <Box
-                marginLeft={10}
-                width={700}
-                bgcolor="red"
-                overflow="hidden"
-            >
+            <Box marginLeft={10}>
                 <StreamList />
             </Box>
         </Box>

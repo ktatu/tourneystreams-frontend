@@ -58,6 +58,7 @@
 27.5  2h Streamien paikkojen vaihtaminen yläpalkissa
 30.5  3h Css-layouttien opettelu
 02.6  2h Yläpalkin refaktorointia
+06.6  4h Valikko yläpalkkiin
 
 
 108 25.4

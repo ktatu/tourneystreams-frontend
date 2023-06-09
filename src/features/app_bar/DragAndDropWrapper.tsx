@@ -27,7 +27,7 @@ interface DragAndDropWrapperProps {
 const DragAndDropWrapper = ({ children, movementAxis, sortableItems }: DragAndDropWrapperProps) => {
     const { setStreams } = useStreamContext()
 
-    const handleStreamPositionSwap = (event: DragEndEvent) => {
+    const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event
 
         if (over === null || !isString(active.id) || !isString(over.id)) {
@@ -57,7 +57,7 @@ const DragAndDropWrapper = ({ children, movementAxis, sortableItems }: DragAndDr
                     : restrictToVerticalAxis,
                 restrictToParentElement,
             ]}
-            onDragEnd={handleStreamPositionSwap}
+            onDragEnd={handleDragEnd}
         >
             <SortableContext
                 items={sortableItems}

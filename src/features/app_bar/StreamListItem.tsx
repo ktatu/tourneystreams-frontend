@@ -1,4 +1,4 @@
-import { Paper, Box, Typography, IconButton, Tooltip } from "@mui/material"
+import { Paper, Box, Typography, IconButton, Tooltip, useTheme } from "@mui/material"
 import { useStreamContext } from "../../commons/streamReducer"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
@@ -13,14 +13,20 @@ interface StreamListItemProps {
 const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
     const { removeStream } = useStreamContext()
 
-    const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: channel,
     })
+
+    const theme = useTheme()
+
+    const zIndex = isDragging ? theme.zIndex.appBar + 1 : 1
 
     const style = {
         transform: CSS.Transform.toString(transform),
         transition,
-    }
+        zIndex,
+        position: "relative",
+    } as React.CSSProperties
 
     const handleRemoveStream = () => {
         removeStream(channel)

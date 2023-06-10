@@ -42,6 +42,4 @@ const getValidatedSearchParamValues = (searchParamKey: string): string[] => {
     return []
 }
 
-// streamsInParams: string | (string | null)[] | null
-
 export default useSearchParams

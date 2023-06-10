@@ -7,7 +7,7 @@ import ChatSelectMenu from "./ChatSelectMenu"
 import CommentIcon from "@mui/icons-material/Comment"
 import CommentsDisabledIcon from "@mui/icons-material/CommentsDisabled"
 
-const ChatControls = () => {
+const ChatSection = () => {
     const { streamState, setChatVisibility } = useStreamContext()
 
     const chatMenuRef = useRef<PopupMenuClose>(null)
@@ -62,4 +62,4 @@ const ChatControls = () => {
     )
 }
 
-export default ChatControls
+export default ChatSection

@@ -3,8 +3,8 @@ import { useState } from "react"
 import { useStreamContext } from "../../commons/streamReducer"
 import StreamList from "./StreamList"
 
-const StreamControls = () => {
-    const { addStream, streamState } = useStreamContext()
+const StreamSection = () => {
+    const { addStream } = useStreamContext()
     const [addStreamFieldValue, setAddStreamFieldValue] = useState("")
 
     const handleAddStream = () => {
@@ -46,4 +46,4 @@ const StreamControls = () => {
     )
 }
 
-export default StreamControls
+export default StreamSection

@@ -1,15 +1,15 @@
 import { useStreamContext } from "../../commons/streamReducer"
 import StreamListItem from "./StreamListItem"
-import { Box, Button, Slide, Stack } from "@mui/material"
+import { Box, Button, Menu, Slide, Stack } from "@mui/material"
 import DragAndDropWrapper, { MovementAxis } from "./DragAndDropWrapper"
-import { useEffect, useLayoutEffect, useState, useRef } from "react"
-import PopupMenu, { PopupMenuClose } from "../../commons/PopupMenu"
+import { useEffect, useLayoutEffect, useState, useRef, MouseEventHandler } from "react"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 
 const StreamList = () => {
     const [showHorizontalList, setShowHorizontalList] = useState(true)
     const [showMenuButton, setShowMenuButton] = useState(false)
     const [firstComponentRender, setFirstComponentRender] = useState(true)
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
     const { streamState } = useStreamContext()
 
@@ -25,7 +25,7 @@ const StreamList = () => {
     }, [])
 
     useEffect(() => {
-        if (firstComponentRender) {
+        if (firstComponentRender || anchorEl !== null) {
             setFirstComponentRender(false)
             return
         }
@@ -35,14 +35,21 @@ const StreamList = () => {
         } else {
             setShowMenuButton(false)
         }
-    }, [streamState.streams])
+    }, [streamState.streams, anchorEl])
+
+    const handleMenuOpen: MouseEventHandler = (event: React.MouseEvent<HTMLElement>): void => {
+        setAnchorEl(event.currentTarget)
+    }
+
+    const handleMenuClose = () => {
+        setAnchorEl(null)
+    }
 
     return (
         <>
             <Box
                 ref={slideContainerRef}
                 overflow="hidden"
-                bgcolor="red"
                 position="relative"
                 minWidth="800px"
                 minHeight="50px"
@@ -50,7 +57,6 @@ const StreamList = () => {
                 <Box
                     width="700px"
                     height="50px"
-                    bgcolor="green"
                     position="absolute"
                     display="flex"
                 >
@@ -80,7 +86,6 @@ const StreamList = () => {
                             </Box>
                         </Slide>
                     </DragAndDropWrapper>
-                    <Button onClick={() => setShowHorizontalList(false)}>click</Button>
                 </Box>
                 <Box
                     width="200px"
@@ -100,20 +105,23 @@ const StreamList = () => {
                             display="flex"
                             alignItems="center"
                         >
-                            <PopupMenu
-                                buttonProps={{
-                                    buttonText: "streams",
-                                    buttonIcon: <KeyboardArrowDownIcon />,
-                                }}
+                            <Button
+                                variant="contained"
+                                onClick={handleMenuOpen}
+                                endIcon={<KeyboardArrowDownIcon />}
+                            >
+                                Streams
+                            </Button>
+                            <Menu
+                                anchorEl={anchorEl}
+                                open={anchorEl !== null}
+                                onClose={handleMenuClose}
                             >
                                 <DragAndDropWrapper
                                     movementAxis={MovementAxis.Vertical}
                                     sortableItems={streamState.streams}
                                 >
-                                    <Stack
-                                        direction="column"
-                                        gap={0}
-                                    >
+                                    <Stack direction="column">
                                         {streamState.streams.map((channel) => (
                                             <StreamListItem
                                                 key={channel}
@@ -123,7 +131,7 @@ const StreamList = () => {
                                         ))}
                                     </Stack>
                                 </DragAndDropWrapper>
-                            </PopupMenu>
+                            </Menu>
                         </Box>
                     </Slide>
                 </Box>

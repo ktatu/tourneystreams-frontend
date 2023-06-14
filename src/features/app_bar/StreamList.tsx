@@ -13,6 +13,10 @@ const StreamList = () => {
 
     const { streamState } = useStreamContext()
 
+    const sortedChannels = streamState.streams
+        .sort((stream1, stream2) => stream1.displayPosition - stream2.displayPosition)
+        .map((stream) => stream.channelName)
+
     const slideContainerRef = useRef(null)
 
     // layouteffect and firstComponentRender prevent showing a swap from list to menu to user on first render
@@ -62,7 +66,7 @@ const StreamList = () => {
                 >
                     <DragAndDropWrapper
                         movementAxis={MovementAxis.Horizontal}
-                        sortableItems={streamState.streams}
+                        sortableItems={sortedChannels}
                     >
                         <Slide
                             appear={false}
@@ -76,7 +80,7 @@ const StreamList = () => {
                                 display="flex"
                                 gap={2}
                             >
-                                {streamState.streams.map((channel) => (
+                                {sortedChannels.map((channel) => (
                                     <StreamListItem
                                         key={channel}
                                         channel={channel}
@@ -119,10 +123,10 @@ const StreamList = () => {
                             >
                                 <DragAndDropWrapper
                                     movementAxis={MovementAxis.Vertical}
-                                    sortableItems={streamState.streams}
+                                    sortableItems={sortedChannels}
                                 >
                                     <Stack direction="column">
-                                        {streamState.streams.map((channel) => (
+                                        {sortedChannels.map((channel) => (
                                             <StreamListItem
                                                 key={channel}
                                                 channel={channel}

@@ -6,7 +6,7 @@ import getStreamDimensions from "./streamDimensions"
 import StreamFrameContainer from "./StreamFrameContainer"
 
 const StreamFrames = () => {
-    const { streamState } = useStreamContext()
+    const { streamState, getChannelNames } = useStreamContext()
 
     const invisibleButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -43,8 +43,9 @@ const StreamFrames = () => {
                 flexWrap="wrap"
                 justifyContent="center"
                 alignContent="center"
+                bgcolor="red"
             >
-                {streamState.streams.map((channel: string, index: number) => {
+                {streamState.streams.map((stream, index) => {
                     const { width, height } = getStreamDimensions(
                         streamState.streams.length,
                         index,
@@ -52,12 +53,17 @@ const StreamFrames = () => {
                         STREAM_BASEHEIGHT
                     )
                     return (
-                        <StreamFrameContainer
-                            key={channel}
-                            channel={channel}
-                            frameWidth={width}
-                            frameHeight={height}
-                        />
+                        <Box
+                            key={stream.channelName}
+                            order={stream.displayPosition}
+                        >
+                            <StreamFrameContainer
+                                key={stream.channelName}
+                                channel={stream.channelName}
+                                frameWidth={width}
+                                frameHeight={height}
+                            />
+                        </Box>
                     )
                 })}
             </Box>

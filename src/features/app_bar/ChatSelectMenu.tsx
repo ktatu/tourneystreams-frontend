@@ -6,7 +6,7 @@ interface ChatSelectMenuProps {
 }
 
 const ChatSelectMenu = ({ handleMenuClose }: ChatSelectMenuProps) => {
-    const { streamState, selectChatChannel } = useStreamContext()
+    const { streamState, selectChatChannel, getChannelNames } = useStreamContext()
 
     const handleChatChange = (newChannel: string): void => {
         selectChatChannel(newChannel)
@@ -15,7 +15,7 @@ const ChatSelectMenu = ({ handleMenuClose }: ChatSelectMenuProps) => {
 
     return (
         <MenuList>
-            {streamState.streams.map((channel) => {
+            {getChannelNames().map((channel) => {
                 return (
                     <MenuItem
                         key={channel}

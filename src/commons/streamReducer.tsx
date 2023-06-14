@@ -25,7 +25,7 @@ type Action =
       }
     | {
           type: "SET_STREAMS"
-          payload: Array<string>
+          payload: Array<Stream>
       }
     | {
           type: "SWAP_STREAM_POSITIONS"
@@ -63,6 +63,19 @@ export const streamReducer = (state: StreamState, action: Action) => {
                 streams: action.payload,
             }
         case "SWAP_STREAM_POSITIONS": {
+            const channel1Position = state.streams.find(
+                (stream) => stream.channelName === action.payload.channel1
+            )
+            const channel2Position = state.streams.find(
+                (stream) => stream.channelName === action.payload.channel2
+            )
+            const channel1Index = state.streams.findIndex(
+                (stream) => stream.channelName === action.payload.channel1
+            )
+            const channel2Index = state.streams.findIndex(
+                (stream) => stream.channelName === action.payload.channel2
+            )
+
             return { ...state }
         }
 
@@ -79,22 +92,13 @@ export const streamReducer = (state: StreamState, action: Action) => {
     }
 }
 
-const testArray: Array<Stream> = [
-    { channelName: "test1", displayPosition: 0 },
-    { channelName: "test2", displayPosition: 1 },
-]
-
-/*
+const initialState: StreamState = {
     streams: useSearchParams("streams")
         .getAll()
         .map((streamFromParams, index) => ({
             channelName: streamFromParams,
             displayPosition: index,
-        }))
-*/
-
-const initialState: StreamState = {
-    streams: testArray,
+        })),
     selectedChannel: "",
     chatIsVisible: true,
 }
@@ -103,9 +107,9 @@ const StateContext = createContext<{
     streamState: StreamState
     addStream: (channel: string) => void
     removeStream: (channel: string) => void
-    getChannelNames: () => Array<Stream>
     setStreams: (channelsArray: Array<string>) => void
     swapStreamPositions: (channel1: string, channel2: string) => void
+    getChannelNames: () => Array<string>
     selectChatChannel: (channel: string) => void
     setChatVisibility: (visibility: boolean) => void
 }>({
@@ -157,7 +161,11 @@ export const StreamContextProvider = ({ reducer, children }: StreamContextProvid
     }
 
     const setStreams = (channelsArray: Array<string>) => {
-        dispatch({ type: "SET_STREAMS", payload: channelsArray })
+        const streamsArray: Array<Stream> = channelsArray.map((channel, index) => ({
+            channelName: channel,
+            displayPosition: index,
+        }))
+        dispatch({ type: "SET_STREAMS", payload: streamsArray })
     }
 
     const selectChatChannel = (channel: string) => {
@@ -178,8 +186,8 @@ export const StreamContextProvider = ({ reducer, children }: StreamContextProvid
         streamState,
         addStream,
         removeStream,
-        getChannelNames,
         setStreams,
+        getChannelNames,
         swapStreamPositions,
         selectChatChannel,
         setChatVisibility,

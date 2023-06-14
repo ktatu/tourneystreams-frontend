@@ -1,17 +1,4 @@
-import {
-    Box,
-    Link,
-    Tooltip,
-    Typography,
-    Switch,
-    Stack,
-    List,
-    ListItem,
-    ListItemText,
-    Button,
-    ListItemIcon,
-    ListSubheader,
-} from "@mui/material"
+import { Box, Link, Tooltip, Typography, Switch, List, ListItem, ListItemText } from "@mui/material"
 import { memo, useEffect, useState } from "react"
 import { useStreamContext } from "../../../commons/streamReducer"
 import { StreamInfo } from "../types"
@@ -47,7 +34,7 @@ interface StreamInfoRowProps {
 
 const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowProps) {
     const [checked, setChecked] = useState(false)
-    const { streamState, addStream, removeStream } = useStreamContext()
+    const { streamState, addStream, removeStream, getChannelNames } = useStreamContext()
 
     const handleToggle = () => {
         if (checked) {
@@ -59,7 +46,7 @@ const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowP
     }
 
     useEffect(() => {
-        setChecked(streamState.streams.includes(streamInfo.channel))
+        setChecked(getChannelNames().includes(streamInfo.channel))
     }, [streamState.streams])
 
     return (

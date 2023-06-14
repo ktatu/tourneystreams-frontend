@@ -25,16 +25,23 @@ interface DragAndDropWrapperProps {
 }
 
 const DragAndDropWrapper = ({ children, movementAxis, sortableItems }: DragAndDropWrapperProps) => {
-    const { setStreams } = useStreamContext()
+    const { swapStreamPositions } = useStreamContext()
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event
+
+        console.log("active id ", active.id)
+        console.log("over id ", over?.id)
 
         if (over === null || !isString(active.id) || !isString(over.id)) {
             return
         }
 
+        const channel1 = active.id as string
+        const channel2 = over.id as string
+
         if (active.id !== over.id) {
+            /*
             const draggedStreamOldPositionIndex = sortableItems.indexOf(active.id as string)
             const draggedStreamNewPositionIndex = sortableItems.indexOf(over.id as string)
 
@@ -45,6 +52,9 @@ const DragAndDropWrapper = ({ children, movementAxis, sortableItems }: DragAndDr
             )
 
             setStreams(newStreamArray)
+            */
+            console.log("swapping positions")
+            swapStreamPositions(channel1, channel2)
         }
     }
 

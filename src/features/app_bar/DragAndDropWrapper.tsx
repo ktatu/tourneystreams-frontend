@@ -3,7 +3,6 @@ import {
     SortableContext,
     horizontalListSortingStrategy,
     verticalListSortingStrategy,
-    arrayMove,
 } from "@dnd-kit/sortable"
 import {
     restrictToHorizontalAxis,
@@ -30,9 +29,6 @@ const DragAndDropWrapper = ({ children, movementAxis, sortableItems }: DragAndDr
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event
 
-        console.log("active id ", active.id)
-        console.log("over id ", over?.id)
-
         if (over === null || !isString(active.id) || !isString(over.id)) {
             return
         }
@@ -41,19 +37,6 @@ const DragAndDropWrapper = ({ children, movementAxis, sortableItems }: DragAndDr
         const channel2 = over.id as string
 
         if (active.id !== over.id) {
-            /*
-            const draggedStreamOldPositionIndex = sortableItems.indexOf(active.id as string)
-            const draggedStreamNewPositionIndex = sortableItems.indexOf(over.id as string)
-
-            const newStreamArray = arrayMove(
-                sortableItems,
-                draggedStreamOldPositionIndex,
-                draggedStreamNewPositionIndex
-            )
-
-            setStreams(newStreamArray)
-            */
-            console.log("swapping positions")
             swapStreamPositions(channel1, channel2)
         }
     }

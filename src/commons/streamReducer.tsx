@@ -63,20 +63,33 @@ export const streamReducer = (state: StreamState, action: Action) => {
                 streams: action.payload,
             }
         case "SWAP_STREAM_POSITIONS": {
-            const channel1Position = state.streams.find(
-                (stream) => stream.channelName === action.payload.channel1
-            )
-            const channel2Position = state.streams.find(
-                (stream) => stream.channelName === action.payload.channel2
-            )
-            const channel1Index = state.streams.findIndex(
-                (stream) => stream.channelName === action.payload.channel1
-            )
-            const channel2Index = state.streams.findIndex(
-                (stream) => stream.channelName === action.payload.channel2
-            )
+            const { channel1, channel2 } = action.payload
+            const channel1InState = state.streams.find((stream) => stream.channelName === channel1)
+            const channel2InState = state.streams.find((stream) => stream.channelName === channel2)
 
-            return { ...state }
+            if (!(channel1InState && channel2InState)) {
+                return { ...state }
+            }
+
+            return {
+                ...state,
+                streams: state.streams.map((stream) => {
+                    if (stream.channelName === action.payload.channel1) {
+                        return {
+                            channelName: stream.channelName,
+                            displayPosition: channel2InState.displayPosition,
+                        }
+                    }
+                    if (stream.channelName === action.payload.channel2) {
+                        return {
+                            channelName: stream.channelName,
+                            displayPosition: channel1InState.displayPosition,
+                        }
+                    }
+
+                    return stream
+                }),
+            }
         }
 
         case "SELECT_CHAT_CHANNEL":
@@ -108,8 +121,8 @@ const StateContext = createContext<{
     addStream: (channel: string) => void
     removeStream: (channel: string) => void
     setStreams: (channelsArray: Array<string>) => void
-    swapStreamPositions: (channel1: string, channel2: string) => void
     getChannelNames: () => Array<string>
+    swapStreamPositions: (channel1: string, channel2: string) => void
     selectChatChannel: (channel: string) => void
     setChatVisibility: (visibility: boolean) => void
 }>({
@@ -117,8 +130,8 @@ const StateContext = createContext<{
     addStream: () => {},
     removeStream: () => {},
     setStreams: () => {},
-    getChannelNames: () => [],
     swapStreamPositions: () => {},
+    getChannelNames: () => [],
     selectChatChannel: () => {},
     setChatVisibility: () => {},
 })
@@ -138,7 +151,7 @@ export const StreamContextProvider = ({ reducer, children }: StreamContextProvid
                 (stream) => stream.channelName === streamState.selectedChannel
             )
         ) {
-            selectChatChannel(streamState.streams[0].channelName || "")
+            selectChatChannel(streamState.streams[0]?.channelName || "")
         }
     }, [streamState.streams])
 

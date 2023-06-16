@@ -3,6 +3,7 @@ import {
     SortableContext,
     horizontalListSortingStrategy,
     verticalListSortingStrategy,
+    rectSwappingStrategy,
 } from "@dnd-kit/sortable"
 import {
     restrictToHorizontalAxis,
@@ -54,11 +55,7 @@ const DragAndDropWrapper = ({ children, movementAxis, sortableItems }: DragAndDr
         >
             <SortableContext
                 items={sortableItems}
-                strategy={
-                    movementAxis === MovementAxis.Horizontal
-                        ? horizontalListSortingStrategy
-                        : verticalListSortingStrategy
-                }
+                strategy={rectSwappingStrategy}
             >
                 {children}
             </SortableContext>

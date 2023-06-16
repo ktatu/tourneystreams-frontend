@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react"
 import useSearchParams from "./useSearchParams"
 
-interface Stream {
+export interface Stream {
     channelName: string
     displayPosition: number
 }
@@ -91,7 +91,6 @@ export const streamReducer = (state: StreamState, action: Action) => {
                 }),
             }
         }
-
         case "SELECT_CHAT_CHANNEL":
             return {
                 ...state,
@@ -121,7 +120,6 @@ const StateContext = createContext<{
     addStream: (channel: string) => void
     removeStream: (channel: string) => void
     setStreams: (channelsArray: Array<string>) => void
-    getChannelNames: () => Array<string>
     swapStreamPositions: (channel1: string, channel2: string) => void
     selectChatChannel: (channel: string) => void
     setChatVisibility: (visibility: boolean) => void
@@ -131,7 +129,6 @@ const StateContext = createContext<{
     removeStream: () => {},
     setStreams: () => {},
     swapStreamPositions: () => {},
-    getChannelNames: () => [],
     selectChatChannel: () => {},
     setChatVisibility: () => {},
 })
@@ -189,18 +186,18 @@ export const StreamContextProvider = ({ reducer, children }: StreamContextProvid
         dispatch({ type: "SET_CHAT_VISIBILITY", payload: visibility })
     }
 
+    /*
     const getChannelNames = () => {
         return streamState.streams
             .sort((stream1, stream2) => stream1.displayPosition - stream2.displayPosition)
             .map((stream) => stream.channelName)
-    }
+    }*/
 
     const contextValue = {
         streamState,
         addStream,
         removeStream,
         setStreams,
-        getChannelNames,
         swapStreamPositions,
         selectChatChannel,
         setChatVisibility,

@@ -60,6 +60,7 @@
 02.6  2h Yläpalkin refaktorointia
 06.6  4h Valikko yläpalkkiin
 14.6  4h Streamien tilanhallinnan uusiminen
+16.6  2h -||-
 
 
 130.5 14.6

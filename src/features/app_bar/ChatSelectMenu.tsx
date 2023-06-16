@@ -6,7 +6,7 @@ interface ChatSelectMenuProps {
 }
 
 const ChatSelectMenu = ({ handleMenuClose }: ChatSelectMenuProps) => {
-    const { streamState, selectChatChannel, getChannelNames } = useStreamContext()
+    const { streamState, selectChatChannel } = useStreamContext()
 
     const handleChatChange = (newChannel: string): void => {
         selectChatChannel(newChannel)
@@ -14,15 +14,16 @@ const ChatSelectMenu = ({ handleMenuClose }: ChatSelectMenuProps) => {
     }
 
     return (
-        <MenuList>
-            {getChannelNames().map((channel) => {
+        <MenuList sx={{ display: "flex", flexDirection: "column" }}>
+            {streamState.streams.map((stream) => {
                 return (
                     <MenuItem
-                        key={channel}
-                        selected={channel === streamState.selectedChannel}
-                        onClick={() => handleChatChange(channel)}
+                        key={stream.channelName}
+                        selected={stream.channelName === streamState.selectedChannel}
+                        onClick={() => handleChatChange(stream.channelName)}
+                        sx={{ order: stream.displayPosition }}
                     >
-                        {channel}
+                        {stream.channelName}
                     </MenuItem>
                 )
             })}

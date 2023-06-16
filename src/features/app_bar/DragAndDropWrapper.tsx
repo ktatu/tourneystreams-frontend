@@ -1,10 +1,5 @@
 import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core"
-import {
-    SortableContext,
-    horizontalListSortingStrategy,
-    verticalListSortingStrategy,
-    rectSwappingStrategy,
-} from "@dnd-kit/sortable"
+import { SortableContext, rectSwappingStrategy } from "@dnd-kit/sortable"
 import {
     restrictToHorizontalAxis,
     restrictToVerticalAxis,

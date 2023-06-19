@@ -61,6 +61,7 @@
 06.6  4h Valikko yläpalkkiin
 14.6  4h Streamien tilanhallinnan uusiminen
 16.6  2h -||-
+19.6  1h Stream chatin hallinta stream-kontrolleihin
 
 
 130.5 14.6

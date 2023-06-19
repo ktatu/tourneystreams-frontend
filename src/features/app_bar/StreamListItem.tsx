@@ -4,6 +4,7 @@ import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import CloseIcon from "@mui/icons-material/Close"
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz"
+import CommentIcon from "@mui/icons-material/Comment"
 
 interface StreamListItemProps {
     channel: string
@@ -11,7 +12,9 @@ interface StreamListItemProps {
 }
 
 const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
-    const { removeStream } = useStreamContext()
+    const { removeStream, selectChatChannel, streamState } = useStreamContext()
+
+    const selectedChannel = streamState.selectedChannel === channel
 
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: channel,
@@ -30,10 +33,14 @@ const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
         removeStream(channel)
     }
 
+    const handleSelectChatChannel = () => {
+        selectChatChannel(channel)
+    }
+
     return (
         <Paper
             variant="outlined"
-            sx={{ width: 200, height: 50, textAlign: "center" }}
+            sx={{ minWidth: 200, height: 50, textAlign: "center" }}
             ref={setNodeRef}
             style={style}
             {...attributes}
@@ -53,15 +60,12 @@ const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
                     {channel}
                 </Typography>
                 <Box flexGrow={1} />
-                <Box
-                    display="flex"
-                    gap={1}
-                >
+                <Box display="flex">
                     {!oneStreamOpen ? (
                         <IconButton
                             size="large"
-                            sx={{ padding: 0 }}
                             {...listeners}
+                            sx={{ padding: 0.5 }}
                         >
                             <Tooltip title="Move stream (hold and drag)">
                                 <SwapHorizIcon fontSize="medium" />
@@ -70,8 +74,17 @@ const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
                     ) : null}
                     <IconButton
                         size="large"
-                        sx={{ padding: 0 }}
+                        sx={{ opacity: selectedChannel ? 1 : 0.3, padding: 0.5 }}
+                        onClick={handleSelectChatChannel}
+                    >
+                        <Tooltip title="Show chat">
+                            <CommentIcon fontSize="medium" />
+                        </Tooltip>
+                    </IconButton>
+                    <IconButton
+                        size="large"
                         onClick={handleRemoveStream}
+                        sx={{ padding: 0.5 }}
                     >
                         <Tooltip title="Close stream">
                             <CloseIcon fontSize="medium" />

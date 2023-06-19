@@ -1,6 +1,5 @@
 import { AppBar as MuiAppBar, Box, Toolbar, IconButton } from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu"
-import ChatSection from "./ChatSection"
 import StreamSection from "./StreamSection"
 
 interface AppBarProps {
@@ -32,7 +31,6 @@ const AppBar = ({ setTourneyDrawerOpen, tourneyDrawerOpen }: AppBarProps) => {
                             <StreamSection />
                         </Box>
                     </Box>
-                    <ChatSection />
                 </Toolbar>
             </MuiAppBar>
         </Box>

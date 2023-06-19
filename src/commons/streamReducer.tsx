@@ -92,6 +92,9 @@ export const streamReducer = (state: StreamState, action: Action) => {
             }
         }
         case "SELECT_CHAT_CHANNEL":
+            if (action.payload === state.selectedChannel) {
+                return { ...state, selectedChannel: "" }
+            }
             return {
                 ...state,
                 selectedChannel: action.payload,
@@ -185,13 +188,6 @@ export const StreamContextProvider = ({ reducer, children }: StreamContextProvid
     const setChatVisibility = (visibility: boolean) => {
         dispatch({ type: "SET_CHAT_VISIBILITY", payload: visibility })
     }
-
-    /*
-    const getChannelNames = () => {
-        return streamState.streams
-            .sort((stream1, stream2) => stream1.displayPosition - stream2.displayPosition)
-            .map((stream) => stream.channelName)
-    }*/
 
     const contextValue = {
         streamState,

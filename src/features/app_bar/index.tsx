@@ -1,6 +1,15 @@
-import { AppBar as MuiAppBar, Box, Toolbar, IconButton } from "@mui/material"
+import {
+    AppBar as MuiAppBar,
+    Box,
+    Toolbar,
+    IconButton,
+    ToggleButton,
+    ToggleButtonGroup,
+    SvgIcon,
+} from "@mui/material"
 import MenuIcon from "@mui/icons-material/Menu"
 import StreamSection from "./StreamSection"
+import { ReactComponent as TwitchLogo } from "../../assets/TwitchLogo.svg"
 
 interface AppBarProps {
     setTourneyDrawerOpen: (newDisplayStatus: boolean) => void
@@ -21,15 +30,21 @@ const AppBar = ({ setTourneyDrawerOpen, tourneyDrawerOpen }: AppBarProps) => {
                 <Toolbar>
                     <Box
                         display="flex"
-                        marginRight="auto"
                         gap={10}
                     >
                         <IconButton onClick={handleTourneyDrawerDisplayButtonClick}>
                             <MenuIcon fontSize="large" />
                         </IconButton>
-                        <Box>
-                            <StreamSection />
-                        </Box>
+                        <ToggleButtonGroup exclusive>
+                            <ToggleButton value="tournaments">Tournaments</ToggleButton>
+                            <ToggleButton value="twitch-streams">
+                                <SvgIcon sx={{ marginRight: 1 }}>
+                                    <TwitchLogo />
+                                </SvgIcon>
+                                Streams
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                        <StreamSection />
                     </Box>
                 </Toolbar>
             </MuiAppBar>

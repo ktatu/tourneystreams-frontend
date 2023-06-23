@@ -1,31 +1,23 @@
-import TourneyDrawer from "./features/tourney_drawer"
+import Drawer from "./features/drawer"
 import AppBar from "./features/app_bar"
 import Streams from "./features/streams"
 import { useState, useEffect } from "react"
 import { Alert, Box, Stack, Toolbar } from "@mui/material"
 import { useStreamContext } from "./commons/streamReducer"
 import WelcomeContent from "./WelcomeContent"
+import { DrawerContentType } from "./features/drawer/DrawerContent"
 
 const App = () => {
-    const [tourneyDrawerOpen, setTourneyDrawerOpen] = useState(false)
+    const [drawerContent, setDrawerContent] = useState(DrawerContentType.None)
     const { streamState } = useStreamContext()
-
-    useEffect(() => {
-        if (streamState.streams.length === 0) {
-            setTourneyDrawerOpen(true)
-        }
-    }, [])
 
     return (
         <>
             <AppBar
-                setTourneyDrawerOpen={setTourneyDrawerOpen}
-                tourneyDrawerOpen={tourneyDrawerOpen}
+                drawerContentType={drawerContent}
+                setDrawerContentType={setDrawerContent}
             />
-            <TourneyDrawer
-                open={tourneyDrawerOpen}
-                setTourneyDrawerOpen={setTourneyDrawerOpen}
-            />
+            <Drawer drawerContent={drawerContent} />
             <Stack
                 height="100vh"
                 bgcolor="black"

@@ -2,23 +2,29 @@ import {
     AppBar as MuiAppBar,
     Box,
     Toolbar,
-    IconButton,
     ToggleButton,
     ToggleButtonGroup,
     SvgIcon,
 } from "@mui/material"
-import MenuIcon from "@mui/icons-material/Menu"
 import StreamSection from "./StreamSection"
 import { ReactComponent as TwitchLogo } from "../../assets/TwitchLogo.svg"
+import { DrawerContentType } from "../drawer/DrawerContent"
 
 interface AppBarProps {
-    setTourneyDrawerOpen: (newDisplayStatus: boolean) => void
-    tourneyDrawerOpen: boolean
+    drawerContentType: DrawerContentType
+    setDrawerContentType: (drawerContentType: DrawerContentType) => void
 }
 
-const AppBar = ({ setTourneyDrawerOpen, tourneyDrawerOpen }: AppBarProps) => {
-    const handleTourneyDrawerDisplayButtonClick = () => {
-        tourneyDrawerOpen ? setTourneyDrawerOpen(false) : setTourneyDrawerOpen(true)
+const AppBar = ({ drawerContentType, setDrawerContentType }: AppBarProps) => {
+    const handleToggleChange = (
+        event: React.MouseEvent<HTMLElement>,
+        newToggleValue: DrawerContentType
+    ) => {
+        if (newToggleValue === null) {
+            setDrawerContentType(DrawerContentType.None)
+        } else {
+            setDrawerContentType(newToggleValue)
+        }
     }
 
     return (
@@ -32,12 +38,15 @@ const AppBar = ({ setTourneyDrawerOpen, tourneyDrawerOpen }: AppBarProps) => {
                         display="flex"
                         gap={10}
                     >
-                        <IconButton onClick={handleTourneyDrawerDisplayButtonClick}>
-                            <MenuIcon fontSize="large" />
-                        </IconButton>
-                        <ToggleButtonGroup exclusive>
-                            <ToggleButton value="tournaments">Tournaments</ToggleButton>
-                            <ToggleButton value="twitch-streams">
+                        <ToggleButtonGroup
+                            exclusive
+                            onChange={handleToggleChange}
+                            value={drawerContentType}
+                        >
+                            <ToggleButton value={DrawerContentType.TournamentContent}>
+                                Tournaments
+                            </ToggleButton>
+                            <ToggleButton value={DrawerContentType.TwitchContent}>
                                 <SvgIcon sx={{ marginRight: 1 }}>
                                     <TwitchLogo />
                                 </SvgIcon>

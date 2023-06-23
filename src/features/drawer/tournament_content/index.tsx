@@ -2,7 +2,6 @@ import {
     Box,
     Checkbox,
     Divider,
-    Drawer,
     IconButton,
     Input,
     ListItemIcon,
@@ -11,32 +10,15 @@ import {
     MenuList,
     Typography,
 } from "@mui/material"
+import PopupMenu from "../../../commons/PopupMenu"
+import TourneyAccordions from "./tourney_accordion"
+import FilterOptionsSelection from "./FilterOptionsSelection"
+import { useState, startTransition } from "react"
+import useCheckbox from "../../../hooks/useCheckbox"
 import SettingsIcon from "@mui/icons-material/Settings"
-import useCheckbox from "../../hooks/useCheckbox"
-import PopupMenu from "../../commons/PopupMenu"
-
 import CloseIcon from "@mui/icons-material/Close"
 
-import TourneyStartTime from "./TourneyStartTime"
-
-import "./TourneyDrawer.css"
-import TourneyAccordion from "./tourney_accordion/TourneyAccordion"
-import React, { startTransition, useState } from "react"
-
-import ISO from "iso-639-1"
-import { FixedSizeList, ListChildComponentProps } from "react-window"
-
-import FilterOptionsSelection from "./FilterOptionsSelection"
-import TourneyAccordions from "./tourney_accordion"
-import ArrowBackIcon from "@mui/icons-material/ArrowBack"
-
-interface TourneyDrawerProps {
-    open: boolean
-    setTourneyDrawerOpen: (newDisplayStatus: boolean) => void
-}
-
-const TourneyDrawer = ({ open, setTourneyDrawerOpen }: TourneyDrawerProps) => {
-    const [selectedGames, setSelectedGames] = useState()
+const TournamentContent = () => {
     const [tourneyNameFilter, setTourneyNameFilter] = useState("")
 
     const [filterOptionsViewOpen, setFilterOptionsViewOpen] = useState(false)
@@ -52,17 +34,13 @@ const TourneyDrawer = ({ open, setTourneyDrawerOpen }: TourneyDrawerProps) => {
     }
 
     return (
-        <Drawer
-            PaperProps={{
-                sx: { width: "25vw", marginTop: (theme) => `${theme.mixins.toolbar.minHeight}px` },
-            }}
-            variant="persistent"
-            open={open}
-            anchor="left"
-        >
+        <>
             <Box
-                className="drawer-container"
-                sx={{ paddingTop: (theme) => theme.spacing(1) }}
+                paddingLeft="25px"
+                paddingTop="25px"
+                paddingRight="25px"
+                paddingBottom="15px"
+                maxWidth="500px"
             >
                 <>
                     <Box
@@ -72,9 +50,6 @@ const TourneyDrawer = ({ open, setTourneyDrawerOpen }: TourneyDrawerProps) => {
                         justifyContent="space-between"
                     >
                         <Typography variant="h4">Tournaments</Typography>
-                        <IconButton onClick={() => setTourneyDrawerOpen(false)}>
-                            <ArrowBackIcon fontSize="large" />
-                        </IconButton>
                     </Box>
                     <Box paddingTop={3}>
                         <Typography variant="body1">Filters:</Typography>
@@ -130,7 +105,7 @@ const TourneyDrawer = ({ open, setTourneyDrawerOpen }: TourneyDrawerProps) => {
             ) : (
                 <TourneyAccordions tourneyNameFilter={tourneyNameFilter} />
             )}
-        </Drawer>
+        </>
     )
 }
 
@@ -176,4 +151,4 @@ const MenuItemGame = ({ gameId, displayName }: MenuItemGameProps) => {
     )
 }
 
-export default TourneyDrawer
+export default TournamentContent

@@ -1,6 +1,6 @@
 import { Box, Link, Tooltip, Typography, Switch, List, ListItem, ListItemText } from "@mui/material"
 import { memo, useEffect, useState } from "react"
-import { useStreamContext } from "../../../commons/streamReducer"
+import { useStreamContext } from "../../../../commons/streamReducer"
 import { StreamInfo } from "../types"
 
 /*

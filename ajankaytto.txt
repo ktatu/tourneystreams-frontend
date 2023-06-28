@@ -63,6 +63,6 @@
 16.6  2h -||-
 19.6  1h Stream chatin hallinta stream-kontrolleihin
 23.6  2h Drawerin refaktorointi
-
+27.6  8h Backendin aloitus, oauth2-twitch konfigurointi
 
 130.5 14.6

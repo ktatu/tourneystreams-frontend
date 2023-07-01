@@ -3,6 +3,7 @@ import { StreamInfo, WebLinks } from "../types"
 import HomeIcon from "@mui/icons-material/Home"
 import BoyIcon from "@mui/icons-material/Boy"
 import StreamInfoList from "./StreamInfoList"
+import Viewership from "../../shared_components/Viewership"
 
 interface TourneyAccordionDetailsProps {
     streamInfoArray: Array<StreamInfo>
@@ -27,30 +28,15 @@ const TourneyAccordionDetails = ({ streamInfoArray, webLinks }: TourneyAccordion
                     <Box
                         display="flex"
                         alignSelf="flex-end"
+                        paddingLeft={6}
                     >
-                        <Tooltip title="Total viewers">
-                            <Box
-                                alignItems="center"
-                                display="flex"
-                                flexDirection="row"
-                                gap={1}
-                                paddingLeft={6}
-                            >
-                                <Typography
-                                    color="#F75750"
-                                    variant="h6"
-                                >
-                                    1000
-                                </Typography>
-                                <BoyIcon sx={{ color: "#F75750" }} />
-                            </Box>
-                        </Tooltip>
+                        <Viewership viewerCount={1000} />
                     </Box>
                     <Typography
                         display="flex"
                         alignSelf="flex-end"
                         paddingLeft={3}
-                        variant="h6"
+                        variant="h5"
                     >
                         A-Tier
                     </Typography>

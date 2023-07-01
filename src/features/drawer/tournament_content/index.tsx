@@ -17,6 +17,7 @@ import { useState, startTransition } from "react"
 import useCheckbox from "../../../hooks/useCheckbox"
 import SettingsIcon from "@mui/icons-material/Settings"
 import CloseIcon from "@mui/icons-material/Close"
+import "../Drawer.css"
 
 const TournamentContent = () => {
     const [tourneyNameFilter, setTourneyNameFilter] = useState("")
@@ -35,22 +36,9 @@ const TournamentContent = () => {
 
     return (
         <>
-            <Box
-                paddingLeft="25px"
-                paddingTop="25px"
-                paddingRight="25px"
-                paddingBottom="15px"
-                maxWidth="500px"
-            >
+            <Box className="drawer-content">
                 <>
-                    <Box
-                        display="flex"
-                        flexDirection="row"
-                        alignItems="center"
-                        justifyContent="space-between"
-                    >
-                        <Typography variant="h4">Tournaments</Typography>
-                    </Box>
+                    <Typography variant="h4">Tournaments</Typography>
                     <Box paddingTop={3}>
                         <Typography variant="body1">Filters:</Typography>
                         <Box

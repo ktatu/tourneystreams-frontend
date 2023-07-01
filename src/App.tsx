@@ -1,7 +1,7 @@
 import Drawer from "./features/drawer"
 import AppBar from "./features/app_bar"
 import Streams from "./features/streams"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Alert, Box, Stack, Toolbar } from "@mui/material"
 import { useStreamContext } from "./commons/streamReducer"
 import WelcomeContent from "./WelcomeContent"

@@ -6,8 +6,6 @@ interface TourneyDrawerProps {
 }
 
 const Drawer = ({ drawerContent }: TourneyDrawerProps) => {
-    //console.log("drawer content ", drawerContent)
-
     return (
         <MuiDrawer
             PaperProps={{

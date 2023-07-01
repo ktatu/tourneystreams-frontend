@@ -23,14 +23,6 @@ export interface FollowedStream {
     viewerCount: number
 }
 
-const TestStream: FollowedStream = {
-    game: "Counter-Strike: Global Offensive",
-    title: "@kurumx RANK 5 1044 LP START | RIOT SUMMER BREAK, GAMIN ON 4FUN PATCH !twitter",
-    loginName: "jokerdtv",
-    broadcastName: "JokerdTV",
-    viewerCount: 1500,
-}
-
 interface StreamCardProps {
     followedStream: FollowedStream
 }
@@ -69,7 +61,6 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
             <CardMedia
                 image={thumbnailUrl}
                 sx={{ width: 350, height: 210 }}
-                title="test"
             />
             <Box
                 position="absolute"
@@ -115,7 +106,7 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
                     timeout="auto"
                     unmountOnExit
                 >
-                    {TestStream.title}
+                    {followedStream.title}
                 </Collapse>
             </CardContent>
         </Card>

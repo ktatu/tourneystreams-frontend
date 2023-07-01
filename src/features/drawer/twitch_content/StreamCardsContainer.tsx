@@ -1,12 +1,57 @@
 import axios from "axios"
 import { useQuery } from "react-query"
-import useGameFilter from "../tournament_content/useGameFilter"
-import { FollowedStream } from "./StreamCard"
+import StreamCard, { FollowedStream } from "./StreamCard"
+import { getCookie } from "typescript-cookie"
+import { Stack } from "@mui/material"
 
-const twitchToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3NUb2tlbiI6InI2aGE5bTdzOXRuZ3ducGE3a2c4cm5lcjZ6YmlkcyIsInJlZnJlc2hUb2tlbiI6InB4dGYzeDU1bGVvMWZhcGQzbHdiajhhemdic2N4ajUyM3o4b2Jqb3FuZDM3YjhidWc1IiwidXNlcklkIjoiMTYyOTM3MTM3IiwiaWF0IjoxNjg4MTQ2MTgxfQ.Y0GLCB9MSjEM0gj2PIA3EWHgGZh4vNoQoLedAnseFRA"
+const queryFollowedStreams = async () => {
+    const twitchToken = getCookie("twitch-token")
+
+    if (!twitchToken) {
+        throw new Error("Twitch token missing")
+    }
+
+    const res = await axios.get("http://localhost:3001/api/twitch", {
+        headers: { Authorization: `Bearer ${twitchToken}` },
+    })
+
+    return res.data
+}
 
 const StreamCardsContainer = () => {
+    const { isLoading, isError, data, error } = useQuery<FollowedStream[]>(
+        "followedStreams",
+        queryFollowedStreams,
+        {
+            retry: 1,
+            cacheTime: 1000 * 100,
+            staleTime: 1000 * 10 * 2,
+        }
+    )
+
+    if (isLoading) {
+        return <p>loading</p>
+    }
+    if (data) {
+        return (
+            <Stack
+                direction="column"
+                gap={5}
+            >
+                {data.map((followedStream) => (
+                    <StreamCard
+                        key={followedStream.loginName}
+                        followedStream={followedStream}
+                    />
+                ))}
+            </Stack>
+        )
+    }
+
+    if (isError) {
+        console.log("error ", error)
+    }
+
     /*
     const { isLoading, isError, data, error } = useQuery<FollowedStream[]>(
         "followedStream",

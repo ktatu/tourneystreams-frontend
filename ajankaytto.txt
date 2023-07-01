@@ -65,5 +65,6 @@
 23.6  2h Drawerin refaktorointi
 27.6  8h Backendin aloitus, oauth2-twitch konfigurointi
 28.6  4h oauth2-twitch konfigurointi
+30.6  5h Seuratut kanavat: frontend+backend
 
 130.5 14.6

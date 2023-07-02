@@ -18,7 +18,11 @@ const queryFollowedStreams = async () => {
     return res.data
 }
 
-const StreamCardsContainer = () => {
+interface StreamCardsContainerProps {
+    channelFilter: string
+}
+
+const StreamCardsContainer = ({ channelFilter }: StreamCardsContainerProps) => {
     const { isLoading, isError, data, error } = useQuery<FollowedStream[]>(
         "followedStreams",
         queryFollowedStreams,
@@ -38,12 +42,22 @@ const StreamCardsContainer = () => {
                 direction="column"
                 gap={5}
             >
-                {data.map((followedStream) => (
-                    <StreamCard
-                        key={followedStream.loginName}
-                        followedStream={followedStream}
-                    />
-                ))}
+                {data
+                    .filter(
+                        (followedStream) =>
+                            followedStream.broadcastName
+                                .toLowerCase()
+                                .includes(channelFilter.toLowerCase()) ||
+                            followedStream.loginName
+                                .toLowerCase()
+                                .includes(channelFilter.toLowerCase())
+                    )
+                    .map((followedStream) => (
+                        <StreamCard
+                            key={followedStream.loginName}
+                            followedStream={followedStream}
+                        />
+                    ))}
             </Stack>
         )
     }
@@ -51,37 +65,6 @@ const StreamCardsContainer = () => {
     if (isError) {
         console.log("error ", error)
     }
-
-    /*
-    const { isLoading, isError, data, error } = useQuery<FollowedStream[]>(
-        "followedStream",
-        async () => {
-            const res = await axios.get<any[]>("http://localhost:3005/api/twitch", {
-                headers: { Authorization: `Bearer ${twitchToken}` },
-            })
-
-            if (res.data === undefined) {
-                throw new Error("No tourneys")
-            }
-
-            const tourneyInfoFilteredByGame = useGameFilter(res.data)
-
-            return tourneyInfoFilteredByGame
-        }
-    )*/
-
-    /*
-    const { isLoading, isError, data, error } = useQuery("tourneyInfo", async () => {
-        const res = await axios.get("http://localhost:3001/tourneyInfos")
-
-        if (res.data === undefined) {
-            throw new Error("No tourneys")
-        }
-
-        const tourneyInfoFilteredByGame = useGameFilter(res.data)
-
-        return tourneyInfoFilteredByGame
-    })*/
 
     return null
 }

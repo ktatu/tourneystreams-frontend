@@ -19,7 +19,7 @@ const TourneyAccordions = ({ tourneyNameFilter }: TourneyAccordionsProps) => {
     ])*/
 
     const { isLoading, isError, data, error } = useQuery<TourneyInfo[]>("tourneyInfo", async () => {
-        const res = await axios.get<TourneyInfo[]>("http://localhost:3001/tourneyInfos")
+        const res = await axios.get<TourneyInfo[]>("http://localhost:3002/tourneyInfos")
 
         if (res.data === undefined) {
             throw new Error("No tourneys")

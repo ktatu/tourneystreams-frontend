@@ -3,9 +3,10 @@ import DrawerContent, { DrawerContentType } from "./DrawerContent"
 
 interface TourneyDrawerProps {
     drawerContent: DrawerContentType
+    handleDrawerClose: () => void
 }
 
-const Drawer = ({ drawerContent }: TourneyDrawerProps) => {
+const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
     return (
         <MuiDrawer
             PaperProps={{
@@ -15,7 +16,10 @@ const Drawer = ({ drawerContent }: TourneyDrawerProps) => {
             open={drawerContent !== DrawerContentType.None}
             anchor="left"
         >
-            <DrawerContent contentType={drawerContent} />
+            <DrawerContent
+                contentType={drawerContent}
+                handleDrawerClose={handleDrawerClose}
+            />
         </MuiDrawer>
     )
 }

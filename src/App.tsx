@@ -17,7 +17,10 @@ const App = () => {
                 drawerContentType={drawerContent}
                 setDrawerContentType={setDrawerContent}
             />
-            <Drawer drawerContent={drawerContent} />
+            <Drawer
+                drawerContent={drawerContent}
+                handleDrawerClose={() => setDrawerContent(DrawerContentType.None)}
+            />
             <Stack
                 height="100vh"
                 bgcolor="black"

@@ -9,14 +9,15 @@ export enum DrawerContentType {
 
 interface DrawerContentProps {
     contentType: DrawerContentType
+    handleDrawerClose: () => void
 }
 
-const DrawerContent = ({ contentType }: DrawerContentProps) => {
+const DrawerContent = ({ contentType, handleDrawerClose }: DrawerContentProps) => {
     switch (contentType) {
         case DrawerContentType.TournamentContent:
-            return <TournamentContent />
+            return <TournamentContent handleDrawerClose={handleDrawerClose} />
         case DrawerContentType.TwitchContent:
-            return <TwitchContent />
+            return <TwitchContent handleDrawerClose={handleDrawerClose} />
         default:
             return null
     }

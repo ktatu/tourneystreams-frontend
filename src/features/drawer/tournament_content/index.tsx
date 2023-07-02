@@ -19,7 +19,10 @@ import SettingsIcon from "@mui/icons-material/Settings"
 import CloseIcon from "@mui/icons-material/Close"
 import "../Drawer.css"
 
-const TournamentContent = () => {
+interface TournamentContentProps {
+    handleDrawerClose: () => void
+}
+const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
     const [tourneyNameFilter, setTourneyNameFilter] = useState("")
 
     const [filterOptionsViewOpen, setFilterOptionsViewOpen] = useState(false)

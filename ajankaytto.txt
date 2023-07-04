@@ -67,5 +67,6 @@
 28.6  4h oauth2-twitch konfigurointi
 30.6  5h Seuratut kanavat: frontend+backend
 01.7  4h Drawer-komponentin uusimista
+03.7  5h Backend: Refaktorointia ja pyyntöjen virheidenkäsittelyä
 
 130.5 14.6

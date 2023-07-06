@@ -1,21 +1,38 @@
-import { Box, Button, IconButton, Input, Typography } from "@mui/material"
+import {
+    Box,
+    Button,
+    FormControl,
+    IconButton,
+    Input,
+    InputAdornment,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+    TextField,
+    Typography,
+} from "@mui/material"
 import LaunchIcon from "@mui/icons-material/Launch"
-import { startTransition, useEffect, useState } from "react"
+import { startTransition, useState } from "react"
 import "../Drawer.css"
 import StreamCardsContainer from "./StreamCardsContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
-import { getCookie } from "typescript-cookie"
 import CloseIcon from "@mui/icons-material/Close"
+import { getCookie } from "typescript-cookie"
+import { VisibilityOff, Visibility } from "@mui/icons-material"
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
+
+enum FilterType {
+    Category = "category",
+    ChannelName = "channel name",
+}
 
 interface TwitchContentProps {
     handleDrawerClose: () => void
 }
 const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
-    useEffect(() => {
-        console.log("cookies ", document.cookie)
-    }, [])
-
-    const [filter, setFilter] = useState("jokerdtv")
+    const [filter, setFilter] = useState("")
+    const [filterType, setFilterType] = useState(FilterType.ChannelName)
 
     const userHasTwitchToken = getCookie("twitch-token")
 
@@ -25,6 +42,45 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
         })
     }
 
+    /*
+                            <Input
+                                disabled={false}
+                                placeholder="Channel"
+                                onChange={handleFilterChange}
+                                value={filter}
+                                endAdornment={
+                                    <IconButton
+                                        onClick={() => setFilter("")}
+                                        sx={{
+                                            visibility: filter ? "visible" : "hidden",
+                                        }}
+                                    >
+                                        <CloseIcon />
+                                    </IconButton>
+                                }
+                            />
+
+
+
+
+                            <FormControl variant="outlined">
+                                <InputLabel>{`Filter by: ${filterType}`}</InputLabel>
+                                <OutlinedInput
+                                    type="text"
+                                    endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton edge="end">
+                                                <ArrowDropDownIcon />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                    label="Password"
+                                />
+                            </FormControl>
+
+
+    */
+
     return (
         <Box className="drawer">
             <DrawerHeader
@@ -33,22 +89,31 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
             >
                 <>
                     {userHasTwitchToken ? (
-                        <Input
-                            disabled={false}
-                            placeholder="Channel"
-                            onChange={handleFilterChange}
-                            value={filter}
-                            endAdornment={
-                                <IconButton
-                                    onClick={() => setFilter("")}
-                                    sx={{
-                                        visibility: filter ? "visible" : "hidden",
-                                    }}
-                                >
-                                    <CloseIcon />
-                                </IconButton>
-                            }
-                        />
+                        <Box
+                            display="flex"
+                            gap={3}
+                            alignItems="center"
+                            justifyContent="space-between"
+                        >
+                            <FormControl sx={{ minWidth: "100px" }}>
+                                <InputLabel>Sort by</InputLabel>
+                                <Select label="Sort by">
+                                    <MenuItem value={10}>Viewer count</MenuItem>
+                                    <MenuItem value={20}>Category</MenuItem>
+                                </Select>
+                            </FormControl>
+                            <TextField
+                                label="Filter by: channel name"
+                                InputLabelProps={{ shrink: true }}
+                                InputProps={{
+                                    endAdornment: (
+                                        <IconButton edge="end">
+                                            <ArrowDropDownIcon />
+                                        </IconButton>
+                                    ),
+                                }}
+                            ></TextField>
+                        </Box>
                     ) : (
                         <Box
                             paddingTop={3}

@@ -68,5 +68,7 @@
 30.6  5h Seuratut kanavat: frontend+backend
 01.7  4h Drawer-komponentin uusimista
 03.7  5h Backend: Refaktorointia ja pyyntöjen virheidenkäsittelyä
+04.7  2h Backend: Vanhentuneen access tokenin käsittely
+04.7  1h Frontend: Sort ja filter seuratut kanavat.
 
 130.5 14.6

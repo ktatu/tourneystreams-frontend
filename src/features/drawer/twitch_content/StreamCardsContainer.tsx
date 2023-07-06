@@ -1,8 +1,8 @@
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { useQuery } from "react-query"
 import StreamCard, { FollowedStream } from "./StreamCard"
-import { getCookie } from "typescript-cookie"
 import { Stack } from "@mui/material"
+import { getCookie, setCookie } from "typescript-cookie"
 
 const queryFollowedStreams = async () => {
     const twitchToken = getCookie("twitch-token")
@@ -11,11 +11,23 @@ const queryFollowedStreams = async () => {
         throw new Error("Twitch token missing")
     }
 
-    const res = await axios.get("http://localhost:3001/api/twitch", {
-        headers: { Authorization: `Bearer ${twitchToken}` },
-    })
+    try {
+        const res = await axios.get("http://localhost:3001/api/twitch", {
+            headers: { Authorization: `Bearer ${twitchToken}` },
+        })
 
-    return res.data
+        if (res.data.newToken) {
+            setCookie("twitch-token", JSON.stringify(res.data.newToken))
+        }
+
+        return res.data.streams
+    } catch (error: unknown) {
+        if (error instanceof AxiosError) {
+            // TODO: need to expect and handle at least 2 error types: too many requests to twitch (429)
+            // and various server-side errors (500)
+            console.error("Error in query followed streams: ", error)
+        }
+    }
 }
 
 interface StreamCardsContainerProps {

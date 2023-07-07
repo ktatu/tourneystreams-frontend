@@ -9,6 +9,7 @@ import {
     MenuItem,
     OutlinedInput,
     Select,
+    SelectChangeEvent,
     TextField,
     Typography,
 } from "@mui/material"
@@ -19,67 +20,49 @@ import StreamCardsContainer from "./StreamCardsContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
 import CloseIcon from "@mui/icons-material/Close"
 import { getCookie } from "typescript-cookie"
-import { VisibilityOff, Visibility } from "@mui/icons-material"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 
-enum FilterType {
+enum FilterBy {
     Category = "category",
     ChannelName = "channel name",
 }
+
+// enum values must match keys in FollowedStream for sorting function to work
+export enum SortBy {
+    ViewerCount = "viewerCount",
+    Category = "category",
+}
+
+type SortByTest = "viewer count" | "category"
 
 interface TwitchContentProps {
     handleDrawerClose: () => void
 }
 const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
-    const [filter, setFilter] = useState("")
-    const [filterType, setFilterType] = useState(FilterType.ChannelName)
+    const [filterValue, setFilterValue] = useState("")
+    const [filterType, setFilterType] = useState(FilterBy.ChannelName)
+    const [sortValue, setSortValue] = useState(SortBy.ViewerCount)
 
     const userHasTwitchToken = getCookie("twitch-token")
 
-    const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        startTransition(() => {
-            setFilter(event.target.value)
-        })
+    const handleSortByChange = (event: SelectChangeEvent) => {
+        switch (event.target.value) {
+            case "viewer count":
+                setSortValue(SortBy.ViewerCount)
+                break
+            case "category":
+                setSortValue(SortBy.Category)
+                break
+            default:
+                setSortValue(SortBy.ViewerCount)
+        }
     }
 
-    /*
-                            <Input
-                                disabled={false}
-                                placeholder="Channel"
-                                onChange={handleFilterChange}
-                                value={filter}
-                                endAdornment={
-                                    <IconButton
-                                        onClick={() => setFilter("")}
-                                        sx={{
-                                            visibility: filter ? "visible" : "hidden",
-                                        }}
-                                    >
-                                        <CloseIcon />
-                                    </IconButton>
-                                }
-                            />
-
-
-
-
-                            <FormControl variant="outlined">
-                                <InputLabel>{`Filter by: ${filterType}`}</InputLabel>
-                                <OutlinedInput
-                                    type="text"
-                                    endAdornment={
-                                        <InputAdornment position="end">
-                                            <IconButton edge="end">
-                                                <ArrowDropDownIcon />
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="Password"
-                                />
-                            </FormControl>
-
-
-    */
+    const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        startTransition(() => {
+            setFilterValue(event.target.value)
+        })
+    }
 
     return (
         <Box className="drawer">
@@ -97,14 +80,20 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
                         >
                             <FormControl sx={{ minWidth: "100px" }}>
                                 <InputLabel>Sort by</InputLabel>
-                                <Select label="Sort by">
-                                    <MenuItem value={10}>Viewer count</MenuItem>
-                                    <MenuItem value={20}>Category</MenuItem>
+                                <Select
+                                    label="Sort by"
+                                    onChange={handleSortByChange}
+                                    value={sortValue}
+                                >
+                                    <MenuItem value={SortBy.Category}>category</MenuItem>
+                                    <MenuItem value={SortBy.ViewerCount}>viewer count</MenuItem>
                                 </Select>
                             </FormControl>
                             <TextField
                                 label="Filter by: channel name"
                                 InputLabelProps={{ shrink: true }}
+                                onChange={handleFilterChange}
+                                value={filterValue}
                                 InputProps={{
                                     endAdornment: (
                                         <IconButton edge="end">
@@ -142,7 +131,12 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
                     )}
                 </>
             </DrawerHeader>
-            {userHasTwitchToken ? <StreamCardsContainer channelFilter={filter} /> : null}
+            {userHasTwitchToken ? (
+                <StreamCardsContainer
+                    filterValue={filterValue}
+                    sortValue={sortValue}
+                />
+            ) : null}
         </Box>
     )
 }

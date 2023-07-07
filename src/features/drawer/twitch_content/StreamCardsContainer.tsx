@@ -3,6 +3,8 @@ import { useQuery } from "react-query"
 import StreamCard, { FollowedStream } from "./StreamCard"
 import { Stack } from "@mui/material"
 import { getCookie, setCookie } from "typescript-cookie"
+import { SortBy } from "."
+import orderBy from "lodash.orderby"
 
 const queryFollowedStreams = async () => {
     const twitchToken = getCookie("twitch-token")
@@ -17,7 +19,7 @@ const queryFollowedStreams = async () => {
         })
 
         if (res.data.newToken) {
-            setCookie("twitch-token", JSON.stringify(res.data.newToken))
+            setCookie("twitch-token", res.data.newToken)
         }
 
         return res.data.streams
@@ -26,15 +28,17 @@ const queryFollowedStreams = async () => {
             // TODO: need to expect and handle at least 2 error types: too many requests to twitch (429)
             // and various server-side errors (500)
             console.error("Error in query followed streams: ", error)
+            //removeCookie("twitch-token")
         }
     }
 }
 
 interface StreamCardsContainerProps {
-    channelFilter: string
+    filterValue: string
+    sortValue: SortBy
 }
 
-const StreamCardsContainer = ({ channelFilter }: StreamCardsContainerProps) => {
+const StreamCardsContainer = ({ filterValue, sortValue }: StreamCardsContainerProps) => {
     const { isLoading, isError, data, error } = useQuery<FollowedStream[]>(
         "followedStreams",
         queryFollowedStreams,
@@ -49,20 +53,25 @@ const StreamCardsContainer = ({ channelFilter }: StreamCardsContainerProps) => {
         return <p>loading</p>
     }
     if (data) {
+        const sortedStreams =
+            sortValue === "viewerCount"
+                ? orderBy(data, ["viewerCount"], ["desc"])
+                : orderBy(data, ["category", "viewerCount"], ["asc", "desc"])
+
         return (
             <Stack
                 direction="column"
                 gap={5}
             >
-                {data
+                {sortedStreams
                     .filter(
                         (followedStream) =>
                             followedStream.broadcastName
                                 .toLowerCase()
-                                .includes(channelFilter.toLowerCase()) ||
+                                .includes(filterValue.toLowerCase()) ||
                             followedStream.loginName
                                 .toLowerCase()
-                                .includes(channelFilter.toLowerCase())
+                                .includes(filterValue.toLowerCase())
                     )
                     .map((followedStream) => (
                         <StreamCard

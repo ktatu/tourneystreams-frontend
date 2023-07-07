@@ -16,7 +16,7 @@ import round from "lodash.round"
 import { useStreamContext } from "../../../commons/streamReducer"
 
 export interface FollowedStream {
-    game: string
+    category: string
     title: string
     loginName: string
     broadcastName: string
@@ -69,7 +69,7 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
                 bgcolor="rgba(0, 0, 0, 0.4)"
                 padding={0.5}
             >
-                <div style={{ opacity: 1, userSelect: "none" }}>{followedStream.game}</div>
+                <div style={{ opacity: 1, userSelect: "none" }}>{followedStream.category}</div>
             </Box>
             <Box
                 position="absolute"

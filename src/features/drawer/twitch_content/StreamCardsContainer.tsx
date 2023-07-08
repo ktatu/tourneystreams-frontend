@@ -3,7 +3,7 @@ import { useQuery } from "react-query"
 import StreamCard, { FollowedStream } from "./StreamCard"
 import { Stack } from "@mui/material"
 import { getCookie, setCookie } from "typescript-cookie"
-import { SortBy } from "."
+import { FilterBy, SortBy } from "."
 import orderBy from "lodash.orderby"
 
 const queryFollowedStreams = async () => {
@@ -34,11 +34,16 @@ const queryFollowedStreams = async () => {
 }
 
 interface StreamCardsContainerProps {
+    filterType: FilterBy
     filterValue: string
     sortValue: SortBy
 }
 
-const StreamCardsContainer = ({ filterValue, sortValue }: StreamCardsContainerProps) => {
+const StreamCardsContainer = ({
+    filterType,
+    filterValue,
+    sortValue,
+}: StreamCardsContainerProps) => {
     const { isLoading, isError, data, error } = useQuery<FollowedStream[]>(
         "followedStreams",
         queryFollowedStreams,
@@ -58,27 +63,30 @@ const StreamCardsContainer = ({ filterValue, sortValue }: StreamCardsContainerPr
                 ? orderBy(data, ["viewerCount"], ["desc"])
                 : orderBy(data, ["category", "viewerCount"], ["asc", "desc"])
 
+        const filteredStreams = sortedStreams.filter((followedStream) => {
+            if (filterType === "channel name") {
+                return (
+                    followedStream.broadcastName
+                        .toLowerCase()
+                        .includes(filterValue.toLowerCase()) ||
+                    followedStream.loginName.toLowerCase().includes(filterValue.toLowerCase())
+                )
+            }
+
+            return followedStream.category.toLowerCase().includes(filterValue.toLowerCase())
+        })
+
         return (
             <Stack
                 direction="column"
                 gap={5}
             >
-                {sortedStreams
-                    .filter(
-                        (followedStream) =>
-                            followedStream.broadcastName
-                                .toLowerCase()
-                                .includes(filterValue.toLowerCase()) ||
-                            followedStream.loginName
-                                .toLowerCase()
-                                .includes(filterValue.toLowerCase())
-                    )
-                    .map((followedStream) => (
-                        <StreamCard
-                            key={followedStream.loginName}
-                            followedStream={followedStream}
-                        />
-                    ))}
+                {filteredStreams.map((followedStream) => (
+                    <StreamCard
+                        key={followedStream.loginName}
+                        followedStream={followedStream}
+                    />
+                ))}
             </Stack>
         )
     }

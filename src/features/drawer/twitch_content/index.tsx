@@ -7,6 +7,7 @@ import {
     InputAdornment,
     InputLabel,
     MenuItem,
+    MenuList,
     OutlinedInput,
     Select,
     SelectChangeEvent,
@@ -14,15 +15,16 @@ import {
     Typography,
 } from "@mui/material"
 import LaunchIcon from "@mui/icons-material/Launch"
-import { startTransition, useState } from "react"
+import { startTransition, useRef, useState } from "react"
 import "../Drawer.css"
 import StreamCardsContainer from "./StreamCardsContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
 import CloseIcon from "@mui/icons-material/Close"
 import { getCookie } from "typescript-cookie"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
+import PopupMenu, { PopupMenuClose } from "../../../commons/PopupMenu"
 
-enum FilterBy {
+export enum FilterBy {
     Category = "category",
     ChannelName = "channel name",
 }
@@ -32,8 +34,6 @@ export enum SortBy {
     ViewerCount = "viewerCount",
     Category = "category",
 }
-
-type SortByTest = "viewer count" | "category"
 
 interface TwitchContentProps {
     handleDrawerClose: () => void
@@ -64,6 +64,15 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
         })
     }
 
+    const handleFilterTypeChange = (newFilterType: FilterBy) => {
+        setFilterType(newFilterType)
+        if (popupMenuRef.current) {
+            popupMenuRef.current.handleClose()
+        }
+    }
+
+    const popupMenuRef = useRef<PopupMenuClose | null>(null)
+
     return (
         <Box className="drawer">
             <DrawerHeader
@@ -90,15 +99,35 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
                                 </Select>
                             </FormControl>
                             <TextField
-                                label="Filter by: channel name"
+                                label={`Filter by: ${filterType}`}
                                 InputLabelProps={{ shrink: true }}
                                 onChange={handleFilterChange}
                                 value={filterValue}
                                 InputProps={{
                                     endAdornment: (
-                                        <IconButton edge="end">
-                                            <ArrowDropDownIcon />
-                                        </IconButton>
+                                        <PopupMenu
+                                            buttonProps={{ buttonIcon: <ArrowDropDownIcon /> }}
+                                            ref={popupMenuRef}
+                                        >
+                                            <MenuList>
+                                                <MenuItem
+                                                    onClick={() =>
+                                                        handleFilterTypeChange(FilterBy.Category)
+                                                    }
+                                                    selected={filterType === FilterBy.Category}
+                                                >
+                                                    category
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={() =>
+                                                        handleFilterTypeChange(FilterBy.ChannelName)
+                                                    }
+                                                    selected={filterType === FilterBy.ChannelName}
+                                                >
+                                                    channel name
+                                                </MenuItem>
+                                            </MenuList>
+                                        </PopupMenu>
                                     ),
                                 }}
                             ></TextField>
@@ -134,6 +163,7 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
             {userHasTwitchToken ? (
                 <StreamCardsContainer
                     filterValue={filterValue}
+                    filterType={filterType}
                     sortValue={sortValue}
                 />
             ) : null}

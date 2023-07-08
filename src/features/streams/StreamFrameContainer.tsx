@@ -59,6 +59,7 @@ const StreamFrameContainer = ({ channel, frameWidth, frameHeight }: StreamFrameC
                         height={frameHeight}
                         width={frameWidth}
                         playing={true}
+                        muted
                         onReady={handleStreamReady}
                         controls={false}
                         onEnded={handleStreamReload} // Reload because sometimes ended streams freeze on ads

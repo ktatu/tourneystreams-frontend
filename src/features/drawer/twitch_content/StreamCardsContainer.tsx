@@ -5,6 +5,7 @@ import { Stack } from "@mui/material"
 import { getCookie, setCookie } from "typescript-cookie"
 import { FilterBy, SortBy } from "."
 import orderBy from "lodash.orderby"
+import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
 
 const queryFollowedStreams = async () => {
     const twitchToken = getCookie("twitch-token")
@@ -55,8 +56,16 @@ const StreamCardsContainer = ({
     )
 
     if (isLoading) {
-        return <p>loading</p>
+        return (
+            <PlaceholderSkeleton
+                count={2}
+                width={350}
+                height={250}
+                gap={5}
+            />
+        )
     }
+
     if (data) {
         const sortedStreams =
             sortValue === "viewerCount"

@@ -2,27 +2,22 @@ import {
     Box,
     Button,
     FormControl,
-    IconButton,
-    Input,
-    InputAdornment,
     InputLabel,
     MenuItem,
     MenuList,
-    OutlinedInput,
     Select,
     SelectChangeEvent,
     TextField,
     Typography,
 } from "@mui/material"
 import LaunchIcon from "@mui/icons-material/Launch"
-import { startTransition, useRef, useState } from "react"
+import { useState } from "react"
 import "../Drawer.css"
 import StreamCardsContainer from "./StreamCardsContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
-import CloseIcon from "@mui/icons-material/Close"
 import { getCookie } from "typescript-cookie"
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
-import PopupMenu, { PopupMenuClose } from "../../../commons/PopupMenu"
+import SortBySelect from "./SortBySelect"
+import FilterByField from "./FilterByField"
 
 export enum FilterBy {
     Category = "category",
@@ -45,34 +40,6 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
 
     const userHasTwitchToken = getCookie("twitch-token")
 
-    const handleSortByChange = (event: SelectChangeEvent) => {
-        switch (event.target.value) {
-            case "viewer count":
-                setSortValue(SortBy.ViewerCount)
-                break
-            case "category":
-                setSortValue(SortBy.Category)
-                break
-            default:
-                setSortValue(SortBy.ViewerCount)
-        }
-    }
-
-    const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        startTransition(() => {
-            setFilterValue(event.target.value)
-        })
-    }
-
-    const handleFilterTypeChange = (newFilterType: FilterBy) => {
-        setFilterType(newFilterType)
-        if (popupMenuRef.current) {
-            popupMenuRef.current.handleClose()
-        }
-    }
-
-    const popupMenuRef = useRef<PopupMenuClose | null>(null)
-
     return (
         <Box className="drawer">
             <DrawerHeader
@@ -87,50 +54,16 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
                             alignItems="center"
                             justifyContent="space-between"
                         >
-                            <FormControl sx={{ minWidth: "100px" }}>
-                                <InputLabel>Sort by</InputLabel>
-                                <Select
-                                    label="Sort by"
-                                    onChange={handleSortByChange}
-                                    value={sortValue}
-                                >
-                                    <MenuItem value={SortBy.Category}>category</MenuItem>
-                                    <MenuItem value={SortBy.ViewerCount}>viewer count</MenuItem>
-                                </Select>
-                            </FormControl>
-                            <TextField
-                                label={`Filter by: ${filterType}`}
-                                InputLabelProps={{ shrink: true }}
-                                onChange={handleFilterChange}
-                                value={filterValue}
-                                InputProps={{
-                                    endAdornment: (
-                                        <PopupMenu
-                                            buttonProps={{ buttonIcon: <ArrowDropDownIcon /> }}
-                                            ref={popupMenuRef}
-                                        >
-                                            <MenuList>
-                                                <MenuItem
-                                                    onClick={() =>
-                                                        handleFilterTypeChange(FilterBy.Category)
-                                                    }
-                                                    selected={filterType === FilterBy.Category}
-                                                >
-                                                    category
-                                                </MenuItem>
-                                                <MenuItem
-                                                    onClick={() =>
-                                                        handleFilterTypeChange(FilterBy.ChannelName)
-                                                    }
-                                                    selected={filterType === FilterBy.ChannelName}
-                                                >
-                                                    channel name
-                                                </MenuItem>
-                                            </MenuList>
-                                        </PopupMenu>
-                                    ),
-                                }}
-                            ></TextField>
+                            <SortBySelect
+                                sortValue={sortValue}
+                                setSortValue={setSortValue}
+                            />
+                            <FilterByField
+                                filterValue={filterValue}
+                                setFilterValue={setFilterValue}
+                                filterType={filterType}
+                                setFilterType={setFilterType}
+                            />
                         </Box>
                     ) : (
                         <Box

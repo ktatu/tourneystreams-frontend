@@ -71,5 +71,6 @@
 04.7  2h Backend: Vanhentuneen access tokenin käsittely
 04.7  1h Frontend: Sort ja filter seuratut kanavat.
 06.7  1h Frontend: Taulukon järjestämisfunktio + testejä sille
+07.7  1h Frontend: seurattujen kanavien filtteröinti ja järjestys
 
 130.5 14.6

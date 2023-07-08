@@ -21,7 +21,9 @@ const PlaceholderSkeleton = ({ count, width, height, gap }: PlaceholderSkeletonP
             direction="column"
             gap={gap}
         >
-            {skeletons}
+            {skeletons.map((skeleton, index) => (
+                <div key={index}>{skeleton}</div>
+            ))}
         </Stack>
     )
 }

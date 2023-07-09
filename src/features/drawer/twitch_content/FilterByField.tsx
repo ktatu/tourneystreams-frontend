@@ -58,6 +58,12 @@ const FilterByField = ({
                             >
                                 channel name
                             </MenuItem>
+                            <MenuItem
+                                onClick={() => handleFilterTypeChange(FilterBy.Title)}
+                                selected={filterType === FilterBy.Title}
+                            >
+                                stream title
+                            </MenuItem>
                         </MenuList>
                     </PopupMenu>
                 ),

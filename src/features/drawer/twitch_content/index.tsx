@@ -11,6 +11,7 @@ import FilterByField from "./FilterByField"
 export enum FilterBy {
     Category = "category",
     ChannelName = "channel name",
+    Title = "title",
 }
 
 // enum values must match keys in FollowedStream for sorting function to work

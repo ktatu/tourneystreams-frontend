@@ -39,7 +39,7 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
             PaperProps={{
                 sx: {
                     width: "25vw",
-                    paddingTop: (theme) => `${theme.mixins.toolbar.minHeight}px`,
+                    marginTop: (theme) => `${theme.mixins.toolbar.minHeight}px`,
                 },
                 id: "drawer-surface",
             }}

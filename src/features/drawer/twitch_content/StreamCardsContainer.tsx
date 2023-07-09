@@ -80,6 +80,8 @@ const StreamCardsContainer = ({
                         .includes(filterValue.toLowerCase()) ||
                     followedStream.loginName.toLowerCase().includes(filterValue.toLowerCase())
                 )
+            } else if (filterType === "title") {
+                return followedStream.title.toLowerCase().includes(filterValue.toLowerCase())
             }
 
             return followedStream.category.toLowerCase().includes(filterValue.toLowerCase())

@@ -41,7 +41,6 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
                             display="flex"
                             gap={3}
                             alignItems="center"
-                            justifyContent="space-between"
                         >
                             <SortBySelect
                                 sortValue={sortValue}

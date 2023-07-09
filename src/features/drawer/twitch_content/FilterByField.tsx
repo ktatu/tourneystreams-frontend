@@ -38,6 +38,7 @@ const FilterByField = ({
             InputLabelProps={{ shrink: true }}
             onChange={handleFilterChange}
             value={filterValue}
+            sx={{ maxWidth: "200px" }}
             InputProps={{
                 endAdornment: (
                     <PopupMenu

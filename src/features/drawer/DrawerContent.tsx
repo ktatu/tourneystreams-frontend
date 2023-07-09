@@ -1,5 +1,6 @@
 import TournamentContent from "./tournament_content"
 import TwitchContent from "./twitch_content"
+import { memo } from "react"
 
 export enum DrawerContentType {
     TournamentContent,
@@ -23,4 +24,4 @@ const DrawerContent = ({ contentType, handleDrawerClose }: DrawerContentProps) =
     }
 }
 
-export default DrawerContent
+export default memo(DrawerContent)

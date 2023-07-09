@@ -1,6 +1,8 @@
 import {
     Box,
+    Button,
     Card,
+    CardActions,
     CardContent,
     CardMedia,
     Collapse,
@@ -82,24 +84,25 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
                     {parseViewerCount(followedStream.viewerCount)}
                 </div>
             </Box>
-            <CardContent>
+            <CardContent sx={{ paddingBottom: 0 }}>
                 <Box
                     display="flex"
-                    gap={1}
                     alignItems="center"
                     alignContent="center"
                 >
                     <Typography variant="h5">{followedStream.broadcastName}</Typography>
-                    <Switch
-                        checked={streamToggled}
-                        onChange={handleStreamToggle}
-                    />
-                    <ExpandMore
-                        expand={cardExpanded}
-                        onClick={handleCardExpand}
-                    >
-                        <ExpandMoreIcon />
-                    </ExpandMore>
+                    <Box marginLeft="auto">
+                        <Switch
+                            checked={streamToggled}
+                            onChange={handleStreamToggle}
+                        />
+                        <ExpandMore
+                            expand={cardExpanded}
+                            onClick={handleCardExpand}
+                        >
+                            <ExpandMoreIcon />
+                        </ExpandMore>
+                    </Box>
                 </Box>
                 <Collapse
                     in={cardExpanded}
@@ -109,6 +112,16 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
                     {followedStream.title}
                 </Collapse>
             </CardContent>
+            <CardActions>
+                <Button
+                    href={`https://twitch.tv/${followedStream.loginName}`}
+                    referrerPolicy="no-referrer"
+                    target="_blank"
+                    size="small"
+                >
+                    Watch on Twitch
+                </Button>
+            </CardActions>
         </Card>
     )
 }

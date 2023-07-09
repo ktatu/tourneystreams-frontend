@@ -1,5 +1,6 @@
 import { Box, Divider, IconButton, Stack, Typography } from "@mui/material"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
+import SettingsIcon from "@mui/icons-material/Settings"
 import "../Drawer.css"
 
 interface DrawerHeaderProps {
@@ -12,19 +13,25 @@ const DrawerHeader = ({ title, handleDrawerClose, children }: DrawerHeaderProps)
         <Stack
             direction="column"
             paddingBottom={5}
-            gap={3}
+            gap={4}
         >
             <Box
                 display="flex"
                 alignContent="center"
             >
                 <Typography variant="h4">{title}</Typography>
-                <IconButton
-                    onClick={handleDrawerClose}
-                    sx={{ marginLeft: "auto" }}
+                <Box
+                    display="flex"
+                    gap={1}
+                    marginLeft="auto"
                 >
-                    <ArrowBackIcon fontSize="large" />
-                </IconButton>
+                    <IconButton>
+                        <SettingsIcon fontSize="large" />
+                    </IconButton>
+                    <IconButton onClick={handleDrawerClose}>
+                        <ArrowBackIcon fontSize="large" />
+                    </IconButton>
+                </Box>
             </Box>
             <Box>{children}</Box>
         </Stack>

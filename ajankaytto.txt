@@ -72,5 +72,6 @@
 04.7  1h Frontend: Sort ja filter seuratut kanavat.
 06.7  1h Frontend: Taulukon järjestämisfunktio + testejä sille
 07.7  1h Frontend: seurattujen kanavien filtteröinti ja järjestys
+09.7  5h Frontend: Drawer-komponentin muutoksia, scrollaus-nappi
 
 166.5 8.7

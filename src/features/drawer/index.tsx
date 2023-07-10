@@ -1,4 +1,4 @@
-import { Box, Drawer as MuiDrawer, Fab, Fade, useScrollTrigger } from "@mui/material"
+import { Box, Drawer as MuiDrawer, Fab, Fade, useScrollTrigger, useTheme } from "@mui/material"
 import DrawerContent, { DrawerContentType } from "./DrawerContent"
 import { useEffect, useState } from "react"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
@@ -10,6 +10,18 @@ interface TourneyDrawerProps {
 
 const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
     const [scrollTarget, setScrollTarget] = useState<undefined | Node>(undefined)
+
+    useEffect(() => {
+        const element = document.getElementById("scroll-container")
+        if (!element) {
+            return
+        }
+
+        console.log("scroll target ", element)
+        setScrollTarget(document.getElementById("scroll-container") as Node)
+    }, [])
+
+    const theme = useTheme()
 
     const handleScrollToTop = (event: React.MouseEvent<HTMLDivElement>) => {
         const anchor = ((event.target as HTMLDivElement).ownerDocument || document).querySelector(
@@ -24,48 +36,54 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
         }
     }
 
-    useEffect(() => {
-        setScrollTarget(document.getElementById("drawer-surface") as Node)
-    }, [])
-
     const scrollTrigger = useScrollTrigger({
-        threshold: 1000,
+        threshold: 100,
         disableHysteresis: true,
         target: scrollTarget,
     })
+
+    let drawerMarginTop = theme.mixins.toolbar.minHeight
+    if (drawerMarginTop && typeof drawerMarginTop === "number") {
+        drawerMarginTop += 5
+    }
 
     return (
         <MuiDrawer
             PaperProps={{
                 sx: {
                     width: "25vw",
-                    marginTop: (theme) => `${theme.mixins.toolbar.minHeight}px`,
+                    height: "100%",
+                    paddingTop: `${drawerMarginTop}px`,
                 },
-                id: "drawer-surface",
             }}
             variant="persistent"
             open={drawerContent !== DrawerContentType.None}
             anchor="left"
         >
-            <Box id="scroll-to-top-anchor" />
-            <DrawerContent
-                contentType={drawerContent}
-                handleDrawerClose={handleDrawerClose}
-            />
-            <Fade in={scrollTrigger}>
-                <Box
-                    position="fixed"
-                    bottom="5vh"
-                    left="20vw"
-                    width="50px"
-                    height="50px"
-                    onClick={handleScrollToTop}
-                >
-                    <Fab color="primary">
-                        <KeyboardArrowUpIcon />
-                    </Fab>
-                </Box>
-            </Fade>
+            <Box
+                overflow="auto"
+                id="scroll-container"
+            >
+                <Box id="scroll-to-top-anchor" />
+                <DrawerContent
+                    contentType={drawerContent}
+                    handleDrawerClose={handleDrawerClose}
+                />
+                <Fade in={scrollTrigger}>
+                    <Box
+                        position="fixed"
+                        bottom="5vh"
+                        left="20vw"
+                        width="50px"
+                        height="50px"
+                        onClick={handleScrollToTop}
+                    >
+                        <Fab color="primary">
+                            <KeyboardArrowUpIcon />
+                        </Fab>
+                    </Box>
+                </Fade>
+            </Box>
         </MuiDrawer>
     )
 }

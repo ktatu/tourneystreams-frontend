@@ -2,7 +2,7 @@
     padding-left: 25px;
     padding-top: 25px;
     padding-right: 25px;
-    margin-bottom: 100px;
+    padding-bottom: 100px;
 }
 
 .drawer-header {
@@ -16,5 +16,5 @@
     padding-left: 25px;
     padding-right: 25px;
     padding-top: 25px;
-    margin-bottom: 100px;
+    padding-bottom: 25px;
 }

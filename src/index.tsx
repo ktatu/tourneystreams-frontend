@@ -20,7 +20,7 @@ root.render(
     <StrictMode>
         <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>
-                <CssBaseline />
+                <CssBaseline enableColorScheme />
                 <StreamContextProvider reducer={streamReducer}>
                     <App />
                 </StreamContextProvider>

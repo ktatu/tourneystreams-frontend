@@ -12,12 +12,6 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
     const [scrollTarget, setScrollTarget] = useState<undefined | Node>(undefined)
 
     useEffect(() => {
-        const element = document.getElementById("scroll-container")
-        if (!element) {
-            return
-        }
-
-        console.log("scroll target ", element)
         setScrollTarget(document.getElementById("scroll-container") as Node)
     }, [])
 
@@ -37,14 +31,14 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
     }
 
     const scrollTrigger = useScrollTrigger({
-        threshold: 100,
+        threshold: 500,
         disableHysteresis: true,
         target: scrollTarget,
     })
 
-    let drawerMarginTop = theme.mixins.toolbar.minHeight
-    if (drawerMarginTop && typeof drawerMarginTop === "number") {
-        drawerMarginTop += 5
+    let drawerPaddingTop = theme.mixins.toolbar.minHeight
+    if (drawerPaddingTop && typeof drawerPaddingTop === "number") {
+        drawerPaddingTop += 5
     }
 
     return (
@@ -53,7 +47,7 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
                 sx: {
                     width: "25vw",
                     height: "100%",
-                    paddingTop: `${drawerMarginTop}px`,
+                    paddingTop: `${drawerPaddingTop}px`,
                 },
             }}
             variant="persistent"

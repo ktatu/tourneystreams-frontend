@@ -1,5 +1,5 @@
 import { Box, Drawer as MuiDrawer, Fab, Fade, useScrollTrigger, useTheme } from "@mui/material"
-import DrawerContent, { DrawerContentType } from "./DrawerContent"
+import DrawerContentSwitch, { DrawerContentType } from "./DrawerContentSwitch"
 import { useEffect, useState } from "react"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 
@@ -59,7 +59,7 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
                 id="scroll-container"
             >
                 <Box id="scroll-to-top-anchor" />
-                <DrawerContent
+                <DrawerContentSwitch
                     contentType={drawerContent}
                     handleDrawerClose={handleDrawerClose}
                 />

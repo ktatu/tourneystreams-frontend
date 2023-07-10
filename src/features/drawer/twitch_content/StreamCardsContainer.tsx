@@ -3,7 +3,7 @@ import { useQuery } from "react-query"
 import StreamCard, { FollowedStream } from "./StreamCard"
 import { Stack } from "@mui/material"
 import { getCookie, setCookie } from "typescript-cookie"
-import { FilterBy, SortBy } from "."
+import { FilterBy, SortBy } from "./TwitchContent"
 import orderBy from "lodash.orderby"
 import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
 

@@ -1,5 +1,5 @@
-import TournamentContent from "./tournament_content"
-import TwitchContent from "./twitch_content"
+import TournamentContent from "./tournament_content/TournamentContent"
+import TwitchContent from "./twitch_content/TwitchContent"
 import { memo } from "react"
 
 export enum DrawerContentType {
@@ -8,12 +8,12 @@ export enum DrawerContentType {
     None,
 }
 
-interface DrawerContentProps {
+interface DrawerContentSwitchProps {
     contentType: DrawerContentType
     handleDrawerClose: () => void
 }
 
-const DrawerContent = ({ contentType, handleDrawerClose }: DrawerContentProps) => {
+const DrawerContentSwitch = ({ contentType, handleDrawerClose }: DrawerContentSwitchProps) => {
     switch (contentType) {
         case DrawerContentType.TournamentContent:
             return <TournamentContent handleDrawerClose={handleDrawerClose} />
@@ -24,4 +24,4 @@ const DrawerContent = ({ contentType, handleDrawerClose }: DrawerContentProps) =
     }
 }
 
-export default memo(DrawerContent)
+export default memo(DrawerContentSwitch)

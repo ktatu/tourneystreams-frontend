@@ -8,7 +8,7 @@ import {
 } from "@mui/material"
 import StreamSection from "./StreamSection"
 import { ReactComponent as TwitchLogo } from "../../assets/TwitchLogo.svg"
-import { DrawerContentType } from "../drawer/DrawerContent"
+import { DrawerContentType } from "../drawer/DrawerContentSwitch"
 
 interface AppBarProps {
     drawerContentType: DrawerContentType

@@ -73,5 +73,6 @@
 06.7  1h Frontend: Taulukon järjestämisfunktio + testejä sille
 07.7  1h Frontend: seurattujen kanavien filtteröinti ja järjestys
 09.7  5h Frontend: Drawer-komponentin muutoksia, scrollaus-nappi
+11.7  3h Frontend: Drawer-komponentin refaktorointia
 
 166.5 8.7

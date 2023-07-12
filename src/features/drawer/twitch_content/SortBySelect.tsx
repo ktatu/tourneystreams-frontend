@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material"
-import { SortBy } from "./TwitchContent"
+import { SortBy } from "./FollowedStreams"
 
 interface SortBySelectProps {
     sortValue: SortBy

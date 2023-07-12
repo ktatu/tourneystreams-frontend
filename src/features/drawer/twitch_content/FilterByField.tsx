@@ -1,6 +1,6 @@
 import { TextField, MenuList, MenuItem, Box, IconButton } from "@mui/material"
 import { startTransition, useRef } from "react"
-import { FilterBy } from "./TwitchContent"
+import { FilterBy } from "./FollowedStreams"
 import PopupMenu, { PopupMenuClose } from "../../../commons/PopupMenu"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import CloseIcon from "@mui/icons-material/Close"

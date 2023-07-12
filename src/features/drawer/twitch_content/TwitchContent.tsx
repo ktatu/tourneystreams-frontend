@@ -1,125 +1,117 @@
-import { Box, Button, Typography } from "@mui/material"
-import LaunchIcon from "@mui/icons-material/Launch"
+import { Box } from "@mui/material"
 import { useState } from "react"
 import "../Drawer.css"
-import StreamCardsContainer from "./StreamCardsContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
-import { getCookie } from "typescript-cookie"
-import SortBySelect from "./SortBySelect"
-import FilterByField from "./FilterByField"
+import { getCookie, setCookie } from "typescript-cookie"
+import FollowedStreams from "./FollowedStreams"
+import TwitchSettings from "./TwitchSettings"
+import TwitchConnect from "./TwitchConnect"
+import axios from "axios"
+import { useQuery } from "react-query"
+import { FollowedStream } from "./StreamCard"
+import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
 
-export enum FilterBy {
-    Category = "category",
-    ChannelName = "channel name",
-    Title = "title",
-}
-
-// enum values must match keys in FollowedStream for sorting function to work
-export enum SortBy {
-    ViewerCount = "viewerCount",
-    Category = "category",
+export enum TwitchContentView {
+    Settings = "settings",
+    FollowedStreams = "followedStreams",
+    Connect = "conncect",
 }
 
 interface TwitchContentProps {
     handleDrawerClose: () => void
 }
+
 const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
-    const [filterValue, setFilterValue] = useState("")
-    const [filterType, setFilterType] = useState(FilterBy.ChannelName)
-    const [sortValue, setSortValue] = useState(SortBy.ViewerCount)
+    const [twitchContentView, setTwitchContentView] = useState(TwitchContentView.FollowedStreams)
+    const [errorMsg, setErrorMsg] = useState("")
 
-    const userHasTwitchToken = getCookie("twitch-token")
+    const userHasTwitchToken = Boolean(getCookie("twitch-token"))
 
-    if (!userHasTwitchToken) {
+    const handleSettingsView = () => {
+        if (twitchContentView === "settings") {
+            setTwitchContentView(TwitchContentView.FollowedStreams)
+        } else {
+            setTwitchContentView(TwitchContentView.Settings)
+        }
+    }
+
+    const { isLoading, isError, data, error } = useQuery<FollowedStream[]>(
+        "followedStreams",
+        queryFollowedStreams,
+        {
+            retry: 1,
+            cacheTime: 1000 * 100, // 10 minutes
+            staleTime: 1000 * 10 * 2, // 2 minutes
+        }
+    )
+
+    if (isLoading) {
         return (
             <Box
                 className="drawer"
-                display="flex"
-                flexDirection="column"
-                gap={2}
+                paddingTop={5}
             >
-                <Typography variant="body1">
-                    Connect your Twitch account to see your followed channels
-                </Typography>
-                <Box
-                    display="flex"
-                    flexDirection="row"
-                    alignItems="center"
+                <PlaceholderSkeleton
+                    count={3}
+                    width={350}
+                    height={250}
                     gap={5}
-                >
-                    <Button
-                        href={`http://localhost:3001/api/twitch/auth${window.location.search}`}
-                        variant="outlined"
-                        endIcon={<LaunchIcon />}
-                    >
-                        Connect
-                    </Button>
-                </Box>
+                />
             </Box>
         )
     }
 
-    return (
-        <Box className="drawer">
-            <DrawerHeader
-                title="Twitch streams"
-                handleDrawerClose={handleDrawerClose}
-            >
-                <>
-                    {userHasTwitchToken ? (
-                        <Box
-                            display="flex"
-                            gap={3}
-                            alignItems="center"
-                        >
-                            <SortBySelect
-                                sortValue={sortValue}
-                                setSortValue={setSortValue}
-                            />
-                            <FilterByField
-                                filterValue={filterValue}
-                                setFilterValue={setFilterValue}
-                                filterType={filterType}
-                                setFilterType={setFilterType}
-                            />
-                        </Box>
-                    ) : (
-                        <Box
-                            paddingTop={3}
-                            display="flex"
-                            flexDirection="column"
-                            gap={2}
-                        >
-                            <Typography variant="body1">
-                                Connect your Twitch account to see your followed channels
-                            </Typography>
-                            <Box
-                                display="flex"
-                                flexDirection="row"
-                                alignItems="center"
-                                gap={5}
-                            >
-                                <Button
-                                    href={`http://localhost:3001/api/twitch/auth${window.location.search}`}
-                                    variant="outlined"
-                                    endIcon={<LaunchIcon />}
-                                >
-                                    Connect
-                                </Button>
-                            </Box>
-                        </Box>
-                    )}
-                </>
-            </DrawerHeader>
-            {userHasTwitchToken ? (
-                <StreamCardsContainer
-                    filterValue={filterValue}
-                    filterType={filterType}
-                    sortValue={sortValue}
+    if (isError) {
+        return (
+            <Box className="drawer">
+                <DrawerHeader
+                    title="Twitch streams"
+                    handleDrawerClose={handleDrawerClose}
+                    settingsViewOpen={twitchContentView === TwitchContentView.Settings}
+                    handleSettingsView={handleSettingsView}
                 />
-            ) : null}
-        </Box>
-    )
+                <TwitchConnect />
+            </Box>
+        )
+    }
+
+    if (data) {
+        return (
+            <Box className="drawer">
+                <DrawerHeader
+                    title="Twitch streams"
+                    handleDrawerClose={handleDrawerClose}
+                    settingsViewOpen={twitchContentView === TwitchContentView.Settings}
+                    handleSettingsView={handleSettingsView}
+                />
+                {twitchContentView === TwitchContentView.Settings ? (
+                    <TwitchSettings />
+                ) : (
+                    <FollowedStreams followedStreams={data} />
+                )}
+            </Box>
+        )
+    }
+
+    return null
+}
+
+const queryFollowedStreams = async () => {
+    const twitchToken = getCookie("twitch-token")
+
+    if (!twitchToken) {
+        throw new Error("Twitch token missing")
+    }
+
+    const res = await axios.get("http://localhost:3001/api/twitch", {
+        headers: { Authorization: `Bearer ${twitchToken}` },
+    })
+
+    if (res.data.newToken) {
+        setCookie("twitch-token", res.data.newToken)
+    }
+
+    return res.data.streams
 }
 
 export default TwitchContent

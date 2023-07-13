@@ -75,5 +75,6 @@
 09.7  5h Frontend: Drawer-komponentin muutoksia, scrollaus-nappi
 11.7  3h Frontend: Drawer-komponentin refaktorointia
 13.7  4h Frontend: Stream-kehysten refaktorointi / uusiminen
+13.7  1h Backend: Refaktorointia
 
 166.5 8.7

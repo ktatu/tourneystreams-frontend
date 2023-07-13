@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from "react"
+import { memo } from "react"
 import { Box } from "@mui/material"
 import { useStreamContext } from "../../commons/streamReducer"
 import getStreamDimensions from "./streamDimensions"
@@ -8,8 +8,8 @@ import StreamFrameContainer from "./StreamFrameContainer"
 const StreamFrames = () => {
     const { streamState } = useStreamContext()
 
-    const STREAM_BASEWIDTH = 1500
-    const STREAM_BASEHEIGHT = 875
+    const STREAM_BASEWIDTH = 100
+    const STREAM_BASEHEIGHT = 100
 
     return (
         <Box
@@ -18,7 +18,7 @@ const StreamFrames = () => {
             flexWrap="wrap"
             justifyContent="center"
             alignContent="center"
-            bgcolor="red"
+            height="100%"
         >
             {streamState.streams.map((stream, index) => {
                 const { width, height } = getStreamDimensions(
@@ -32,13 +32,11 @@ const StreamFrames = () => {
                     <Box
                         key={index}
                         order={stream.displayPosition}
+                        height={`${height}%`}
+                        width={`${width}%`}
+                        overflow="hidden"
                     >
-                        <StreamFrameContainer
-                            key={index}
-                            channel={stream.channelName}
-                            frameWidth={width}
-                            frameHeight={height}
-                        />
+                        <StreamFrameContainer channel={stream.channelName} />
                     </Box>
                 )
             })}

@@ -15,7 +15,6 @@ const Streams = () => {
                 xs
                 overflow="auto"
                 height="100%"
-                bgcolor="red"
             >
                 <StreamFrames />
             </Grid>

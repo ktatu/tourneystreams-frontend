@@ -76,5 +76,6 @@
 11.7  3h Frontend: Drawer-komponentin refaktorointia
 13.7  4h Frontend: Stream-kehysten refaktorointi / uusiminen
 13.7  1h Backend: Refaktorointia
+18.7  8h Backend: Redis käyttöönotto
 
 166.5 8.7

@@ -78,5 +78,6 @@
 13.7  1h Backend: Refaktorointia
 18.7  8h Backend: Redis käyttöönotto
 22.7  6h Backend: refaktorointia ja virheidenkäsittelyä
+26.7  5h -||-
 
 166.5 8.7

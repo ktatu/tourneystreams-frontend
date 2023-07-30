@@ -79,6 +79,7 @@
 18.7  8h Backend: Redis käyttöönotto
 22.7  6h Backend: refaktorointia ja virheidenkäsittelyä
 26.7  5h -||-
-27.7  1h Frontendin deployaus renderiin
+27.7  1h Frontendin deployaus render.com
+30.7  3h Backendin deployaus
 
 166.5 8.7

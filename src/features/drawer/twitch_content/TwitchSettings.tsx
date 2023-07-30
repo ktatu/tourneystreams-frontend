@@ -14,15 +14,14 @@ const TwitchSettings = () => {
                 gap={1}
             >
                 <Typography>
-                    Tourneystreams can be disconnected from your Twitch account on Twitch&apos;s
-                    connections page
+                    Connection to Tourneystreams can be removed on Twitch&apos;s Connections page
                 </Typography>
                 <Button
                     variant="outlined"
-                    href="https://www.twitch.tv/settings/connections"
                     endIcon={<LaunchIcon />}
+                    href="https://www.twitch.tv/settings/connections"
                 >
-                    Disconnect
+                    Disconnect on Twitch
                 </Button>
             </Box>
         </Box>

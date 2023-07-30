@@ -10,6 +10,7 @@ import axios from "axios"
 import { useQuery } from "react-query"
 import { FollowedStream } from "./StreamCard"
 import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
+import { BACKEND_BASE_URL } from "../../../envConfig"
 
 export enum TwitchContentView {
     Settings = "settings",
@@ -23,9 +24,6 @@ interface TwitchContentProps {
 
 const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
     const [twitchContentView, setTwitchContentView] = useState(TwitchContentView.FollowedStreams)
-    const [errorMsg, setErrorMsg] = useState("")
-
-    const userHasTwitchToken = Boolean(getCookie("twitch-token"))
 
     const handleSettingsView = () => {
         if (twitchContentView === "settings") {
@@ -103,7 +101,7 @@ const queryFollowedStreams = async () => {
         throw new Error("Twitch token missing")
     }
 
-    const res = await axios.get("http://localhost:3001/api/twitch", {
+    const res = await axios.get(`${BACKEND_BASE_URL}/twitch`, {
         headers: { Authorization: `Bearer ${twitchToken}` },
     })
 

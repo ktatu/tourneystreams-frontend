@@ -1,5 +1,6 @@
 import { Box, Typography, Button } from "@mui/material"
 import LaunchIcon from "@mui/icons-material/Launch"
+import { BACKEND_BASE_URL } from "../../../envConfig"
 
 const TwitchConnect = () => {
     return (
@@ -18,7 +19,7 @@ const TwitchConnect = () => {
                 gap={5}
             >
                 <Button
-                    href={`http://localhost:3001/api/twitch/auth${window.location.search}`}
+                    href={`${BACKEND_BASE_URL}/twitch/auth${window.location.search}`}
                     variant="outlined"
                     endIcon={<LaunchIcon />}
                 >

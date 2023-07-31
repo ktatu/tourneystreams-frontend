@@ -2,7 +2,7 @@ import { Box } from "@mui/material"
 import { useState } from "react"
 import "../Drawer.css"
 import DrawerHeader from "../shared_components/DrawerHeader"
-import { getCookie, setCookie } from "typescript-cookie"
+import { getCookie, setCookie, getCookies } from "typescript-cookie"
 import FollowedStreams from "./FollowedStreams"
 import TwitchSettings from "./TwitchSettings"
 import TwitchConnect from "./TwitchConnect"
@@ -96,6 +96,9 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
 
 const queryFollowedStreams = async () => {
     const twitchToken = getCookie("twitch-token")
+
+    const allCookies = getCookies()
+    console.log("all cookies ", allCookies)
 
     if (!twitchToken) {
         throw new Error("Twitch token missing")

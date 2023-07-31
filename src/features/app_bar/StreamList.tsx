@@ -21,7 +21,7 @@ const StreamList = () => {
 
     // layouteffect and firstComponentRender prevent showing a swap from list to menu to user on first render
     // relevant only when the url is loaded with > 3 streams in search parameters
-    /*
+
     useLayoutEffect(() => {
         if (streamState.streams.length > 3) {
             setShowHorizontalList(false)
@@ -40,7 +40,7 @@ const StreamList = () => {
         } else {
             setShowMenuButton(false)
         }
-    }, [streamState.streams, anchorEl])*/
+    }, [streamState.streams, anchorEl])
 
     const handleMenuOpen: MouseEventHandler = (event: React.MouseEvent<HTMLElement>): void => {
         setAnchorEl(event.currentTarget)

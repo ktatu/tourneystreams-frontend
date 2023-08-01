@@ -104,7 +104,7 @@ const queryFollowedStreams = async () => {
         throw new Error("Twitch token missing")
     }
 
-    const res = await axios.get(`${BACKEND_BASE_URL}/twitch`, {
+    const res = await axios.get("/api/twitch", {
         headers: { Authorization: `Bearer ${twitchToken}` },
     })
 

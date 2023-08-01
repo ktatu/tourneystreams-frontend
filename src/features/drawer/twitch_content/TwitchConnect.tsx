@@ -19,7 +19,7 @@ const TwitchConnect = () => {
                 gap={5}
             >
                 <Button
-                    href={`${BACKEND_BASE_URL}/twitch/auth${window.location.search}`}
+                    href={`/api/twitch/auth${window.location.search}`}
                     variant="outlined"
                     endIcon={<LaunchIcon />}
                 >

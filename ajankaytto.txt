@@ -81,5 +81,7 @@
 26.7  5h -||-
 27.7  1h Frontendin deployaus render.com
 30.7  3h Backendin deployaus
+01.8  3h Frontend / Backend + tietokanta deployattu ja toimii
+02.8  2h Backend ci / cd
 
 166.5 8.7

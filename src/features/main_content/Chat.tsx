@@ -1,4 +1,4 @@
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import { useStreamContext } from "../../commons/streamReducer"
 
 const Chat = () => {
@@ -27,13 +27,19 @@ const Chat = () => {
                 position="absolute"
                 bottom={0}
                 right={100}
-                width={100}
+                maxWidth={100}
                 height={50}
                 display="flex"
                 alignContent="center"
                 alignItems="center"
             >
-                {streamState.selectedChannel}
+                <Typography
+                    overflow="hidden"
+                    whiteSpace="nowrap"
+                    textOverflow="ellipsis"
+                >
+                    {streamState.selectedChannel}
+                </Typography>
             </Box>
         </Box>
     )

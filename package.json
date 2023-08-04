@@ -42,7 +42,6 @@
         "fakeserver": "json-server --watch db.json --port 3002",
         "serve": "serve -s build"
     },
-    "proxy": "http://localhost:3001",
     "eslintConfig": {
         "extends": [
             "react-app",

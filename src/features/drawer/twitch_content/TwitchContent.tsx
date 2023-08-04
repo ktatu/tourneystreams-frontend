@@ -97,14 +97,11 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
 const queryFollowedStreams = async () => {
     const twitchToken = getCookie("twitch-token")
 
-    const allCookies = getCookies()
-    console.log("all cookies ", allCookies)
-
     if (!twitchToken) {
         throw new Error("Twitch token missing")
     }
 
-    const res = await axios.get("/api/twitch", {
+    const res = await axios.get(`${BACKEND_BASE_URL}/twitch`, {
         headers: { Authorization: `Bearer ${twitchToken}` },
     })
 

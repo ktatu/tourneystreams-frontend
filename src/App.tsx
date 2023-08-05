@@ -11,8 +11,6 @@ const App = () => {
     const [drawerContent, setDrawerContent] = useState(DrawerContentType.None)
     const { streamState } = useStreamContext()
 
-    const test = () => {}
-
     return (
         <>
             <AppBar

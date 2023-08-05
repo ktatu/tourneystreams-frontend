@@ -22,7 +22,7 @@ const TestOptions = () => {
     }
 
     const handleTierChange = () => {
-        console.log("tier change")
+        //
     }
 
     return (

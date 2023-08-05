@@ -38,7 +38,8 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "lint": "eslint --fix \"./src/**/*.{ts,tsx}\"",
+        "lint": "eslint \"./src/**/*.{ts,tsx}\"",
+        "lint:fix": "eslint --fix \"./src/**/*.{ts,tsx}\"",
         "fakeserver": "json-server --watch db.json --port 3002",
         "serve": "serve -s build"
     },

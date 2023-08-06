@@ -3,16 +3,16 @@ import AppBar from "./features/app_bar/AppBar"
 import Streams from "./features/main_content/MainContent"
 import { useState } from "react"
 import { Alert, Box, Stack, Toolbar } from "@mui/material"
-import { useStreamContext } from "./commons/streamReducer"
-import WelcomeContent from "./WelcomeContent"
 import { DrawerContentType } from "./features/drawer/DrawerContentSwitch"
 
 const App = () => {
     const [drawerContent, setDrawerContent] = useState(DrawerContentType.None)
-    const { streamState } = useStreamContext()
 
     return (
-        <>
+        <Box
+            width="100vw"
+            height="100vh"
+        >
             <AppBar
                 drawerContentType={drawerContent}
                 setDrawerContentType={setDrawerContent}
@@ -22,19 +22,13 @@ const App = () => {
                 handleDrawerClose={() => setDrawerContent(DrawerContentType.None)}
             />
             <Stack
-                height="100vh"
                 bgcolor="black"
+                height="100%"
             >
                 <Toolbar />
-                {streamState.streams.length === 0 ? (
-                    <Box marginLeft="27%">
-                        <WelcomeContent />
-                    </Box>
-                ) : (
-                    <Streams />
-                )}
+                <Streams />
             </Stack>
-        </>
+        </Box>
     )
 }
 

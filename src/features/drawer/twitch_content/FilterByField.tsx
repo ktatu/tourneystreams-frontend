@@ -44,14 +44,16 @@ const FilterByField = ({
             InputProps={{
                 endAdornment: (
                     <Box display="flex">
-                        <IconButton
-                            onClick={() => setFilterValue("")}
-                            sx={{
-                                visibility: filterValue ? "visible" : "hidden",
-                            }}
-                        >
-                            <CloseIcon />
-                        </IconButton>
+                        {filterValue ? (
+                            <IconButton
+                                onClick={() => setFilterValue("")}
+                                sx={{
+                                    visibility: filterValue ? "visible" : "hidden",
+                                }}
+                            >
+                                <CloseIcon />
+                            </IconButton>
+                        ) : null}
                         <PopupMenu
                             buttonProps={{ buttonIcon: <ArrowDropDownIcon /> }}
                             ref={popupMenuRef}

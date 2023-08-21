@@ -83,5 +83,8 @@
 30.7  3h Backendin deployaus
 01.8  3h Frontend / Backend + tietokanta deployattu ja toimii
 02.8  2h Backend ci / cd
+05.8  3h ci + cd ja testauksen suunnittelu
+06.8  3h cd ja bugifixausta frontendissä
+09.8  3h Backendin refaktorointia
 
 166.5 8.7

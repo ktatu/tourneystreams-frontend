@@ -6,10 +6,13 @@ import { streamsState } from "../../commons/streamsState"
 import { useSnapshot } from "valtio/react"
 
 const StreamFrames = () => {
-    const streams = useSnapshot(streamsState.streams)
+    const { streams } = useSnapshot(streamsState)
 
     const STREAM_BASEWIDTH = 100
     const STREAM_BASEHEIGHT = 100
+
+    // eslint-disable-next-line
+    console.log("render stream frames")
 
     return (
         <Box

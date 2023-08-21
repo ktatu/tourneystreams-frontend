@@ -1,28 +1,28 @@
-import { useStreamContext } from "../../commons/streamReducer"
 import StreamListItem from "./StreamListItem"
 import { Box, Button, Menu, Slide, Stack } from "@mui/material"
 import DragAndDropWrapper, { MovementAxis } from "./DragAndDropWrapper"
 import { useEffect, useLayoutEffect, useState, useRef, MouseEventHandler } from "react"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
+import { streamsState } from "../../commons/streamsState"
+import { useSnapshot } from "valtio"
 
 const StreamList = () => {
     const [showHorizontalList, setShowHorizontalList] = useState(true)
     const [showMenuButton, setShowMenuButton] = useState(false)
     const [firstComponentRender, setFirstComponentRender] = useState(true)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const { streams } = useSnapshot(streamsState)
 
-    const { streamState } = useStreamContext()
-
-    const sortedChannels = streamState.streams
+    const sortedChannels = [...streams]
         .sort((stream1, stream2) => stream1.displayPosition - stream2.displayPosition)
         .map((stream) => stream.channelName)
 
     const slideContainerRef = useRef(null)
 
     // layouteffect and firstComponentRender prevent showing a swap from list to menu to user on first render
-    // relevant only when the url is loaded with > 3 streams in search parameters
+    // relevant only when the site is loaded with > 3 streams in url's search parameters
     useLayoutEffect(() => {
-        if (streamState.streams.length > 3) {
+        if (streams.length > 3) {
             setShowHorizontalList(false)
             setShowMenuButton(true)
         }
@@ -34,12 +34,12 @@ const StreamList = () => {
             return
         }
 
-        if (streamState.streams.length > 3) {
+        if (streams.length > 3) {
             setShowHorizontalList(false)
         } else {
             setShowMenuButton(false)
         }
-    }, [streamState.streams, anchorEl])
+    }, [streams, anchorEl])
 
     const handleMenuOpen: MouseEventHandler = (event: React.MouseEvent<HTMLElement>): void => {
         setAnchorEl(event.currentTarget)
@@ -80,13 +80,15 @@ const StreamList = () => {
                                 display="flex"
                                 gap={2}
                             >
-                                {sortedChannels.map((channel) => (
-                                    <StreamListItem
-                                        key={channel}
-                                        channel={channel}
-                                        oneStreamOpen={streamState.streams.length === 1}
-                                    />
-                                ))}
+                                {streams.map((stream, index) => {
+                                    return (
+                                        <StreamListItem
+                                            key={index}
+                                            channel={stream.channelName}
+                                            oneStreamOpen={streams.length === 1}
+                                        />
+                                    )
+                                })}
                             </Box>
                         </Slide>
                     </DragAndDropWrapper>

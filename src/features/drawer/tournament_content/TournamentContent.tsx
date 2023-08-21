@@ -38,57 +38,59 @@ const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
     }
 
     return (
-        <>
+        <Box
+            height="100%"
+            display="flex"
+            flexDirection="column"
+        >
             <Box className="drawer-content">
-                <>
-                    <Typography variant="h4">Tournaments</Typography>
-                    <Box paddingTop={3}>
-                        <Typography variant="body1">Filters:</Typography>
-                        <Box
-                            alignItems="center"
-                            display="flex"
-                            flexDirection="row"
-                            paddingTop={1}
-                            gap={1}
-                        >
-                            <Box paddingTop={1}>
-                                <PopupMenu
-                                    buttonProps={{
-                                        buttonText: "Games",
+                <Typography variant="h4">Tournaments</Typography>
+                <Box paddingTop={3}>
+                    <Typography variant="body1">Filters:</Typography>
+                    <Box
+                        alignItems="center"
+                        display="flex"
+                        flexDirection="row"
+                        paddingTop={1}
+                        gap={1}
+                    >
+                        <Box paddingTop={1}>
+                            <PopupMenu
+                                buttonProps={{
+                                    buttonText: "Games",
+                                }}
+                            >
+                                <GameSelectionMenuContent />
+                            </PopupMenu>
+                        </Box>
+                        <Input
+                            disabled={filterOptionsViewOpen}
+                            placeholder="Tournament name"
+                            onChange={handleTourneyNameFilterChange}
+                            value={tourneyNameFilter}
+                            endAdornment={
+                                <IconButton
+                                    onClick={() => setTourneyNameFilter("")}
+                                    sx={{
+                                        visibility: tourneyNameFilter ? "visible" : "hidden",
                                     }}
                                 >
-                                    <GameSelectionMenuContent />
-                                </PopupMenu>
-                            </Box>
-                            <Input
-                                disabled={filterOptionsViewOpen}
-                                placeholder="Tournament name"
-                                onChange={handleTourneyNameFilterChange}
-                                value={tourneyNameFilter}
-                                endAdornment={
-                                    <IconButton
-                                        onClick={() => setTourneyNameFilter("")}
-                                        sx={{
-                                            visibility: tourneyNameFilter ? "visible" : "hidden",
-                                        }}
-                                    >
-                                        <CloseIcon />
-                                    </IconButton>
-                                }
-                            />
-                            <Box flexGrow={1} />
-                            <Box marginTop={1}>
-                                <IconButton onClick={handleSettingsViewVisibility}>
-                                    {filterOptionsViewOpen ? (
-                                        <CloseIcon fontSize="medium" />
-                                    ) : (
-                                        <SettingsIcon fontSize="medium" />
-                                    )}
+                                    <CloseIcon />
                                 </IconButton>
-                            </Box>
+                            }
+                        />
+                        <Box flexGrow={1} />
+                        <Box marginTop={1}>
+                            <IconButton onClick={handleSettingsViewVisibility}>
+                                {filterOptionsViewOpen ? (
+                                    <CloseIcon fontSize="medium" />
+                                ) : (
+                                    <SettingsIcon fontSize="medium" />
+                                )}
+                            </IconButton>
                         </Box>
                     </Box>
-                </>
+                </Box>
             </Box>
             <Divider />
             {filterOptionsViewOpen ? (
@@ -96,7 +98,7 @@ const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
             ) : (
                 <TourneyAccordions tourneyNameFilter={tourneyNameFilter} />
             )}
-        </>
+        </Box>
     )
 }
 

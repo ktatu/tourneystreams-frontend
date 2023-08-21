@@ -56,6 +56,7 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
         >
             <Box
                 overflow="auto"
+                height="100%"
                 id="scroll-container"
             >
                 <Box id="scroll-to-top-anchor" />

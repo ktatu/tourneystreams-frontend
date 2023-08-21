@@ -4,6 +4,7 @@ import HomeIcon from "@mui/icons-material/Home"
 import BoyIcon from "@mui/icons-material/Boy"
 import StreamInfoList from "./StreamInfoList"
 import Viewership from "../../shared_components/Viewership"
+import SettingsIcon from "@mui/icons-material/Settings"
 
 interface TourneyAccordionDetailsProps {
     streamInfoArray: Array<StreamInfo>
@@ -57,6 +58,15 @@ const TourneyAccordionDetails = ({ streamInfoArray, webLinks }: TourneyAccordion
 const WebLinksWithIcons = ({ webLinks }: { webLinks: WebLinks }) => {
     const imageDimensions = { width: 32, height: 26 }
 
+    /*
+                    <IconButton>
+                        <img
+                            src={require("../assets/liquipedia.png")}
+                            style={imageDimensions}
+                        />
+                    </IconButton>
+    */
+
     return (
         <Box
             alignItems="center"
@@ -70,10 +80,7 @@ const WebLinksWithIcons = ({ webLinks }: { webLinks: WebLinks }) => {
                     target="_blank"
                 >
                     <IconButton>
-                        <img
-                            src={require("../assets/liquipedia.png")}
-                            style={imageDimensions}
-                        />
+                        <SettingsIcon sx={{ transform: "scale(1.5)" }} />
                     </IconButton>
                 </Link>
             ) : null}
@@ -91,9 +98,9 @@ const WebLinksWithIcons = ({ webLinks }: { webLinks: WebLinks }) => {
                     </IconButton>
                 </Link>
             ) : null}
-            {webLinks.liquipedia ? (
+            {webLinks.homePage ? (
                 <Link
-                    href={webLinks.liquipedia}
+                    href={webLinks.homePage}
                     rel="noreferrer"
                     target="_blank"
                 >

@@ -51,8 +51,7 @@ const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowP
         )
     }, [streamState.streams])
 
-    return (
-        <ListItem key={streamInfo.channel}>
+    /*
             <Box paddingRight={1}>
                 <Tooltip title="Finnish">
                     <span
@@ -61,6 +60,10 @@ const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowP
                     />
                 </Tooltip>
             </Box>
+    */
+
+    return (
+        <ListItem key={streamInfo.channel}>
             <ListItemText>
                 <Box
                     display="flex"

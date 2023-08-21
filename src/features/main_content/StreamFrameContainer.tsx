@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { memo, useState, useEffect } from "react"
 import TwitchPlayer from "react-player/twitch"
 import { useStreamContext } from "../../commons/streamReducer"
 
@@ -34,6 +34,9 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
         setStreamReady(true)
     }
 
+    //eslint-disable-next-line
+    console.log("reload stream ", channel)
+
     return (
         <TwitchPlayer
             key={streamKey}
@@ -50,4 +53,4 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
     )
 }
 
-export default StreamFrameContainer
+export default memo(StreamFrameContainer)

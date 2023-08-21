@@ -14,10 +14,6 @@ interface TourneyAccordionsProps {
 }
 
 const TourneyAccordions = ({ tourneyNameFilter }: TourneyAccordionsProps) => {
-    /*const [tourneyInfoArray, setTourneyInfoArray] = useState<Array<TourneyInfo>>([
-        { tourneyName: "BLAST.tv Paris Major 2023: European RMR A", game: "apexlegends" },
-    ])*/
-
     const { isLoading, isError, data, error } = useQuery<TourneyInfo[]>("tourneyInfo", async () => {
         const res = await axios.get<TourneyInfo[]>("http://localhost:3002/tourneyInfos")
 
@@ -47,29 +43,37 @@ const TourneyAccordions = ({ tourneyNameFilter }: TourneyAccordionsProps) => {
     }
 
     return (
-        <Box className="drawer-container">
-            {data && data.length > 0 ? (
-                data.map((tourneyInfo) => (
-                    <TourneyAccordion
-                        key={tourneyInfo.name}
-                        tourneyInfo={tourneyInfo}
-                    />
-                ))
-            ) : (
-                <Typography variant="h5">No tournaments match the current filters</Typography>
-            )}
+        <Box
+            className="drawer-container"
+            flexGrow={1}
+            display="flex"
+            flexDirection="column"
+        >
+            <Box flexGrow={1}>
+                {data && data.length > 0 ? (
+                    data.map((tourneyInfo) => (
+                        <TourneyAccordion
+                            key={tourneyInfo.name}
+                            tourneyInfo={tourneyInfo}
+                        />
+                    ))
+                ) : (
+                    <Typography variant="h5">No tournaments match the current filters</Typography>
+                )}
+            </Box>
+            <Box
+                display="flex"
+                flexDirection="column"
+                justifySelf="flex-end"
+            >
+                <Typography>
+                    Tournament information is provided by
+                    <a href="https://liquipedia.net">Liquipedia</a>
+                </Typography>
+            </Box>
         </Box>
     )
 }
-
-/*
-            {tourneysFilteredByName.map((tourney) => (
-                <TourneyAccordion
-                    key={tourney.tourneyName}
-                    tourneyName={tourney.tourneyName}
-                />
-            ))}
-*/
 
 const TourneyAccordionListSkeleton = () => {
     return (

@@ -1,5 +1,6 @@
 import { proxy } from "valtio"
 import { Stream } from "./streamReducer"
+import searchParams from "./searchParams"
 
 interface StreamsState {
     chatIsVisible: boolean
@@ -9,13 +10,14 @@ interface StreamsState {
     readonly sortedChannels: Array<string>
 }
 
+const initialStreamsFromParams: Array<Stream> = searchParams("streams")
+    .getAll()
+    .map((channel, index) => ({ channelName: channel, displayPosition: index }))
+
 export const streamsState = proxy<StreamsState>({
     chatIsVisible: true,
-    selectedChatChannel: "",
-    streams: [
-        { channelName: "k3soju", displayPosition: 0 },
-        { channelName: "JokerdTV", displayPosition: 1 },
-    ],
+    selectedChatChannel: initialStreamsFromParams[0].channelName || "",
+    streams: initialStreamsFromParams,
     get channels() {
         return this.streams.map((stream: Stream) => stream.channelName)
     },
@@ -41,8 +43,6 @@ export const addStream = (channel: string) => {
 }
 
 export const removeStream = (channel: string) => {
-    //eslint-disable-next-line
-    console.log("remove stream")
     streamsState.streams = streamsState.streams.filter((stream) => stream.channelName !== channel)
 }
 

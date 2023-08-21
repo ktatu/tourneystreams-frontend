@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import React, { createContext, useContext, useEffect, useReducer } from "react"
-import useSearchParams from "./useSearchParams"
+import searchParams from "./searchParams"
 
 export interface Stream {
     channelName: string
@@ -108,7 +108,7 @@ export const streamReducer = (state: StreamState, action: Action) => {
 }
 
 const initialState: StreamState = {
-    streams: useSearchParams("streams")
+    streams: searchParams("streams")
         .getAll()
         .map((streamFromParams, index) => ({
             channelName: streamFromParams,
@@ -143,7 +143,7 @@ interface StreamContextProviderProps {
 
 export const StreamContextProvider = ({ reducer, children }: StreamContextProviderProps) => {
     const [streamState, dispatch] = useReducer(reducer, initialState)
-    const streamsInSearchParams = useSearchParams("streams")
+    const streamsInSearchParams = searchParams("streams")
 
     useEffect(() => {
         if (

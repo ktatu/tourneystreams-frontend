@@ -1,10 +1,11 @@
 import { Box, Typography } from "@mui/material"
-import { useStreamContext } from "../../commons/streamReducer"
+import { streamsState } from "../../commons/streamsState"
+import { useSnapshot } from "valtio"
 
 const Chat = () => {
-    const { streamState } = useStreamContext()
+    const streamsStateSnap = useSnapshot(streamsState)
 
-    if (!streamState.selectedChannel || !streamState.chatIsVisible) {
+    if (!streamsStateSnap.selectedChatChannel || !streamsStateSnap.chatIsVisible) {
         return null
     }
 
@@ -15,7 +16,7 @@ const Chat = () => {
             position="relative"
         >
             <iframe
-                src={`https://www.twitch.tv/embed/${streamState.selectedChannel}/chat?darkpopout&parent=${window.location.hostname}`}
+                src={`https://www.twitch.tv/embed/${streamsStateSnap.selectedChatChannel}/chat?darkpopout&parent=${window.location.hostname}`}
                 style={{
                     display: "block",
                     border: "none",
@@ -24,21 +25,21 @@ const Chat = () => {
                 width="100%"
             ></iframe>
             <Box
-                position="absolute"
-                bottom={0}
-                right={100}
-                maxWidth={100}
-                height={50}
-                display="flex"
                 alignContent="center"
                 alignItems="center"
+                bottom={0}
+                display="flex"
+                height={50}
+                maxWidth={100}
+                position="absolute"
+                right={100}
             >
                 <Typography
                     overflow="hidden"
                     whiteSpace="nowrap"
                     textOverflow="ellipsis"
                 >
-                    {streamState.selectedChannel}
+                    {streamsStateSnap.selectedChatChannel}
                 </Typography>
             </Box>
         </Box>

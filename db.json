@@ -14,6 +14,26 @@
             "streams": [
                 {
                     "channelLink": "https://twitch.tv/imaqtpie",
+                    "channel": "Tournament Stream A"
+                },
+                { "channelLink": "https://twitch.tv/shiphtur", "channel": "Tournament Stream B" },
+                { "channelLink": "https://twitch.tv/nohandsgamer", "channel": "Player stream" }
+            ]
+        },
+        {
+            "id": 2,
+            "date": "2023-11-11",
+            "game": "Apex Legends",
+            "name": "Apex cup 99",
+            "time": "15:00",
+            "webLinks": {
+                "homepage": "https://example.com",
+                "liquipedia": "https://liquipedia.net",
+                "twitter": "https://twitter.com"
+            },
+            "streams": [
+                {
+                    "channelLink": "https://twitch.tv/imaqtpie",
                     "channel": "imaqtpie"
                 },
                 { "channelLink": "https://twitch.tv/shiphtur", "channel": "Shiphtur" },

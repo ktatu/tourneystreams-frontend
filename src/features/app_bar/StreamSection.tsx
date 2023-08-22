@@ -1,10 +1,9 @@
 import { Box, TextField, Button, Typography } from "@mui/material"
 import { useState } from "react"
-import { useStreamContext } from "../../commons/streamReducer"
 import StreamList from "./StreamList"
+import { addStream } from "../../commons/streamsState"
 
 const StreamSection = () => {
-    const { addStream } = useStreamContext()
     const [addStreamFieldValue, setAddStreamFieldValue] = useState("")
 
     const handleAddStream = () => {

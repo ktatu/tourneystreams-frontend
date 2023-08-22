@@ -1,5 +1,4 @@
 import { Paper, Box, Typography, IconButton, Tooltip } from "@mui/material"
-import { useStreamContext } from "../../commons/streamReducer"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import CloseIcon from "@mui/icons-material/Close"
@@ -15,14 +14,8 @@ interface StreamListItemProps {
 }
 
 const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
-    //const { removeStream, selectChatChannel, streamState } = useStreamContext()
     const { selectedChatChannel } = useSnapshot(streamsState)
     const thisChannelIsSelected = selectedChatChannel === channel
-
-    //const selectedChannel = streamState.selectedChannel === channel
-
-    // eslint-disable-next-line
-    console.log("render stream list item ", channel)
 
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: channel,

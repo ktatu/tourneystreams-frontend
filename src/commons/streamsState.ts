@@ -1,6 +1,10 @@
-import { proxy } from "valtio"
-import { Stream } from "./streamReducer"
+import { proxy, useSnapshot } from "valtio"
 import searchParams from "./searchParams"
+
+export interface Stream {
+    channelName: string
+    displayPosition: number
+}
 
 interface StreamsState {
     chatIsVisible: boolean
@@ -30,6 +34,8 @@ export const streamsState = proxy<StreamsState>({
             .map((stream: Stream) => stream.channelName)
     },
 })
+
+export const useStreams = () => useSnapshot(streamsState)
 
 export const addStream = (channel: string) => {
     if (streamsState.channels.includes(channel)) {

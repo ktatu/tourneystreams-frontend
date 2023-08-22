@@ -5,7 +5,6 @@ import {
     restrictToVerticalAxis,
     restrictToParentElement,
 } from "@dnd-kit/modifiers"
-import { useStreamContext } from "../../commons/streamReducer"
 import { isString } from "../../commons/typeValidation"
 
 export enum MovementAxis {
@@ -20,7 +19,7 @@ interface DragAndDropWrapperProps {
 }
 
 const DragAndDropWrapper = ({ children, movementAxis, sortableItems }: DragAndDropWrapperProps) => {
-    const { swapStreamPositions } = useStreamContext()
+    //const { swapStreamPositions } = useStreamContext()
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event
@@ -33,7 +32,7 @@ const DragAndDropWrapper = ({ children, movementAxis, sortableItems }: DragAndDr
         const channel2 = over.id as string
 
         if (active.id !== over.id) {
-            swapStreamPositions(channel1, channel2)
+            //swapStreamPositions(channel1, channel2)
         }
     }
 

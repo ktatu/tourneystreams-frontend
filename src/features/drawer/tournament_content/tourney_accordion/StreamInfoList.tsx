@@ -1,7 +1,8 @@
-import { Box, Link, Tooltip, Typography, Switch, List, ListItem, ListItemText } from "@mui/material"
+import { Box, Link, Typography, Switch, List, ListItem, ListItemText } from "@mui/material"
 import { memo, useEffect, useState } from "react"
-import { useStreamContext } from "../../../../commons/streamReducer"
 import { StreamInfo } from "../types"
+import { addStream, removeStream, useStreams, streamsState } from "../../../../commons/streamsState"
+import { useSnapshot } from "valtio"
 
 /*
 jos Box joka sisältää listan on display="flex", ja
@@ -34,7 +35,7 @@ interface StreamInfoRowProps {
 
 const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowProps) {
     const [checked, setChecked] = useState(false)
-    const { streamState, addStream, removeStream } = useStreamContext()
+    const { channels } = useStreams()
 
     const handleToggle = () => {
         if (checked) {
@@ -46,21 +47,8 @@ const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowP
     }
 
     useEffect(() => {
-        setChecked(
-            streamState.streams.map((stream) => stream.channelName).includes(streamInfo.channel)
-        )
-    }, [streamState.streams])
-
-    /*
-            <Box paddingRight={1}>
-                <Tooltip title="Finnish">
-                    <span
-                        id="country-flag"
-                        className="fi fi-fi"
-                    />
-                </Tooltip>
-            </Box>
-    */
+        setChecked(channels.includes(streamInfo.channel))
+    }, [channels])
 
     return (
         <ListItem key={streamInfo.channel}>

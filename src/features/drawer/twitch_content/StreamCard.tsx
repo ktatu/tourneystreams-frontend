@@ -15,7 +15,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { useEffect, useState } from "react"
 import round from "lodash.round"
-import { useStreamContext } from "../../../commons/streamReducer"
+import { addStream, removeStream, useStreams } from "../../../commons/streamsState"
 
 export interface FollowedStream {
     category: string
@@ -32,8 +32,7 @@ interface StreamCardProps {
 const StreamCard = ({ followedStream }: StreamCardProps) => {
     const [cardExpanded, setCardExpanded] = useState(false)
     const [streamToggled, setStreamToggled] = useState(false)
-
-    const { streamState, addStream, removeStream } = useStreamContext()
+    const { channels } = useStreams()
 
     const thumbnailUrl = `https://static-cdn.jtvnw.net/previews-ttv/live_user_${followedStream.loginName}-350x210.jpg`
 
@@ -51,12 +50,8 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
     }
 
     useEffect(() => {
-        setStreamToggled(
-            streamState.streams
-                .map((stream) => stream.channelName)
-                .includes(followedStream.loginName)
-        )
-    }, [streamState.streams])
+        setStreamToggled(channels.includes(followedStream.loginName))
+    }, [channels])
 
     return (
         <Card sx={{ width: 350, position: "relative" }}>

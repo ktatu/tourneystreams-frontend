@@ -1,8 +1,7 @@
 import { Box, Link, Typography, Switch, List, ListItem, ListItemText } from "@mui/material"
 import { memo, useEffect, useState } from "react"
 import { StreamInfo } from "../types"
-import { addStream, removeStream, useStreams, streamsState } from "../../../../commons/streamsState"
-import { useSnapshot } from "valtio"
+import { addStream, removeStream, useStreams } from "../../../../commons/streamsState"
 
 /*
 jos Box joka sisältää listan on display="flex", ja

@@ -52,8 +52,51 @@ export const addStream = (channel: string) => {
 
 export const removeStream = (channel: string) => {
     streamsState.streams = streamsState.streams.filter((stream) => stream.channelName !== channel)
+
+    if (streamsState.selectedChatChannel === channel || streamsState.streams.length === 0) {
+        selectChatChannel("")
+    }
 }
 
 export const selectChatChannel = (channel: string) => {
-    streamsState.selectedChatChannel = channel
+    if (channel === streamsState.selectedChatChannel) {
+        streamsState.selectedChatChannel = ""
+    } else {
+        streamsState.selectedChatChannel = channel
+    }
+}
+
+export const swapDisplayPositions = (channelName1: string, channelName2: string) => {
+    console.log("---")
+    const stream1InState = streamsState.streams.find(
+        (stream) => stream.channelName === channelName1
+    )
+    const stream2InState = streamsState.streams.find(
+        (stream) => stream.channelName === channelName2
+    )
+
+    if (!(stream1InState && stream2InState)) {
+        return
+    }
+
+    console.log("streamstate streams 1 ", streamsState.streams)
+
+    streamsState.streams = streamsState.streams.map((stream) => {
+        if (stream.channelName === stream1InState.channelName) {
+            return {
+                channelName: stream.channelName,
+                displayPosition: stream2InState.displayPosition,
+            }
+        }
+        if (stream.channelName === stream2InState.channelName) {
+            return {
+                channelName: stream.channelName,
+                displayPosition: stream1InState.displayPosition,
+            }
+        }
+
+        return stream
+    })
+
+    console.log("streamstate streams 2 ", streamsState.streams)
 }

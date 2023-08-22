@@ -1,9 +1,8 @@
 import { Box, Typography } from "@mui/material"
-import { streamsState } from "../../commons/streamsState"
-import { useSnapshot } from "valtio"
+import { useStreamsState } from "../../commons/streamsState"
 
 const Chat = () => {
-    const streamsStateSnap = useSnapshot(streamsState)
+    const streamsStateSnap = useStreamsState()
 
     if (!streamsStateSnap.selectedChatChannel || !streamsStateSnap.chatIsVisible) {
         return null

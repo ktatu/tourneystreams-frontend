@@ -2,17 +2,13 @@ import { memo } from "react"
 import { Box } from "@mui/material"
 import getStreamDimensions from "./streamDimensions"
 import StreamFrameContainer from "./StreamFrameContainer"
-import { streamsState } from "../../commons/streamsState"
-import { useSnapshot } from "valtio/react"
+import { useStreamsState } from "../../commons/streamsState"
 
 const StreamFrames = () => {
-    const { streams } = useSnapshot(streamsState)
+    const { streams } = useStreamsState()
 
     const STREAM_BASEWIDTH = 100
     const STREAM_BASEHEIGHT = 100
-
-    // eslint-disable-next-line
-    console.log("render stream frames")
 
     return (
         <Box

@@ -15,7 +15,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { useEffect, useState } from "react"
 import round from "lodash.round"
-import { addStream, removeStream, useStreams } from "../../../commons/streamsState"
+import { addStream, removeStream, useStreamsState } from "../../../commons/streamsState"
 
 export interface FollowedStream {
     category: string
@@ -32,7 +32,7 @@ interface StreamCardProps {
 const StreamCard = ({ followedStream }: StreamCardProps) => {
     const [cardExpanded, setCardExpanded] = useState(false)
     const [streamToggled, setStreamToggled] = useState(false)
-    const { channels } = useStreams()
+    const { channels } = useStreamsState()
 
     const thumbnailUrl = `https://static-cdn.jtvnw.net/previews-ttv/live_user_${followedStream.loginName}-350x210.jpg`
 

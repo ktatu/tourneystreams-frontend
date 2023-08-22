@@ -1,5 +1,11 @@
 import { proxy, useSnapshot } from "valtio"
-import searchParams from "./searchParams"
+import useSearchParams from "./useSearchParams"
+
+const searchParams = useSearchParams("streams")
+
+const initialStreamsFromParams: Array<Stream> = searchParams
+    .getAll()
+    .map((channel, index) => ({ channelName: channel, displayPosition: index }))
 
 export interface Stream {
     channelName: string
@@ -14,13 +20,9 @@ interface StreamsState {
     readonly sortedChannels: Array<string>
 }
 
-const initialStreamsFromParams: Array<Stream> = searchParams("streams")
-    .getAll()
-    .map((channel, index) => ({ channelName: channel, displayPosition: index }))
-
-export const streamsState = proxy<StreamsState>({
+const streamsState = proxy<StreamsState>({
     chatIsVisible: true,
-    selectedChatChannel: initialStreamsFromParams[0].channelName || "",
+    selectedChatChannel: initialStreamsFromParams[0]?.channelName || "",
     streams: initialStreamsFromParams,
     get channels() {
         return this.streams.map((stream: Stream) => stream.channelName)
@@ -35,7 +37,7 @@ export const streamsState = proxy<StreamsState>({
     },
 })
 
-export const useStreams = () => useSnapshot(streamsState)
+export const useStreamsState = () => useSnapshot(streamsState)
 
 export const addStream = (channel: string) => {
     if (streamsState.channels.includes(channel)) {
@@ -53,5 +55,5 @@ export const removeStream = (channel: string) => {
 }
 
 export const selectChatChannel = (channel: string) => {
-    streamsState.selectedChatChannel === channel
+    streamsState.selectedChatChannel = channel
 }

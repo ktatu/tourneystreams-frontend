@@ -3,15 +3,14 @@ import { Box, Button, Menu, Slide, Stack } from "@mui/material"
 import DragAndDropWrapper, { MovementAxis } from "./DragAndDropWrapper"
 import { useEffect, useLayoutEffect, useState, useRef, MouseEventHandler } from "react"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
-import { streamsState } from "../../commons/streamsState"
-import { useSnapshot } from "valtio"
+import { useStreamsState } from "../../commons/streamsState"
 
 const StreamList = () => {
     const [showHorizontalList, setShowHorizontalList] = useState(true)
     const [showMenuButton, setShowMenuButton] = useState(false)
     const [firstComponentRender, setFirstComponentRender] = useState(true)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const { streams } = useSnapshot(streamsState)
+    const { streams } = useStreamsState()
 
     const sortedChannels = [...streams]
         .sort((stream1, stream2) => stream1.displayPosition - stream2.displayPosition)

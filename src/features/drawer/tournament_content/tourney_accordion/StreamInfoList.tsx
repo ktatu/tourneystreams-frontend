@@ -1,7 +1,7 @@
 import { Box, Link, Typography, Switch, List, ListItem, ListItemText } from "@mui/material"
 import { memo, useEffect, useState } from "react"
 import { StreamInfo } from "../types"
-import { addStream, removeStream, useStreams } from "../../../../commons/streamsState"
+import { addStream, removeStream, useStreamsState } from "../../../../commons/streamsState"
 
 /*
 jos Box joka sisältää listan on display="flex", ja
@@ -34,7 +34,7 @@ interface StreamInfoRowProps {
 
 const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowProps) {
     const [checked, setChecked] = useState(false)
-    const { channels } = useStreams()
+    const { channels } = useStreamsState()
 
     const handleToggle = () => {
         if (checked) {

@@ -1,6 +1,6 @@
 import { memo, useState, useEffect } from "react"
 import TwitchPlayer from "react-player/twitch"
-import { useStreamContext } from "../../commons/streamReducer"
+import { removeStream } from "../../commons/streamsState"
 
 interface StreamFrameContainerProps {
     channel: string
@@ -10,8 +10,6 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
     // Streamkey is used for reloading the stream
     const [streamKey, setStreamKey] = useState(1)
     const [streamReady, setStreamReady] = useState(false)
-
-    const { removeStream } = useStreamContext()
 
     useEffect(() => {
         const timeoutID = setTimeout(() => {
@@ -33,9 +31,6 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
     const handleStreamReady = () => {
         setStreamReady(true)
     }
-
-    //eslint-disable-next-line
-    console.log("reload stream ", channel)
 
     return (
         <TwitchPlayer

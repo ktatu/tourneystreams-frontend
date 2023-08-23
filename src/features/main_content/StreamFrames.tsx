@@ -1,12 +1,11 @@
 import { memo } from "react"
 import { Box } from "@mui/material"
-import { useStreamContext } from "../../commons/streamReducer"
 import getStreamDimensions from "./streamDimensions"
-
 import StreamFrameContainer from "./StreamFrameContainer"
+import { useStreamsState } from "../../commons/streamsState"
 
 const StreamFrames = () => {
-    const { streamState } = useStreamContext()
+    const { streams } = useStreamsState()
 
     const STREAM_BASEWIDTH = 100
     const STREAM_BASEHEIGHT = 100
@@ -20,9 +19,9 @@ const StreamFrames = () => {
             alignContent="center"
             height="100%"
         >
-            {streamState.streams.map((stream, index) => {
+            {streams.map((stream, index) => {
                 const { width, height } = getStreamDimensions(
-                    streamState.streams.length,
+                    streams.length,
                     stream.displayPosition,
                     STREAM_BASEWIDTH,
                     STREAM_BASEHEIGHT

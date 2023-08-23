@@ -5,7 +5,6 @@ import theme from "./theme"
 import { ThemeProvider } from "@mui/material"
 import "./index.css"
 import { QueryClient, QueryClientProvider } from "react-query"
-import { StreamContextProvider, streamReducer } from "./commons/streamReducer"
 import CssBaseline from "@mui/material/CssBaseline"
 
 import "@fontsource/roboto/300.css"
@@ -21,9 +20,7 @@ root.render(
         <QueryClientProvider client={queryClient}>
             <ThemeProvider theme={theme}>
                 <CssBaseline enableColorScheme />
-                <StreamContextProvider reducer={streamReducer}>
-                    <App />
-                </StreamContextProvider>
+                <App />
             </ThemeProvider>
         </QueryClientProvider>
     </StrictMode>

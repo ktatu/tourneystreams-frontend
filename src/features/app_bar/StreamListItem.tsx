@@ -1,10 +1,11 @@
 import { Paper, Box, Typography, IconButton, Tooltip } from "@mui/material"
-import { useStreamContext } from "../../commons/streamReducer"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import CloseIcon from "@mui/icons-material/Close"
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz"
 import CommentIcon from "@mui/icons-material/Comment"
+import { removeStream, selectChatChannel, useStreamsState } from "../../commons/streamsState"
+import { memo } from "react"
 
 interface StreamListItemProps {
     channel: string
@@ -12,9 +13,8 @@ interface StreamListItemProps {
 }
 
 const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
-    const { removeStream, selectChatChannel, streamState } = useStreamContext()
-
-    const selectedChannel = streamState.selectedChannel === channel
+    const { selectedChatChannel } = useStreamsState()
+    const thisChannelIsSelected = selectedChatChannel === channel
 
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: channel,
@@ -74,7 +74,7 @@ const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
                     ) : null}
                     <IconButton
                         size="large"
-                        sx={{ opacity: selectedChannel ? 1 : 0.3, padding: 0.5 }}
+                        sx={{ opacity: thisChannelIsSelected ? 1 : 0.3, padding: 0.5 }}
                         onClick={handleSelectChatChannel}
                     >
                         <Tooltip title="Show chat">
@@ -96,4 +96,4 @@ const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
     )
 }
 
-export default StreamListItem
+export default memo(StreamListItem)

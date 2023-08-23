@@ -29,7 +29,6 @@
         "dot-notation": "error",
         "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
         "grouped-accessor-pairs": ["error", "getBeforeSet"],
-        "no-console": "error",
         "no-lonely-if": "error",
         "prefer-const": "error",
         "arrow-spacing": "error",

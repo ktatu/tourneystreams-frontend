@@ -21,10 +21,10 @@ const useSearchParams = (searchParamKey: string) => {
         const searchParams = queryString.parse(location.search)
         searchParams[searchParamKey] = modifiedParam
         const newSearch = queryString.stringify(searchParams, { arrayFormat: "comma" })
-        history.pushState(modifiedParam, "", `${location.pathname}?${newSearch}`)
+        history.replaceState(modifiedParam, "", `${location.pathname}?${newSearch}`)
     }
 
-    return { getAll, addToParams, removeFromParams }
+    return { getAll, addToParams, removeFromParams, setParams }
 }
 
 const getValidatedSearchParamValues = (searchParamKey: string): string[] => {

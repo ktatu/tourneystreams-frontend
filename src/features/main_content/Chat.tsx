@@ -4,7 +4,7 @@ import { useStreamsState } from "../../commons/streamsState"
 const Chat = () => {
     const streamsStateSnap = useStreamsState()
 
-    if (!streamsStateSnap.selectedChatChannel || !streamsStateSnap.chatIsVisible) {
+    if (!streamsStateSnap.selectedChatChannel) {
         return null
     }
 

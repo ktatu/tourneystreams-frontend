@@ -3,7 +3,7 @@
 1.1   2h reititystä
 2.1   2h lisää reititystä
 3.1   2h card-komponentti etusivulle
-4.1   2h -||-
+4.1   2h card-komponentti etusivulle
 6.1   2.5h css-opettelu
 8.1   5h etusivun toteutus
 11.1 1.5h karuselli etusivulle
@@ -43,24 +43,24 @@
 25.3  2h Layoutin parannuksia
 27.3  4h Chat-layoutin ja streamien iframen parannuksia
 28.3  3h Lisää stream-framejen säätämistä
-29.3  3h -||-
+29.3  3h Lisää stream-framejen säätämistä
 6.4   3h Stream layout
 7.4   1h Streamien alustus kyselyparametrien avulla
 7.4   1h Pieniä käyttöliittymän parannuksia
 8.4   3h Stream-overlay stream-kontrolleille
-9.4   2.5h -||-
+9.4   2.5h Stream-overlay stream-kontrolleille
 25.4  2h Stream-overlay ja bugfix kyselyparametreihin
 26.4  1.5h dnd-kit kirjastoon tutustuminen
 23.5  1h Refaktorointia, streamien hallinta-valikko
-24.5  1.5h -||-
+24.5  1.5h Refaktorointia, streamien hallinta-valikko
 25.5  1.5h Streamien hallinta-komponentit yläpalkissa
-26.5  2h -||-
+26.5  2h Streamien hallinta-komponentit yläpalkissa
 27.5  2h Streamien paikkojen vaihtaminen yläpalkissa
 30.5  3h Css-layouttien opettelu
 02.6  2h Yläpalkin refaktorointia
 06.6  4h Valikko yläpalkkiin
 14.6  4h Streamien tilanhallinnan uusiminen
-16.6  2h -||-
+16.6  2h Streamien tilanhallinnan uusiminen
 19.6  1h Stream chatin hallinta stream-kontrolleihin
 23.6  2h Drawerin refaktorointi
 27.6  8h Backendin aloitus, oauth2-twitch konfigurointi
@@ -78,7 +78,7 @@
 13.7  1h Backend: Refaktorointia
 18.7  8h Backend: Redis käyttöönotto
 22.7  6h Backend: refaktorointia ja virheidenkäsittelyä
-26.7  5h -||-
+26.7  5h Backend: refaktorointia ja virheidenkäsittelyä
 27.7  1h Frontendin deployaus render.com
 30.7  3h Backendin deployaus
 01.8  3h Frontend / Backend + tietokanta deployattu ja toimii
@@ -87,5 +87,6 @@
 06.8  3h cd ja bugifixausta frontendissä
 09.8  3h Backendin refaktorointia
 22.8  5h Frontend tilanhallinta
+23.8  6h Frontend tilanhallinta
 
 166.5 8.7

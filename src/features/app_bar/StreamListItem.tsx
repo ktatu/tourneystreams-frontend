@@ -4,7 +4,7 @@ import { CSS } from "@dnd-kit/utilities"
 import CloseIcon from "@mui/icons-material/Close"
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz"
 import CommentIcon from "@mui/icons-material/Comment"
-import { removeStream, selectChatChannel, useStreamsState } from "../../commons/streamsState"
+import { removeStream, selectChatChannel, streamsState } from "../../commons/streamsState"
 import { memo } from "react"
 
 interface StreamListItemProps {
@@ -13,8 +13,7 @@ interface StreamListItemProps {
 }
 
 const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
-    const { selectedChatChannel } = useStreamsState()
-    const thisChannelIsSelected = selectedChatChannel === channel
+    const thisChannelIsSelected = streamsState.selectedChatChannel === channel
 
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: channel,

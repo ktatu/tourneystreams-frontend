@@ -4,8 +4,9 @@ import { CSS } from "@dnd-kit/utilities"
 import CloseIcon from "@mui/icons-material/Close"
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz"
 import CommentIcon from "@mui/icons-material/Comment"
-import { removeStream, selectChatChannel, useStreamsState } from "../../commons/streamsState"
-import { memo } from "react"
+import { removeStream, selectChatChannel, streamsState } from "../../commons/streamsState"
+import { memo, useEffect, useState } from "react"
+import { subscribeKey } from "valtio/utils"
 
 interface StreamListItemProps {
     channel: string
@@ -13,8 +14,7 @@ interface StreamListItemProps {
 }
 
 const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
-    const { selectedChatChannel } = useStreamsState()
-    const thisChannelIsSelected = selectedChatChannel === channel
+    const [thisChannelIsSelected, setThisChannelIsSelected] = useState(false)
 
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: channel,
@@ -36,6 +36,14 @@ const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
     const handleSelectChatChannel = () => {
         selectChatChannel(channel)
     }
+
+    useEffect(() => {
+        const unsubscribe = subscribeKey(streamsState, "selectedChatChannel", (selectedChannel) =>
+            setThisChannelIsSelected(selectedChannel === channel)
+        )
+
+        return unsubscribe
+    }, [])
 
     return (
         <Paper
@@ -61,7 +69,7 @@ const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
                 </Typography>
                 <Box flexGrow={1} />
                 <Box display="flex">
-                    {!oneStreamOpen ? (
+                    {!oneStreamOpen && (
                         <IconButton
                             size="large"
                             {...listeners}
@@ -71,7 +79,7 @@ const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
                                 <SwapHorizIcon fontSize="medium" />
                             </Tooltip>
                         </IconButton>
-                    ) : null}
+                    )}
                     <IconButton
                         size="large"
                         sx={{ opacity: thisChannelIsSelected ? 1 : 0.3, padding: 0.5 }}

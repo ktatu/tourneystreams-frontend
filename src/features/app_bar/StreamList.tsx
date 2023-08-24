@@ -10,18 +10,20 @@ const StreamList = () => {
     const [showMenuButton, setShowMenuButton] = useState(false)
     const [firstComponentRender, setFirstComponentRender] = useState(true)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const { streams } = useStreamsState()
+    const { sortedChannels } = useStreamsState()
 
+    /*
     const sortedChannels = [...streams]
         .sort((stream1, stream2) => stream1.displayPosition - stream2.displayPosition)
         .map((stream) => stream.channelName)
+    */
 
     const slideContainerRef = useRef(null)
 
     // layouteffect and firstComponentRender prevent showing a swap from list to menu to user on first render
     // relevant only when the site is loaded with > 3 streams in url's search parameters
     useLayoutEffect(() => {
-        if (streams.length > 3) {
+        if (sortedChannels.length > 3) {
             setShowHorizontalList(false)
             setShowMenuButton(true)
         }
@@ -33,12 +35,12 @@ const StreamList = () => {
             return
         }
 
-        if (streams.length > 3) {
+        if (sortedChannels.length > 3) {
             setShowHorizontalList(false)
         } else {
             setShowMenuButton(false)
         }
-    }, [streams, anchorEl])
+    }, [sortedChannels, anchorEl])
 
     const handleMenuOpen: MouseEventHandler = (event: React.MouseEvent<HTMLElement>): void => {
         setAnchorEl(event.currentTarget)
@@ -65,7 +67,7 @@ const StreamList = () => {
                 >
                     <DragAndDropWrapper
                         movementAxis={MovementAxis.Horizontal}
-                        sortableItems={sortedChannels}
+                        sortableItems={[...sortedChannels]}
                     >
                         <Slide
                             appear={false}
@@ -79,12 +81,12 @@ const StreamList = () => {
                                 display="flex"
                                 gap={2}
                             >
-                                {streams.map((stream, index) => {
+                                {sortedChannels.map((channel, index) => {
                                     return (
                                         <StreamListItem
                                             key={index}
-                                            channel={stream.channelName}
-                                            oneStreamOpen={streams.length === 1}
+                                            channel={channel}
+                                            oneStreamOpen={sortedChannels.length === 1}
                                         />
                                     )
                                 })}
@@ -124,7 +126,7 @@ const StreamList = () => {
                             >
                                 <DragAndDropWrapper
                                     movementAxis={MovementAxis.Vertical}
-                                    sortableItems={sortedChannels}
+                                    sortableItems={[...sortedChannels]}
                                 >
                                     <Stack direction="column">
                                         {sortedChannels.map((channel) => (

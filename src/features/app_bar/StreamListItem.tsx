@@ -4,18 +4,16 @@ import { CSS } from "@dnd-kit/utilities"
 import CloseIcon from "@mui/icons-material/Close"
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz"
 import CommentIcon from "@mui/icons-material/Comment"
-import { removeStream, selectChatChannel, streamsState } from "../../commons/streamsState"
-import { memo, useEffect, useState } from "react"
-import { subscribeKey } from "valtio/utils"
+import { removeStream, selectChatChannel } from "../../commons/streamsState"
+import { memo } from "react"
 
 interface StreamListItemProps {
     channel: string
+    channelChatIsSelected: boolean
     oneStreamOpen: boolean
 }
 
-const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
-    const [thisChannelIsSelected, setThisChannelIsSelected] = useState(false)
-
+const StreamListItem = ({ channel, channelChatIsSelected, oneStreamOpen }: StreamListItemProps) => {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
         id: channel,
     })
@@ -37,13 +35,19 @@ const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
         selectChatChannel(channel)
     }
 
+    /*
     useEffect(() => {
-        const unsubscribe = subscribeKey(streamsState, "selectedChatChannel", (selectedChannel) =>
-            setThisChannelIsSelected(selectedChannel === channel)
-        )
+        setThisChannelIsSelected(streamsState.selectedChatChannel === channel)
+
+        const unsubscribe = subscribeKey(streamsState, "selectedChatChannel", (selectedChannel) => {
+            if (selectedChannel === channel) {
+                console.log("setting selected ", channel)
+                setThisChannelIsSelected(true)
+            }
+        })
 
         return unsubscribe
-    }, [])
+    }, [])*/
 
     return (
         <Paper
@@ -82,7 +86,7 @@ const StreamListItem = ({ channel, oneStreamOpen }: StreamListItemProps) => {
                     )}
                     <IconButton
                         size="large"
-                        sx={{ opacity: thisChannelIsSelected ? 1 : 0.3, padding: 0.5 }}
+                        sx={{ opacity: channelChatIsSelected ? 1 : 0.3, padding: 0.5 }}
                         onClick={handleSelectChatChannel}
                     >
                         <Tooltip title="Show chat">

@@ -10,13 +10,7 @@ const StreamList = () => {
     const [showMenuButton, setShowMenuButton] = useState(false)
     const [firstComponentRender, setFirstComponentRender] = useState(true)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const { sortedChannels } = useStreamsState()
-
-    /*
-    const sortedChannels = [...streams]
-        .sort((stream1, stream2) => stream1.displayPosition - stream2.displayPosition)
-        .map((stream) => stream.channelName)
-    */
+    const { selectedChatChannel, sortedChannels } = useStreamsState()
 
     const slideContainerRef = useRef(null)
 
@@ -51,99 +45,106 @@ const StreamList = () => {
     }
 
     return (
-        <>
+        <Box
+            ref={slideContainerRef}
+            overflow="hidden"
+            position="relative"
+            minWidth="800px"
+            minHeight="50px"
+        >
             <Box
-                ref={slideContainerRef}
-                overflow="hidden"
-                position="relative"
-                minWidth="800px"
-                minHeight="50px"
+                width="700px"
+                height="50px"
+                position="absolute"
+                display="flex"
             >
-                <Box
-                    width="700px"
-                    height="50px"
-                    position="absolute"
-                    display="flex"
-                >
-                    <DragAndDropWrapper
-                        movementAxis={MovementAxis.Horizontal}
-                        sortableItems={[...sortedChannels]}
-                    >
-                        <Slide
-                            appear={false}
-                            direction="right"
-                            in={showHorizontalList}
-                            container={slideContainerRef.current}
-                            timeout={firstComponentRender ? 0 : 500}
-                            onExited={() => setShowMenuButton(true)}
-                        >
-                            <Box
-                                display="flex"
-                                gap={2}
-                            >
-                                {sortedChannels.map((channel, index) => {
-                                    return (
-                                        <StreamListItem
-                                            key={index}
-                                            channel={channel}
-                                            oneStreamOpen={sortedChannels.length === 1}
-                                        />
-                                    )
-                                })}
-                            </Box>
-                        </Slide>
-                    </DragAndDropWrapper>
-                </Box>
-                <Box
-                    width="200px"
-                    height="50px"
-                    position="absolute"
-                    display="flex"
+                <DragAndDropWrapper
+                    movementAxis={MovementAxis.Horizontal}
+                    sortableItems={[...sortedChannels]}
                 >
                     <Slide
                         appear={false}
                         direction="right"
-                        in={showMenuButton}
+                        in={showHorizontalList}
                         container={slideContainerRef.current}
                         timeout={firstComponentRender ? 0 : 500}
-                        onExited={() => setShowHorizontalList(true)}
+                        onExited={() => setShowMenuButton(true)}
                     >
                         <Box
                             display="flex"
-                            alignItems="center"
+                            gap={2}
                         >
-                            <Button
-                                variant="contained"
-                                onClick={handleMenuOpen}
-                                endIcon={<KeyboardArrowDownIcon />}
+                            {sortedChannels.map((channel, index) => {
+                                const channelChatIsSelected = channel === selectedChatChannel
+
+                                return (
+                                    <StreamListItem
+                                        key={index}
+                                        channel={channel}
+                                        oneStreamOpen={sortedChannels.length === 1}
+                                        channelChatIsSelected={channelChatIsSelected}
+                                    />
+                                )
+                            })}
+                        </Box>
+                    </Slide>
+                </DragAndDropWrapper>
+            </Box>
+            <Box
+                width="200px"
+                height="50px"
+                position="absolute"
+                display="flex"
+            >
+                <Slide
+                    appear={false}
+                    direction="right"
+                    in={showMenuButton}
+                    container={slideContainerRef.current}
+                    timeout={firstComponentRender ? 0 : 500}
+                    onExited={() => setShowHorizontalList(true)}
+                >
+                    <Box
+                        display="flex"
+                        alignItems="center"
+                    >
+                        <Button
+                            variant="contained"
+                            onClick={handleMenuOpen}
+                            endIcon={<KeyboardArrowDownIcon />}
+                        >
+                            Streams
+                        </Button>
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={anchorEl !== null}
+                            onClose={handleMenuClose}
+                        >
+                            <DragAndDropWrapper
+                                movementAxis={MovementAxis.Vertical}
+                                sortableItems={[...sortedChannels]}
                             >
-                                Streams
-                            </Button>
-                            <Menu
-                                anchorEl={anchorEl}
-                                open={anchorEl !== null}
-                                onClose={handleMenuClose}
-                            >
-                                <DragAndDropWrapper
-                                    movementAxis={MovementAxis.Vertical}
-                                    sortableItems={[...sortedChannels]}
-                                >
-                                    <Stack direction="column">
-                                        {sortedChannels.map((channel) => (
+                                <Stack direction="column">
+                                    {sortedChannels.map((channel) => {
+                                        const channelChatIsSelected =
+                                            channel === selectedChatChannel
+
+                                        return (
                                             <StreamListItem
                                                 key={channel}
                                                 channel={channel}
                                                 oneStreamOpen={false}
+                                                channelChatIsSelected={channelChatIsSelected}
                                             />
-                                        ))}
-                                    </Stack>
-                                </DragAndDropWrapper>
-                            </Menu>
-                        </Box>
-                    </Slide>
-                </Box>
+                                        )
+                                    })}
+                                </Stack>
+                            </DragAndDropWrapper>
+                        </Menu>
+                    </Box>
+                </Slide>
             </Box>
-        </>
+        </Box>
     )
 }
 

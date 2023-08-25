@@ -19,7 +19,7 @@ interface StreamsState {
     readonly sortedChannels: Array<string>
 }
 
-export const streamsState = proxy<StreamsState>({
+const streamsState = proxy<StreamsState>({
     selectedChatChannel: initialStreamsFromParams[0]?.channelName || "",
     streams: initialStreamsFromParams,
     get channels() {
@@ -35,25 +35,14 @@ export const streamsState = proxy<StreamsState>({
     },
 })
 
-/*
-subscribe(streamsState.streams, () => {
-    console.log("subscribe")
-    searchParams.setParams(streamsState.channels)
-
-    // sync chat with streams
-    // closed a stream with its chat open? open another stream's chat if any streams open or remove chat
-    const currentChatChannel = streamsState.selectedChatChannel
-
-    if (currentChatChannel && !streamsState.channels.includes(currentChatChannel)) {
-        selectChatChannel(streamsState.channels[0] || "")
-    }
-})*/
-
 export const useStreamsState = () => useSnapshot(streamsState)
 
-subscribe(streamsState, () => {
-    console.log("subsub")
+subscribe(streamsState.streams, () => {
     searchParams.setParams(streamsState.channels)
+
+    if (!streamsState.channels.includes(streamsState.selectedChatChannel)) {
+        selectChatChannel(streamsState.channels[0] || "")
+    }
 })
 
 export const addStream = (channel: string) => {
@@ -83,39 +72,16 @@ export const selectChatChannel = (channel: string) => {
 }
 
 export const swapDisplayPositions = (channelName1: string, channelName2: string) => {
-    console.log("+++")
-    const stream1InState = streamsState.streams.find(
-        (stream) => stream.channelName === channelName1
-    )
+    const stream1 = streamsState.streams.find((stream) => stream.channelName === channelName1)
+    const stream2 = streamsState.streams.find((stream) => stream.channelName === channelName2)
 
-    const stream2InState = streamsState.streams.find(
-        (stream) => stream.channelName === channelName2
-    )
-
-    if (!(stream1InState && stream2InState)) {
-        console.log("---")
+    if (!(stream1 && stream2)) {
         return
     }
 
-    console.log("streams ", streamsState.streams)
+    const stream1Clone = JSON.parse(JSON.stringify(stream1))
+    const stream2Clone = JSON.parse(JSON.stringify(stream2))
 
-    streamsState.streams = streamsState.streams.map((stream) => {
-        if (stream.channelName === stream1InState.channelName) {
-            return {
-                channelName: stream.channelName,
-                displayPosition: stream2InState.displayPosition,
-            }
-        }
-        if (stream.channelName === stream2InState.channelName) {
-            return {
-                channelName: stream.channelName,
-                displayPosition: stream1InState.displayPosition,
-            }
-        }
-
-        return stream
-    })
-
-    console.log("streams ", streamsState.streams)
-    //console.log("streams with swapped ", streamswithSwapped)
+    stream1.displayPosition = stream2Clone.displayPosition
+    stream2.displayPosition = stream1Clone.displayPosition
 }

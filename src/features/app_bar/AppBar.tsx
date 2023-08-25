@@ -50,7 +50,7 @@ const AppBar = ({ drawerContentType, setDrawerContentType }: AppBarProps) => {
                                 <SvgIcon sx={{ marginRight: 1 }}>
                                     <TwitchLogo />
                                 </SvgIcon>
-                                Streams
+                                Test123
                             </ToggleButton>
                         </ToggleButtonGroup>
                         <StreamSection />

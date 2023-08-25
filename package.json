@@ -28,11 +28,9 @@
         "react-query": "^3.39.3",
         "react-scripts": "5.0.1",
         "react-window": "^1.8.8",
-        "serve": "^14.2.0",
         "typescript": "^4.9.4",
         "typescript-cookie": "^1.0.6",
-        "valtio": "^1.11.2",
-        "web-vitals": "^2.1.4"
+        "valtio": "^1.11.2"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -41,8 +39,7 @@
         "eject": "react-scripts eject",
         "lint": "eslint \"./src/**/*.{ts,tsx}\"",
         "lint:fix": "eslint --fix \"./src/**/*.{ts,tsx}\"",
-        "fakeserver": "json-server --watch db.json --port 3002",
-        "serve": "serve -s build"
+        "fakeserver": "json-server --watch db.json --port 3002"
     },
     "eslintConfig": {
         "extends": [

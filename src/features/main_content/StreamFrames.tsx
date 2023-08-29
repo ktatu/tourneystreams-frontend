@@ -9,13 +9,12 @@ const StreamFrames = () => {
 
     return (
         <Box
-            alignContent="center"
             display="flex"
             flexDirection="row"
             flexWrap="wrap"
-            justifyContent="center"
+            justifyContent="space-around"
             height="100%"
-            overflow="hidden"
+            overflow="auto"
         >
             {streams.map((stream, index) => {
                 const { width, height } = getStreamDimensions(
@@ -27,8 +26,8 @@ const StreamFrames = () => {
                     <Box
                         key={index}
                         order={stream.displayPosition}
-                        minHeight={`${height}%`}
-                        minWidth={`${width}%`}
+                        height={`${height}%`}
+                        width={`${width}%`}
                         overflow="hidden"
                     >
                         <StreamFrameContainer channel={stream.channelName} />

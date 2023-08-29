@@ -1,9 +1,7 @@
-const getStreamDimensions = (
-    streamCount: number,
-    streamIndex: number,
-    baseWidth: number,
-    baseHeight: number
-) => {
+const getStreamDimensions = (streamCount: number, streamIndex: number) => {
+    const baseHeight = 100
+    const baseWidth = 100
+
     switch (streamCount) {
         case 1:
             return { width: baseWidth, height: baseHeight }

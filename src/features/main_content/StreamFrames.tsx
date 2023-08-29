@@ -7,32 +7,28 @@ import { useStreamsState } from "../../commons/streamsState"
 const StreamFrames = () => {
     const { streams } = useStreamsState()
 
-    const STREAM_BASEWIDTH = 100
-    const STREAM_BASEHEIGHT = 100
-
     return (
         <Box
+            alignContent="center"
             display="flex"
             flexDirection="row"
             flexWrap="wrap"
             justifyContent="center"
-            alignContent="center"
             height="100%"
+            overflow="hidden"
         >
             {streams.map((stream, index) => {
                 const { width, height } = getStreamDimensions(
                     streams.length,
-                    stream.displayPosition,
-                    STREAM_BASEWIDTH,
-                    STREAM_BASEHEIGHT
+                    stream.displayPosition
                 )
 
                 return (
                     <Box
                         key={index}
                         order={stream.displayPosition}
-                        height={`${height}%`}
-                        width={`${width}%`}
+                        minHeight={`${height}%`}
+                        minWidth={`${width}%`}
                         overflow="hidden"
                     >
                         <StreamFrameContainer channel={stream.channelName} />

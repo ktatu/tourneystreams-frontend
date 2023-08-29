@@ -33,24 +33,3 @@ const App = () => {
 }
 
 export default App
-
-enum NotificationType {
-    INFO = "info",
-    ERROR = "error",
-}
-
-interface NotificationProps {
-    notificationType: NotificationType
-    message: string
-}
-
-const Notification = ({ notificationType, message }: NotificationProps) => {
-    return (
-        <Alert
-            severity={notificationType}
-            sx={{ width: "100%" }}
-        >
-            {message}
-        </Alert>
-    )
-}

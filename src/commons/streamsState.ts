@@ -19,7 +19,7 @@ interface StreamsState {
     readonly sortedChannels: Array<string>
 }
 
-const streamsState = proxy<StreamsState>({
+export const streamsState = proxy<StreamsState>({
     selectedChatChannel: initialStreamsFromParams[0]?.channelName || "",
     streams: initialStreamsFromParams,
     get channels() {

@@ -2,6 +2,9 @@
 
 /.history
 
+notifications*
+Notifications
+
 # dependencies
 /node_modules
 /.pnp

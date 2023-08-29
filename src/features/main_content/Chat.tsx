@@ -31,7 +31,7 @@ const Chat = () => {
                 height={50}
                 maxWidth={100}
                 position="absolute"
-                right={100}
+                right={95}
             >
                 <Typography
                     overflow="hidden"

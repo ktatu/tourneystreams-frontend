@@ -2,7 +2,7 @@ import Drawer from "./features/drawer/Drawer"
 import AppBar from "./features/app_bar/AppBar"
 import Streams from "./features/main_content/MainContent"
 import { useState } from "react"
-import { Alert, Box, Stack, Toolbar } from "@mui/material"
+import { Box, Stack, Toolbar } from "@mui/material"
 import { DrawerContentType } from "./features/drawer/DrawerContentSwitch"
 
 const App = () => {

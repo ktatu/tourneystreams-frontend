@@ -12,7 +12,6 @@ const StreamFrames = () => {
             display="flex"
             flexDirection="row"
             flexWrap="wrap"
-            justifyContent="space-around"
             height="100%"
             overflow="auto"
         >

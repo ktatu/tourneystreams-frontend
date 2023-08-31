@@ -4,6 +4,7 @@ import orderBy from "lodash.orderby"
 import { useState } from "react"
 import FilterByField from "./FilterByField"
 import SortBySelect from "./SortBySelect"
+import { streamsState } from "../../../commons/streamsState"
 
 export enum FilterBy {
     Category = "category",
@@ -26,12 +27,7 @@ const FollowedStreams = ({ followedStreams }: FollowedStreamsProps) => {
     const [filterType, setFilterType] = useState(FilterBy.ChannelName)
     const [sortValue, setSortValue] = useState(SortBy.ViewerCount)
 
-    const sortedStreams =
-        sortValue === "viewerCount"
-            ? orderBy(followedStreams, ["viewerCount"], ["desc"])
-            : orderBy(followedStreams, ["category", "viewerCount"], ["asc", "desc"])
-
-    const filteredStreams = sortedStreams.filter((followedStream) => {
+    const filteredStreams = followedStreams.filter((followedStream) => {
         if (filterType === "channel name") {
             return (
                 followedStream.broadcastName.toLowerCase().includes(filterValue.toLowerCase()) ||
@@ -43,6 +39,15 @@ const FollowedStreams = ({ followedStreams }: FollowedStreamsProps) => {
 
         return followedStream.category.toLowerCase().includes(filterValue.toLowerCase())
     })
+
+    const sortedStreams =
+        sortValue === "viewerCount"
+            ? orderBy(filteredStreams, [streamIsCurrentlyWatched, "viewerCount"], ["desc", "desc"])
+            : orderBy(
+                  filteredStreams,
+                  [streamIsCurrentlyWatched, "category", "viewerCount"],
+                  ["desc", "asc", "desc"]
+              )
 
     return (
         <Stack
@@ -71,7 +76,7 @@ const FollowedStreams = ({ followedStreams }: FollowedStreamsProps) => {
                 direction="column"
                 gap={5}
             >
-                {filteredStreams.map((followedStream) => (
+                {sortedStreams.map((followedStream) => (
                     <StreamCard
                         key={followedStream.loginName}
                         followedStream={followedStream}
@@ -80,6 +85,10 @@ const FollowedStreams = ({ followedStreams }: FollowedStreamsProps) => {
             </Stack>
         </Stack>
     )
+}
+
+const streamIsCurrentlyWatched = (followedStream: FollowedStream) => {
+    return streamsState.channels.includes(followedStream.loginName)
 }
 
 export default FollowedStreams

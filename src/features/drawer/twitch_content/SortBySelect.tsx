@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from "@mui/material"
-import { SortBy } from "./FollowedStreams"
+import { SortBy } from "./useStreamsFilterAndSort"
 
 interface SortBySelectProps {
     sortValue: SortBy
@@ -10,13 +10,13 @@ const SortBySelect = ({ sortValue, setSortValue }: SortBySelectProps) => {
     const handleSortByChange = (event: SelectChangeEvent) => {
         switch (event.target.value) {
             case "viewer count":
-                setSortValue(SortBy.ViewerCount)
+                setSortValue("viewerCount")
                 break
             case "category":
-                setSortValue(SortBy.Category)
+                setSortValue("category")
                 break
             default:
-                setSortValue(SortBy.ViewerCount)
+                setSortValue("viewerCount")
         }
     }
 
@@ -29,8 +29,8 @@ const SortBySelect = ({ sortValue, setSortValue }: SortBySelectProps) => {
                     onChange={handleSortByChange}
                     value={sortValue}
                 >
-                    <MenuItem value={SortBy.Category}>category</MenuItem>
-                    <MenuItem value={SortBy.ViewerCount}>viewer count</MenuItem>
+                    <MenuItem value="category">category</MenuItem>
+                    <MenuItem value="viewerCount">viewer count</MenuItem>
                 </Select>
             </FormControl>
         </>

@@ -1,53 +1,23 @@
 import StreamCard, { FollowedStream } from "./StreamCard"
 import { Box, Stack } from "@mui/material"
-import orderBy from "lodash.orderby"
-import { useState } from "react"
 import FilterByField from "./FilterByField"
 import SortBySelect from "./SortBySelect"
-import { streamsState } from "../../../commons/streamsState"
-
-export enum FilterBy {
-    Category = "category",
-    ChannelName = "channel name",
-    Title = "title",
-}
-
-// enum values must match keys in FollowedStream for sorting function to work
-export enum SortBy {
-    ViewerCount = "viewerCount",
-    Category = "category",
-}
+import useStreamsFilterAndSort from "./useStreamsFilterAndSort"
 
 interface FollowedStreamsProps {
     followedStreams: Array<FollowedStream>
 }
 
 const FollowedStreams = ({ followedStreams }: FollowedStreamsProps) => {
-    const [filterValue, setFilterValue] = useState("")
-    const [filterType, setFilterType] = useState(FilterBy.ChannelName)
-    const [sortValue, setSortValue] = useState(SortBy.ViewerCount)
-
-    const filteredStreams = followedStreams.filter((followedStream) => {
-        if (filterType === "channel name") {
-            return (
-                followedStream.broadcastName.toLowerCase().includes(filterValue.toLowerCase()) ||
-                followedStream.loginName.toLowerCase().includes(filterValue.toLowerCase())
-            )
-        } else if (filterType === "title") {
-            return followedStream.title.toLowerCase().includes(filterValue.toLowerCase())
-        }
-
-        return followedStream.category.toLowerCase().includes(filterValue.toLowerCase())
-    })
-
-    const sortedStreams =
-        sortValue === "viewerCount"
-            ? orderBy(filteredStreams, [streamIsCurrentlyWatched, "viewerCount"], ["desc", "desc"])
-            : orderBy(
-                  filteredStreams,
-                  [streamIsCurrentlyWatched, "category", "viewerCount"],
-                  ["desc", "asc", "desc"]
-              )
+    const {
+        filterType,
+        filterValue,
+        setFilterType,
+        setFilterValue,
+        setSortValue,
+        sortValue,
+        streams,
+    } = useStreamsFilterAndSort(followedStreams)
 
     return (
         <Stack
@@ -66,29 +36,25 @@ const FollowedStreams = ({ followedStreams }: FollowedStreamsProps) => {
                     setSortValue={setSortValue}
                 />
                 <FilterByField
-                    filterValue={filterValue}
-                    setFilterValue={setFilterValue}
                     filterType={filterType}
+                    filterValue={filterValue}
                     setFilterType={setFilterType}
+                    setFilterValue={setFilterValue}
                 />
             </Box>
             <Stack
                 direction="column"
                 gap={5}
             >
-                {sortedStreams.map((followedStream) => (
+                {streams.map((stream) => (
                     <StreamCard
-                        key={followedStream.loginName}
-                        followedStream={followedStream}
+                        key={stream.loginName}
+                        followedStream={stream}
                     />
                 ))}
             </Stack>
         </Stack>
     )
-}
-
-const streamIsCurrentlyWatched = (followedStream: FollowedStream) => {
-    return streamsState.channels.includes(followedStream.loginName)
 }
 
 export default FollowedStreams

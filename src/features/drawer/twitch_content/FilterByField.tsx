@@ -1,22 +1,22 @@
 import { TextField, MenuList, MenuItem, Box, IconButton } from "@mui/material"
 import { startTransition, useRef } from "react"
-import { FilterBy } from "./FollowedStreams"
 import PopupMenu, { PopupMenuClose } from "../../../commons/PopupMenu"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import CloseIcon from "@mui/icons-material/Close"
+import { FilterBy } from "./useStreamsFilterAndSort"
 
 interface FilterByFieldProps {
-    filterValue: string
-    setFilterValue: (value: string) => void
     filterType: FilterBy
+    filterValue: string
     setFilterType: (filterBy: FilterBy) => void
+    setFilterValue: (value: string) => void
 }
 
 const FilterByField = ({
-    filterValue,
-    setFilterValue,
     filterType,
+    filterValue,
     setFilterType,
+    setFilterValue,
 }: FilterByFieldProps) => {
     const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         startTransition(() => {
@@ -39,8 +39,8 @@ const FilterByField = ({
             label={`Filter by: ${filterType}`}
             InputLabelProps={{ shrink: true }}
             onChange={handleFilterChange}
-            value={filterValue}
             sx={{ maxWidth: "200px" }}
+            value={filterValue}
             InputProps={{
                 endAdornment: (
                     <Box display="flex">
@@ -60,20 +60,20 @@ const FilterByField = ({
                         >
                             <MenuList>
                                 <MenuItem
-                                    onClick={() => handleFilterTypeChange(FilterBy.Category)}
-                                    selected={filterType === FilterBy.Category}
+                                    onClick={() => handleFilterTypeChange("category")}
+                                    selected={filterType === "category"}
                                 >
                                     category
                                 </MenuItem>
                                 <MenuItem
-                                    onClick={() => handleFilterTypeChange(FilterBy.ChannelName)}
-                                    selected={filterType === FilterBy.ChannelName}
+                                    onClick={() => handleFilterTypeChange("channel name")}
+                                    selected={filterType === "channel name"}
                                 >
                                     channel name
                                 </MenuItem>
                                 <MenuItem
-                                    onClick={() => handleFilterTypeChange(FilterBy.Title)}
-                                    selected={filterType === FilterBy.Title}
+                                    onClick={() => handleFilterTypeChange("title")}
+                                    selected={filterType === "title"}
                                 >
                                     stream title
                                 </MenuItem>

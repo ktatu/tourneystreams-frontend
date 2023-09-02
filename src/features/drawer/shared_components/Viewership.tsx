@@ -1,5 +1,5 @@
 import BoyIcon from "@mui/icons-material/Boy"
-import { Tooltip, Box, Typography } from "@mui/material"
+import { Box, Tooltip, Typography } from "@mui/material"
 
 interface ViewershipProps {
     viewerCount: number

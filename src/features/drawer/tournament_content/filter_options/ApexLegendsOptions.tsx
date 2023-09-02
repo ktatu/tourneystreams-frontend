@@ -1,6 +1,4 @@
-import { Box, Chip, Stack, Tooltip, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
-import InfoIcon from "@mui/icons-material/Info"
+import { Box, Chip, Stack } from "@mui/material"
 import { FilterOptionHeader } from "./FilterOptions"
 import useFilterOptions from "./useFilterOptions"
 

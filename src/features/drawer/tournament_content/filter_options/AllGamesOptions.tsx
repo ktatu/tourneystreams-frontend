@@ -1,20 +1,17 @@
 import {
-    Stack,
     Box,
-    Typography,
+    Button,
     Chip,
-    TextField,
     ListItem,
     ListItemButton,
     ListItemText,
-    Tooltip,
-    Button,
+    Stack,
+    TextField,
 } from "@mui/material"
-import PopupMenu, { PopupMenuClose } from "../../../../commons/PopupMenu"
 import ISO from "iso-639-1"
+import { useEffect, useRef, useState } from "react"
 import { FixedSizeList, ListChildComponentProps } from "react-window"
-import { useState, useEffect, useRef, ChangeEvent } from "react"
-import InfoIcon from "@mui/icons-material/Info"
+import PopupMenu, { PopupMenuClose } from "../../../../commons/PopupMenu"
 import { FilterOptionHeader } from "./FilterOptions"
 import useFilterOptions from "./useFilterOptions"
 

@@ -1,3 +1,5 @@
+import CloseIcon from "@mui/icons-material/Close"
+import SettingsIcon from "@mui/icons-material/Settings"
 import {
     Box,
     Checkbox,
@@ -10,14 +12,12 @@ import {
     MenuList,
     Typography,
 } from "@mui/material"
+import { startTransition, useState } from "react"
 import PopupMenu from "../../../commons/PopupMenu"
-import TourneyAccordions from "./tourney_accordion"
-import FilterOptionsSelection from "./FilterOptionsSelection"
-import { useState, startTransition } from "react"
 import useCheckbox from "../../../hooks/useCheckbox"
-import SettingsIcon from "@mui/icons-material/Settings"
-import CloseIcon from "@mui/icons-material/Close"
 import "../Drawer.css"
+import FilterOptionsSelection from "./FilterOptionsSelection"
+import TourneyAccordions from "./tourney_accordion"
 
 interface TournamentContentProps {
     handleDrawerClose: () => void

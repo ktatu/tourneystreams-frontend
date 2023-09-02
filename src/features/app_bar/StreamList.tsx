@@ -1,9 +1,9 @@
-import StreamListItem from "./StreamListItem"
-import { Box, Button, Menu, Slide, Stack } from "@mui/material"
-import DragAndDropWrapper, { MovementAxis } from "./DragAndDropWrapper"
-import { useEffect, useLayoutEffect, useState, useRef, MouseEventHandler } from "react"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
+import { Box, Button, Menu, Slide, Stack } from "@mui/material"
+import { MouseEventHandler, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useStreamsState } from "../../commons/streamsState"
+import DragAndDropWrapper, { MovementAxis } from "./DragAndDropWrapper"
+import StreamListItem from "./StreamListItem"
 
 const StreamList = () => {
     const [showHorizontalList, setShowHorizontalList] = useState(true)

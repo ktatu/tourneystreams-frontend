@@ -1,11 +1,11 @@
-import AllGames from "./AllGamesOptions"
-import "../TourneyDrawer.css"
-import { Box, Stack, Tooltip, Typography } from "@mui/material"
-import ApexLegendsOptions from "./ApexLegendsOptions"
 import InfoIcon from "@mui/icons-material/Info"
+import { Box, Tooltip, Typography } from "@mui/material"
+import "../TourneyDrawer.css"
+import AllGames from "./AllGamesOptions"
+import ApexLegendsOptions from "./ApexLegendsOptions"
 
+import { useState } from "react"
 import { FilterOptionsTab } from "../FilterOptionsSelection"
-import { useEffect, useState } from "react"
 import TestOptions from "./TestOptions"
 
 const FilterOptions = ({ selectedTab }: { selectedTab: FilterOptionsTab }) => {

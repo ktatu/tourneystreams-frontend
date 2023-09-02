@@ -2,10 +2,9 @@ import {
     Checkbox,
     Dialog,
     DialogContent,
-    DialogContentText,
     DialogTitle,
-    FormGroup,
     FormControlLabel,
+    FormGroup,
 } from "@mui/material"
 
 interface PreferencesDialogProps {

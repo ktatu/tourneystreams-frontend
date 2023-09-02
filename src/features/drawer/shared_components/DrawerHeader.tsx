@@ -1,7 +1,7 @@
-import { Box, Divider, IconButton, Stack, Typography } from "@mui/material"
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
-import SettingsIcon from "@mui/icons-material/Settings"
 import CloseIcon from "@mui/icons-material/Close"
+import SettingsIcon from "@mui/icons-material/Settings"
+import { Box, IconButton, Stack, Typography } from "@mui/material"
 import "../Drawer.css"
 
 interface DrawerHeaderProps {

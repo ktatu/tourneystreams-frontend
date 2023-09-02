@@ -1,7 +1,7 @@
-import { Box, Drawer as MuiDrawer, Fab, Fade, useScrollTrigger, useTheme } from "@mui/material"
-import DrawerContentSwitch, { DrawerContentType } from "./DrawerContentSwitch"
-import { useEffect, useState } from "react"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
+import { Box, Fab, Fade, Drawer as MuiDrawer, useScrollTrigger, useTheme } from "@mui/material"
+import { useEffect, useState } from "react"
+import DrawerContentSwitch, { DrawerContentType } from "./DrawerContentSwitch"
 
 interface TourneyDrawerProps {
     drawerContent: DrawerContentType

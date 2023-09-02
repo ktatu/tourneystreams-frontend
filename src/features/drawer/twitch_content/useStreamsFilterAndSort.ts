@@ -1,7 +1,7 @@
-import { useState } from "react"
-import { FollowedStream } from "./StreamCard"
 import orderBy from "lodash.orderby"
+import { useState } from "react"
 import { streamsState } from "../../../commons/streamsState"
+import { FollowedStream } from "./StreamCard"
 
 export type FilterBy = "category" | "channel name" | "title"
 

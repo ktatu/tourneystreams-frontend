@@ -1,12 +1,12 @@
-import { DndContext, closestCenter, DragEndEvent } from "@dnd-kit/core"
-import { SortableContext, rectSwappingStrategy } from "@dnd-kit/sortable"
+import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core"
 import {
     restrictToHorizontalAxis,
-    restrictToVerticalAxis,
     restrictToParentElement,
+    restrictToVerticalAxis,
 } from "@dnd-kit/modifiers"
-import { isString } from "../../commons/typeValidation"
+import { SortableContext, rectSwappingStrategy } from "@dnd-kit/sortable"
 import { swapDisplayPositions } from "../../commons/streamsState"
+import { isString } from "../../commons/typeValidation"
 
 export enum MovementAxis {
     Horizontal,

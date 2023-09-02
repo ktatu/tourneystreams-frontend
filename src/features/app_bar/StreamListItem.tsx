@@ -1,11 +1,11 @@
-import { Paper, Box, Typography, IconButton, Tooltip } from "@mui/material"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import CloseIcon from "@mui/icons-material/Close"
-import SwapHorizIcon from "@mui/icons-material/SwapHoriz"
 import CommentIcon from "@mui/icons-material/Comment"
-import { removeStream, selectChatChannel } from "../../commons/streamsState"
+import SwapHorizIcon from "@mui/icons-material/SwapHoriz"
+import { Box, IconButton, Paper, Tooltip, Typography } from "@mui/material"
 import { memo } from "react"
+import { removeStream, selectChatChannel } from "../../commons/streamsState"
 
 interface StreamListItemProps {
     channel: string
@@ -34,20 +34,6 @@ const StreamListItem = ({ channel, channelChatIsSelected, oneStreamOpen }: Strea
     const handleSelectChatChannel = () => {
         selectChatChannel(channel)
     }
-
-    /*
-    useEffect(() => {
-        setThisChannelIsSelected(streamsState.selectedChatChannel === channel)
-
-        const unsubscribe = subscribeKey(streamsState, "selectedChatChannel", (selectedChannel) => {
-            if (selectedChannel === channel) {
-                console.log("setting selected ", channel)
-                setThisChannelIsSelected(true)
-            }
-        })
-
-        return unsubscribe
-    }, [])*/
 
     return (
         <Paper

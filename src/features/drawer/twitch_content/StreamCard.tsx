@@ -1,3 +1,4 @@
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import {
     Box,
     Button,
@@ -12,9 +13,8 @@ import {
     Typography,
     styled,
 } from "@mui/material"
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import { useEffect, useState } from "react"
 import round from "lodash.round"
+import { useEffect, useState } from "react"
 import { addStream, removeStream, useStreamsState } from "../../../commons/streamsState"
 
 export interface FollowedStream {

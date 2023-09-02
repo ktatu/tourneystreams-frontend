@@ -1,6 +1,5 @@
-import { Box, Chip, Stack, Tooltip, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
 import InfoIcon from "@mui/icons-material/Info"
+import { Box, Chip, Stack, Tooltip, Typography } from "@mui/material"
 import useFilterOptions from "./useFilterOptions"
 
 const APEX_EVENT_REGIONS = ["International", "APAC-N", "APAC-S", "EMEA", "NA", "SA"]

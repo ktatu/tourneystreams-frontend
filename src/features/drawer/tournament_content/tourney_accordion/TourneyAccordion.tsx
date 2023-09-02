@@ -1,10 +1,10 @@
-import { Accordion, AccordionSummary, Box, Typography } from "@mui/material"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import TourneyStartTime from "../TourneyStartTime"
+import { Accordion, AccordionSummary, Box, Typography } from "@mui/material"
 import { useState } from "react"
+import TourneyStartTime from "../TourneyStartTime"
 
-import "/node_modules/flag-icons/css/flag-icons.min.css"
 import { TourneyInfo } from "../types"
+import "/node_modules/flag-icons/css/flag-icons.min.css"
 
 import TourneyAccordionDetails from "./TourneyAccordionDetails"
 

@@ -1,9 +1,9 @@
-import Drawer from "./features/drawer/Drawer"
-import AppBar from "./features/app_bar/AppBar"
-import Streams from "./features/main_content/MainContent"
-import { useState } from "react"
 import { Box, Stack, Toolbar } from "@mui/material"
+import { useState } from "react"
+import AppBar from "./features/app_bar/AppBar"
+import Drawer from "./features/drawer/Drawer"
 import { DrawerContentType } from "./features/drawer/DrawerContentSwitch"
+import Streams from "./features/main_content/MainContent"
 
 const App = () => {
     const [drawerContent, setDrawerContent] = useState(DrawerContentType.None)

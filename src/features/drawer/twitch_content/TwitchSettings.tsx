@@ -1,6 +1,6 @@
+import LaunchIcon from "@mui/icons-material/Launch"
 import { Box, Button, Typography } from "@mui/material"
 import "../Drawer.css"
-import LaunchIcon from "@mui/icons-material/Launch"
 
 const TwitchSettings = () => {
     return (

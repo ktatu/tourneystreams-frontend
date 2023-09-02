@@ -1,6 +1,6 @@
+import { memo } from "react"
 import TournamentContent from "./tournament_content/TournamentContent"
 import TwitchContent from "./twitch_content/TwitchContent"
-import { memo } from "react"
 
 export enum DrawerContentType {
     TournamentContent,

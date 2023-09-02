@@ -1,10 +1,6 @@
-import { Box, Typography, Stack, Tabs, Tab } from "@mui/material"
-import { useState, useEffect, useRef } from "react"
-import { FixedSizeList, ListChildComponentProps } from "react-window"
-import useCheckbox from "../../../hooks/useCheckbox"
-import PopupMenu, { PopupMenuClose } from "../../../commons/PopupMenu"
+import { Box, Stack, Tab, Tabs } from "@mui/material"
+import { useState } from "react"
 import FilterOptions from "./filter_options/FilterOptions"
-import TourneyAccordion from "./tourney_accordion/TourneyAccordion"
 
 export enum FilterOptionsTab {
     All = "All",

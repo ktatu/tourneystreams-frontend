@@ -1,14 +1,14 @@
 import {
-    AppBar as MuiAppBar,
     Box,
-    Toolbar,
+    AppBar as MuiAppBar,
+    SvgIcon,
     ToggleButton,
     ToggleButtonGroup,
-    SvgIcon,
+    Toolbar,
 } from "@mui/material"
-import StreamSection from "./StreamSection"
 import { ReactComponent as TwitchLogo } from "../../assets/TwitchLogo.svg"
 import { DrawerContentType } from "../drawer/DrawerContentSwitch"
+import StreamSection from "./StreamSection"
 
 interface AppBarProps {
     drawerContentType: DrawerContentType

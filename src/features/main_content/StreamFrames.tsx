@@ -1,8 +1,8 @@
-import { memo } from "react"
 import { Box } from "@mui/material"
-import getStreamDimensions from "./streamDimensions"
-import StreamFrameContainer from "./StreamFrameContainer"
+import { memo } from "react"
 import { useStreamsState } from "../../commons/streamsState"
+import StreamFrameContainer from "./StreamFrameContainer"
+import getStreamDimensions from "./streamDimensions"
 
 const StreamFrames = () => {
     const { streams } = useStreamsState()

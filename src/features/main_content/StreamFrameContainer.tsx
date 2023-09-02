@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from "react"
+import { memo, useEffect, useState } from "react"
 import TwitchPlayer from "react-player/twitch"
 import { removeStream } from "../../commons/streamsState"
 

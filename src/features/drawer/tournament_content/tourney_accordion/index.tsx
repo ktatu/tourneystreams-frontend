@@ -1,13 +1,11 @@
 import { Box, Skeleton, Stack, Typography } from "@mui/material"
-import { useState } from "react"
 //import { TourneyInfo } from "../../types"
-import TourneyAccordion from "./TourneyAccordion"
-import { useQuery } from "react-query"
-import { getTourneyInfos } from "../requests"
-import "../TourneyDrawer.css"
 import axios from "axios"
+import { useQuery } from "react-query"
+import "../TourneyDrawer.css"
 import { TourneyInfo } from "../types"
 import useGameFilter from "../useGameFilter"
+import TourneyAccordion from "./TourneyAccordion"
 
 interface TourneyAccordionsProps {
     tourneyNameFilter: string

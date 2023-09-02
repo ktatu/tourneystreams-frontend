@@ -35,15 +35,15 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
     return (
         <TwitchPlayer
             key={streamKey}
-            id={`${channel}-player`}
-            url={`https://www.twitch.tv/${channel}`}
-            height="100%"
-            width="100%"
-            playing={true}
             muted
-            onReady={handleStreamReady}
             controls={false}
+            height="100%"
+            id={`${channel}-player`}
+            playing={true}
+            url={`https://www.twitch.tv/${channel}`}
+            width="100%"
             onEnded={handleStreamReload} // Reload because sometimes ended streams freeze on ads
+            onReady={handleStreamReady}
         />
     )
 }

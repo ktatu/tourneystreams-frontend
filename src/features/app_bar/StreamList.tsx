@@ -47,16 +47,16 @@ const StreamList = () => {
     return (
         <Box
             ref={slideContainerRef}
+            minHeight="50px"
+            minWidth="800px"
             overflow="hidden"
             position="relative"
-            minWidth="800px"
-            minHeight="50px"
         >
             <Box
-                width="700px"
+                display="flex"
                 height="50px"
                 position="absolute"
-                display="flex"
+                width="700px"
             >
                 <DragAndDropWrapper
                     movementAxis={MovementAxis.Horizontal}
@@ -64,9 +64,9 @@ const StreamList = () => {
                 >
                     <Slide
                         appear={false}
+                        container={slideContainerRef.current}
                         direction="right"
                         in={showHorizontalList}
-                        container={slideContainerRef.current}
                         timeout={firstComponentRender ? 0 : 500}
                         onExited={() => setShowMenuButton(true)}
                     >
@@ -81,8 +81,8 @@ const StreamList = () => {
                                     <StreamListItem
                                         key={index}
                                         channel={channel}
-                                        oneStreamOpen={sortedChannels.length === 1}
                                         channelChatIsSelected={channelChatIsSelected}
+                                        oneStreamOpen={sortedChannels.length === 1}
                                     />
                                 )
                             })}
@@ -91,27 +91,27 @@ const StreamList = () => {
                 </DragAndDropWrapper>
             </Box>
             <Box
-                width="200px"
+                display="flex"
                 height="50px"
                 position="absolute"
-                display="flex"
+                width="200px"
             >
                 <Slide
                     appear={false}
+                    container={slideContainerRef.current}
                     direction="right"
                     in={showMenuButton}
-                    container={slideContainerRef.current}
                     timeout={firstComponentRender ? 0 : 500}
                     onExited={() => setShowHorizontalList(true)}
                 >
                     <Box
-                        display="flex"
                         alignItems="center"
+                        display="flex"
                     >
                         <Button
+                            endIcon={<KeyboardArrowDownIcon />}
                             variant="contained"
                             onClick={handleMenuOpen}
-                            endIcon={<KeyboardArrowDownIcon />}
                         >
                             Streams
                         </Button>
@@ -133,8 +133,8 @@ const StreamList = () => {
                                             <StreamListItem
                                                 key={channel}
                                                 channel={channel}
-                                                oneStreamOpen={false}
                                                 channelChatIsSelected={channelChatIsSelected}
+                                                oneStreamOpen={false}
                                             />
                                         )
                                     })}

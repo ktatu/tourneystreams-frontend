@@ -10,8 +10,8 @@ const App = () => {
 
     return (
         <Box
-            width="100vw"
             height="100vh"
+            width="100vw"
         >
             <AppBar
                 drawerContentType={drawerContent}

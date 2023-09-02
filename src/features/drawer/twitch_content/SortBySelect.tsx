@@ -26,8 +26,8 @@ const SortBySelect = ({ sortValue, setSortValue }: SortBySelectProps) => {
                 <InputLabel>Sort by</InputLabel>
                 <Select
                     label="Sort by"
-                    onChange={handleSortByChange}
                     value={sortValue}
+                    onChange={handleSortByChange}
                 >
                     <MenuItem value="category">category</MenuItem>
                     <MenuItem value="viewerCount">viewer count</MenuItem>

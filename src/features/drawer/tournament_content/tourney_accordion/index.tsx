@@ -45,9 +45,9 @@ const TourneyAccordions = ({ tourneyNameFilter }: TourneyAccordionsProps) => {
     return (
         <Box
             className="drawer-container"
-            flexGrow={1}
             display="flex"
             flexDirection="column"
+            flexGrow={1}
         >
             <Box flexGrow={1}>
                 {data && data.length > 0 ? (
@@ -99,9 +99,9 @@ const TourneyAccordionSkeletonGroup = () => {
                 </Typography>
             </Box>
             <Skeleton
+                height={250}
                 variant="rounded"
                 width={420}
-                height={250}
             />
         </div>
     )

@@ -24,10 +24,10 @@ const StreamFrames = () => {
                 return (
                     <Box
                         key={index}
-                        order={stream.displayPosition}
                         height={`${height}%`}
-                        width={`${width}%`}
+                        order={stream.displayPosition}
                         overflow="hidden"
+                        width={`${width}%`}
                     >
                         <StreamFrameContainer channel={stream.channelName} />
                     </Box>

@@ -16,8 +16,8 @@ interface PreferencesDialogProps {
 const PreferencesDialog = ({ isOpen, handleClose }: PreferencesDialogProps) => {
     return (
         <Dialog
-            onClose={handleClose}
             open={isOpen}
+            onClose={handleClose}
         >
             <DialogTitle>Selected Games</DialogTitle>
             <DialogContent dividers>

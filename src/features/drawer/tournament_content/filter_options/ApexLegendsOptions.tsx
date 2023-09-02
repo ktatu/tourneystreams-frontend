@@ -34,11 +34,11 @@ const ApexLegendsOptions = () => {
                 >
                     {APEX_EVENT_REGIONS.map((region) => (
                         <Chip
-                            color={regions.getAll().includes(region) ? "primary" : "default"}
                             key={region}
+                            color={regions.getAll().includes(region) ? "primary" : "default"}
                             label={region}
-                            onClick={() => regions.handleChange(region)}
                             variant="filled"
+                            onClick={() => regions.handleChange(region)}
                         />
                     ))}
                 </Box>
@@ -64,8 +64,8 @@ const ApexLegendsOptions = () => {
                 >
                     {APEXLEGENDS_TOURNAMENT_TIERS.map((tier) => (
                         <Chip
-                            color={tournamentTiers.getAll().includes(tier) ? "primary" : "default"}
                             key={tier}
+                            color={tournamentTiers.getAll().includes(tier) ? "primary" : "default"}
                             label={tier}
                             onClick={() => tournamentTiers.handleChange(tier)}
                         />

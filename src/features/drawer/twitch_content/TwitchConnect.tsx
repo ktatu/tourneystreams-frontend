@@ -1,5 +1,5 @@
-import { Box, Typography, Button } from "@mui/material"
 import LaunchIcon from "@mui/icons-material/Launch"
+import { Box, Button, Typography } from "@mui/material"
 import { BACKEND_BASE_URL } from "../../../envConfig"
 
 const TwitchConnect = () => {
@@ -11,15 +11,15 @@ const TwitchConnect = () => {
         >
             <Typography>Connect your Twitch account to see your followed channels</Typography>
             <Box
+                alignItems="center"
                 display="flex"
                 flexDirection="row"
-                alignItems="center"
                 gap={5}
             >
                 <Button
-                    variant="outlined"
                     endIcon={<LaunchIcon />}
                     href={`${BACKEND_BASE_URL}/twitch/auth${window.location.search}`}
+                    variant="outlined"
                 >
                     Connect
                 </Button>

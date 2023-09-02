@@ -36,9 +36,8 @@ const FilterByField = ({
     return (
         <TextField
             autoComplete="off"
-            label={`Filter by: ${filterType}`}
             InputLabelProps={{ shrink: true }}
-            onChange={handleFilterChange}
+            label={`Filter by: ${filterType}`}
             sx={{ maxWidth: "200px" }}
             value={filterValue}
             InputProps={{
@@ -46,34 +45,34 @@ const FilterByField = ({
                     <Box display="flex">
                         {filterValue ? (
                             <IconButton
-                                onClick={() => setFilterValue("")}
                                 sx={{
                                     visibility: filterValue ? "visible" : "hidden",
                                 }}
+                                onClick={() => setFilterValue("")}
                             >
                                 <CloseIcon />
                             </IconButton>
                         ) : null}
                         <PopupMenu
-                            buttonProps={{ buttonIcon: <ArrowDropDownIcon /> }}
                             ref={popupMenuRef}
+                            buttonProps={{ buttonIcon: <ArrowDropDownIcon /> }}
                         >
                             <MenuList>
                                 <MenuItem
-                                    onClick={() => handleFilterTypeChange("category")}
                                     selected={filterType === "category"}
+                                    onClick={() => handleFilterTypeChange("category")}
                                 >
                                     category
                                 </MenuItem>
                                 <MenuItem
-                                    onClick={() => handleFilterTypeChange("channel name")}
                                     selected={filterType === "channel name"}
+                                    onClick={() => handleFilterTypeChange("channel name")}
                                 >
                                     channel name
                                 </MenuItem>
                                 <MenuItem
-                                    onClick={() => handleFilterTypeChange("title")}
                                     selected={filterType === "title"}
+                                    onClick={() => handleFilterTypeChange("title")}
                                 >
                                     stream title
                                 </MenuItem>
@@ -82,6 +81,7 @@ const FilterByField = ({
                     </Box>
                 ),
             }}
+            onChange={handleFilterChange}
         />
     )
 }

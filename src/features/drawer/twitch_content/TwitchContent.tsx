@@ -1,12 +1,12 @@
 import { Box } from "@mui/material"
 import { useState } from "react"
-import DrawerHeader from "../shared_components/DrawerHeader"
-import FollowedStreams from "./FollowedStreams"
-import TwitchSettings from "./TwitchSettings"
-import TwitchConnect from "./TwitchConnect"
-import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
-import useFollowedStreamsQuery from "./useFollowedStreamsQuery"
 import "../Drawer.css"
+import DrawerHeader from "../shared_components/DrawerHeader"
+import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
+import FollowedStreams from "./FollowedStreams"
+import TwitchConnect from "./TwitchConnect"
+import TwitchSettings from "./TwitchSettings"
+import useFollowedStreamsQuery from "./useFollowedStreamsQuery"
 
 export type TwitchContentView = "settings" | "followedStreams" | "connect"
 
@@ -35,9 +35,9 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
             >
                 <PlaceholderSkeleton
                     count={3}
-                    width={350}
-                    height={250}
                     gap={5}
+                    height={250}
+                    width={350}
                 />
             </Box>
         )
@@ -47,10 +47,10 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
         return (
             <Box className="drawer">
                 <DrawerHeader
-                    title="Twitch streams"
                     handleDrawerClose={handleDrawerClose}
-                    settingsViewOpen={twitchContentView === "settings"}
                     handleSettingsView={handleSettingsView}
+                    settingsViewOpen={twitchContentView === "settings"}
+                    title="Twitch streams"
                 />
                 <TwitchConnect />
             </Box>
@@ -61,10 +61,10 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
         return (
             <Box className="drawer">
                 <DrawerHeader
-                    title="Twitch streams"
                     handleDrawerClose={handleDrawerClose}
-                    settingsViewOpen={twitchContentView === "settings"}
                     handleSettingsView={handleSettingsView}
+                    settingsViewOpen={twitchContentView === "settings"}
+                    title="Twitch streams"
                 />
                 {twitchContentView === "settings" ? (
                     <TwitchSettings />

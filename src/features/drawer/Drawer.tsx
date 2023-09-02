@@ -43,6 +43,9 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
 
     return (
         <MuiDrawer
+            anchor="left"
+            open={drawerContent !== DrawerContentType.None}
+            variant="persistent"
             PaperProps={{
                 sx: {
                     width: "25vw",
@@ -50,14 +53,11 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
                     paddingTop: `${drawerPaddingTop}px`,
                 },
             }}
-            variant="persistent"
-            open={drawerContent !== DrawerContentType.None}
-            anchor="left"
         >
             <Box
-                overflow="auto"
                 height="100%"
                 id="scroll-container"
+                overflow="auto"
             >
                 <Box id="scroll-to-top-anchor" />
                 <DrawerContentSwitch
@@ -66,11 +66,11 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
                 />
                 <Fade in={scrollTrigger}>
                     <Box
-                        position="fixed"
                         bottom="5vh"
-                        left="20vw"
-                        width="50px"
                         height="50px"
+                        left="20vw"
+                        position="fixed"
+                        width="50px"
                         onClick={handleScrollToTop}
                     >
                         <Fab color="primary">

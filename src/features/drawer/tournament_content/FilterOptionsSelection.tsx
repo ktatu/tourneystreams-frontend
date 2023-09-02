@@ -27,23 +27,23 @@ const FilterOptionsSelection = () => {
             >
                 <Box>
                     <Tabs
-                        value={optionsTabValue}
-                        onChange={handleTabChange}
-                        scrollButtons
                         allowScrollButtonsMobile
+                        scrollButtons
+                        value={optionsTabValue}
                         variant="scrollable"
+                        onChange={handleTabChange}
                     >
                         <Tab
-                            value={FilterOptionsTab.All}
                             label="All"
+                            value={FilterOptionsTab.All}
                         />
                         <Tab
-                            value={FilterOptionsTab.ApexLegends}
                             label="Apex Legends"
+                            value={FilterOptionsTab.ApexLegends}
                         />
                         <Tab
-                            value={FilterOptionsTab.Test}
                             label="Test tab"
+                            value={FilterOptionsTab.Test}
                         />
                     </Tabs>
                 </Box>

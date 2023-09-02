@@ -65,19 +65,19 @@ const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
                         </Box>
                         <Input
                             disabled={filterOptionsViewOpen}
-                            onChange={handleTourneyNameFilterChange}
                             placeholder="Tournament name"
                             value={tourneyNameFilter}
                             endAdornment={
                                 <IconButton
-                                    onClick={() => setTourneyNameFilter("")}
                                     sx={{
                                         visibility: tourneyNameFilter ? "visible" : "hidden",
                                     }}
+                                    onClick={() => setTourneyNameFilter("")}
                                 >
                                     <CloseIcon />
                                 </IconButton>
                             }
+                            onChange={handleTourneyNameFilterChange}
                         />
                         <Box flexGrow={1} />
                         <Box marginTop={1}>

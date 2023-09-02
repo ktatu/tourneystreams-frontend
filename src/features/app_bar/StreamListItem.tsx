@@ -51,23 +51,23 @@ const StreamListItem = ({ channel, channelChatIsSelected, oneStreamOpen }: Strea
 
     return (
         <Paper
-            variant="outlined"
-            sx={{ minWidth: 200, height: 50, textAlign: "center" }}
             ref={setNodeRef}
             style={style}
+            sx={{ minWidth: 200, height: 50, textAlign: "center" }}
+            variant="outlined"
             {...attributes}
         >
             <Box
-                width="100%"
-                height="100%"
-                display="flex"
                 alignItems="center"
+                display="flex"
+                height="100%"
                 paddingLeft={1}
                 paddingRight={1}
+                width="100%"
             >
                 <Typography
-                    variant="button"
                     sx={{ userSelect: "none" }}
+                    variant="button"
                 >
                     {channel}
                 </Typography>
@@ -95,8 +95,8 @@ const StreamListItem = ({ channel, channelChatIsSelected, oneStreamOpen }: Strea
                     </IconButton>
                     <IconButton
                         size="large"
-                        onClick={handleRemoveStream}
                         sx={{ padding: 0.5 }}
+                        onClick={handleRemoveStream}
                     >
                         <Tooltip title="Close stream">
                             <CloseIcon fontSize="medium" />

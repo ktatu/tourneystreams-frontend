@@ -78,10 +78,10 @@ const AllGames = () => {
                     </Box>
                     <Box>
                         <PopupMenu
+                            ref={popupMenuRef}
                             buttonProps={{
                                 buttonText: "Add More",
                             }}
-                            ref={popupMenuRef}
                         >
                             <LanguageSelectionMenuContent
                                 handleLanguageSelection={handleLanguageSelection}
@@ -101,8 +101,8 @@ const AllGames = () => {
                         .sort((languageA, languageB) => (languageA < languageB ? -1 : 1))
                         .map((language) => (
                             <Chip
-                                color="primary"
                                 key={language}
+                                color="primary"
                                 label={language}
                                 onDelete={() => languages.handleChange(language)}
                             />
@@ -114,9 +114,9 @@ const AllGames = () => {
                 gap={2}
             >
                 <Stack
+                    alignItems="center"
                     direction="row"
                     gap={1}
-                    alignItems="center"
                 >
                     <Box
                         display="flex"
@@ -133,17 +133,17 @@ const AllGames = () => {
                     gap={1}
                 >
                     <TextField
-                        sx={{ width: "125px" }}
-                        label="Enter a number"
                         InputLabelProps={{ shrink: true }}
+                        inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+                        label="Enter a number"
+                        sx={{ width: "125px" }}
                         type="number"
                         value={minViewership}
-                        inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                         onChange={(event) => setMinViewership(event.target.value.toString())}
                     />
                     <Button
-                        onClick={handleMinViewershipSubmit}
                         variant="contained"
+                        onClick={handleMinViewershipSubmit}
                     >
                         Save
                     </Button>

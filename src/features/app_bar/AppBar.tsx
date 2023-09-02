@@ -40,8 +40,8 @@ const AppBar = ({ drawerContentType, setDrawerContentType }: AppBarProps) => {
                     >
                         <ToggleButtonGroup
                             exclusive
-                            onChange={handleToggleChange}
                             value={drawerContentType}
+                            onChange={handleToggleChange}
                         >
                             <ToggleButton value={DrawerContentType.TournamentContent}>
                                 Tournaments

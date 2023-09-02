@@ -51,8 +51,8 @@ const PopupMenu = forwardRef<PopupMenuClose, PopupMenuProps>(({ buttonProps, chi
     return (
         <Box>
             <OpenMenuButton
-                handleClick={handleClick}
                 buttonProps={buttonProps}
+                handleClick={handleClick}
             />
             <Menu
                 anchorEl={anchorEl}
@@ -75,12 +75,12 @@ const OpenMenuButton = ({
     if (isTextAndIconButtonProps(buttonProps)) {
         return (
             <Button
-                variant="contained"
-                onClick={handleClick}
                 endIcon={buttonProps.buttonIcon}
+                variant="contained"
                 sx={{
                     maxWidth: "200px",
                 }}
+                onClick={handleClick}
             >
                 <Box
                     overflow="hidden"
@@ -96,9 +96,9 @@ const OpenMenuButton = ({
     } else if (isTextButtonProps(buttonProps)) {
         return (
             <Button
+                sx={{ maxWidth: "200px", overflow: "hidden" }}
                 variant="contained"
                 onClick={handleClick}
-                sx={{ maxWidth: "200px", overflow: "hidden" }}
             >
                 {buttonProps.buttonText}
             </Button>

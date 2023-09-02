@@ -19,12 +19,12 @@ const DrawerHeader = ({
     return (
         <Stack
             direction="column"
-            paddingBottom={5}
             gap={4}
+            paddingBottom={5}
         >
             <Box
-                display="flex"
                 alignContent="center"
+                display="flex"
             >
                 <Typography variant="h4">{title}</Typography>
                 <Box

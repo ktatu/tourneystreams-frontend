@@ -39,11 +39,11 @@ const TestOptions = () => {
                 >
                     {APEX_EVENT_REGIONS.map((region) => (
                         <Chip
-                            color={regions.getAll().includes(region) ? "primary" : "default"}
                             key={region}
+                            color={regions.getAll().includes(region) ? "primary" : "default"}
                             label={region}
-                            onClick={() => handleRegionChange(region)}
                             variant="filled"
+                            onClick={() => handleRegionChange(region)}
                         />
                     ))}
                 </Box>
@@ -58,8 +58,8 @@ const TestOptions = () => {
                 >
                     <Typography variant="h6">Tournament tiers</Typography>
                     <Tooltip
-                        placement="right-end"
                         color="info"
+                        placement="right-end"
                         title="Tournaments on Liquipedia are ranked based on factors such as level of
                     competition and prize pool"
                     >

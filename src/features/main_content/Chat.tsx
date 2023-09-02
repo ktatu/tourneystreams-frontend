@@ -10,18 +10,18 @@ const Chat = () => {
 
     return (
         <Box
-            width="340px"
             height="100%"
             position="relative"
+            width="340px"
         >
             <iframe
+                height="100%"
                 src={`https://www.twitch.tv/embed/${streamsStateSnap.selectedChatChannel}/chat?darkpopout&parent=${window.location.hostname}`}
+                width="100%"
                 style={{
                     display: "block",
                     border: "none",
                 }}
-                height="100%"
-                width="100%"
             ></iframe>
             <Box
                 alignContent="center"
@@ -35,8 +35,8 @@ const Chat = () => {
             >
                 <Typography
                     overflow="hidden"
-                    whiteSpace="nowrap"
                     textOverflow="ellipsis"
+                    whiteSpace="nowrap"
                 >
                     {streamsStateSnap.selectedChatChannel}
                 </Typography>

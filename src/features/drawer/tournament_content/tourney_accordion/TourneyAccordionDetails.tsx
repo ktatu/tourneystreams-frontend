@@ -1,10 +1,9 @@
-import { AccordionDetails, Box, IconButton, Link, Tooltip, Typography } from "@mui/material"
-import { StreamInfo, WebLinks } from "../types"
 import HomeIcon from "@mui/icons-material/Home"
-import BoyIcon from "@mui/icons-material/Boy"
-import StreamInfoList from "./StreamInfoList"
-import Viewership from "../../shared_components/Viewership"
 import SettingsIcon from "@mui/icons-material/Settings"
+import { AccordionDetails, Box, IconButton, Link, Typography } from "@mui/material"
+import Viewership from "../../shared_components/Viewership"
+import { StreamInfo, WebLinks } from "../types"
+import StreamInfoList from "./StreamInfoList"
 
 interface TourneyAccordionDetailsProps {
     streamInfoArray: Array<StreamInfo>
@@ -27,15 +26,15 @@ const TourneyAccordionDetails = ({ streamInfoArray, webLinks }: TourneyAccordion
                 >
                     <WebLinksWithIcons webLinks={webLinks} />
                     <Box
-                        display="flex"
                         alignSelf="flex-end"
+                        display="flex"
                         paddingLeft={6}
                     >
                         <Viewership viewerCount={1000} />
                     </Box>
                     <Typography
-                        display="flex"
                         alignSelf="flex-end"
+                        display="flex"
                         paddingLeft={3}
                         variant="h5"
                     >
@@ -57,15 +56,6 @@ const TourneyAccordionDetails = ({ streamInfoArray, webLinks }: TourneyAccordion
 
 const WebLinksWithIcons = ({ webLinks }: { webLinks: WebLinks }) => {
     const imageDimensions = { width: 32, height: 26 }
-
-    /*
-                    <IconButton>
-                        <img
-                            src={require("../assets/liquipedia.png")}
-                            style={imageDimensions}
-                        />
-                    </IconButton>
-    */
 
     return (
         <Box

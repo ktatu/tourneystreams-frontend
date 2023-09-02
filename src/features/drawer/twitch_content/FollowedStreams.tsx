@@ -1,7 +1,7 @@
-import StreamCard, { FollowedStream } from "./StreamCard"
 import { Box, Stack } from "@mui/material"
 import FilterByField from "./FilterByField"
 import SortBySelect from "./SortBySelect"
+import StreamCard, { FollowedStream } from "./StreamCard"
 import useStreamsFilterAndSort from "./useStreamsFilterAndSort"
 
 interface FollowedStreamsProps {
@@ -28,12 +28,12 @@ const FollowedStreams = ({ followedStreams }: FollowedStreamsProps) => {
                 alignItems="center"
                 display="flex"
                 gap={3}
-                paddingTop={2}
                 paddingBottom={5}
+                paddingTop={2}
             >
                 <SortBySelect
-                    sortValue={sortValue}
                     setSortValue={setSortValue}
+                    sortValue={sortValue}
                 />
                 <FilterByField
                     filterType={filterType}

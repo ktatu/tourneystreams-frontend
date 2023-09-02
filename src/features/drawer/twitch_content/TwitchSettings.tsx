@@ -17,9 +17,9 @@ const TwitchSettings = () => {
                     Connection to Tourneystreams can be removed on Twitch&apos;s Connections page
                 </Typography>
                 <Button
-                    variant="outlined"
                     endIcon={<LaunchIcon />}
                     href="https://www.twitch.tv/settings/connections"
+                    variant="outlined"
                 >
                     Disconnect on Twitch
                 </Button>

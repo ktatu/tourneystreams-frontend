@@ -66,14 +66,14 @@ const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowP
                         <Link
                             href={streamInfo.channelLink}
                             rel="noreferrer"
-                            target="_blank"
                             sx={{ textDecoration: "none", color: "#347deb" }}
+                            target="_blank"
                         >
                             <Typography variant="h6">{streamInfo.channel}</Typography>
                         </Link>
                         <Typography
-                            variant="h6"
                             color="secondary"
+                            variant="h6"
                         >
                             (1000)
                         </Typography>
@@ -83,9 +83,9 @@ const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowP
             <Box>
                 <Switch
                     checked={checked}
-                    onChange={handleToggle}
                     edge="end"
                     size="small"
+                    onChange={handleToggle}
                 />
             </Box>
         </ListItem>

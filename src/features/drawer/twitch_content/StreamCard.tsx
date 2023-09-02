@@ -60,20 +60,20 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
                 sx={{ width: 350, height: 210 }}
             />
             <Box
+                bgcolor="rgba(0, 0, 0, 0.4)"
+                left={0}
+                padding={0.5}
                 position="absolute"
                 top={0}
-                left={0}
-                bgcolor="rgba(0, 0, 0, 0.4)"
-                padding={0.5}
             >
                 <div style={{ opacity: 1, userSelect: "none" }}>{followedStream.category}</div>
             </Box>
             <Box
+                bgcolor="rgba(0, 0, 0, 0.4)"
+                left={0}
+                padding={0.5}
                 position="absolute"
                 top={180}
-                left={0}
-                bgcolor="rgba(0, 0, 0, 0.4)"
-                padding={0.5}
             >
                 <div style={{ opacity: 1, userSelect: "none" }}>
                     {parseViewerCount(followedStream.viewerCount)}
@@ -81,9 +81,9 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
             </Box>
             <CardContent sx={{ paddingBottom: 0 }}>
                 <Box
-                    display="flex"
-                    alignItems="center"
                     alignContent="center"
+                    alignItems="center"
+                    display="flex"
                 >
                     <Typography variant="h5">{followedStream.broadcastName}</Typography>
                     <Box marginLeft="auto">
@@ -100,9 +100,9 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
                     </Box>
                 </Box>
                 <Collapse
+                    unmountOnExit
                     in={cardExpanded}
                     timeout="auto"
-                    unmountOnExit
                 >
                     {followedStream.title}
                 </Collapse>
@@ -111,8 +111,8 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
                 <Button
                     href={`https://twitch.tv/${followedStream.loginName}`}
                     referrerPolicy="no-referrer"
-                    target="_blank"
                     size="small"
+                    target="_blank"
                 >
                     Watch on Twitch
                 </Button>

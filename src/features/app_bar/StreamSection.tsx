@@ -20,20 +20,20 @@ const StreamSection = () => {
 
     return (
         <Box
+            alignItems="center"
             display="flex"
             gap={1}
-            alignItems="center"
         >
             <TextField
                 label="Add stream"
                 placeholder="Channel name"
+                value={addStreamFieldValue}
                 variant="outlined"
                 onChange={handleStreamField}
-                value={addStreamFieldValue}
             />
             <Button
-                variant="contained"
                 color="primary"
+                variant="contained"
                 onClick={handleAddStream}
             >
                 <Typography variant="h4">+</Typography>

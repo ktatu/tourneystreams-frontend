@@ -10,9 +10,9 @@ interface PlaceholderSkeletonProps {
 const PlaceholderSkeleton = ({ count, width, height, gap }: PlaceholderSkeletonProps) => {
     const skeletons = new Array(count).fill(
         <Skeleton
-            width={width}
             height={height}
             variant="rounded"
+            width={width}
         />
     )
 

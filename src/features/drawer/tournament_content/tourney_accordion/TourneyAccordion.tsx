@@ -27,13 +27,13 @@ const TourneyAccordion = ({ tourneyInfo }: TourneyAccordionProps) => {
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Box
                     display="flex"
-                    flexGrow={1}
                     flexDirection="row"
+                    flexGrow={1}
                     gap={3}
                 >
                     <AccordionTitle
-                        tourneyName={tourneyInfo.name}
                         accordionExpanded={accordionExpanded}
+                        tourneyName={tourneyInfo.name}
                     />
                     <Box flexGrow={1} />
                     <Box paddingRight={2}>

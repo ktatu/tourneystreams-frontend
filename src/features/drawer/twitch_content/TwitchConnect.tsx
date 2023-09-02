@@ -9,9 +9,7 @@ const TwitchConnect = () => {
             flexDirection="column"
             gap={2}
         >
-            <Typography variant="body1">
-                Connect your Twitch account to see your followed channels
-            </Typography>
+            <Typography>Connect your Twitch account to see your followed channels</Typography>
             <Box
                 display="flex"
                 flexDirection="row"

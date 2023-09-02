@@ -1,47 +1,31 @@
 import { Box } from "@mui/material"
 import { useState } from "react"
-import "../Drawer.css"
 import DrawerHeader from "../shared_components/DrawerHeader"
-import { getCookie, setCookie, getCookies } from "typescript-cookie"
 import FollowedStreams from "./FollowedStreams"
 import TwitchSettings from "./TwitchSettings"
 import TwitchConnect from "./TwitchConnect"
-import axios from "axios"
-import { useQuery } from "react-query"
-import { FollowedStream } from "./StreamCard"
 import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
-import { BACKEND_BASE_URL } from "../../../envConfig"
+import useFollowedStreamsQuery from "./useFollowedStreamsQuery"
+import "../Drawer.css"
 
-export enum TwitchContentView {
-    Settings = "settings",
-    FollowedStreams = "followedStreams",
-    Connect = "conncect",
-}
+export type TwitchContentView = "settings" | "followedStreams" | "connect"
 
 interface TwitchContentProps {
     handleDrawerClose: () => void
 }
 
 const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
-    const [twitchContentView, setTwitchContentView] = useState(TwitchContentView.FollowedStreams)
+    const [twitchContentView, setTwitchContentView] = useState<TwitchContentView>("followedStreams")
+
+    const { data, error, isError, isLoading } = useFollowedStreamsQuery()
 
     const handleSettingsView = () => {
         if (twitchContentView === "settings") {
-            setTwitchContentView(TwitchContentView.FollowedStreams)
+            setTwitchContentView("followedStreams")
         } else {
-            setTwitchContentView(TwitchContentView.Settings)
+            setTwitchContentView("settings")
         }
     }
-
-    const { isLoading, isError, data, error } = useQuery<FollowedStream[]>(
-        "followedStreams",
-        queryFollowedStreams,
-        {
-            retry: 1,
-            cacheTime: 1000 * 100, // 10 minutes
-            staleTime: 1000 * 10 * 2, // 2 minutes
-        }
-    )
 
     if (isLoading) {
         return (
@@ -65,7 +49,7 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
                 <DrawerHeader
                     title="Twitch streams"
                     handleDrawerClose={handleDrawerClose}
-                    settingsViewOpen={twitchContentView === TwitchContentView.Settings}
+                    settingsViewOpen={twitchContentView === "settings"}
                     handleSettingsView={handleSettingsView}
                 />
                 <TwitchConnect />
@@ -79,10 +63,10 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
                 <DrawerHeader
                     title="Twitch streams"
                     handleDrawerClose={handleDrawerClose}
-                    settingsViewOpen={twitchContentView === TwitchContentView.Settings}
+                    settingsViewOpen={twitchContentView === "settings"}
                     handleSettingsView={handleSettingsView}
                 />
-                {twitchContentView === TwitchContentView.Settings ? (
+                {twitchContentView === "settings" ? (
                     <TwitchSettings />
                 ) : (
                     <FollowedStreams followedStreams={data} />
@@ -92,24 +76,6 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
     }
 
     return null
-}
-
-const queryFollowedStreams = async () => {
-    const twitchToken = getCookie("twitch-token")
-
-    if (!twitchToken) {
-        throw new Error("Twitch token missing")
-    }
-
-    const res = await axios.get(`${BACKEND_BASE_URL}/twitch`, {
-        headers: { Authorization: `Bearer ${twitchToken}` },
-    })
-
-    if (res.data.newToken) {
-        setCookie("twitch-token", res.data.newToken)
-    }
-
-    return res.data.streams
 }
 
 export default TwitchContent

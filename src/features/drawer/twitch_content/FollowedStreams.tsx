@@ -25,9 +25,9 @@ const FollowedStreams = ({ followedStreams }: FollowedStreamsProps) => {
             gap={3}
         >
             <Box
+                alignItems="center"
                 display="flex"
                 gap={3}
-                alignItems="center"
                 paddingTop={2}
                 paddingBottom={5}
             >

@@ -39,9 +39,9 @@ const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
 
     return (
         <Box
-            height="100%"
             display="flex"
             flexDirection="column"
+            height="100%"
         >
             <Box className="drawer-content">
                 <Typography variant="h4">Tournaments</Typography>
@@ -51,8 +51,8 @@ const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
                         alignItems="center"
                         display="flex"
                         flexDirection="row"
-                        paddingTop={1}
                         gap={1}
+                        paddingTop={1}
                     >
                         <Box paddingTop={1}>
                             <PopupMenu
@@ -65,8 +65,8 @@ const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
                         </Box>
                         <Input
                             disabled={filterOptionsViewOpen}
-                            placeholder="Tournament name"
                             onChange={handleTourneyNameFilterChange}
+                            placeholder="Tournament name"
                             value={tourneyNameFilter}
                             endAdornment={
                                 <IconButton

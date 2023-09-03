@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useQuery } from "react-query"
-import { getCookie, setCookie } from "typescript-cookie"
+import { getCookie } from "typescript-cookie"
 import { BACKEND_BASE_URL } from "../../../envConfig"
 import { FollowedStream } from "./StreamCard"
 
@@ -24,10 +24,6 @@ const queryFollowedStreams = async () => {
     const res = await axios.get(`${BACKEND_BASE_URL}/twitch`, {
         headers: { Authorization: `Bearer ${twitchToken}` },
     })
-
-    if (res.data.newToken) {
-        setCookie("twitch-token", res.data.newToken)
-    }
 
     return res.data.streams
 }

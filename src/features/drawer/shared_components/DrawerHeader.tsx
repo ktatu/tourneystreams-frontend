@@ -5,16 +5,18 @@ import { Box, IconButton, Stack, Typography } from "@mui/material"
 import "../Drawer.css"
 
 interface DrawerHeaderProps {
+    settingsViewOpen: boolean
+    showSettingsIcon?: boolean
     title: string
     handleDrawerClose: () => void
     handleSettingsView: () => void
-    settingsViewOpen: boolean
 }
 const DrawerHeader = ({
+    settingsViewOpen,
+    showSettingsIcon,
     title,
     handleDrawerClose,
     handleSettingsView,
-    settingsViewOpen,
 }: DrawerHeaderProps) => {
     return (
         <Stack
@@ -32,13 +34,15 @@ const DrawerHeader = ({
                     gap={1}
                     marginLeft="auto"
                 >
-                    <IconButton onClick={handleSettingsView}>
-                        {settingsViewOpen ? (
-                            <CloseIcon fontSize="large" />
-                        ) : (
-                            <SettingsIcon fontSize="large" />
-                        )}
-                    </IconButton>
+                    {showSettingsIcon && (
+                        <IconButton onClick={handleSettingsView}>
+                            {settingsViewOpen ? (
+                                <CloseIcon fontSize="large" />
+                            ) : (
+                                <SettingsIcon fontSize="large" />
+                            )}
+                        </IconButton>
+                    )}
                     <IconButton onClick={handleDrawerClose}>
                         <ArrowBackIcon fontSize="large" />
                     </IconButton>

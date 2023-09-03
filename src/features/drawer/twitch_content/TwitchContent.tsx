@@ -1,12 +1,12 @@
-import { Box } from "@mui/material"
 import { useState } from "react"
 import "../Drawer.css"
+import DrawerContainer from "../shared_components/DrawerContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
 import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
 import FollowedStreams from "./FollowedStreams"
-import TwitchConnect from "./TwitchConnect"
+import TwitchErrorDisplay from "./TwitchErrorDisplay"
 import TwitchSettings from "./TwitchSettings"
-import useFollowedStreamsQuery from "./useFollowedStreamsQuery"
+import useFollowedStreamsQuery from "./hooks/useFollowedStreamsQuery"
 
 export type TwitchContentView = "settings" | "followedStreams" | "connect"
 
@@ -27,55 +27,37 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
         }
     }
 
-    if (isLoading) {
-        return (
-            <Box
-                className="drawer"
-                paddingTop={5}
-            >
-                <PlaceholderSkeleton
-                    count={3}
-                    gap={5}
-                    height={250}
-                    width={350}
-                />
-            </Box>
-        )
-    }
-
-    if (isError) {
-        return (
-            <Box className="drawer">
+    return (
+        <DrawerContainer>
+            <>
                 <DrawerHeader
                     handleDrawerClose={handleDrawerClose}
                     handleSettingsView={handleSettingsView}
                     settingsViewOpen={twitchContentView === "settings"}
+                    showSettingsIcon={Boolean(data)}
                     title="Twitch streams"
                 />
-                <TwitchConnect />
-            </Box>
-        )
-    }
-
-    if (data) {
-        return (
-            <Box className="drawer">
-                <DrawerHeader
-                    handleDrawerClose={handleDrawerClose}
-                    handleSettingsView={handleSettingsView}
-                    settingsViewOpen={twitchContentView === "settings"}
-                    title="Twitch streams"
-                />
-                {twitchContentView === "settings" ? (
-                    <TwitchSettings />
-                ) : (
-                    <FollowedStreams followedStreams={data} />
+                {isLoading && (
+                    <PlaceholderSkeleton
+                        count={3}
+                        gap={5}
+                        height={250}
+                        width={350}
+                    />
                 )}
-            </Box>
-        )
-    }
-
-    return null
+                {isError && <TwitchErrorDisplay error={error} />}
+                {data && (
+                    <>
+                        {twitchContentView === "settings" ? (
+                            <TwitchSettings />
+                        ) : (
+                            <FollowedStreams followedStreams={data} />
+                        )}
+                    </>
+                )}
+            </>
+        </DrawerContainer>
+    )
 }
 
 export default TwitchContent

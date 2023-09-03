@@ -1,8 +1,8 @@
 import axios from "axios"
 import { useQuery } from "react-query"
 import { getCookie } from "typescript-cookie"
-import { BACKEND_BASE_URL } from "../../../envConfig"
-import { FollowedStream } from "./StreamCard"
+import { BACKEND_BASE_URL } from "../../../../envConfig"
+import { FollowedStream } from "../StreamCard"
 
 const useFollowedStreamsQuery = () => {
     const queryResult = useQuery<FollowedStream[]>("followedStreams", queryFollowedStreams, {

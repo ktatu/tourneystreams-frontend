@@ -3,7 +3,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import { Box, IconButton, MenuItem, MenuList, TextField } from "@mui/material"
 import { startTransition, useRef } from "react"
 import PopupMenu, { PopupMenuClose } from "../../../commons/PopupMenu"
-import { FilterBy } from "./useStreamsFilterAndSort"
+import { FilterBy } from "./hooks/useStreamsFilterAndSort"
 
 interface FilterByFieldProps {
     filterType: FilterBy

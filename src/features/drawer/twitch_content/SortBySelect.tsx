@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material"
-import { SortBy } from "./useStreamsFilterAndSort"
+import { SortBy } from "./hooks/useStreamsFilterAndSort"
 
 interface SortBySelectProps {
     sortValue: SortBy

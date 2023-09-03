@@ -2,7 +2,7 @@ import { Box, Stack } from "@mui/material"
 import FilterByField from "./FilterByField"
 import SortBySelect from "./SortBySelect"
 import StreamCard, { FollowedStream } from "./StreamCard"
-import useStreamsFilterAndSort from "./useStreamsFilterAndSort"
+import useStreamsFilterAndSort from "./hooks/useStreamsFilterAndSort"
 
 interface FollowedStreamsProps {
     followedStreams: Array<FollowedStream>
@@ -22,7 +22,7 @@ const FollowedStreams = ({ followedStreams }: FollowedStreamsProps) => {
     return (
         <Stack
             direction="column"
-            gap={3}
+            gap={1}
         >
             <Box
                 alignItems="center"

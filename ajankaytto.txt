@@ -91,5 +91,6 @@
 24.8  5h Frontend tilanhallinta
 25.8  2h Backendin config-muutoksia
 31.8  2h Frontendin refaktorointia
+03.9  2h Frontendin refaktorointia
 
 166.5 8.7

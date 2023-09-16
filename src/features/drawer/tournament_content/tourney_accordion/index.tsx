@@ -65,7 +65,7 @@ const TourneyAccordions = ({ tourneyNameFilter }: TourneyAccordionsProps) => {
                 justifySelf="flex-end"
             >
                 <Typography>
-                    Tournament information is provided by
+                    Tournament information is provided by{" "}
                     <a href="https://liquipedia.net">Liquipedia</a>
                 </Typography>
             </Box>

@@ -1,29 +1,23 @@
-import CloseIcon from "@mui/icons-material/Close"
 import SettingsIcon from "@mui/icons-material/Settings"
-import {
-    Box,
-    Checkbox,
-    Divider,
-    IconButton,
-    Input,
-    ListItemIcon,
-    ListItemText,
-    MenuItem,
-    MenuList,
-    Typography,
-} from "@mui/material"
+import { Checkbox, ListItemIcon, ListItemText, MenuItem, MenuList } from "@mui/material"
 import { startTransition, useState } from "react"
-import PopupMenu from "../../../commons/PopupMenu"
 import useCheckbox from "../../../hooks/useCheckbox"
 import "../Drawer.css"
-import FilterOptionsSelection from "./FilterOptionsSelection"
-import TourneyAccordions from "./tourney_accordion"
+import DrawerContainer from "../shared_components/DrawerContainer"
+import DrawerHeader from "../shared_components/DrawerHeader"
+import GameToggleGroup from "./GameToggleGroup"
+import UpcomingTournament from "./UpcomingTournament"
+
+type TournamentContentView = "tournaments" | "settings"
 
 interface TournamentContentProps {
     handleDrawerClose: () => void
 }
+
 const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
     const [tourneyNameFilter, setTourneyNameFilter] = useState("")
+    const [tournamentContentView, setTournamentContentView] =
+        useState<TournamentContentView>("tournaments")
 
     const [filterOptionsViewOpen, setFilterOptionsViewOpen] = useState(false)
 
@@ -37,6 +31,31 @@ const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
         setFilterOptionsViewOpen(!filterOptionsViewOpen)
     }
 
+    const handleSettingsView = () => {
+        if (tournamentContentView === "settings") {
+            setTournamentContentView("tournaments")
+        } else {
+            setTournamentContentView("settings")
+        }
+    }
+
+    return (
+        <DrawerContainer>
+            <>
+                <DrawerHeader
+                    handleDrawerClose={handleDrawerClose}
+                    handleSettingsView={handleSettingsView}
+                    settingsViewOpen={tournamentContentView === "settings"}
+                    showSettingsIcon={true}
+                    title="Tournaments"
+                />
+                <GameToggleGroup />
+                <UpcomingTournament />
+            </>
+        </DrawerContainer>
+    )
+
+    /*
     return (
         <Box
             display="flex"
@@ -100,6 +119,7 @@ const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
             )}
         </Box>
     )
+    */
 }
 
 const GameSelectionMenuContent = () => {

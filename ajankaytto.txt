@@ -93,5 +93,6 @@
 31.8  2h Frontendin refaktorointia
 03.9  2h Frontendin refaktorointia
 16.9  2h TournamentContent-featuren uudelleenrakennus / -suunnittelu
+17.9  1h TournamentContent komponentit
 
 166.5 8.7

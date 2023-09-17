@@ -3,10 +3,12 @@ import { createTheme } from "@mui/material/styles"
 declare module "@mui/material/styles" {
     interface Palette {
         viewerCount: Palette["primary"]
+        dota2: Palette["primary"]
     }
 
     interface PaletteOptions {
         viewerCount: PaletteOptions["primary"]
+        dota2: PaletteOptions["primary"]
     }
 }
 
@@ -28,6 +30,9 @@ const theme = createTheme({
         },
         viewerCount: {
             main: "#F75750",
+        },
+        dota2: {
+            main: "#AE341B",
         },
     },
 })

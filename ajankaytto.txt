@@ -95,4 +95,4 @@
 16.9  2h TournamentContent-featuren uudelleenrakennus / -suunnittelu
 17.9  1h TournamentContent komponentit
 
-166.5 8.7
+166.5 8.7 ..

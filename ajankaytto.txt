@@ -95,4 +95,9 @@
 16.9  2h TournamentContent-featuren uudelleenrakennus / -suunnittelu
 17.9  1h TournamentContent komponentit
 
-166.5 8.7 ..
+2024
+
+22.6  2h Domainin ja liquipedia api-webhookin konfigurointi
+
+166.5 8.7.2023
+ ..

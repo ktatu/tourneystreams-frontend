@@ -98,6 +98,7 @@
 2024
 
 22.6  2h Domainin ja liquipedia api-webhookin konfigurointi
+29.12 8h LPDB-api sovelluksen suunnittelu ja aloitus
 
 166.5 8.7.2023
  ..

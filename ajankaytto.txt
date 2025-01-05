@@ -98,11 +98,12 @@
 2024
 
 22.6  2h Domainin ja liquipedia api-webhookin konfigurointi
-29.12 8h LPDB-api-client sovelluksen suunnittelu ja aloitus
+29.12 8h LPDB-client sovelluksen suunnittelu ja aloitus
 
 2025
 
-3.1 5h LPDB-api-client ja LPDB-server-mock
+3.1 5h LPDB-client ja LPDB-server-mock
+5.1 4h LPDB-client, mongodb:n lisäys
 
 166.5 8.7.2023
  ..

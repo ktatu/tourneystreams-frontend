@@ -102,10 +102,11 @@
 
 2025
 
-3.1 5h LPDB-client ja LPDB-server-mock
-5.1 4h LPDB-client, mongodb:n lisäys
-6.1 4h LPDB-client
-7.1 5h LPDB-client
+3.1  5h LPDB-client ja LPDB-server-mock
+5.1  4h LPDB-client, mongodb:n lisäys
+6.1  4h LPDB-client toiminnallisuuksia
+7.1  5h LPDB-client toiminnallisuuksia
+12.1 6h LPDB-client toiminnallisuuksia
 
 166.5 8.7.2023
  ..

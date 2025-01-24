@@ -108,6 +108,7 @@
 7.1  5h -||-
 12.1 6h -||-
 17.1 5h -||-
+23.1 3h LPDB-client bugfixailua ja refaktorointia
 
 166.5 8.7.2023
  ..

@@ -6,7 +6,7 @@ import "../Drawer.css"
 import DrawerContainer from "../shared_components/DrawerContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
 import GameToggleGroup from "./GameToggleGroup"
-import UpcomingTournament from "./UpcomingTournament"
+import Match from "./Match"
 
 type TournamentContentView = "tournaments" | "settings"
 
@@ -50,7 +50,7 @@ const TournamentContent = ({ handleDrawerClose }: TournamentContentProps) => {
                     title="Tournaments"
                 />
                 <GameToggleGroup />
-                <UpcomingTournament />
+                <Match />
             </>
         </DrawerContainer>
     )

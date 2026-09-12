@@ -1,10 +1,10 @@
 import { Box } from "@mui/material"
 import { memo } from "react"
 import { useStreamsState } from "../../commons/streamsState"
-import StreamFrameContainer from "./StreamFrameContainer"
+import VideoFrameContainer from "./VideoFrameContainer"
 import getStreamDimensions from "./streamDimensions"
 
-const StreamFrames = () => {
+const VideoFrames = () => {
     const { streams } = useStreamsState()
 
     return (
@@ -18,7 +18,7 @@ const StreamFrames = () => {
             {streams.map((stream, index) => {
                 const { width, height } = getStreamDimensions(
                     streams.length,
-                    stream.displayPosition
+                    stream.displayPosition,
                 )
 
                 return (
@@ -29,7 +29,7 @@ const StreamFrames = () => {
                         overflow="hidden"
                         width={`${width}%`}
                     >
-                        <StreamFrameContainer channel={stream.channelName} />
+                        <VideoFrameContainer channel={stream.channelName} />
                     </Box>
                 )
             })}
@@ -37,4 +37,4 @@ const StreamFrames = () => {
     )
 }
 
-export default memo(StreamFrames)
+export default memo(VideoFrames)

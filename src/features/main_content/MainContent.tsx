@@ -1,6 +1,6 @@
 import { Unstable_Grid2 as Grid } from "@mui/material"
 import Chat from "./Chat"
-import StreamFrames from "./StreamFrames"
+import VideoFrames from "./VideoFrames"
 
 const Streams = () => {
     return (
@@ -9,7 +9,7 @@ const Streams = () => {
             height="100%"
         >
             <Grid xs>
-                <StreamFrames />
+                <VideoFrames />
             </Grid>
             <Grid xs="auto">
                 <Chat />

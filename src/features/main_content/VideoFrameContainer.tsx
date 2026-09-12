@@ -2,11 +2,11 @@ import { memo, useEffect, useState } from "react"
 import TwitchPlayer from "react-player/twitch"
 import { removeStream } from "../../commons/streamsState"
 
-interface StreamFrameContainerProps {
+interface VideoFrameContainerProps {
     channel: string
 }
 
-const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
+const VideoFrameContainer = ({ channel }: VideoFrameContainerProps) => {
     // Streamkey is used for reloading the stream
     const [streamKey, setStreamKey] = useState(1)
     const [streamReady, setStreamReady] = useState(false)
@@ -48,4 +48,4 @@ const StreamFrameContainer = ({ channel }: StreamFrameContainerProps) => {
     )
 }
 
-export default memo(StreamFrameContainer)
+export default memo(VideoFrameContainer)

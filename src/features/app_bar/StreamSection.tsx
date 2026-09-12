@@ -25,8 +25,8 @@ const StreamSection = () => {
             gap={1}
         >
             <TextField
-                label="Add stream"
-                placeholder="Channel name"
+                label="Add stream or VOD"
+                placeholder="Channel name or VOD url"
                 value={addStreamFieldValue}
                 variant="outlined"
                 onChange={handleStreamField}

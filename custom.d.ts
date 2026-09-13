@@ -4,3 +4,14 @@ declare module "*.svg" {
     const src: string
     export default src
 }
+
+declare global {
+    interface Window {
+        onYouTubeIframeAPIReady: () => void
+    }
+}
+
+declare module "*.png"
+declare module "*.css"
+
+export {}

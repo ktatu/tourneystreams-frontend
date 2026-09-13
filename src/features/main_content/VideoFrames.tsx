@@ -2,7 +2,7 @@ import { Box } from "@mui/material"
 import { memo } from "react"
 import { useStreamsState } from "../../commons/streamsState"
 import VideoFrameContainer from "./VideoFrameContainer"
-import getStreamDimensions from "./streamDimensions"
+import getVideoDimensions from "./videoDimensions"
 
 const VideoFrames = () => {
     const { streams } = useStreamsState()
@@ -16,10 +16,7 @@ const VideoFrames = () => {
             overflow="auto"
         >
             {streams.map((stream, index) => {
-                const { width, height } = getStreamDimensions(
-                    streams.length,
-                    stream.displayPosition,
-                )
+                const { width, height } = getVideoDimensions(streams.length, stream.displayPosition)
 
                 return (
                     <Box

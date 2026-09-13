@@ -1,14 +1,14 @@
-const getStreamDimensions = (streamCount: number, streamIndex: number) => {
+const getVideoDimensions = (videoCount: number, videoIndex: number) => {
     const baseHeight = 100
     const baseWidth = 100
 
-    switch (streamCount) {
+    switch (videoCount) {
         case 1:
             return { width: baseWidth, height: baseHeight }
         case 2:
             return { width: baseWidth, height: baseHeight / 2 }
         case 3:
-            if (streamIndex === 0) {
+            if (videoIndex === 0) {
                 return { width: baseWidth, height: baseHeight / 2 }
             } else {
                 return { width: baseWidth / 2, height: baseHeight / 2 }
@@ -16,7 +16,7 @@ const getStreamDimensions = (streamCount: number, streamIndex: number) => {
         case 4:
             return { width: baseWidth / 2, height: baseHeight / 2 }
         case 5:
-            if (streamIndex <= 1) {
+            if (videoIndex <= 1) {
                 return { width: baseWidth / 2, height: baseHeight / 2 }
             } else {
                 return { width: baseWidth / 3, height: baseHeight / 2 }
@@ -24,13 +24,13 @@ const getStreamDimensions = (streamCount: number, streamIndex: number) => {
         case 6:
             return { width: baseWidth / 3, height: baseHeight / 2 }
         case 7:
-            if (streamIndex <= 3) {
+            if (videoIndex <= 3) {
                 return { width: baseWidth / 2, height: baseHeight / 3 }
             } else {
                 return { width: baseWidth / 3, height: baseHeight / 3 }
             }
         case 8:
-            if (streamIndex <= 1) {
+            if (videoIndex <= 1) {
                 return { width: baseWidth / 2, height: baseHeight / 3 }
             } else {
                 return { width: baseWidth / 3, height: baseHeight / 3 }
@@ -40,4 +40,4 @@ const getStreamDimensions = (streamCount: number, streamIndex: number) => {
     }
 }
 
-export default getStreamDimensions
+export default getVideoDimensions

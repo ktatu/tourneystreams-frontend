@@ -98,6 +98,8 @@
 2024
 
 22.6  2h Domainin ja liquipedia api-webhookin konfigurointi
+ 
+2026
 
-166.5 8.7.2023
- ..
+13.9 3h Frontend: YouTube-streamien lisääminen
+14.9 4h Frontend: YouTube-streamien lisääminen

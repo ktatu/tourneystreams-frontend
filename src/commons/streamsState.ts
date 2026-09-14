@@ -1,63 +1,60 @@
 import { proxy, subscribe, useSnapshot } from "valtio"
+import { Stream, StreamSource, StreamUserInput } from "../types"
 import useSearchParams from "./useSearchParams"
-
-const searchParams = useSearchParams("streams")
-
-const initialStreamsFromParams: Array<Stream> = searchParams
-    .getAll()
-    .map((channel, index) => ({ channelName: channel, displayPosition: index }))
-
-interface Stream {
-    channelName: string
-    displayPosition: number
-}
 
 interface StreamsState {
     selectedChatChannel: string
     streams: Array<Stream>
-    readonly channels: Array<string>
-    readonly sortedChannels: Array<string>
+    readonly identifiers: Array<string>
+    readonly identifiersSortedByPos: Array<string>
 }
 
+const searchParams = useSearchParams("streams")
+
+const parseStreamFromParam = (param: string) => {
+    const [parsedSource, id] = param.split(":")
+    const streamSource: StreamSource =
+        parsedSource === "twitch" ? StreamSource.TWITCH : StreamSource.YOUTUBE
+
+    return { id, streamSource }
+}
+
+const initialStreams = searchParams.getAll().map((param, index) => {
+    const { id, streamSource } = parseStreamFromParam(param)
+    return { id, streamSource, displayPosition: index }
+})
+
 export const streamsState = proxy<StreamsState>({
-    selectedChatChannel: initialStreamsFromParams[0]?.channelName || "",
-    streams: initialStreamsFromParams,
-    get channels() {
-        return this.streams.map((stream: Stream) => stream.channelName)
+    selectedChatChannel: initialStreams[0]?.id || "",
+    streams: initialStreams,
+    get identifiers() {
+        return this.streams.map((stream: Stream) => stream.id)
     },
-    get sortedChannels() {
+    get identifiersSortedByPos() {
         return this.streams
             .sort(
                 (stream1: Stream, stream2: Stream) =>
-                    stream1.displayPosition - stream2.displayPosition
+                    stream1.displayPosition - stream2.displayPosition,
             )
-            .map((stream: Stream) => stream.channelName)
+            .map((stream: Stream) => stream.id)
     },
 })
 
 export const useStreamsState = () => useSnapshot(streamsState)
 
-subscribe(streamsState.streams, () => {
-    searchParams.setParams(streamsState.channels)
-
-    if (!streamsState.channels.includes(streamsState.selectedChatChannel)) {
-        selectChatChannel(streamsState.channels[0] || "")
-    }
-})
-
-export const addStream = (channel: string) => {
-    if (streamsState.channels.includes(channel)) {
+export const addStream = (streamInput: StreamUserInput) => {
+    if (streamsState.identifiers.includes(streamInput.id)) {
         return
     }
 
     streamsState.streams.push({
-        channelName: channel,
+        ...streamInput,
         displayPosition: streamsState.streams.length,
     })
 }
 
-export const removeStream = (channel: string) => {
-    const indexToRemove = streamsState.streams.findIndex((stream) => stream.channelName === channel)
+export const removeStream = (id: string) => {
+    const indexToRemove = streamsState.streams.findIndex((stream) => stream.id === id)
     if (indexToRemove !== -1) {
         streamsState.streams.splice(indexToRemove, 1)
     }
@@ -71,9 +68,9 @@ export const selectChatChannel = (channel: string) => {
     }
 }
 
-export const swapDisplayPositions = (channelName1: string, channelName2: string) => {
-    const stream1 = streamsState.streams.find((stream) => stream.channelName === channelName1)
-    const stream2 = streamsState.streams.find((stream) => stream.channelName === channelName2)
+export const swapDisplayPositions = (id1: string, id2: string) => {
+    const stream1 = streamsState.streams.find((stream) => stream.id === id1)
+    const stream2 = streamsState.streams.find((stream) => stream.id === id2)
 
     if (!(stream1 && stream2)) {
         return
@@ -85,3 +82,14 @@ export const swapDisplayPositions = (channelName1: string, channelName2: string)
     stream1.displayPosition = stream2Clone.displayPosition
     stream2.displayPosition = stream1Clone.displayPosition
 }
+
+subscribe(streamsState.streams, () => {
+    const streamsAsParams = streamsState.streams.map(
+        (stream) => `${stream.streamSource}:${stream.id}`,
+    )
+    searchParams.setParams(streamsAsParams)
+
+    if (!streamsState.identifiers.includes(streamsState.selectedChatChannel)) {
+        selectChatChannel(streamsState.identifiers[0] || "")
+    }
+})

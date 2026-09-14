@@ -11,12 +11,8 @@ import { useState } from "react"
 import { ReactComponent as TwitchLogo } from "../../assets/TwitchLogo.svg"
 import YouTubeLogo from "../../assets/YouTubeLogo.png"
 import { addStream } from "../../commons/streamsState"
+import { StreamSource } from "../../types"
 import StreamList from "./StreamList"
-
-enum StreamSource {
-    TWITCH,
-    YOUTUBE,
-}
 
 const StreamSection = () => {
     const [addStreamFieldValue, setAddStreamFieldValue] = useState("")
@@ -26,7 +22,7 @@ const StreamSection = () => {
         if (!addStreamFieldValue) {
             return
         }
-        addStream(addStreamFieldValue)
+        addStream({ id: addStreamFieldValue, streamSource })
         setAddStreamFieldValue("")
     }
 
@@ -45,7 +41,7 @@ const StreamSection = () => {
         if (streamSource === StreamSource.TWITCH) {
             return "Channel name"
         }
-        return "Stream url / @handle"
+        return "Stream url"
     }
 
     const getLabelText = () => {

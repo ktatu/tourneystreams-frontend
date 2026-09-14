@@ -1,3 +1,19 @@
+export interface Stream {
+    id: string
+    displayPosition: number
+    streamSource: StreamSource
+}
+
+export interface StreamUserInput {
+    id: string
+    streamSource: StreamSource
+}
+
+export enum StreamSource {
+    TWITCH = "twitch",
+    YOUTUBE = "youtube",
+}
+
 export interface TourneyCardProps {
     id: number
     name: string

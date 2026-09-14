@@ -10,7 +10,7 @@ const StreamList = () => {
     const [showMenuButton, setShowMenuButton] = useState(false)
     const [firstComponentRender, setFirstComponentRender] = useState(true)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const { selectedChatChannel, sortedChannels } = useStreamsState()
+    const { selectedChatChannel, identifiersSortedByPos: sortedChannels } = useStreamsState()
 
     const slideContainerRef = useRef(null)
 

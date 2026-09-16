@@ -3,33 +3,28 @@ import { useStreamsState } from "../../commons/streamsState"
 
 const Chat = () => {
     const streamsState = useStreamsState()
-    /*
-    if (!streamsStateSnap.selectedChatId) {
+    const selectedChat = streamsState.selectedChat
+    if (!selectedChat) {
         return null
-    }*/
+    }
 
-    const ytVideoId = "t2X3bMgXpIc"
+    const { id, streamSource } = selectedChat
+
+    const chatUrl =
+        streamSource === "youtube"
+            ? `https://youtube.com/live_chat?v=${id}&embed_domain=${window.location.hostname}&dark_theme=1`
+            : `https://www.twitch.tv/embed/${id}/chat?darkpopout&parent=${window.location.hostname}`
 
     return (
         <Box
             height="100%"
             position="relative"
-            width="100%"
+            width="350px"
         >
-            {/*
-            <iframe
-                height="100%"
-                src={`https://www.twitch.tv/embed/${streamsStateSnap.selectedChatId}/chat?darkpopout&parent=${window.location.hostname}`}
-                width="100%"
-                style={{
-                    display: "block",
-                    border: "none",
-                }}
-            ></iframe>*/}
             <iframe
                 height="100%"
                 width="100%"
-                src={`https://youtube.com/live_chat?v=${ytVideoId}&embed_domain=${window.location.hostname}&dark_theme=1`}
+                src={chatUrl}
                 style={{
                     display: "block",
                     border: "none",

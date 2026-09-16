@@ -4,11 +4,6 @@ export interface Stream {
     streamSource: StreamSource
 }
 
-export interface StreamUserInput {
-    id: string
-    streamSource: StreamSource
-}
-
 export enum StreamSource {
     TWITCH = "twitch",
     YOUTUBE = "youtube",

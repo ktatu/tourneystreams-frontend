@@ -1,9 +1,9 @@
 import { proxy, subscribe, useSnapshot } from "valtio"
-import { Stream, StreamSource, StreamUserInput } from "../types"
+import { Stream, StreamSource } from "../types"
 import useSearchParams from "./useSearchParams"
 
 interface StreamsState {
-    selectedChatId: string
+    selectedChat: Stream | null
     streams: Array<Stream>
     readonly identifiers: Array<string>
     readonly identifiersSortedByPos: Array<string>
@@ -25,7 +25,7 @@ const initialStreams = searchParams.getAll().map((param, index) => {
 })
 
 export const streamsState = proxy<StreamsState>({
-    selectedChatId: "",
+    selectedChat: null,
     streams: initialStreams,
     get identifiers() {
         return this.streams.map((stream: Stream) => stream.id)
@@ -42,13 +42,14 @@ export const streamsState = proxy<StreamsState>({
 
 export const useStreamsState = () => useSnapshot(streamsState)
 
-export const addStream = (streamInput: StreamUserInput) => {
-    if (streamsState.identifiers.includes(streamInput.id)) {
+export const addStream = (id: string, streamSource: StreamSource) => {
+    if (streamsState.identifiers.includes(id)) {
         return
     }
 
     streamsState.streams.push({
-        ...streamInput,
+        id,
+        streamSource,
         displayPosition: streamsState.streams.length,
     })
 }
@@ -60,11 +61,12 @@ export const removeStream = (id: string) => {
     }
 }
 
-export const selectChatChannel = (channel: string) => {
-    if (channel === streamsState.selectedChatId) {
-        streamsState.selectedChatId = ""
+export const selectChatChannel = (streamId: string) => {
+    if (streamId === streamsState.selectedChat?.id) {
+        streamsState.selectedChat = null
     } else {
-        streamsState.selectedChatId = channel
+        streamsState.selectedChat =
+            streamsState.streams.find((stream) => stream.id === streamId) || null
     }
 }
 
@@ -75,6 +77,8 @@ export const swapDisplayPositions = (id1: string, id2: string) => {
     if (!(stream1 && stream2)) {
         return
     }
+
+    console.log("aaaa")
 
     const stream1Clone = JSON.parse(JSON.stringify(stream1))
     const stream2Clone = JSON.parse(JSON.stringify(stream2))
@@ -89,7 +93,10 @@ subscribe(streamsState.streams, () => {
     )
     searchParams.setParams(streamsAsParams)
 
-    if (!streamsState.identifiers.includes(streamsState.selectedChatId)) {
-        selectChatChannel(streamsState.identifiers[0] || "")
+    if (
+        streamsState.selectedChat &&
+        !streamsState.identifiers.includes(streamsState.selectedChat.id)
+    ) {
+        streamsState.selectedChat = null
     }
 })

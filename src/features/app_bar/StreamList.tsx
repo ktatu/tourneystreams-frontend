@@ -10,8 +10,7 @@ const StreamList = () => {
     const [showMenuButton, setShowMenuButton] = useState(false)
     const [firstComponentRender, setFirstComponentRender] = useState(true)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const { selectedChatId: selectedChatChannel, identifiersSortedByPos: sortedChannels } =
-        useStreamsState()
+    const { selectedChat, identifiersSortedByPos: sortedChannels } = useStreamsState()
 
     const slideContainerRef = useRef(null)
 
@@ -76,7 +75,7 @@ const StreamList = () => {
                             gap={2}
                         >
                             {sortedChannels.map((channel, index) => {
-                                const channelChatIsSelected = channel === selectedChatChannel
+                                const channelChatIsSelected = channel === selectedChat?.id
 
                                 return (
                                     <StreamListItem
@@ -127,8 +126,7 @@ const StreamList = () => {
                             >
                                 <Stack direction="column">
                                     {sortedChannels.map((channel) => {
-                                        const channelChatIsSelected =
-                                            channel === selectedChatChannel
+                                        const channelChatIsSelected = channel === selectedChat?.id
 
                                         return (
                                             <StreamListItem

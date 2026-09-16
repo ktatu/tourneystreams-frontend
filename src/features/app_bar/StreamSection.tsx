@@ -22,7 +22,7 @@ const StreamSection = () => {
         if (!addStreamFieldValue) {
             return
         }
-        addStream({ id: addStreamFieldValue, streamSource })
+        addStream(addStreamFieldValue, streamSource)
         setAddStreamFieldValue("")
     }
 

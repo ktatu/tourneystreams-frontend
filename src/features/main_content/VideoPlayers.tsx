@@ -18,12 +18,12 @@ const VideoPlayers = () => {
             height="100%"
             overflow="auto"
         >
-            {streams.map((stream, index) => {
+            {streams.map((stream) => {
                 const { width, height } = getVideoDimensions(streams.length, stream.displayPosition)
 
                 return (
                     <Box
-                        key={index}
+                        key={`${stream.id}-${stream.displayPosition}`}
                         height={`${height}%`}
                         order={stream.displayPosition}
                         overflow="hidden"

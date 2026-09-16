@@ -31,7 +31,7 @@ const useStreamsFilterAndSort = (followedStreams: Array<FollowedStream>) => {
             : orderBy(
                   filteredStreams,
                   [streamIsCurrentlyWatched, "category", "viewerCount"],
-                  ["desc", "asc", "desc"]
+                  ["desc", "asc", "desc"],
               )
 
     return {
@@ -46,7 +46,7 @@ const useStreamsFilterAndSort = (followedStreams: Array<FollowedStream>) => {
 }
 
 const streamIsCurrentlyWatched = (followedStream: FollowedStream) => {
-    return streamsState.channels.includes(followedStream.loginName)
+    return streamsState.identifiers.includes(followedStream.loginName)
 }
 
 export default useStreamsFilterAndSort

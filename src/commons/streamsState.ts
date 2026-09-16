@@ -3,7 +3,7 @@ import { Stream, StreamSource, StreamUserInput } from "../types"
 import useSearchParams from "./useSearchParams"
 
 interface StreamsState {
-    selectedChatChannel: string
+    selectedChatId: string
     streams: Array<Stream>
     readonly identifiers: Array<string>
     readonly identifiersSortedByPos: Array<string>
@@ -25,7 +25,7 @@ const initialStreams = searchParams.getAll().map((param, index) => {
 })
 
 export const streamsState = proxy<StreamsState>({
-    selectedChatChannel: initialStreams[0]?.id || "",
+    selectedChatId: "",
     streams: initialStreams,
     get identifiers() {
         return this.streams.map((stream: Stream) => stream.id)
@@ -61,10 +61,10 @@ export const removeStream = (id: string) => {
 }
 
 export const selectChatChannel = (channel: string) => {
-    if (channel === streamsState.selectedChatChannel) {
-        streamsState.selectedChatChannel = ""
+    if (channel === streamsState.selectedChatId) {
+        streamsState.selectedChatId = ""
     } else {
-        streamsState.selectedChatChannel = channel
+        streamsState.selectedChatId = channel
     }
 }
 
@@ -89,7 +89,7 @@ subscribe(streamsState.streams, () => {
     )
     searchParams.setParams(streamsAsParams)
 
-    if (!streamsState.identifiers.includes(streamsState.selectedChatChannel)) {
+    if (!streamsState.identifiers.includes(streamsState.selectedChatId)) {
         selectChatChannel(streamsState.identifiers[0] || "")
     }
 })

@@ -32,7 +32,7 @@ interface StreamCardProps {
 const StreamCard = ({ followedStream }: StreamCardProps) => {
     const [cardExpanded, setCardExpanded] = useState(false)
     const [streamToggled, setStreamToggled] = useState(false)
-    const { channels } = useStreamsState()
+    const { identifiers: channels } = useStreamsState()
 
     const thumbnailUrl = `https://static-cdn.jtvnw.net/previews-ttv/live_user_${followedStream.loginName}-350x210.jpg`
 

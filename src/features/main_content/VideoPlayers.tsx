@@ -1,11 +1,14 @@
 import { Box } from "@mui/material"
 import { memo } from "react"
 import { useStreamsState } from "../../commons/streamsState"
-import VideoFrameContainer from "./VideoFrameContainer"
+import useYoutubeiFrameApi from "../../hooks/useYoutubeiFrameApi"
+import TwitchPlayer from "./TwitchPlayer"
 import getVideoDimensions from "./videoDimensions"
+import YoutubePlayer from "./YoutubePlayer"
 
-const VideoFrames = () => {
+const VideoPlayers = () => {
     const { streams } = useStreamsState()
+    const youtubeApiReady = useYoutubeiFrameApi().youtubeApiReady
 
     return (
         <Box
@@ -26,7 +29,14 @@ const VideoFrames = () => {
                         overflow="hidden"
                         width={`${width}%`}
                     >
-                        <VideoFrameContainer channel={stream.channelName} />
+                        {stream.streamSource === "twitch" ? (
+                            <TwitchPlayer stream={stream} />
+                        ) : (
+                            <YoutubePlayer
+                                videoId={stream.id}
+                                youtubeApiReady={youtubeApiReady}
+                            />
+                        )}
                     </Box>
                 )
             })}
@@ -34,4 +44,4 @@ const VideoFrames = () => {
     )
 }
 
-export default memo(VideoFrames)
+export default memo(VideoPlayers)

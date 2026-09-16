@@ -34,7 +34,7 @@ interface StreamInfoRowProps {
 
 const StreamInfoRow = memo(function StreamInfoRow({ streamInfo }: StreamInfoRowProps) {
     const [checked, setChecked] = useState(false)
-    const { channels } = useStreamsState()
+    const { identifiers: channels } = useStreamsState()
 
     const handleToggle = () => {
         if (checked) {

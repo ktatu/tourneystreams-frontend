@@ -34,7 +34,9 @@ const StreamSection = () => {
         event: React.MouseEvent<HTMLElement>,
         newStreamSource: StreamSource,
     ) => {
-        setStreamSource(newStreamSource)
+        if (newStreamSource !== null) {
+            setStreamSource(newStreamSource)
+        }
     }
 
     const getPlaceHolderText = () => {

@@ -103,3 +103,5 @@
 
 13.9 3h Frontend: YouTube-streamien lisääminen
 14.9 4h Frontend: YouTube-streamien lisääminen
+15.9 2h Frontend: YouTube-streamien lisääminen
+16.9 3h Frontend: YouTube-streamien lisääminen

@@ -6,7 +6,7 @@ interface StreamsState {
     selectedChat: Stream | null
     streams: Array<Stream>
     readonly identifiers: Array<string>
-    readonly identifiersSortedByPos: Array<string>
+    readonly sortedStreams: Array<Stream>
 }
 
 const searchParams = useSearchParams("streams")
@@ -30,13 +30,10 @@ export const streamsState = proxy<StreamsState>({
     get identifiers() {
         return this.streams.map((stream: Stream) => stream.id)
     },
-    get identifiersSortedByPos() {
-        return this.streams
-            .sort(
-                (stream1: Stream, stream2: Stream) =>
-                    stream1.displayPosition - stream2.displayPosition,
-            )
-            .map((stream: Stream) => stream.id)
+    get sortedStreams() {
+        return this.streams.toSorted(
+            (stream1: Stream, stream2: Stream) => stream1.displayPosition - stream2.displayPosition,
+        )
     },
 })
 
@@ -77,8 +74,6 @@ export const swapDisplayPositions = (id1: string, id2: string) => {
     if (!(stream1 && stream2)) {
         return
     }
-
-    console.log("aaaa")
 
     const stream1Clone = JSON.parse(JSON.stringify(stream1))
     const stream2Clone = JSON.parse(JSON.stringify(stream2))

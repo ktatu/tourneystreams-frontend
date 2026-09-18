@@ -3,19 +3,22 @@ import { CSS } from "@dnd-kit/utilities"
 import CloseIcon from "@mui/icons-material/Close"
 import CommentIcon from "@mui/icons-material/Comment"
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz"
-import { Box, IconButton, Paper, Tooltip, Typography } from "@mui/material"
+import { Box, IconButton, Paper, Tooltip } from "@mui/material"
 import { memo } from "react"
 import { removeStream, selectChatChannel } from "../../commons/streamsState"
+import { Stream } from "../../types"
+import StreamName from "./StreamName"
 
 interface StreamListItemProps {
-    channel: string
+    stream: Stream
     channelChatIsSelected: boolean
     oneStreamOpen: boolean
 }
 
-const StreamListItem = ({ channel, channelChatIsSelected, oneStreamOpen }: StreamListItemProps) => {
+const StreamListItem = ({ stream, channelChatIsSelected, oneStreamOpen }: StreamListItemProps) => {
+    const streamId = stream.id
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-        id: channel,
+        id: streamId,
     })
 
     const zIndex = isDragging ? 1000 : 1
@@ -28,11 +31,11 @@ const StreamListItem = ({ channel, channelChatIsSelected, oneStreamOpen }: Strea
     } as React.CSSProperties
 
     const handleRemoveStream = () => {
-        removeStream(channel)
+        removeStream(streamId)
     }
 
     const handleSelectChatChannel = () => {
-        selectChatChannel(channel)
+        selectChatChannel(streamId)
     }
 
     return (
@@ -51,12 +54,10 @@ const StreamListItem = ({ channel, channelChatIsSelected, oneStreamOpen }: Strea
                 paddingRight={1}
                 width="100%"
             >
-                <Typography
-                    sx={{ userSelect: "none" }}
-                    variant="button"
-                >
-                    {channel}
-                </Typography>
+                <StreamName
+                    streamId={stream.id}
+                    streamSource={stream.streamSource}
+                />
                 <Box flexGrow={1} />
                 <Box display="flex">
                     {!oneStreamOpen && (

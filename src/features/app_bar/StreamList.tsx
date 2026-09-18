@@ -10,14 +10,14 @@ const StreamList = () => {
     const [showMenuButton, setShowMenuButton] = useState(false)
     const [firstComponentRender, setFirstComponentRender] = useState(true)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const { selectedChat, identifiersSortedByPos: sortedChannels } = useStreamsState()
+    const { selectedChat, sortedStreams } = useStreamsState()
 
     const slideContainerRef = useRef(null)
 
     // layouteffect and firstComponentRender prevent showing a swap from list to menu to user on first render
     // relevant only when the site is loaded with > 3 streams in url's search parameters
     useLayoutEffect(() => {
-        if (sortedChannels.length > 3) {
+        if (sortedStreams.length > 3) {
             setShowHorizontalList(false)
             setShowMenuButton(true)
         }
@@ -29,12 +29,12 @@ const StreamList = () => {
             return
         }
 
-        if (sortedChannels.length > 3) {
+        if (sortedStreams.length > 3) {
             setShowHorizontalList(false)
         } else {
             setShowMenuButton(false)
         }
-    }, [sortedChannels, anchorEl])
+    }, [sortedStreams, anchorEl])
 
     const handleMenuOpen: MouseEventHandler = (event: React.MouseEvent<HTMLElement>): void => {
         setAnchorEl(event.currentTarget)
@@ -60,7 +60,7 @@ const StreamList = () => {
             >
                 <DragAndDropWrapper
                     movementAxis={MovementAxis.Horizontal}
-                    sortableItems={[...sortedChannels]}
+                    sortableItems={sortedStreams.map((stream) => stream.id)}
                 >
                     <Slide
                         appear={false}
@@ -74,15 +74,15 @@ const StreamList = () => {
                             display="flex"
                             gap={2}
                         >
-                            {sortedChannels.map((channel, index) => {
-                                const channelChatIsSelected = channel === selectedChat?.id
+                            {sortedStreams.map((stream, index) => {
+                                const channelChatIsSelected = stream.id === selectedChat?.id
 
                                 return (
                                     <StreamListItem
                                         key={index}
-                                        channel={channel}
                                         channelChatIsSelected={channelChatIsSelected}
-                                        oneStreamOpen={sortedChannels.length === 1}
+                                        oneStreamOpen={sortedStreams.length === 1}
+                                        stream={stream}
                                     />
                                 )
                             })}
@@ -122,18 +122,18 @@ const StreamList = () => {
                         >
                             <DragAndDropWrapper
                                 movementAxis={MovementAxis.Vertical}
-                                sortableItems={[...sortedChannels]}
+                                sortableItems={sortedStreams.map((stream) => stream.id)}
                             >
                                 <Stack direction="column">
-                                    {sortedChannels.map((channel) => {
-                                        const channelChatIsSelected = channel === selectedChat?.id
+                                    {sortedStreams.map((stream) => {
+                                        const channelChatIsSelected = stream.id === selectedChat?.id
 
                                         return (
                                             <StreamListItem
-                                                key={channel}
-                                                channel={channel}
+                                                key={stream.id}
                                                 channelChatIsSelected={channelChatIsSelected}
                                                 oneStreamOpen={false}
+                                                stream={stream}
                                             />
                                         )
                                     })}

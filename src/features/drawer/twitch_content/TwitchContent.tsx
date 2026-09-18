@@ -39,7 +39,7 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
                 />
                 {isLoading && (
                     <PlaceholderSkeleton
-                        count={3}
+                        count={2}
                         gap={5}
                         height={250}
                         width={350}

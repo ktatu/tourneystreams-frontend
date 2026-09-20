@@ -105,3 +105,5 @@
 14.9 4h Frontend: YouTube-streamien lisääminen
 15.9 2h Frontend: YouTube-streamien lisääminen
 16.9 3h Frontend: YouTube-streamien lisääminen
+18.9 2h Backend: Youtube api-query
+20.9 4h Frontend: UI-muutoksia

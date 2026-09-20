@@ -1,8 +1,15 @@
 import TvIcon from "@mui/icons-material/Tv"
 import { Box, CardMedia, Skeleton, Typography } from "@mui/material"
+import round from "lodash.round"
 import { useEffect, useState } from "react"
 
-const StreamCardThumbnail = ({ streamName }: { streamName: string }) => {
+interface StreamCardThumbnailProps {
+    streamName: string
+    category: string
+    viewerCount: number
+}
+
+const StreamCardThumbnail = ({ streamName, category, viewerCount }: StreamCardThumbnailProps) => {
     const [thumbnailLoaded, setThumbnailLoaded] = useState(false)
     const [thumbnailLoadError, setThumbnailLoadError] = useState(false)
 
@@ -36,6 +43,10 @@ const StreamCardThumbnail = ({ streamName }: { streamName: string }) => {
                 >
                     Failed to load thumbnail
                 </Typography>
+                <ThumbnailOverLayInfo
+                    category={category}
+                    viewerCount={viewerCount}
+                />
             </Box>
         )
     }
@@ -55,8 +66,52 @@ const StreamCardThumbnail = ({ streamName }: { streamName: string }) => {
                     width={THUMBNAIL_WIDTH}
                 />
             )}
+            <ThumbnailOverLayInfo
+                category={category}
+                viewerCount={viewerCount}
+            />
         </>
     )
+}
+
+const ThumbnailOverLayInfo = ({
+    category,
+    viewerCount,
+}: {
+    category: string
+    viewerCount: number
+}) => {
+    return (
+        <>
+            <Box
+                bgcolor="rgba(0, 0, 0, 0.4)"
+                left={0}
+                padding={0.5}
+                position="absolute"
+                top={0}
+            >
+                <div style={{ opacity: 1, userSelect: "none" }}>{category}</div>
+            </Box>
+            <Box
+                bgcolor="rgba(0, 0, 0, 0.4)"
+                left={0}
+                padding={0.5}
+                position="absolute"
+                top={180}
+            >
+                <div style={{ opacity: 1, userSelect: "none" }}>
+                    {parseViewerCount(viewerCount)}
+                </div>
+            </Box>
+        </>
+    )
+}
+
+const parseViewerCount = (viewerCount: number) => {
+    if (viewerCount < 1000) {
+        return viewerCount + " viewers"
+    }
+    return round(viewerCount / 1000, 1) + "K viewers"
 }
 
 export default StreamCardThumbnail

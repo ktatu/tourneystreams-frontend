@@ -1,7 +1,6 @@
 import { Cancel, PlayCircle } from "@mui/icons-material"
 import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 import { Box, Button, Card, CardContent, IconButton, Tooltip, Typography } from "@mui/material"
-import round from "lodash.round"
 import { useEffect, useState } from "react"
 import { addStream, removeStream, useStreamsState } from "../../../commons/streamsState"
 import { StreamSource } from "../../../types"
@@ -33,27 +32,11 @@ const StreamCard = ({ followedStream }: { followedStream: FollowedStream }) => {
 
     return (
         <Card sx={{ width: 350, position: "relative" }}>
-            <StreamCardThumbnail streamName={followedStream.loginName} />
-            <Box
-                bgcolor="rgba(0, 0, 0, 0.4)"
-                left={0}
-                padding={0.5}
-                position="absolute"
-                top={0}
-            >
-                <div style={{ opacity: 1, userSelect: "none" }}>{followedStream.category}</div>
-            </Box>
-            <Box
-                bgcolor="rgba(0, 0, 0, 0.4)"
-                left={0}
-                padding={0.5}
-                position="absolute"
-                top={180}
-            >
-                <div style={{ opacity: 1, userSelect: "none" }}>
-                    {parseViewerCount(followedStream.viewerCount)}
-                </div>
-            </Box>
+            <StreamCardThumbnail
+                streamName={followedStream.loginName}
+                category={followedStream.category}
+                viewerCount={followedStream.viewerCount}
+            />
             <CardContent
                 sx={{
                     boxSizing: "border-box",
@@ -126,13 +109,6 @@ const StreamCard = ({ followedStream }: { followedStream: FollowedStream }) => {
             </CardContent>
         </Card>
     )
-}
-
-const parseViewerCount = (viewerCount: number) => {
-    if (viewerCount < 1000) {
-        return viewerCount + " viewers"
-    }
-    return round(viewerCount / 1000, 1) + "K viewers"
 }
 
 export default StreamCard

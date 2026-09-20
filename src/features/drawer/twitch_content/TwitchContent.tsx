@@ -17,7 +17,7 @@ interface TwitchContentProps {
 const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
     const [twitchContentView, setTwitchContentView] = useState<TwitchContentView>("followedStreams")
 
-    const { data, error, isError, isLoading } = useFollowedStreamsQuery()
+    const { data: streams, error, isError, isLoading } = useFollowedStreamsQuery()
 
     const handleSettingsView = () => {
         if (twitchContentView === "settings") {
@@ -34,7 +34,7 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
                     handleDrawerClose={handleDrawerClose}
                     handleSettingsView={handleSettingsView}
                     settingsViewOpen={twitchContentView === "settings"}
-                    showSettingsIcon={Boolean(data)}
+                    showSettingsIcon={Boolean(streams)}
                     title="Twitch streams"
                 />
                 {isLoading && (
@@ -46,12 +46,12 @@ const TwitchContent = ({ handleDrawerClose }: TwitchContentProps) => {
                     />
                 )}
                 {isError && <TwitchErrorDisplay error={error} />}
-                {data && (
+                {streams && (
                     <>
                         {twitchContentView === "settings" ? (
                             <TwitchSettings />
                         ) : (
-                            <FollowedStreams followedStreams={data} />
+                            <FollowedStreams followedStreams={streams} />
                         )}
                     </>
                 )}

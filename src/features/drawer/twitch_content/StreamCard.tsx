@@ -1,21 +1,11 @@
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import {
-    Box,
-    Button,
-    Card,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Collapse,
-    IconButton,
-    IconButtonProps,
-    Switch,
-    Typography,
-    styled,
-} from "@mui/material"
+import { Cancel, PlayCircle } from "@mui/icons-material"
+import OpenInNewIcon from "@mui/icons-material/OpenInNew"
+import { Box, Button, Card, CardContent, IconButton, Tooltip, Typography } from "@mui/material"
 import round from "lodash.round"
 import { useEffect, useState } from "react"
 import { addStream, removeStream, useStreamsState } from "../../../commons/streamsState"
+import { StreamSource } from "../../../types"
+import StreamCardThumbnail from "./StreamCardThumbnail"
 
 export interface FollowedStream {
     category: string
@@ -25,40 +15,25 @@ export interface FollowedStream {
     viewerCount: number
 }
 
-interface StreamCardProps {
-    followedStream: FollowedStream
-}
-
-const StreamCard = ({ followedStream }: StreamCardProps) => {
-    const [cardExpanded, setCardExpanded] = useState(false)
-    const [streamToggled, setStreamToggled] = useState(false)
+const StreamCard = ({ followedStream }: { followedStream: FollowedStream }) => {
+    const [streamIsPlaying, setStreamIsPlaying] = useState(false)
     const { identifiers: channels } = useStreamsState()
 
-    const thumbnailUrl = `https://static-cdn.jtvnw.net/previews-ttv/live_user_${followedStream.loginName}-350x210.jpg`
-
-    const handleCardExpand = () => {
-        setCardExpanded(!cardExpanded)
+    const handleAddStream = () => {
+        addStream(followedStream.loginName, StreamSource.TWITCH)
     }
 
-    const handleStreamToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (event.target.checked) {
-            addStream(followedStream.loginName)
-        } else {
-            removeStream(followedStream.loginName)
-        }
-        setStreamToggled(event.target.checked)
+    const handleRemoveStream = () => {
+        removeStream(followedStream.loginName)
     }
 
     useEffect(() => {
-        setStreamToggled(channels.includes(followedStream.loginName))
+        setStreamIsPlaying(channels.includes(followedStream.loginName))
     }, [channels])
 
     return (
         <Card sx={{ width: 350, position: "relative" }}>
-            <CardMedia
-                image={thumbnailUrl}
-                sx={{ width: 350, height: 210 }}
-            />
+            <StreamCardThumbnail streamName={followedStream.loginName} />
             <Box
                 bgcolor="rgba(0, 0, 0, 0.4)"
                 left={0}
@@ -79,62 +54,79 @@ const StreamCard = ({ followedStream }: StreamCardProps) => {
                     {parseViewerCount(followedStream.viewerCount)}
                 </div>
             </Box>
-            <CardContent sx={{ paddingBottom: 0 }}>
+            <CardContent
+                sx={{
+                    boxSizing: "border-box",
+                }}
+            >
                 <Box
-                    alignContent="center"
-                    alignItems="center"
                     display="flex"
+                    flexDirection="row"
                 >
-                    <Typography variant="h5">{followedStream.broadcastName}</Typography>
-                    <Box marginLeft="auto">
-                        <Switch
-                            checked={streamToggled}
-                            onChange={handleStreamToggle}
-                        />
-                        <ExpandMore
-                            expand={cardExpanded}
-                            onClick={handleCardExpand}
+                    <Box
+                        alignItems="flex-start"
+                        display="flex"
+                        flexDirection="column"
+                        gap={1}
+                        flex={1}
+                        overflow="hidden"
+                    >
+                        <Button
+                            href={`https://twitch.tv/${followedStream.loginName}`}
+                            referrerPolicy="no-referrer"
+                            sx={{ padding: 0, color: "white" }}
+                            target="_blank"
                         >
-                            <ExpandMoreIcon />
-                        </ExpandMore>
+                            <Typography
+                                position="relative"
+                                paddingRight={3}
+                                variant="h5"
+                            >
+                                {followedStream.broadcastName}
+                                <OpenInNewIcon
+                                    fontSize="small"
+                                    sx={{
+                                        position: "absolute",
+                                        right: 0,
+                                        top: 0,
+                                    }}
+                                />
+                            </Typography>
+                        </Button>
+                        <Typography id="123">{followedStream.title}</Typography>
+                    </Box>
+                    <Box
+                        alignItems="center"
+                        alignSelf="center"
+                        display="flex"
+                        justifyContent="center"
+                        width="25%"
+                    >
+                        {streamIsPlaying ? (
+                            <Tooltip title="Close stream">
+                                <IconButton
+                                    onClick={handleRemoveStream}
+                                    sx={{ width: 64, height: 64 }}
+                                >
+                                    <Cancel sx={{ fontSize: 48 }} />
+                                </IconButton>
+                            </Tooltip>
+                        ) : (
+                            <Tooltip title="Play stream">
+                                <IconButton
+                                    onClick={handleAddStream}
+                                    sx={{ width: 64, height: 64 }}
+                                >
+                                    <PlayCircle sx={{ fontSize: 48 }} />
+                                </IconButton>
+                            </Tooltip>
+                        )}
                     </Box>
                 </Box>
-                <Collapse
-                    unmountOnExit
-                    in={cardExpanded}
-                    timeout="auto"
-                >
-                    {followedStream.title}
-                </Collapse>
             </CardContent>
-            <CardActions>
-                <Button
-                    href={`https://twitch.tv/${followedStream.loginName}`}
-                    referrerPolicy="no-referrer"
-                    size="small"
-                    target="_blank"
-                >
-                    Watch on Twitch
-                </Button>
-            </CardActions>
         </Card>
     )
 }
-
-interface ExpandMoreProps extends IconButtonProps {
-    expand: boolean
-}
-
-const ExpandMore = styled((props: ExpandMoreProps) => {
-    const { expand, ...other } = props
-    return <IconButton {...other} />
-})(({ theme, expand }) => ({
-    transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-        duration: theme.transitions.duration.shortest,
-    }),
-}))
 
 const parseViewerCount = (viewerCount: number) => {
     if (viewerCount < 1000) {

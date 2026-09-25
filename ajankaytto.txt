@@ -107,3 +107,7 @@
 16.9 3h Frontend: YouTube-streamien lisääminen
 18.9 2h Backend: Youtube api-query
 20.9 4h Frontend: UI-muutoksia
+21.9 4h Frontend: UI:n refaktorointia, käyttäjäasetuksia
+22.9 6h Frontend: UI:n pientä muokkausta, Presets-feature   274 h
+23.9 5h Backend: Refaktorointia ja uusi twitch query
+24.9 4h Frontend: Pieniä frontend muutoksia / korjauksia

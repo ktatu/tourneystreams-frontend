@@ -98,6 +98,17 @@
 2024
 
 22.6  2h Domainin ja liquipedia api-webhookin konfigurointi
+
+2025
+
+3.1  5h LPDB-client ja LPDB-server-mock
+5.1  4h LPDB-client, mongodb:n lisäys
+6.1  4h LPDB-client toiminnallisuuksia
+7.1  5h -||-
+12.1 6h -||-
+17.1 5h -||-
+23.1 3h LPDB-client bugfixailua ja refaktorointia
+27.1 2h LPDB-client deployment + bugfixing
  
 2026
 
@@ -111,3 +122,4 @@
 22.9 6h Frontend: UI:n pientä muokkausta, Presets-feature   274 h
 23.9 5h Backend: Refaktorointia ja uusi twitch query
 24.9 4h Frontend: Pieniä frontend muutoksia / korjauksia
+29.12 8h LPDB-client sovelluksen suunnittelu ja aloitus

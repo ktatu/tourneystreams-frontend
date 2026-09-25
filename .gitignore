@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 /.history
+tournament_content/
+tournament_testdb.json
 
 notifications*
 Notifications

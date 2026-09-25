@@ -4,6 +4,35 @@ export interface Stream {
     streamSource: StreamSource
 }
 
+export interface Channel {
+    loginName: string
+    stream?: PresetStream
+}
+
+export interface Preset {
+    name: string
+    channels: Array<Channel>
+}
+
+export interface PresetStream {
+    broadcastName: string
+    viewerCount: string
+}
+
+export interface LocallyStoredPreset {
+    name: string
+    loginNames: Array<string>
+}
+
+export interface TwitchStream {
+    category: string
+    title: string
+    loginName: string
+    broadcastName: string
+    viewerCount: number
+    profileImageUrl: string
+}
+
 export enum StreamSource {
     TWITCH = "twitch",
     YOUTUBE = "youtube",
@@ -34,6 +63,10 @@ export interface Player {
 
 export interface MouseEventHandler {
     (event: React.MouseEvent<HTMLElement>): void
+}
+
+export interface PresetQueryData {
+    name: string
 }
 
 interface TourneyGeneralInfo {

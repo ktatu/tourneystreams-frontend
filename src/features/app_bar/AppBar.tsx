@@ -1,3 +1,4 @@
+import SettingsIcon from "@mui/icons-material/Settings"
 import {
     Box,
     AppBar as MuiAppBar,
@@ -7,21 +8,21 @@ import {
     Toolbar,
 } from "@mui/material"
 import { ReactComponent as TwitchLogo } from "../../assets/TwitchLogo.svg"
-import { DrawerContentType } from "../drawer/DrawerContentSwitch"
+import { DrawerContent } from "../drawer/DrawerContentSwitch"
 import StreamSection from "./StreamSection"
 
 interface AppBarProps {
-    drawerContentType: DrawerContentType
-    setDrawerContentType: (drawerContentType: DrawerContentType) => void
+    drawerContentType: DrawerContent
+    setDrawerContentType: (drawerContentType: DrawerContent) => void
 }
 
 const AppBar = ({ drawerContentType, setDrawerContentType }: AppBarProps) => {
     const handleToggleChange = (
-        event: React.MouseEvent<HTMLElement>,
-        newToggleValue: DrawerContentType
+        _event: React.MouseEvent<HTMLElement>,
+        newToggleValue: DrawerContent,
     ) => {
         if (newToggleValue === null) {
-            setDrawerContentType(DrawerContentType.None)
+            setDrawerContentType(DrawerContent.None)
         } else {
             setDrawerContentType(newToggleValue)
         }
@@ -43,14 +44,23 @@ const AppBar = ({ drawerContentType, setDrawerContentType }: AppBarProps) => {
                             value={drawerContentType}
                             onChange={handleToggleChange}
                         >
-                            <ToggleButton value={DrawerContentType.TournamentContent}>
-                                Tournaments
+                            <ToggleButton value={DrawerContent.Settings}>
+                                <SvgIcon>
+                                    <SettingsIcon fontSize="large" />
+                                </SvgIcon>
                             </ToggleButton>
-                            <ToggleButton value={DrawerContentType.TwitchContent}>
+                            <ToggleButton value={DrawerContent.FollowedStreams}>
                                 <SvgIcon sx={{ marginRight: 1 }}>
                                     <TwitchLogo />
                                 </SvgIcon>
-                                Streams
+                                Followed
+                            </ToggleButton>
+                            <ToggleButton value={DrawerContent.Presets}>
+                                {" "}
+                                <SvgIcon sx={{ marginRight: 1 }}>
+                                    <TwitchLogo />
+                                </SvgIcon>
+                                Presets
                             </ToggleButton>
                         </ToggleButtonGroup>
                         <StreamSection />

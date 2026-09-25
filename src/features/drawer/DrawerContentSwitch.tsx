@@ -1,24 +1,28 @@
 import { memo } from "react"
-import TournamentContent from "./tournament_content/TournamentContent"
-import TwitchContent from "./twitch_content/TwitchContent"
+import FollowedStreams from "./followed_streams/FollowedStreams"
+import Presets from "./presets/Presets"
+import Settings from "./settings/Settings"
 
-export enum DrawerContentType {
-    TournamentContent,
-    TwitchContent,
+export enum DrawerContent {
+    Settings,
+    FollowedStreams,
+    Presets,
     None,
 }
 
 interface DrawerContentSwitchProps {
-    contentType: DrawerContentType
+    contentType: DrawerContent
     handleDrawerClose: () => void
 }
 
 const DrawerContentSwitch = ({ contentType, handleDrawerClose }: DrawerContentSwitchProps) => {
     switch (contentType) {
-        case DrawerContentType.TournamentContent:
-            return <TournamentContent handleDrawerClose={handleDrawerClose} />
-        case DrawerContentType.TwitchContent:
-            return <TwitchContent handleDrawerClose={handleDrawerClose} />
+        case DrawerContent.Settings:
+            return <Settings handleDrawerClose={handleDrawerClose} />
+        case DrawerContent.FollowedStreams:
+            return <FollowedStreams handleDrawerClose={handleDrawerClose} />
+        case DrawerContent.Presets:
+            return <Presets handleDrawerClose={handleDrawerClose} />
         default:
             return null
     }

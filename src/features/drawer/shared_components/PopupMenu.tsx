@@ -4,7 +4,7 @@ import Box from "@mui/material/Box"
 import IconButton from "@mui/material/IconButton"
 import Menu from "@mui/material/Menu"
 import React, { forwardRef, useImperativeHandle, useState } from "react"
-import { MouseEventHandler } from "../types"
+import { MouseEventHandler } from "../../../types"
 
 type ButtonProps = IconButtonProps | TextAndIconButtonProps | TextButtonProps
 

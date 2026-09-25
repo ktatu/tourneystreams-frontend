@@ -9,7 +9,7 @@ const useYoutubeChannelQuery = (streamId: string, streamSource: StreamSource) =>
         () => queryYoutubeChannel(streamId),
         {
             retry: 1,
-            cacheTime: 1000 * 100, // 10 minutes
+            cacheTime: Infinity,
             staleTime: Infinity,
             enabled: streamSource === "youtube",
         },

@@ -1,6 +1,6 @@
 import { proxy, subscribe, useSnapshot } from "valtio"
 import { Stream, StreamSource } from "../types"
-import useSearchParams from "./useSearchParams"
+import searchParams from "./searchParams"
 
 interface StreamsState {
     selectedChat: Stream | null
@@ -9,7 +9,7 @@ interface StreamsState {
     readonly sortedStreams: Array<Stream>
 }
 
-const searchParams = useSearchParams("streams")
+const streamSearchParams = searchParams("streams")
 
 const parseStreamFromParam = (param: string) => {
     const [parsedSource, id] = param.split(":")
@@ -19,7 +19,7 @@ const parseStreamFromParam = (param: string) => {
     return { id, streamSource }
 }
 
-const initialStreams = searchParams.getAll().map((param, index) => {
+const initialStreams = streamSearchParams.getAll().map((param, index) => {
     const { id, streamSource } = parseStreamFromParam(param)
     return { id, streamSource, displayPosition: index }
 })
@@ -86,7 +86,7 @@ subscribe(streamsState.streams, () => {
     const streamsAsParams = streamsState.streams.map(
         (stream) => `${stream.streamSource}:${stream.id}`,
     )
-    searchParams.setParams(streamsAsParams)
+    streamSearchParams.setParams(streamsAsParams)
 
     if (
         streamsState.selectedChat &&

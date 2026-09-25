@@ -18,11 +18,27 @@ const StreamSection = () => {
     const [addStreamFieldValue, setAddStreamFieldValue] = useState("")
     const [streamSource, setStreamSource] = useState<StreamSource>(StreamSource.TWITCH)
 
-    const handleAddStream = () => {
+    const handleAddTwitchStream = () => {
         if (!addStreamFieldValue) {
             return
         }
+
         addStream(addStreamFieldValue, streamSource)
+        setAddStreamFieldValue("")
+    }
+
+    const handleAddYoutubeStream = () => {
+        if (!addStreamFieldValue) {
+            return
+        }
+
+        const youtubeId = parseYoutubeIdFromUrl(addStreamFieldValue)
+        if (typeof youtubeId !== "string") {
+            setAddStreamFieldValue("")
+            return
+        }
+
+        addStream(youtubeId, streamSource)
         setAddStreamFieldValue("")
     }
 
@@ -31,7 +47,7 @@ const StreamSection = () => {
     }
 
     const handleStreamSourceChange = (
-        event: React.MouseEvent<HTMLElement>,
+        _event: React.MouseEvent<HTMLElement>,
         newStreamSource: StreamSource,
     ) => {
         if (newStreamSource !== null) {
@@ -92,7 +108,11 @@ const StreamSection = () => {
             <Button
                 color="primary"
                 variant="contained"
-                onClick={handleAddStream}
+                onClick={
+                    streamSource === StreamSource.TWITCH
+                        ? handleAddTwitchStream
+                        : handleAddYoutubeStream
+                }
             >
                 <Typography variant="h4">+</Typography>
             </Button>
@@ -101,6 +121,12 @@ const StreamSection = () => {
             </Box>
         </Box>
     )
+}
+
+const parseYoutubeIdFromUrl = (url: string) => {
+    const parsedUrl = URL.parse(url)
+    const id = parsedUrl?.searchParams.get("v")
+    return id
 }
 
 export default StreamSection

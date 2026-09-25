@@ -1,6 +1,6 @@
 import queryString from "query-string"
 
-const useSearchParams = (searchParamKey: string) => {
+const searchParams = (searchParamKey: string) => {
     const getAll = () => {
         return getValidatedSearchParamValues(searchParamKey)
     }
@@ -42,4 +42,4 @@ const getValidatedSearchParamValues = (searchParamKey: string): string[] => {
     return []
 }
 
-export default useSearchParams
+export default searchParams

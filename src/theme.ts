@@ -35,6 +35,15 @@ const theme = createTheme({
             main: "#AE341B",
         },
     },
+    components: {
+        MuiTypography: {
+            styleOverrides: {
+                root: {
+                    userSelect: "none",
+                },
+            },
+        },
+    },
 })
 
 export default theme

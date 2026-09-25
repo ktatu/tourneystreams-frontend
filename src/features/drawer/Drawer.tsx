@@ -1,10 +1,10 @@
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 import { Box, Fab, Fade, Drawer as MuiDrawer, useScrollTrigger, useTheme } from "@mui/material"
 import { useEffect, useState } from "react"
-import DrawerContentSwitch, { DrawerContentType } from "./DrawerContentSwitch"
+import DrawerContentSwitch, { DrawerContent } from "./DrawerContentSwitch"
 
 interface TourneyDrawerProps {
-    drawerContent: DrawerContentType
+    drawerContent: DrawerContent
     handleDrawerClose: () => void
 }
 
@@ -19,7 +19,7 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
 
     const handleScrollToTop = (event: React.MouseEvent<HTMLDivElement>) => {
         const anchor = ((event.target as HTMLDivElement).ownerDocument || document).querySelector(
-            "#scroll-to-top-anchor"
+            "#scroll-to-top-anchor",
         )
 
         if (anchor) {
@@ -44,7 +44,7 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
     return (
         <MuiDrawer
             anchor="left"
-            open={drawerContent !== DrawerContentType.None}
+            open={drawerContent !== DrawerContent.None}
             variant="persistent"
             PaperProps={{
                 sx: {

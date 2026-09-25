@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 
 // https://developers.google.com/youtube/iframe_api_reference
-
 const useYoutubeiFrameApi = () => {
     const [youtubeApiReady, setYoutubeApiReady] = useState(false)
 

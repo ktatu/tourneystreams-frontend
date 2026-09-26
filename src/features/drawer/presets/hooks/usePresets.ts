@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useQuery } from "react-query"
-import { getCookie } from "typescript-cookie"
 import { BACKEND_BASE_URL } from "../../../../envConfig"
 import { Channel, LocallyStoredPreset, Preset } from "../../../../types"
 import { getStoredPresets } from "../presetsLocalStorage"
@@ -28,13 +27,6 @@ const queryStreams = async () => {
         return []
     }
 
-    // can token check be added directly to useQuery? (similarly to enabled: ...)
-    const twitchToken = getCookie("twitch-token")
-
-    if (!twitchToken) {
-        throw new Error("Twitch token missing")
-    }
-
     const loginNames = locallyStoredPresets.reduce(
         (array: Array<string>, currPreset: LocallyStoredPreset) => {
             const set = new Set<string>(array)
@@ -47,8 +39,8 @@ const queryStreams = async () => {
     const res = await axios.get<{ streams: Array<StreamQuery> }>(
         `${BACKEND_BASE_URL}/twitch/streams`,
         {
-            headers: { Authorization: `Bearer ${twitchToken}` },
             params: { channelIds: loginNames },
+            withCredentials: true,
         },
     )
 

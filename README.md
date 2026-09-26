@@ -18,7 +18,8 @@ The project contains AI generated content, made using Claude Sonnet 4.5. Use cas
 
 ### Known issues
 
-- Streams don't autoplay in Chrome
+- Streams not autoplaying in Chrome
+- Streams abruptly pausing while interacting with other page elements in Chrome
 - Opening a chat on Firefox with the 7tv extension installed will freeze the browser
 
 ### Planned features / improvements

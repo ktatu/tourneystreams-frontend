@@ -98,6 +98,7 @@
 2024
 
 22.6  2h Domainin ja liquipedia api-webhookin konfigurointi
+29.12 8h LPDB-client sovelluksen suunnittelu ja aloitus
 
 2025
 
@@ -122,4 +123,4 @@
 22.9 6h Frontend: UI:n pientä muokkausta, Presets-feature   274 h
 23.9 5h Backend: Refaktorointia ja uusi twitch query
 24.9 4h Frontend: Pieniä frontend muutoksia / korjauksia
-29.12 8h LPDB-client sovelluksen suunnittelu ja aloitus
+25.9 8h Deploymenttien fixausta, evästeiden käytön muokkausta

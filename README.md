@@ -14,16 +14,16 @@ These instructions are for the frontend only. For backend, read its README.
 
 ### AI Notice
 
-The project contains AI generated content, made using Claude Sonnet 4.5. Use cases include CSS animations, code refactoring and creating helper functions. Files with AI generated content include a description of AI use at the start of the file.
+The project contains AI generated content, made using Claude Sonnet 4.5. Use cases include CSS animations, code refactoring and creating helper functions. Files with AI generated content include a description of AI use at the start of the file
 
 ### Known issues
 
 - Streams not autoplaying in Chrome
-- Streams abruptly pausing while interacting with other page elements in Chrome
+- Streams pausing when the user interacts with some page elements in Chrome
 - Opening a chat on Firefox with the 7tv extension installed will freeze the browser
 
 ### Planned features / improvements
 
-- More visual feedback to users, e.g., alert user when they attempt to add a typoed Twitch stream via the app bar.
+- More visual feedback to users, e.g., alert user when they attempt to add a typoed Twitch stream via the app bar
+- Displaying preset channels and opened streams in a grid where their positions can be swapped by dragging
 - Esports tournaments streams (see the note at the start of README)
--

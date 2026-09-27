@@ -61,17 +61,17 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                     <Box
                         alignItems="flex-start"
                         display="flex"
+                        flex={1}
                         flexDirection="column"
                         gap={1}
-                        flex={1}
                         minWidth={0}
                         position="relative"
                     >
                         <Stack
-                            direction="row"
-                            spacing={1}
                             alignItems="center"
+                            direction="row"
                             minWidth={0}
+                            spacing={1}
                         >
                             <Box
                                 component="img"
@@ -85,14 +85,14 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                                 target="_blank"
                             >
                                 <Typography
-                                    position="relative"
                                     paddingRight={3}
+                                    position="relative"
                                     variant="h6"
                                 >
                                     {followedStream.broadcastName}
                                     <OpenInNewIcon
-                                        fontSize="small"
                                         color="primary"
+                                        fontSize="small"
                                         sx={{
                                             position: "absolute",
                                             right: 0,
@@ -104,8 +104,8 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                         </Stack>
                         {hideThumbnail && (
                             <Typography
-                                fontSize={12}
                                 color="text.secondary"
+                                fontSize={12}
                             >
                                 {followedStream.category},{" "}
                                 {parseViewerCount(followedStream.viewerCount)}
@@ -117,16 +117,16 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                         alignItems="center"
                         alignSelf="center"
                         display="flex"
+                        flexShrink={0}
                         justifyContent="center"
                         width="20%"
-                        flexShrink={0}
                     >
                         {streamIsPlaying ? (
                             <Tooltip title="Close stream">
                                 <IconButton
-                                    onClick={handleRemoveStream}
-                                    sx={{ width: 64, height: 64 }}
                                     color="secondary"
+                                    sx={{ width: 64, height: 64 }}
+                                    onClick={handleRemoveStream}
                                 >
                                     <Cancel sx={{ fontSize: 48 }} />
                                 </IconButton>
@@ -134,9 +134,9 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                         ) : (
                             <Tooltip title="Play stream">
                                 <IconButton
-                                    onClick={handleAddStream}
-                                    sx={{ width: 64, height: 64 }}
                                     color="primary"
+                                    sx={{ width: 64, height: 64 }}
+                                    onClick={handleAddStream}
                                 >
                                     <PlayCircle sx={{ fontSize: 48 }} />
                                 </IconButton>

@@ -1,5 +1,7 @@
 import { Box, Stack, Toolbar } from "@mui/material"
 import { useState } from "react"
+import Alert from "./Alert"
+import { removeAlert, useAlertState } from "./commons/alertState"
 import AppBar from "./features/app_bar/AppBar"
 import Drawer from "./features/drawer/Drawer"
 import { DrawerContent } from "./features/drawer/DrawerContentSwitch"
@@ -9,6 +11,11 @@ import Welcome from "./Welcome"
 const App = () => {
     const [drawerContent, setDrawerContent] = useState(DrawerContent.None)
     const firstTimeVisitor = isIfFirstTimeVisitor()
+    const { message: alertMessage, severity: alertSeverity } = useAlertState()
+
+    const handleCloseAlert = () => {
+        removeAlert()
+    }
 
     return (
         <Box
@@ -27,11 +34,17 @@ const App = () => {
                 bgcolor="black"
                 height="100%"
             >
-                {/*Toolbar not used for anything. It keeps the Streams component below the AppBar*/}
+                {/*Toolbar is used to push the Streams component below the AppBar, since AppBar doesn't do it itself*/}
                 <Toolbar />
                 {firstTimeVisitor && <Welcome />}
                 <Streams />
             </Stack>
+            <Alert
+                handleClose={handleCloseAlert}
+                message={alertMessage}
+                open={Boolean(alertMessage)}
+                severity={alertSeverity}
+            />
         </Box>
     )
 }

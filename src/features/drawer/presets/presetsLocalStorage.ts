@@ -11,6 +11,16 @@ export const getStoredPresets = () => {
     return parsedPresets
 }
 
+export const savePreset = (newPreset: LocallyStoredPreset) => {
+    const savedPresets = getStoredPresets()
+    if (savedPresets && savedPresets.map((preset) => preset.name).includes(newPreset.name)) {
+        throw new Error("Preset name already in use")
+    }
+
+    const newPresetsToSave = savedPresets ? savedPresets.concat(newPreset) : [newPreset]
+    localStorage.setItem("presets", JSON.stringify(newPresetsToSave))
+}
+
 const parseStoredPresets = (presetsString: string) => {
     const presets = JSON.parse(presetsString)
 

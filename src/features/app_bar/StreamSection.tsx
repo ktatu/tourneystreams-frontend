@@ -10,15 +10,14 @@ import {
 import { useState } from "react"
 import { ReactComponent as TwitchLogo } from "../../assets/TwitchLogo.svg"
 import YouTubeLogo from "../../assets/YouTubeLogo.png"
+import { addAlert } from "../../commons/alertState"
 import { addStream } from "../../commons/streamsState"
 import { StreamSource } from "../../types"
-import ErrorAlert from "../drawer/shared_components/ErrorAlert"
 import StreamList from "./StreamList"
 
 const StreamSection = () => {
     const [addStreamFieldValue, setAddStreamFieldValue] = useState("")
     const [streamSource, setStreamSource] = useState<StreamSource>(StreamSource.TWITCH)
-    const [alertErrorMessage, setAlertErrorMessage] = useState("")
 
     const handleAddTwitchStream = () => {
         if (!addStreamFieldValue) {
@@ -37,7 +36,7 @@ const StreamSection = () => {
         const youtubeId = parseYoutubeIdFromUrl(addStreamFieldValue)
         if (typeof youtubeId !== "string") {
             setAddStreamFieldValue("")
-            setAlertErrorMessage("Invalid YouTube url")
+            addAlert("Invalid YouTube url", "error")
             return
         }
 
@@ -78,13 +77,6 @@ const StreamSection = () => {
             display="flex"
             gap={1}
         >
-            {alertErrorMessage && (
-                <ErrorAlert
-                    open={Boolean(alertErrorMessage)}
-                    message={alertErrorMessage}
-                    handleClose={() => setAlertErrorMessage("")}
-                />
-            )}
             <Box
                 alignItems="stretch"
                 display="flex"

@@ -1,9 +1,11 @@
 import { Button, Typography } from "@mui/material"
+import { useState } from "react"
 import { Preset } from "../../../types"
 import DrawerContainer from "../shared_components/DrawerContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
-import PresetsList from "./PresetsList"
+import AddPreset from "./AddPreset"
 import usePresets from "./hooks/usePresets"
+import PresetsList from "./PresetsList"
 
 interface PresetsProps {
     handleDrawerClose: () => void
@@ -32,27 +34,69 @@ const testPresets: Array<Preset> = [
     },
 ]
 
+export enum PresetContent {
+    PresetView,
+    PresetsList,
+}
+
 const Presets = ({ handleDrawerClose }: PresetsProps) => {
+    const [presetContent, setPresetContent] = useState(PresetContent.PresetsList)
+
     const { data: presets, error, isLoading } = usePresets()
+
+    const handleContentViewChange = (newView: PresetContent) => {
+        setPresetContent(newView)
+    }
 
     return (
         <DrawerContainer>
             <>
                 <DrawerHeader
-                    title="Presets"
                     handleDrawerClose={handleDrawerClose}
+                    title="Presets"
                 >
-                    <Button
-                        color="primary"
-                        variant="contained"
-                    >
-                        <Typography variant="h4">+</Typography>
-                    </Button>
+                    <ContentViewSwitchButton
+                        handleChange={handleContentViewChange}
+                        presetContent={presetContent}
+                    />
                 </DrawerHeader>
-                {!presets && <Typography variant="h4">No presets added yet</Typography>}
-                <PresetsList presets={testPresets} />
+                {presetContent === PresetContent.PresetsList && (
+                    <PresetsList presets={testPresets} />
+                )}
+                {presetContent === PresetContent.PresetView && (
+                    <AddPreset handleViewChange={handleContentViewChange} />
+                )}
             </>
         </DrawerContainer>
+    )
+}
+
+interface ContentViewSwitchButtonProps {
+    presetContent: PresetContent
+    handleChange: (content: PresetContent) => void
+}
+
+const ContentViewSwitchButton = ({ presetContent, handleChange }: ContentViewSwitchButtonProps) => {
+    if (presetContent === PresetContent.PresetView) {
+        return (
+            <Button
+                color="secondary"
+                variant="contained"
+                onClick={() => handleChange(PresetContent.PresetsList)}
+            >
+                <Typography variant="body1">cancel</Typography>
+            </Button>
+        )
+    }
+
+    return (
+        <Button
+            color="primary"
+            variant="contained"
+            onClick={() => handleChange(PresetContent.PresetView)}
+        >
+            <Typography variant="h4">+</Typography>
+        </Button>
     )
 }
 

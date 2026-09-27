@@ -6,10 +6,7 @@ import { Stream } from "../../types"
 interface TwitchPlayerProps {
     stream: Stream
 }
-// twitch streams sometimes won't autoplay in chrome, works in firefox
-// reason: no elements can be on top of the stream when it renders. if there's no marginTop, then either the Toolbar or AppBar are considered to be on top of it
-// on left side, opened drawer can also be on top of the stream
-// possible workaround? use interactive frames, set a timer to play the video a moment after it has rendered. https://dev.twitch.tv/docs/embed/video-and-clips/
+
 const TwitchPlayer = (props: TwitchPlayerProps) => {
     const { id } = props.stream
 

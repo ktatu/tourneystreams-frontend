@@ -1,6 +1,6 @@
 import { useQuery } from "react-query"
 import { fetch } from "../../../../commons/authRequests"
-import { Channel, LocallyStoredPreset, Preset } from "../../../../types"
+import { Preset, TwitchChannel } from "../../../../types"
 import PresetStorage from "../PresetsLocalStorage"
 
 interface StreamQuery {
@@ -13,9 +13,15 @@ const presetStorage = PresetStorage.instance
 
 const usePresets = () => {
     const initialPresetsToShow = presetStorage.getStoredPresets()
+    const placeholderData = {
+        presetsWithLiveStreams: [] as Array<Preset>,
+        presetsWithNoLiveStreams: initialPresetsToShow,
+        totalNumOfStreams: 0,
+        totalNumOfViewers: 0,
+    }
 
     const queryResult = useQuery<{
-        presetsWithNoLiveStreams: Array<Preset | LocallyStoredPreset>
+        presetsWithNoLiveStreams: Array<Preset>
         presetsWithLiveStreams: Array<Preset>
         totalNumOfViewers: number
         totalNumOfStreams: number
@@ -23,12 +29,7 @@ const usePresets = () => {
         retry: 1,
         cacheTime: Infinity,
         staleTime: 100000,
-        initialData: {
-            presetsWithLiveStreams: [],
-            presetsWithNoLiveStreams: initialPresetsToShow,
-            totalNumOfStreams: 0,
-            totalNumOfViewers: 0,
-        },
+        placeholderData,
     })
 
     return queryResult
@@ -65,10 +66,10 @@ const getPresets = async () => {
     }
 }
 
-const extractChannelsFromPresets = (presets: Array<LocallyStoredPreset>) =>
-    presets.reduce((array: Array<string>, currPreset: LocallyStoredPreset) => {
+const extractChannelsFromPresets = (presets: Array<Preset>) =>
+    presets.reduce((array: Array<string>, currPreset: Preset) => {
         const set = new Set<string>(array)
-        currPreset.channels.forEach((channel) => set.add(channel))
+        currPreset.channels.forEach((channel) => set.add(channel.name))
         return Array.from(set)
     }, [])
 
@@ -81,7 +82,7 @@ const queryStreams = async (channels: Array<string>) => {
 }
 
 const addStreamQueryDataToPresets = (
-    localPresets: Array<LocallyStoredPreset>,
+    localPresets: Array<Preset>,
     queriedStreams: Array<StreamQuery>,
 ) => {
     const streamsMap: Map<string, StreamQuery> = new Map()
@@ -91,16 +92,16 @@ const addStreamQueryDataToPresets = (
 
     const presetsWithNoLiveStreams: Array<Preset> = []
     const presetsWithLiveStreams: Array<Preset> = localPresets.reduce(
-        (array: Array<Preset>, currPreset: LocallyStoredPreset) => {
+        (array: Array<Preset>, currPreset: Preset) => {
             const presetName = currPreset.name
-            const channels: Array<Channel> = []
+            const channels: Array<TwitchChannel> = []
             let presetHasALiveStream = false
 
-            currPreset.channels.forEach((channelId) => {
-                const stream = streamsMap.get(channelId)
-                const channel: Channel = { loginName: channelId }
+            currPreset.channels.forEach((channel) => {
+                const stream = streamsMap.get(channel.name)
+                const channelToAdd: TwitchChannel = { name: channel.name }
                 if (stream) {
-                    channel.stream = stream
+                    channelToAdd.stream = stream
                     presetHasALiveStream = true
                 }
                 channels.push(channel)
@@ -157,7 +158,7 @@ const sortPresetsByViewerCount = (presets: Array<Preset>) =>
 const sortPresetsAlphabetically = (presets: Array<Preset>) =>
     presets.sort((presetA, presetB) => presetA.name.localeCompare(presetB.name))
 
-export const sumViewerCount = (total: number, channel: Channel) => {
+export const sumViewerCount = (total: number, channel: TwitchChannel) => {
     return total + Number(channel.stream?.viewerCount ?? 0)
 }
 

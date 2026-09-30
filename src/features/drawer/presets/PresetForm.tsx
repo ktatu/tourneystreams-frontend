@@ -130,7 +130,7 @@ const PresetForm = ({
                     </Typography>
                     {formType === PresetFormType.Add && (
                         <AddPreset
-                            channels={channels}
+                            channelNames={channels}
                             presetName={presetName}
                             setErrorMessage={setErrorMessage}
                             setPresetContent={setPresetContentView}
@@ -138,7 +138,7 @@ const PresetForm = ({
                     )}
                     {formType === PresetFormType.Update && (
                         <UpdatePreset
-                            channels={channels}
+                            channelNames={channels}
                             initialPresetName={initialPresetName}
                             presetName={presetName}
                             setErrorMessage={setErrorMessage}

@@ -1,4 +1,4 @@
-import { LocallyStoredPreset } from "../../../types"
+import { Preset } from "../../../types"
 
 class PresetLocalStorage {
     private static inst: PresetLocalStorage
@@ -24,11 +24,15 @@ class PresetLocalStorage {
         return parsedPresets
     }
 
-    savePreset(newPreset: LocallyStoredPreset) {
+    savePreset(newPreset: Preset) {
         const savedPresets = this.getStoredPresets()
         newPreset.name = newPreset.name.toLocaleLowerCase()
 
-        if (newPreset.channels.find((name) => name.length < 4 || name.length > 25)) {
+        if (
+            newPreset.channels.find(
+                (channel) => channel.name.length < 4 || channel.name.length > 25,
+            )
+        ) {
             throw new Error("Channels between 4 and 25 characters")
         }
         if (newPreset.name.length > 30) {
@@ -58,21 +62,18 @@ const parseStoredPresets = (presetsString: string) => {
         return []
     }
 
-    const parsedPresets = presets.reduce(
-        (presetArray: Array<LocallyStoredPreset>, currPreset: unknown) => {
-            if (!isPreset(currPreset)) {
-                return presetArray
-            }
+    const parsedPresets = presets.reduce((presetArray: Array<Preset>, currPreset: unknown) => {
+        if (!isPreset(currPreset)) {
+            return presetArray
+        }
 
-            return presetArray.concat(currPreset)
-        },
-        [],
-    )
+        return presetArray.concat(currPreset)
+    }, [])
 
     return parsedPresets
 }
 
-const isPreset = (preset: unknown): preset is LocallyStoredPreset => {
+const isPreset = (preset: unknown): preset is Preset => {
     if (typeof preset !== "object" || preset === null) {
         return false
     }
@@ -81,13 +82,15 @@ const isPreset = (preset: unknown): preset is LocallyStoredPreset => {
         return false
     }
 
-    if (!("loginNames" in preset) || !Array.isArray(preset.loginNames)) {
+    if (!("channels" in preset) || !Array.isArray(preset.channels)) {
         return false
     }
 
-    if (!preset.loginNames.every((id) => typeof id === "string")) {
-        return false
-    }
+    preset.channels.forEach((channel) => {
+        if (!("name" in channel) || typeof channel !== "string") {
+            return false
+        }
+    })
 
     return true
 }

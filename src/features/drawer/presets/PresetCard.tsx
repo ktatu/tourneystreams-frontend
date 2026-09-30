@@ -38,7 +38,7 @@ const PresetCard = ({ preset }: { preset: Preset }) => {
         <Card sx={{ width: STREAMCARD_WIDTH, position: "relative" }}>
             {!hideThumbnail && (
                 <PresetCardThumbnail
-                    streamName={channelsWithStreamsLive[0].loginName}
+                    streamName={channelsWithStreamsLive[0].name}
                     thumbnailWidth={STREAMCARD_WIDTH}
                     overlay={
                         <ThumbnailInfoOverlay

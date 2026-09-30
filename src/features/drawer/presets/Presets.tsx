@@ -56,7 +56,7 @@ const Presets = ({ handleDrawerClose }: PresetsProps) => {
                         setPresetContentView={setPresetContentView}
                         viewTitle="Update preset"
                         initialChannels={structuredClone(
-                            presetToUpdate?.channels.map((channel) => channel.loginName),
+                            presetToUpdate?.channels.map((channel) => channel.name),
                         )}
                     />
                 )}

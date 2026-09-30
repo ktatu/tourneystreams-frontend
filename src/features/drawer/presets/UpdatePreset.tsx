@@ -1,6 +1,7 @@
 import { Button, Paper, Popper, Stack, Typography } from "@mui/material"
 import { useState } from "react"
 import { addAlert } from "../../../commons/alertState"
+import { TwitchChannel } from "../../../types"
 import usePresets from "./hooks/usePresets"
 import { PresetContentView } from "./Presets"
 import PresetStorage from "./PresetsLocalStorage"
@@ -11,7 +12,7 @@ interface UpdatePresetProps {
     setErrorMessage: (message: string) => void
     presetName: string
     initialPresetName: string
-    channels: Array<string>
+    channelNames: Array<string>
     setPresetContent: React.Dispatch<React.SetStateAction<PresetContentView>>
 }
 
@@ -19,7 +20,7 @@ const UpdatePreset = ({
     setErrorMessage,
     initialPresetName,
     presetName,
-    channels,
+    channelNames,
     setPresetContent,
 }: UpdatePresetProps) => {
     const { refetch: refetchPresets } = usePresets()
@@ -29,7 +30,11 @@ const UpdatePreset = ({
 
     const handleUpdatePreset = () => {
         try {
-            presetStorage.savePreset({ name: presetName, channels: channels })
+            const channels: Array<TwitchChannel> = channelNames.map((name) => {
+                return { name }
+            })
+
+            presetStorage.savePreset({ name: presetName, channels })
             addAlert(`Preset '${presetName}' added`, "success")
             setPresetContent(PresetContentView.PresetsList)
             refetchPresets()
@@ -96,7 +101,7 @@ const UpdatePreset = ({
                 </Paper>
             </Popper>
             <Button
-                disabled={channels.length === 0 || !presetName}
+                disabled={channelNames.length === 0 || !presetName}
                 variant="contained"
                 onClick={handleUpdatePreset}
             >

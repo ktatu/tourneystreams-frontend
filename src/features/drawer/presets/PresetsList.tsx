@@ -1,5 +1,5 @@
 import { Edit } from "@mui/icons-material"
-import { Button, Stack } from "@mui/material"
+import { Button, CircularProgress, Stack, Typography } from "@mui/material"
 import { Preset } from "../../../types"
 import TwitchConnect from "../shared_components/TwitchConnect"
 import PresetCard from "./PresetCard"
@@ -15,55 +15,8 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
     if (error) {
         // 2 types of errors to handle: status 401, need to show connect
         // everything else: say
-        console.log("error")
         return <TwitchConnect />
     }
-
-    /*
-    if (isLoading) {
-        return (
-            <PlaceholderSkeleton
-                count={2}
-                gap={5}
-                height={250}
-                width={350}
-            />
-        )
-    }*/
-
-    /*
-    if (isLoading) {
-        return (
-            <Stack
-                direction="row"
-                spacing={2}
-            >
-                <Typography
-                    alignItems="center"
-                    variant="h5"
-                >
-                    Checking for livestreams
-                </Typography>
-                <CircularProgress />
-            </Stack>
-        )
-    }
-    */
-
-    return (
-        <Stack spacing={5}>
-            {isFetched && (
-                <Stack gap={3}>
-                    {presetsWithLiveStreams.map((preset, index) => (
-                        <PresetCard
-                            key={index}
-                            preset={preset}
-                        />
-                    ))}
-                </Stack>
-            )}
-        </Stack>
-    )
 
     if (data) {
         const {
@@ -75,6 +28,20 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
 
         return (
             <Stack spacing={5}>
+                {isFetching && (
+                    <Stack
+                        direction="row"
+                        spacing={2}
+                    >
+                        <Typography
+                            alignItems="center"
+                            variant="h5"
+                        >
+                            Checking for livestreams
+                        </Typography>
+                        <CircularProgress />
+                    </Stack>
+                )}
                 <Stack gap={3}>
                     {presetsWithLiveStreams.map((preset, index) => (
                         <PresetCard
@@ -106,6 +73,7 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
         )
     }
 
+    // safe to return null: data-object always exists since usePresets has initial data
     return null
 }
 

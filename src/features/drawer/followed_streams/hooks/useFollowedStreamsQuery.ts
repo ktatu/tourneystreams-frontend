@@ -1,10 +1,9 @@
-import axios from "axios"
 import { useQuery } from "react-query"
-import { BACKEND_BASE_URL } from "../../../../envConfig"
+import { fetch } from "../../../../commons/authRequests"
 import { TwitchStream } from "../../../../types"
 
 const useFollowedStreamsQuery = () => {
-    const queryResult = useQuery<TwitchStream[]>("followedStreams", queryFollowedStreams, {
+    const queryResult = useQuery<Array<TwitchStream>>("followedStreams", queryFollowedStreams, {
         retry: 1,
         cacheTime: 1000 * 100,
         staleTime: 1000 * 10 * 2,
@@ -14,9 +13,7 @@ const useFollowedStreamsQuery = () => {
 }
 
 const queryFollowedStreams = async () => {
-    const res = await axios.get(`${BACKEND_BASE_URL}/twitch`, {
-        withCredentials: true,
-    })
+    const res = await fetch<{ streams: Array<TwitchStream> }>("twitch")
 
     return res.data.streams
 }

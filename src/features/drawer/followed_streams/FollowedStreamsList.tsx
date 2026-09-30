@@ -34,24 +34,24 @@ const FollowedStreamsList = ({ followedStreams }: FollowedStreamsProps) => {
             >
                 <SortBySelect
                     setSortValue={setSortValue}
+                    sortValue={sortValue}
                     sortOptions={[
                         { label: "category", value: "category" },
                         { label: "viewer count", value: "viewerCount" },
                     ]}
-                    sortValue={sortValue}
                 />
                 <FilterByField
                     filterType={filterType}
                     filterValue={filterValue}
-                    setFilterType={(filterBy) =>
-                        setFilterType(filterBy === "channelName" ? "channel name" : filterBy)
-                    }
                     setFilterValue={setFilterValue}
                     filterOptions={[
                         { label: "category", value: "category" },
                         { label: "channel name", value: "channelName" },
                         { label: "title", value: "title" },
                     ]}
+                    setFilterType={(filterBy) =>
+                        setFilterType(filterBy === "channelName" ? "channel name" : filterBy)
+                    }
                 />
             </Box>
             <Stack

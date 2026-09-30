@@ -1,66 +1,70 @@
-import { Stack, Typography } from "@mui/material"
-import { useMemo } from "react"
-import { Channel, Preset } from "../../../types"
+import { Edit } from "@mui/icons-material"
+import { Button, Stack } from "@mui/material"
+import { Preset } from "../../../types"
+import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
 import PresetCard from "./PresetCard"
+import usePresets from "./hooks/usePresets"
 
-const PresetsList = ({ presets }: { presets: Array<Preset> }) => {
-    const { presetsWithNoStreamsLive, presetsWithStreamsLive } = useMemo(() => {
-        const presetsWithNoStreamsLive: Array<Preset> = []
-        const presetsWithStreamsLive = presets.filter((preset) => {
-            const liveChannels = preset.channels.filter((channel) => channel.stream !== undefined)
-
-            if (liveChannels.length !== 0) {
-                return true
-            }
-
-            presetsWithNoStreamsLive.push(preset)
-            return false
-        })
-
-        presetsWithStreamsLive.sort((presetA, presetB) => {
-            const presetAViewerCountTotal = presetA.channels.reduce(sumViewerCount, 0)
-            const presetBViewerCountTotal = presetB.channels.reduce(sumViewerCount, 0)
-
-            return presetAViewerCountTotal > presetBViewerCountTotal ? 1 : -1
-        })
-
-        presetsWithNoStreamsLive.sort((presetA, presetB) =>
-            presetA.name.localeCompare(presetB.name),
-        )
-
-        return {
-            presetsWithStreamsLive,
-            presetsWithNoStreamsLive,
-        }
-    }, [presets])
-
-    return (
-        <Stack spacing={5}>
-            <Stack gap={3}>
-                {presetsWithStreamsLive.map((preset, index) => (
-                    <PresetCard
-                        key={index}
-                        preset={preset}
-                    />
-                ))}
-            </Stack>
-            <Stack>
-                <Typography variant="h5">No livestreams</Typography>
-                {presetsWithNoStreamsLive.map((preset, index) => (
-                    <Typography
-                        key={index}
-                        variant="body1"
-                    >
-                        {preset.name}
-                    </Typography>
-                ))}
-            </Stack>
-        </Stack>
-    )
+interface PresetsListProps {
+    handleChangeToPresetUpdate: (preset: Preset) => void
 }
 
-export const sumViewerCount = (total: number, channel: Channel) => {
-    return total + parseInt(channel.stream?.viewerCount as string)
+const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
+    const { data, error, isLoading } = usePresets()
+
+    if (isLoading) {
+        return (
+            <PlaceholderSkeleton
+                count={2}
+                gap={5}
+                height={250}
+                width={350}
+            />
+        )
+    }
+
+    if (data) {
+        const {
+            presetsWithNoLiveStreams,
+            presetsWithLiveStreams,
+            totalNumOfViewers,
+            totalNumOfStreams,
+        } = data
+
+        return (
+            <Stack spacing={5}>
+                <Stack gap={3}>
+                    {presetsWithLiveStreams.map((preset, index) => (
+                        <PresetCard
+                            key={index}
+                            preset={preset}
+                        />
+                    ))}
+                </Stack>
+                <Stack spacing={1}>
+                    {presetsWithNoLiveStreams.map((preset, index) => (
+                        <Stack
+                            key={index}
+                            alignItems="center"
+                            direction="row"
+                        >
+                            <Button
+                                fullWidth
+                                startIcon={<Edit color="primary" />}
+                                sx={{ justifyContent: "flex-start" }}
+                                variant="text"
+                                onClick={() => handleChangeToPresetUpdate(preset)}
+                            >
+                                {preset.name}
+                            </Button>
+                        </Stack>
+                    ))}
+                </Stack>
+            </Stack>
+        )
+    }
+
+    return null
 }
 
 export default PresetsList

@@ -1,32 +1,25 @@
-import { Button, Stack, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
+import { Button } from "@mui/material"
 import { addAlert } from "../../../commons/alertState"
-import PresetView from "./PresetView"
-import { PresetContent } from "./Presets"
+import { PresetContentView } from "./Presets"
+import usePresets from "./hooks/usePresets"
 import { savePreset } from "./presetsLocalStorage"
 
 interface AddPresetProps {
-    handleViewChange: (newView: PresetContent) => void
+    setErrorMessage: (message: string) => void
+    presetName: string
+    channels: Array<string>
+    setPresetContent: React.Dispatch<React.SetStateAction<PresetContentView>>
 }
 
-const AddPreset = ({ handleViewChange }: AddPresetProps) => {
-    const [channels, setChannels] = useState<Array<string>>([])
-    const [presetName, setPresetName] = useState("")
-    const [errorMessage, setErrorMessage] = useState("")
-
-    useEffect(() => {
-        const id = setTimeout(() => {
-            setErrorMessage("")
-        }, 3000)
-
-        return () => clearTimeout(id)
-    }, [errorMessage])
+const AddPreset = ({ setErrorMessage, presetName, channels, setPresetContent }: AddPresetProps) => {
+    const { refetch: refetchPresets } = usePresets()
 
     const handleSavePreset = () => {
         try {
             savePreset({ name: presetName, loginNames: channels })
             addAlert("Preset added", "success")
-            handleViewChange(PresetContent.PresetsList)
+            setPresetContent(PresetContentView.PresetsList)
+            refetchPresets()
         } catch (error: unknown) {
             if (error instanceof Error) {
                 setErrorMessage(error.message)
@@ -35,35 +28,13 @@ const AddPreset = ({ handleViewChange }: AddPresetProps) => {
     }
 
     return (
-        <PresetView
-            channels={channels}
-            presetName={presetName}
-            setChannels={setChannels}
-            setPresetName={setPresetName}
-            viewTitle="Add preset"
+        <Button
+            disabled={channels.length === 0 || !presetName}
+            variant="contained"
+            onClick={handleSavePreset}
         >
-            <Stack
-                alignItems="center"
-                direction="row"
-                justifyContent="flex-end"
-                spacing={2}
-                width="100%"
-            >
-                <Typography
-                    color="secondary"
-                    variant="body1"
-                >
-                    {errorMessage}
-                </Typography>
-                <Button
-                    disabled={channels.length === 0 || !presetName}
-                    variant="contained"
-                    onClick={handleSavePreset}
-                >
-                    Save
-                </Button>
-            </Stack>
-        </PresetView>
+            Save
+        </Button>
     )
 }
 

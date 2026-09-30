@@ -9,8 +9,8 @@ import { useState } from "react"
 import theme from "../../../theme"
 import { Preset } from "../../../types"
 import PresetCardThumbnail from "./PresetCardThumbnail"
-import { sumViewerCount } from "./PresetsList"
 import ThumbnailInfoOverlay from "./ThumbnailInfoOverlay"
+import { sumViewerCount } from "./hooks/usePresets"
 
 const pulse = keyframes`
     0% {
@@ -38,14 +38,14 @@ const PresetCard = ({ preset }: { preset: Preset }) => {
         <Card sx={{ width: STREAMCARD_WIDTH, position: "relative" }}>
             {!hideThumbnail && (
                 <PresetCardThumbnail
-                    thumbnailWidth={STREAMCARD_WIDTH}
                     streamName={channelsWithStreamsLive[0].loginName}
+                    thumbnailWidth={STREAMCARD_WIDTH}
                     overlay={
                         <ThumbnailInfoOverlay
+                            presetName={preset.name}
                             broadcastName={
                                 channelsWithStreamsLive[0].stream?.broadcastName as string
                             }
-                            presetName={preset.name}
                         />
                     }
                 />
@@ -54,14 +54,14 @@ const PresetCard = ({ preset }: { preset: Preset }) => {
                 <Stack spacing={3}>
                     {hideThumbnail && <Typography variant="h5">{preset.name}</Typography>}
                     <Stack
+                        alignItems="center"
                         direction="row"
                         justifyContent="space-between"
-                        alignItems="center"
                     >
                         <Stack
+                            alignItems="flex-start"
                             direction="row"
                             spacing={2}
-                            alignItems="flex-start"
                         >
                             <Tooltip title={`${numOfChannelsLive} channels live`}>
                                 <Stack
@@ -75,13 +75,13 @@ const PresetCard = ({ preset }: { preset: Preset }) => {
                                         {channelsWithStreamsLive.length}/{preset.channels.length}
                                     </Typography>
                                     <Box
-                                        display="flex"
                                         borderRadius="50%"
+                                        display="flex"
                                         sx={{ animation: `${pulse} 2s ease-out infinite` }}
                                     >
                                         <LiveTvIcon
-                                            fontSize="medium"
                                             color="secondary"
+                                            fontSize="medium"
                                         />
                                     </Box>
                                 </Stack>
@@ -104,8 +104,8 @@ const PresetCard = ({ preset }: { preset: Preset }) => {
                             </Tooltip>
                             <Tooltip title="Play all streams">
                                 <IconButton
-                                    size="large"
                                     color="primary"
+                                    size="large"
                                 >
                                     <PlayCircle fontSize="inherit" />
                                 </IconButton>

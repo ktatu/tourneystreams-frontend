@@ -3,49 +3,26 @@ import { useState } from "react"
 import { Preset } from "../../../types"
 import DrawerContainer from "../shared_components/DrawerContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
-import AddPreset from "./AddPreset"
-import usePresets from "./hooks/usePresets"
+import PresetForm, { PresetFormType } from "./PresetForm"
 import PresetsList from "./PresetsList"
 
 interface PresetsProps {
     handleDrawerClose: () => void
 }
 
-const testPresets: Array<Preset> = [
-    {
-        name: "test123",
-        channels: [
-            { loginName: "crayon_fps", stream: { broadcastName: "crayon", viewerCount: "5865" } },
-            { loginName: "surefour", stream: { broadcastName: "surefour", viewerCount: "2154" } },
-            { loginName: "imaqtpie" },
-        ],
-    },
-    {
-        name: "ttt",
-        channels: [
-            { loginName: "crayon_fps", stream: { broadcastName: "crayon", viewerCount: "55865" } },
-            { loginName: "surefour", stream: { broadcastName: "surefour", viewerCount: "2154" } },
-            { loginName: "imaqtpie" },
-        ],
-    },
-    {
-        name: "nolives",
-        channels: [{ loginName: "forsen" }],
-    },
-]
-
-export enum PresetContent {
-    PresetView,
+export enum PresetContentView {
+    AddPreset,
+    UpdatePreset,
     PresetsList,
 }
 
 const Presets = ({ handleDrawerClose }: PresetsProps) => {
-    const [presetContent, setPresetContent] = useState(PresetContent.PresetsList)
+    const [presetContentView, setPresetContentView] = useState(PresetContentView.PresetsList)
+    const [presetToUpdate, setPresetToUpdate] = useState<Preset | null>(null)
 
-    const { data: presets, error, isLoading } = usePresets()
-
-    const handleContentViewChange = (newView: PresetContent) => {
-        setPresetContent(newView)
+    const handleChangeToPresetUpdate = (preset: Preset) => {
+        setPresetToUpdate(preset)
+        setPresetContentView(PresetContentView.UpdatePreset)
     }
 
     return (
@@ -55,36 +32,59 @@ const Presets = ({ handleDrawerClose }: PresetsProps) => {
                     handleDrawerClose={handleDrawerClose}
                     title="Presets"
                 >
-                    <ContentViewSwitchButton
-                        handleChange={handleContentViewChange}
-                        presetContent={presetContent}
+                    <OpenAddPresetFormButton
+                        presetContent={presetContentView}
+                        setPresetContentView={setPresetContentView}
                     />
                 </DrawerHeader>
-                {presetContent === PresetContent.PresetsList && (
-                    <PresetsList presets={testPresets} />
+                {presetContentView === PresetContentView.AddPreset && (
+                    <PresetForm
+                        formType={PresetFormType.Add}
+                        initialChannels={[]}
+                        initialPresetName="New preset"
+                        setPresetContentView={setPresetContentView}
+                        viewTitle="Add preset"
+                    />
                 )}
-                {presetContent === PresetContent.PresetView && (
-                    <AddPreset handleViewChange={handleContentViewChange} />
+                {presetContentView === PresetContentView.PresetsList && (
+                    <PresetsList handleChangeToPresetUpdate={handleChangeToPresetUpdate} />
+                )}
+                {presetContentView === PresetContentView.UpdatePreset && presetToUpdate && (
+                    <PresetForm
+                        formType={PresetFormType.Update}
+                        initialPresetName={structuredClone(presetToUpdate?.name)}
+                        setPresetContentView={setPresetContentView}
+                        viewTitle="Update preset"
+                        initialChannels={structuredClone(
+                            presetToUpdate?.channels.map((channel) => channel.loginName),
+                        )}
+                    />
                 )}
             </>
         </DrawerContainer>
     )
 }
 
-interface ContentViewSwitchButtonProps {
-    presetContent: PresetContent
-    handleChange: (content: PresetContent) => void
+/*
+ */
+
+interface OpenAddPresetFormButtonProps {
+    presetContent: PresetContentView
+    setPresetContentView: React.Dispatch<React.SetStateAction<PresetContentView>>
 }
 
-const ContentViewSwitchButton = ({ presetContent, handleChange }: ContentViewSwitchButtonProps) => {
-    if (presetContent === PresetContent.PresetView) {
+const OpenAddPresetFormButton = ({
+    presetContent,
+    setPresetContentView,
+}: OpenAddPresetFormButtonProps) => {
+    if (presetContent !== PresetContentView.PresetsList) {
         return (
             <Button
-                color="secondary"
+                color="info"
                 variant="contained"
-                onClick={() => handleChange(PresetContent.PresetsList)}
+                onClick={() => setPresetContentView(PresetContentView.PresetsList)}
             >
-                <Typography variant="body1">cancel</Typography>
+                cancel
             </Button>
         )
     }
@@ -93,7 +93,7 @@ const ContentViewSwitchButton = ({ presetContent, handleChange }: ContentViewSwi
         <Button
             color="primary"
             variant="contained"
-            onClick={() => handleChange(PresetContent.PresetView)}
+            onClick={() => setPresetContentView(PresetContentView.AddPreset)}
         >
             <Typography variant="h4">+</Typography>
         </Button>

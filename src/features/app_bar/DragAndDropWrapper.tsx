@@ -6,7 +6,6 @@ import {
 } from "@dnd-kit/modifiers"
 import { SortableContext, rectSwappingStrategy } from "@dnd-kit/sortable"
 import { swapDisplayPositions } from "../../commons/streamsState"
-import { isString } from "../../commons/typeValidation"
 
 export enum MovementAxis {
     Horizontal,
@@ -54,6 +53,10 @@ const DragAndDropWrapper = ({ children, movementAxis, sortableItems }: DragAndDr
             </SortableContext>
         </DndContext>
     )
+}
+
+const isString = (variable: unknown): boolean => {
+    return typeof variable === "string"
 }
 
 export default DragAndDropWrapper

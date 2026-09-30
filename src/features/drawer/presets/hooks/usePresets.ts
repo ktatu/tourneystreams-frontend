@@ -1,6 +1,5 @@
-import axios from "axios"
 import { useQuery } from "react-query"
-import { BACKEND_BASE_URL } from "../../../../envConfig"
+import { fetch } from "../../../../commons/authRequests"
 import { Channel, LocallyStoredPreset, Preset } from "../../../../types"
 import { getStoredPresets } from "../presetsLocalStorage"
 
@@ -11,45 +10,63 @@ interface StreamQuery {
 }
 
 const usePresets = () => {
-    const queryResult = useQuery<Preset[]>("presets", queryStreams, {
+    const queryResult = useQuery<{
+        presetsWithNoLiveStreams: Array<Preset>
+        presetsWithLiveStreams: Array<Preset>
+        totalNumOfViewers: number
+        totalNumOfStreams: number
+    }>("presets", getPresets, {
         retry: 1,
-        cacheTime: 1000 * 100,
-        staleTime: 1000 * 10 * 2,
+        cacheTime: Infinity,
+        staleTime: 100000,
     })
 
     return queryResult
 }
 
-const queryStreams = async () => {
+const getPresets = async () => {
     const locallyStoredPresets = getStoredPresets()
-
     if (!locallyStoredPresets || locallyStoredPresets.length === 0) {
-        return []
+        return {
+            presetsWithLiveStreams: [],
+            presetsWithNoLiveStreams: [],
+            totalNumOfViewers: 0,
+            totalNumOfStreams: 0,
+        }
     }
 
-    const loginNames = locallyStoredPresets.reduce(
-        (array: Array<string>, currPreset: LocallyStoredPreset) => {
-            const set = new Set<string>(array)
-            currPreset.loginNames.forEach((loginName) => set.add(loginName))
-            return Array.from(set)
-        },
-        [],
-    )
-
-    const res = await axios.get<{ streams: Array<StreamQuery> }>(
-        `${BACKEND_BASE_URL}/twitch/streams`,
-        {
-            params: { channelIds: loginNames },
-            withCredentials: true,
-        },
-    )
-
-    const presetsWithStreamData = addStreamQueryDataToPresets(
+    const channelsOfAllPresets = extractChannelsFromPresets(locallyStoredPresets)
+    const channelsWithLiveStreams = await queryStreams(channelsOfAllPresets)
+    const { presetsWithLiveStreams, presetsWithNoLiveStreams } = addStreamQueryDataToPresets(
         locallyStoredPresets,
-        res.data.streams,
+        channelsWithLiveStreams,
     )
+    const { totalNumOfViewers, totalNumOfStreams } =
+        getTotalNumOfViewersAndStreams(presetsWithLiveStreams)
+    sortPresetsByViewerCount(presetsWithLiveStreams)
+    sortPresetsAlphabetically(presetsWithNoLiveStreams)
 
-    return presetsWithStreamData
+    return {
+        presetsWithLiveStreams,
+        presetsWithNoLiveStreams,
+        totalNumOfViewers,
+        totalNumOfStreams,
+    }
+}
+
+const extractChannelsFromPresets = (presets: Array<LocallyStoredPreset>) =>
+    presets.reduce((array: Array<string>, currPreset: LocallyStoredPreset) => {
+        const set = new Set<string>(array)
+        currPreset.loginNames.forEach((loginName) => set.add(loginName))
+        return Array.from(set)
+    }, [])
+
+const queryStreams = async (channels: Array<string>) => {
+    const res = await fetch<{ streams: Array<StreamQuery> }>("twitch/streams", {
+        params: { channelIds: channels },
+    })
+
+    return res.data.streams
 }
 
 const addStreamQueryDataToPresets = (
@@ -61,27 +78,76 @@ const addStreamQueryDataToPresets = (
         streamsMap.set(stream.loginName, stream)
     })
 
-    const presetsWithStreamData: Array<Preset> = localPresets.reduce(
+    const presetsWithNoLiveStreams: Array<Preset> = []
+    const presetsWithLiveStreams: Array<Preset> = localPresets.reduce(
         (array: Array<Preset>, currPreset: LocallyStoredPreset) => {
             const presetName = currPreset.name
             const channels: Array<Channel> = []
+            let presetHasALiveStream = false
 
             currPreset.loginNames.forEach((channelId) => {
                 const stream = streamsMap.get(channelId)
                 const channel: Channel = { loginName: channelId }
                 if (stream) {
                     channel.stream = stream
+                    presetHasALiveStream = true
                 }
                 channels.push(channel)
             })
 
             const newPreset: Preset = { name: presetName, channels }
-            return array.concat(newPreset)
+            if (presetHasALiveStream) {
+                return array.concat(newPreset)
+            } else {
+                presetsWithNoLiveStreams.push(newPreset)
+                return array
+            }
         },
         [],
     )
 
-    return presetsWithStreamData
+    return { presetsWithLiveStreams, presetsWithNoLiveStreams }
+}
+
+interface ViewersAndStreams {
+    totalNumOfViewers: number
+    totalNumOfStreams: number
+}
+
+const getTotalNumOfViewersAndStreams = (presets: Array<Preset>) =>
+    presets.reduce(
+        ({ totalNumOfViewers, totalNumOfStreams }: ViewersAndStreams, preset) => {
+            let currPresetNumOfViewers = 0
+            let currPresetNumOfStreams = 0
+
+            preset.channels.forEach((channel) => {
+                if (channel.stream) {
+                    currPresetNumOfViewers += parseInt(channel.stream.viewerCount)
+                    currPresetNumOfStreams++
+                }
+            })
+
+            return {
+                totalNumOfViewers: totalNumOfViewers + currPresetNumOfViewers,
+                totalNumOfStreams: totalNumOfStreams + currPresetNumOfStreams,
+            }
+        },
+        { totalNumOfViewers: 0, totalNumOfStreams: 0 },
+    )
+
+const sortPresetsByViewerCount = (presets: Array<Preset>) =>
+    presets.sort((presetA, presetB) => {
+        const presetAViewerCountTotal = presetA.channels.reduce(sumViewerCount, 0)
+        const presetBViewerCountTotal = presetB.channels.reduce(sumViewerCount, 0)
+
+        return presetAViewerCountTotal > presetBViewerCountTotal ? 1 : -1
+    })
+
+const sortPresetsAlphabetically = (presets: Array<Preset>) =>
+    presets.sort((presetA, presetB) => presetA.name.localeCompare(presetB.name))
+
+export const sumViewerCount = (total: number, channel: Channel) => {
+    return total + Number(channel.stream?.viewerCount ?? 0)
 }
 
 export default usePresets

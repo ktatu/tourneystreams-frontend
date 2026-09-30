@@ -2,7 +2,12 @@ import CloseIcon from "@mui/icons-material/Close"
 import { Box, IconButton, Paper, Tooltip, Typography } from "@mui/material"
 import { memo } from "react"
 
-const PresetViewChannelItem = ({ channel }: { channel: string }) => {
+interface PresetViewChannelItemProps {
+    channel: string
+    handleRemoveChannel: (channel: string) => void
+}
+
+const PresetViewChannelItem = ({ channel, handleRemoveChannel }: PresetViewChannelItemProps) => {
     return (
         <Paper
             sx={{ minWidth: 200, height: 50, textAlign: "center" }}
@@ -29,6 +34,7 @@ const PresetViewChannelItem = ({ channel }: { channel: string }) => {
                     <IconButton
                         size="large"
                         sx={{ padding: 0.5 }}
+                        onClick={() => handleRemoveChannel(channel)}
                     >
                         <Tooltip title="Remove channel">
                             <CloseIcon fontSize="medium" />

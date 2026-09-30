@@ -32,7 +32,10 @@ const AppBar = ({ drawerContentType, setDrawerContentType }: AppBarProps) => {
         <Box flexGrow={1}>
             <MuiAppBar
                 position="fixed"
-                sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                sx={{
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                    minHeight: (theme) => theme.mixins.toolbar.minHeight,
+                }}
             >
                 <Toolbar>
                     <Box

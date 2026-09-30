@@ -5,10 +5,11 @@ import DrawerContentSwitch, { DrawerContent } from "./DrawerContentSwitch"
 
 interface TourneyDrawerProps {
     drawerContent: DrawerContent
+    drawerWidth: string
     handleDrawerClose: () => void
 }
 
-const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
+const Drawer = ({ drawerContent, drawerWidth, handleDrawerClose }: TourneyDrawerProps) => {
     const [scrollTarget, setScrollTarget] = useState<undefined | Node>(undefined)
 
     useEffect(() => {
@@ -48,7 +49,7 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
             variant="persistent"
             PaperProps={{
                 sx: {
-                    width: "25vw",
+                    width: drawerWidth,
                     height: "100%",
                     paddingTop: `${drawerPaddingTop}px`,
                 },
@@ -68,7 +69,7 @@ const Drawer = ({ drawerContent, handleDrawerClose }: TourneyDrawerProps) => {
                     <Box
                         bottom="5vh"
                         height="50px"
-                        left="20vw"
+                        left={`calc(${drawerWidth} - 5vw)`}
                         position="fixed"
                         width="50px"
                         onClick={handleScrollToTop}

@@ -124,3 +124,5 @@
 23.9 5h Backend: Refaktorointia ja uusi twitch query
 24.9 4h Frontend: Pieniä frontend muutoksia / korjauksia
 25.9 8h Deploymenttien fixausta, evästeiden käytön muokkausta
+28.9 5h Frontend feature: Presets
+29.9 4h Frontend feature Presets

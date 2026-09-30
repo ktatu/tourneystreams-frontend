@@ -1,8 +1,10 @@
 import { Button } from "@mui/material"
 import { addAlert } from "../../../commons/alertState"
-import { PresetContentView } from "./Presets"
 import usePresets from "./hooks/usePresets"
-import { savePreset } from "./presetsLocalStorage"
+import { PresetContentView } from "./Presets"
+import PresetStorage from "./PresetsLocalStorage"
+
+const presetStorage = PresetStorage.instance
 
 interface AddPresetProps {
     setErrorMessage: (message: string) => void
@@ -16,7 +18,7 @@ const AddPreset = ({ setErrorMessage, presetName, channels, setPresetContent }: 
 
     const handleSavePreset = () => {
         try {
-            savePreset({ name: presetName, loginNames: channels })
+            presetStorage.savePreset({ name: presetName, channels: channels })
             addAlert("Preset added", "success")
             setPresetContent(PresetContentView.PresetsList)
             refetchPresets()

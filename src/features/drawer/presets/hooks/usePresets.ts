@@ -1,17 +1,21 @@
 import { useQuery } from "react-query"
 import { fetch } from "../../../../commons/authRequests"
 import { Channel, LocallyStoredPreset, Preset } from "../../../../types"
-import { getStoredPresets } from "../presetsLocalStorage"
+import PresetStorage from "../PresetsLocalStorage"
 
 interface StreamQuery {
-    loginName: string
+    channel: string
     broadcastName: string
     viewerCount: string
 }
 
+const presetStorage = PresetStorage.instance
+
 const usePresets = () => {
+    const initialPresetsToShow = presetStorage.getStoredPresets()
+
     const queryResult = useQuery<{
-        presetsWithNoLiveStreams: Array<Preset>
+        presetsWithNoLiveStreams: Array<Preset | LocallyStoredPreset>
         presetsWithLiveStreams: Array<Preset>
         totalNumOfViewers: number
         totalNumOfStreams: number
@@ -19,14 +23,21 @@ const usePresets = () => {
         retry: 1,
         cacheTime: Infinity,
         staleTime: 100000,
+        initialData: {
+            presetsWithLiveStreams: [],
+            presetsWithNoLiveStreams: initialPresetsToShow,
+            totalNumOfStreams: 0,
+            totalNumOfViewers: 0,
+        },
     })
 
     return queryResult
 }
 
 const getPresets = async () => {
-    const locallyStoredPresets = getStoredPresets()
-    if (!locallyStoredPresets || locallyStoredPresets.length === 0) {
+    const locallyStoredPresets = presetStorage.getStoredPresets()
+
+    if (locallyStoredPresets.length === 0) {
         return {
             presetsWithLiveStreams: [],
             presetsWithNoLiveStreams: [],
@@ -57,7 +68,7 @@ const getPresets = async () => {
 const extractChannelsFromPresets = (presets: Array<LocallyStoredPreset>) =>
     presets.reduce((array: Array<string>, currPreset: LocallyStoredPreset) => {
         const set = new Set<string>(array)
-        currPreset.loginNames.forEach((loginName) => set.add(loginName))
+        currPreset.channels.forEach((channel) => set.add(channel))
         return Array.from(set)
     }, [])
 
@@ -75,7 +86,7 @@ const addStreamQueryDataToPresets = (
 ) => {
     const streamsMap: Map<string, StreamQuery> = new Map()
     queriedStreams.forEach((stream) => {
-        streamsMap.set(stream.loginName, stream)
+        streamsMap.set(stream.channel, stream)
     })
 
     const presetsWithNoLiveStreams: Array<Preset> = []
@@ -85,7 +96,7 @@ const addStreamQueryDataToPresets = (
             const channels: Array<Channel> = []
             let presetHasALiveStream = false
 
-            currPreset.loginNames.forEach((channelId) => {
+            currPreset.channels.forEach((channelId) => {
                 const stream = streamsMap.get(channelId)
                 const channel: Channel = { loginName: channelId }
                 if (stream) {

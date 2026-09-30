@@ -3,7 +3,9 @@ import { useState } from "react"
 import { addAlert } from "../../../commons/alertState"
 import usePresets from "./hooks/usePresets"
 import { PresetContentView } from "./Presets"
-import { deletePreset, savePreset } from "./presetsLocalStorage"
+import PresetStorage from "./PresetsLocalStorage"
+
+const presetStorage = PresetStorage.instance
 
 interface UpdatePresetProps {
     setErrorMessage: (message: string) => void
@@ -27,7 +29,7 @@ const UpdatePreset = ({
 
     const handleUpdatePreset = () => {
         try {
-            savePreset({ name: presetName, loginNames: channels })
+            presetStorage.savePreset({ name: presetName, channels: channels })
             addAlert(`Preset '${presetName}' added`, "success")
             setPresetContent(PresetContentView.PresetsList)
             refetchPresets()
@@ -39,7 +41,7 @@ const UpdatePreset = ({
     }
 
     const handleDeletePreset = () => {
-        deletePreset(initialPresetName)
+        presetStorage.deletePreset(initialPresetName)
         refetchPresets()
         addAlert(`Preset '${initialPresetName}' deleted`, "success")
         setPresetContent(PresetContentView.PresetsList)

@@ -21,7 +21,7 @@ export interface PresetStream {
 
 export interface LocallyStoredPreset {
     name: string
-    loginNames: Array<string>
+    channels: Array<string>
 }
 
 export interface TwitchStream {

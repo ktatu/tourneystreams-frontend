@@ -1,7 +1,7 @@
 import { Edit } from "@mui/icons-material"
 import { Button, Stack } from "@mui/material"
 import { Preset } from "../../../types"
-import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
+import TwitchConnect from "../shared_components/TwitchConnect"
 import PresetCard from "./PresetCard"
 import usePresets from "./hooks/usePresets"
 
@@ -10,8 +10,16 @@ interface PresetsListProps {
 }
 
 const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
-    const { data, error, isLoading } = usePresets()
+    const { data, error, isLoading, isFetching, isFetched } = usePresets()
 
+    if (error) {
+        // 2 types of errors to handle: status 401, need to show connect
+        // everything else: say
+        console.log("error")
+        return <TwitchConnect />
+    }
+
+    /*
     if (isLoading) {
         return (
             <PlaceholderSkeleton
@@ -21,7 +29,41 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
                 width={350}
             />
         )
+    }*/
+
+    /*
+    if (isLoading) {
+        return (
+            <Stack
+                direction="row"
+                spacing={2}
+            >
+                <Typography
+                    alignItems="center"
+                    variant="h5"
+                >
+                    Checking for livestreams
+                </Typography>
+                <CircularProgress />
+            </Stack>
+        )
     }
+    */
+
+    return (
+        <Stack spacing={5}>
+            {isFetched && (
+                <Stack gap={3}>
+                    {presetsWithLiveStreams.map((preset, index) => (
+                        <PresetCard
+                            key={index}
+                            preset={preset}
+                        />
+                    ))}
+                </Stack>
+            )}
+        </Stack>
+    )
 
     if (data) {
         const {

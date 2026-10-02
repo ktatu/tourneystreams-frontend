@@ -1,14 +1,14 @@
-import { memo } from "react"
+import { Box, CircularProgress } from "@mui/material"
+import { useState } from "react"
 import ReactTwitchPlayer from "react-player/twitch"
 import { removeStream } from "../../commons/streamsState"
-import { Stream } from "../../types"
 
-interface TwitchPlayerProps {
-    stream: Stream
+export interface VideoPlayerProps {
+    id: string
 }
 
-const TwitchPlayer = (props: TwitchPlayerProps) => {
-    const { id } = props.stream
+const TwitchPlayer = ({ id }: VideoPlayerProps) => {
+    const [playerReady, setPlayerReady] = useState(false)
 
     const handleCloseStream = () => {
         const autoCloseEndedStream = localStorage.getItem("autocloseEndedStreams") === "true"
@@ -19,6 +19,46 @@ const TwitchPlayer = (props: TwitchPlayerProps) => {
     }
 
     return (
+        <Box
+            alignItems="center"
+            display="flex"
+            height="100%"
+            justifyContent="center"
+            padding="1px" // seems to prevent player pausing on chrome in some situations
+            position="relative"
+            width="100%"
+        >
+            {!playerReady && (
+                <Box
+                    alignItems="center"
+                    bgcolor="black"
+                    display="flex"
+                    height="100%"
+                    justifyContent="center"
+                    position="absolute"
+                    width="100%"
+                >
+                    <CircularProgress size="10%" />
+                </Box>
+            )}
+            <ReactTwitchPlayer
+                key={id}
+                muted
+                controls={false}
+                height="100%"
+                id={`${id}-player`}
+                playing={true}
+                url={`https://www.twitch.tv/${id}`}
+                width="100%"
+                onEnded={handleCloseStream}
+                onReady={() => setPlayerReady(true)}
+            />
+        </Box>
+    )
+}
+
+export default TwitchPlayer
+/*
         <ReactTwitchPlayer
             key={id}
             muted
@@ -29,8 +69,6 @@ const TwitchPlayer = (props: TwitchPlayerProps) => {
             url={`https://www.twitch.tv/${id}`}
             width="100%"
             onEnded={handleCloseStream}
+            onReady={handlePlayerReady}
         />
-    )
-}
-
-export default memo(TwitchPlayer)
+*/

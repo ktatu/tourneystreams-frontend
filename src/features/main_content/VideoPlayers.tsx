@@ -1,5 +1,4 @@
 import { Box } from "@mui/material"
-import { memo } from "react"
 import { useStreamsState } from "../../commons/streamsState"
 import useYoutubeiFrameApi from "../../hooks/useYoutubeiFrameApi"
 import TwitchPlayer from "./TwitchPlayer"
@@ -20,7 +19,13 @@ const VideoPlayers = () => {
         >
             {streams.map((stream) => {
                 const { width, height } = getVideoDimensions(streams.length, stream.displayPosition)
-
+                /*
+                console.log("---")
+                console.log("width ", width)
+                console.log("height ", height)
+                console.log("id ", stream.id)
+                console.log("---")
+                */
                 return (
                     <Box
                         key={`${stream.id}-${stream.displayPosition}`}
@@ -30,10 +35,10 @@ const VideoPlayers = () => {
                         width={`${width}%`}
                     >
                         {stream.streamSource === "twitch" ? (
-                            <TwitchPlayer stream={stream} />
+                            <TwitchPlayer id={stream.id} />
                         ) : (
                             <YoutubePlayer
-                                videoId={stream.id}
+                                id={stream.id}
                                 youtubeApiReady={youtubeApiReady}
                             />
                         )}
@@ -44,4 +49,4 @@ const VideoPlayers = () => {
     )
 }
 
-export default memo(VideoPlayers)
+export default VideoPlayers

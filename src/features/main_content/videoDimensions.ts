@@ -16,7 +16,7 @@ const getVideoDimensions = (videoCount: number, videoIndex: number) => {
         case 4:
             return { width: baseWidth / 2, height: baseHeight / 2 }
         case 5:
-            if (videoIndex <= 1) {
+            if (videoIndex <= 2) {
                 return { width: baseWidth / 2, height: baseHeight / 2 }
             } else {
                 return { width: baseWidth / 3, height: baseHeight / 2 }

@@ -1,5 +1,7 @@
 import { Box, CircularProgress } from "@mui/material"
 import { useEffect, useState } from "react"
+import { addAlert } from "../../commons/alertState"
+import { removeStream } from "../../commons/streamsState"
 
 interface YoutubePlayerProps {
     id: string
@@ -21,11 +23,25 @@ const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
             events: {
                 onReady: (event) => {
                     setPlayerReady(true)
+                    event.target.mute()
                     event.target.playVideo()
                 },
             },
         })
     }, [youtubeApiReady])
+
+    useEffect(() => {
+        if (playerReady) {
+            return
+        }
+
+        const timeoutId = setTimeout(() => {
+            addAlert("Unable to load YouTube player", "error")
+            removeStream(id)
+        }, 5000)
+
+        return () => clearTimeout(timeoutId)
+    }, [playerReady])
 
     return (
         <Box
@@ -37,7 +53,6 @@ const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
             position="relative"
             width="100%"
         >
-            {" "}
             {!playerReady && (
                 <Box
                     alignItems="center"

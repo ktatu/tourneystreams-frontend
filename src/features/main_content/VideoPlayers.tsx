@@ -7,7 +7,9 @@ import YoutubePlayer from "./YoutubePlayer"
 
 const VideoPlayers = () => {
     const { streams } = useStreamsState()
-    const youtubeApiReady = useYoutubeiFrameApi().youtubeApiReady
+    const { loadYoutubeIframeApi, youtubeApiReady } = useYoutubeiFrameApi()
+
+    loadYoutubeIframeApi()
 
     return (
         <Box
@@ -19,13 +21,7 @@ const VideoPlayers = () => {
         >
             {streams.map((stream) => {
                 const { width, height } = getVideoDimensions(streams.length, stream.displayPosition)
-                /*
-                console.log("---")
-                console.log("width ", width)
-                console.log("height ", height)
-                console.log("id ", stream.id)
-                console.log("---")
-                */
+
                 return (
                     <Box
                         key={`${stream.id}-${stream.displayPosition}`}

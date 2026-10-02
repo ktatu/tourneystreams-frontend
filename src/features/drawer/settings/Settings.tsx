@@ -23,12 +23,12 @@ const Settings = ({ handleDrawerClose }: SettingsProps) => {
                     <Stack>
                         <Typography variant="h5">Twitch</Typography>
                         <CheckboxOption
-                            optionName="autocloseEndedStreams"
                             optionDescription="Automatically close ended streams"
+                            optionName="autocloseEndedStreams"
                         />
                         <CheckboxOption
-                            optionName="hideStreamThumbnails"
                             optionDescription="Hide stream thumbnails"
+                            optionName="hideStreamThumbnails"
                         />
                     </Stack>
                     <Stack spacing={1}>

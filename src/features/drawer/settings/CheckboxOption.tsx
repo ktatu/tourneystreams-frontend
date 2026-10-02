@@ -18,13 +18,13 @@ const CheckboxOption = ({ optionName, optionDescription }: CheckboxOptionProps) 
 
     return (
         <Box
+            alignItems="center"
             display="flex"
             gap={0.5}
-            alignItems="center"
         >
             <Checkbox
-                onChange={handleOptionValChange}
                 checked={optionVal}
+                onChange={handleOptionValChange}
             />
             <Typography sx={{ marginTop: 0.2 }}>{optionDescription}</Typography>
         </Box>

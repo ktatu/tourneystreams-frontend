@@ -13,8 +13,8 @@ const StreamName = ({ streamId, streamSource }: StreamNameProps) => {
     if (isLoading) {
         return (
             <Skeleton
-                variant="text"
                 sx={{ width: "100%" }}
+                variant="text"
             />
         )
     }

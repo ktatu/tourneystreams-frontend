@@ -34,8 +34,8 @@ const UpdatePreset = ({
                 return { name }
             })
 
-            presetStorage.savePreset({ name: presetName, channels })
-            addAlert(`Preset '${presetName}' added`, "success")
+            presetStorage.updatePreset({ name: presetName, channels }, initialPresetName)
+            addAlert(`Preset '${presetName}' updated`, "success")
             setPresetContent(PresetContentView.PresetsList)
             refetchPresets()
         } catch (error: unknown) {

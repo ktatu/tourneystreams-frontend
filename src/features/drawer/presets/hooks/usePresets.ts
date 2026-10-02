@@ -4,7 +4,7 @@ import { Preset, TwitchChannel } from "../../../../types"
 import PresetStorage from "../PresetsLocalStorage"
 
 interface StreamQuery {
-    channel: string
+    loginName: string
     broadcastName: string
     viewerCount: string
 }
@@ -30,6 +30,7 @@ const usePresets = () => {
         cacheTime: Infinity,
         staleTime: 100000,
         placeholderData,
+        enabled: initialPresetsToShow.length !== 0,
     })
 
     return queryResult
@@ -75,9 +76,8 @@ const extractChannelsFromPresets = (presets: Array<Preset>) =>
 
 const queryStreams = async (channels: Array<string>) => {
     const res = await fetch<{ streams: Array<StreamQuery> }>("twitch/streams", {
-        params: { channelIds: channels },
+        params: { channels },
     })
-
     return res.data.streams
 }
 
@@ -87,7 +87,7 @@ const addStreamQueryDataToPresets = (
 ) => {
     const streamsMap: Map<string, StreamQuery> = new Map()
     queriedStreams.forEach((stream) => {
-        streamsMap.set(stream.channel, stream)
+        streamsMap.set(stream.loginName, stream)
     })
 
     const presetsWithNoLiveStreams: Array<Preset> = []
@@ -104,7 +104,7 @@ const addStreamQueryDataToPresets = (
                     channelToAdd.stream = stream
                     presetHasALiveStream = true
                 }
-                channels.push(channel)
+                channels.push(channelToAdd)
             })
 
             const newPreset: Preset = { name: presetName, channels }

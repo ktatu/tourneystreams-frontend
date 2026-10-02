@@ -13,8 +13,8 @@ const ThumbnailInfoOverlay = ({ broadcastName, presetName }: ThumbnailInfoOverla
                 left={0}
                 padding={0.5}
                 position="absolute"
-                top={0}
                 sx={{ borderBottomRightRadius: "5px" }}
+                top={0}
             >
                 <Typography variant="h5">{presetName}</Typography>
             </Box>
@@ -23,8 +23,8 @@ const ThumbnailInfoOverlay = ({ broadcastName, presetName }: ThumbnailInfoOverla
                 left={0}
                 padding={0.5}
                 position="absolute"
-                top={178}
                 sx={{ borderTopRightRadius: "5px" }}
+                top={178}
             >
                 <div style={{ userSelect: "none" }}>{broadcastName}</div>
             </Box>

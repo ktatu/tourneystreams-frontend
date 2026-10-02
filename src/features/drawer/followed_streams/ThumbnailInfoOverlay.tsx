@@ -15,8 +15,8 @@ const ThumbnailInfoOverlay = ({
                 left={0}
                 padding={0.5}
                 position="absolute"
-                top={0}
                 sx={{ borderBottomRightRadius: "5px" }}
+                top={0}
             >
                 <div style={{ userSelect: "none" }}>{category}</div>
             </Box>
@@ -25,8 +25,8 @@ const ThumbnailInfoOverlay = ({
                 left={0}
                 padding={0.5}
                 position="absolute"
-                top={178}
                 sx={{ borderTopRightRadius: "5px" }}
+                top={178}
             >
                 <div style={{ userSelect: "none" }}>{parseViewerCount(viewerCount)}</div>
             </Box>

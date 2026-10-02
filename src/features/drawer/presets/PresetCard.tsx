@@ -1,13 +1,14 @@
 // AI-generated addition by GitHub Copilot (Claude Sonnet 4.5): added a theme-colored pulsing halo animation around the LiveTvIcon.
 import { keyframes } from "@emotion/react"
-import { PlayCircle } from "@mui/icons-material"
+import { Cancel, PlayCircle } from "@mui/icons-material"
 import EditIcon from "@mui/icons-material/Edit"
 import LiveTvIcon from "@mui/icons-material/LiveTv"
 import { Box, Card, IconButton, Stack, Tooltip, Typography } from "@mui/material"
 import { alpha } from "@mui/material/styles"
 import { useState } from "react"
+import { addStreamList, removeStreamList } from "../../../commons/streamsState"
 import theme from "../../../theme"
-import { Preset } from "../../../types"
+import { Preset, StreamSource } from "../../../types"
 import PresetCardThumbnail from "./PresetCardThumbnail"
 import ThumbnailInfoOverlay from "./ThumbnailInfoOverlay"
 import { sumViewerCount } from "./hooks/usePresets"
@@ -24,8 +25,17 @@ const pulse = keyframes`
     }
 `
 
-const PresetCard = ({ preset }: { preset: Preset }) => {
-    const [presetStreamsArePlaying, setPresetStreamsArePlaying] = useState(false)
+const presetsThatArePlaying: Array<string> = []
+
+interface PresetCardProps {
+    handleChangeToPresetUpdate: (preset: Preset) => void
+    preset: Preset
+}
+
+const PresetCard = ({ preset, handleChangeToPresetUpdate }: PresetCardProps) => {
+    const [streamsArePlaying, setStreamsArePlaying] = useState(
+        presetsThatArePlaying.includes(preset.name),
+    )
 
     const hideThumbnail = localStorage.getItem("hideStreamThumbnails") === "true"
     const STREAMCARD_WIDTH = 375
@@ -33,6 +43,30 @@ const PresetCard = ({ preset }: { preset: Preset }) => {
     const channelsWithStreamsLive = preset.channels.filter((preset) => preset.stream !== undefined)
     const numOfChannelsLive = channelsWithStreamsLive.length
     const totalViewersInStreams = channelsWithStreamsLive.reduce(sumViewerCount, 0)
+
+    const handlePlayStreams = () => {
+        setStreamsArePlaying(true)
+        presetsThatArePlaying.push(preset.name)
+
+        const streamsToPlay = preset.channels
+            .filter((channel) => channel.stream !== undefined)
+            .map((channel) => ({
+                id: channel.name,
+                streamSource: StreamSource.TWITCH,
+            }))
+
+        addStreamList(streamsToPlay)
+    }
+
+    const handleCloseStreams = () => {
+        const nameIndex = presetsThatArePlaying.findIndex((name) => name === preset.name)
+        if (nameIndex !== -1) {
+            presetsThatArePlaying.splice(nameIndex, 1)
+        }
+
+        removeStreamList(preset.channels.map((channel) => channel.name))
+        setStreamsArePlaying(false)
+    }
 
     return (
         <Card sx={{ width: STREAMCARD_WIDTH, position: "relative" }}>
@@ -98,18 +132,32 @@ const PresetCard = ({ preset }: { preset: Preset }) => {
                                 <IconButton
                                     color="primary"
                                     size="large"
+                                    onClick={() => handleChangeToPresetUpdate(preset)}
                                 >
                                     <EditIcon fontSize="inherit" />
                                 </IconButton>
                             </Tooltip>
-                            <Tooltip title="Play all streams">
-                                <IconButton
-                                    color="primary"
-                                    size="large"
-                                >
-                                    <PlayCircle fontSize="inherit" />
-                                </IconButton>
-                            </Tooltip>
+                            {!streamsArePlaying && (
+                                <Tooltip title="Play streams">
+                                    <IconButton
+                                        color="primary"
+                                        size="large"
+                                        onClick={() => handlePlayStreams()}
+                                    >
+                                        <PlayCircle fontSize="inherit" />
+                                    </IconButton>
+                                </Tooltip>
+                            )}
+                            {streamsArePlaying && (
+                                <Tooltip title="Close streams">
+                                    <IconButton onClick={handleCloseStreams}>
+                                        <Cancel
+                                            color="error"
+                                            fontSize="inherit"
+                                        />
+                                    </IconButton>
+                                </Tooltip>
+                            )}
                         </Stack>
                     </Stack>
                 </Stack>

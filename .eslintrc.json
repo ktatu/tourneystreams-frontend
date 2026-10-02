@@ -40,7 +40,6 @@
         "quotes": ["error", "double"],
         "semi": ["error", "never"],
         "no-console": "warn",
-        "sort-keys": "warn",
         "react/jsx-sort-props": [
             "warn",
             {

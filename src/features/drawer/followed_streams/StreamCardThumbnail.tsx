@@ -27,17 +27,17 @@ const StreamCardThumbnail = ({ streamName, thumbnailWidth, overlay }: StreamCard
     if (thumbnailLoadError) {
         return (
             <Box
-                display="flex"
                 alignItems="center"
+                display="flex"
+                gap={0.5}
+                height={THUMBNAIL_HEIGHT}
                 justifyContent="center"
                 width={thumbnailWidth}
-                height={THUMBNAIL_HEIGHT}
-                gap={0.5}
             >
                 <TvIcon fontSize="large" />
                 <Typography
-                    variant="h5"
                     sx={{ userSelect: "none" }}
+                    variant="h5"
                 >
                     Failed to load thumbnail
                 </Typography>

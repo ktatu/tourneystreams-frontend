@@ -46,6 +46,11 @@ class PresetLocalStorage {
         localStorage.setItem("presets", JSON.stringify(newPresetsToSave))
     }
 
+    updatePreset(updatedPreset: Preset, nameOfPresetToUpdate: string) {
+        this.deletePreset(nameOfPresetToUpdate)
+        this.savePreset(updatedPreset)
+    }
+
     deletePreset = (name: string) => {
         name = name.toLocaleLowerCase()
         const savedPresets = this.getStoredPresets()

@@ -51,11 +51,31 @@ export const addStream = (id: string, streamSource: StreamSource) => {
     })
 }
 
+export const addStreamList = (streams: Array<{ id: string; streamSource: StreamSource }>) => {
+    const duplicatesRemoved = streams.filter(
+        (stream) => !streamsState.identifiers.includes(stream.id),
+    )
+
+    let firstDisplayIndex = streamsState.identifiers.length + 1
+    const displayPositionsAdded = duplicatesRemoved.map((stream) => {
+        const newStream: Stream = { ...stream, displayPosition: firstDisplayIndex }
+        firstDisplayIndex++
+        return newStream
+    })
+
+    streamsState.streams.push(...displayPositionsAdded)
+}
+
 export const removeStream = (id: string) => {
     const indexToRemove = streamsState.streams.findIndex((stream) => stream.id === id)
     if (indexToRemove !== -1) {
         streamsState.streams.splice(indexToRemove, 1)
     }
+}
+
+export const removeStreamList = (ids: Array<string>) => {
+    // The changes are batched so this doesnt cause multiple rerenders
+    ids.forEach((id) => removeStream(id))
 }
 
 export const selectChatChannel = (streamId: string) => {

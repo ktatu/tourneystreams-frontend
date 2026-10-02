@@ -2,8 +2,8 @@ import "../Drawer.css"
 import DrawerContainer from "../shared_components/DrawerContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
 import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
+import TwitchConnect from "../shared_components/TwitchConnect"
 import FollowedStreamsList from "./FollowedStreamsList"
-import TwitchErrorDisplay from "./TwitchErrorDisplay"
 import useFollowedStreamsQuery from "./hooks/useFollowedStreamsQuery"
 
 interface FollowedStreamsProps {
@@ -11,7 +11,7 @@ interface FollowedStreamsProps {
 }
 
 const FollowedStreams = ({ handleDrawerClose }: FollowedStreamsProps) => {
-    const { data: streams, error, isError, isLoading } = useFollowedStreamsQuery()
+    const { data: streams, isError, isLoading } = useFollowedStreamsQuery()
 
     return (
         <DrawerContainer>
@@ -28,7 +28,9 @@ const FollowedStreams = ({ handleDrawerClose }: FollowedStreamsProps) => {
                         width={350}
                     />
                 )}
-                {isError && <TwitchErrorDisplay error={error} />}
+                {isError && (
+                    <TwitchConnect message="Connect your Twitch account to see your followed channels" />
+                )}
                 {streams && <FollowedStreamsList followedStreams={streams} />}
             </>
         </DrawerContainer>

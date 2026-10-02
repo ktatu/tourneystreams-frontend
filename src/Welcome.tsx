@@ -10,12 +10,12 @@ const Welcome = () => {
 
     return (
         <Box
+            alignItems="center"
             display="flex"
             flexDirection="column"
-            paddingTop={9}
-            justifyContent="center"
-            alignItems="center"
             gap={3}
+            justifyContent="center"
+            paddingTop={9}
         >
             <Typography variant="h3">Welcome to Tourneystreams!</Typography>
             <Typography variant="h5">

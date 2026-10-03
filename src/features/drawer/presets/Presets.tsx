@@ -1,4 +1,4 @@
-import { Button, Typography } from "@mui/material"
+import { Box, Button, Typography } from "@mui/material"
 import { useState } from "react"
 import { Preset } from "../../../types"
 import DrawerContainer from "../shared_components/DrawerContainer"
@@ -47,7 +47,9 @@ const Presets = ({ handleDrawerClose }: PresetsProps) => {
                     />
                 )}
                 {presetContentView === PresetContentView.PresetsList && (
-                    <PresetsList handleChangeToPresetUpdate={handleChangeToPresetUpdate} />
+                    <Box marginTop={10}>
+                        <PresetsList handleChangeToPresetUpdate={handleChangeToPresetUpdate} />
+                    </Box>
                 )}
                 {presetContentView === PresetContentView.UpdatePreset && presetToUpdate && (
                     <PresetForm

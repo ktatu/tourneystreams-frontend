@@ -6,17 +6,17 @@ declare module "*.svg" {
     export default src
 }
 
-declare global {
-    interface Window {
-        onYouTubeIframeAPIReady: () => void
-    }
+interface Window {
+    onYouTubeIframeAPIReady: () => void
 }
 
-declare module "*.png"
+declare module "*.png" {
+    const src: string
+    export default src
+}
+
 declare module "*.mp4" {
     const src: string
     export default src
 }
 declare module "*.css"
-
-export {}

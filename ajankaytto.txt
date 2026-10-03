@@ -126,3 +126,4 @@
 25.9 8h Deploymenttien fixausta, evästeiden käytön muokkausta
 28.9 5h Frontend feature: Presets
 29.9 4h Frontend feature Presets
+2.10 6h Frontend feature: Site guide

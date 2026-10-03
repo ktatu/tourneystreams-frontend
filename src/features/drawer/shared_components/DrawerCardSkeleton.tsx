@@ -1,19 +1,20 @@
 import { Skeleton, Stack } from "@mui/material"
 
+const WIDTH = 350
+const HEIGHT = 250
+
 interface PlaceholderSkeletonProps {
     count: number
-    width: number
-    height: number
     gap: number
 }
 
-const PlaceholderSkeleton = ({ count, width, height, gap }: PlaceholderSkeletonProps) => {
+const DrawerCardSkeleton = ({ count, gap }: PlaceholderSkeletonProps) => {
     const skeletons = new Array(count).fill(
         <Skeleton
-            height={height}
+            height={HEIGHT}
             variant="rounded"
-            width={width}
-        />
+            width={WIDTH}
+        />,
     )
 
     return (
@@ -28,4 +29,4 @@ const PlaceholderSkeleton = ({ count, width, height, gap }: PlaceholderSkeletonP
     )
 }
 
-export default PlaceholderSkeleton
+export default DrawerCardSkeleton

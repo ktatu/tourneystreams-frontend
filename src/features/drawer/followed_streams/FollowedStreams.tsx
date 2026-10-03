@@ -1,7 +1,7 @@
 import "../Drawer.css"
+import DrawerCardSkeleton from "../shared_components/DrawerCardSkeleton"
 import DrawerContainer from "../shared_components/DrawerContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
-import PlaceholderSkeleton from "../shared_components/PlaceholderSkeleton"
 import TwitchConnect from "../shared_components/TwitchConnect"
 import FollowedStreamsList from "./FollowedStreamsList"
 import useFollowedStreamsQuery from "./hooks/useFollowedStreamsQuery"
@@ -21,11 +21,9 @@ const FollowedStreams = ({ handleDrawerClose }: FollowedStreamsProps) => {
                     title="Followed on Twitch"
                 />
                 {isLoading && (
-                    <PlaceholderSkeleton
+                    <DrawerCardSkeleton
                         count={2}
                         gap={5}
-                        height={250}
-                        width={350}
                     />
                 )}
                 {isError && (

@@ -17,8 +17,6 @@
         "@testing-library/user-event": "^13.5.0",
         "axios": "^1.2.2",
         "dotenv": "^16.3.1",
-        "flag-icons": "^6.6.6",
-        "iso-639-1": "^2.1.15",
         "lodash.orderby": "^4.6.0",
         "lodash.round": "^4.0.4",
         "query-string": "^8.1.0",

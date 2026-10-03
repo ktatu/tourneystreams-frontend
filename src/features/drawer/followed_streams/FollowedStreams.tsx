@@ -18,7 +18,7 @@ const FollowedStreams = ({ handleDrawerClose }: FollowedStreamsProps) => {
             <>
                 <DrawerHeader
                     handleDrawerClose={handleDrawerClose}
-                    title="Twitch streams"
+                    title="Followed on Twitch"
                 />
                 {isLoading && (
                     <PlaceholderSkeleton

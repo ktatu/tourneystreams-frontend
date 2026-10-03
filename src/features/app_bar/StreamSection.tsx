@@ -100,6 +100,7 @@ const StreamSection = () => {
                     </ToggleButton>
                 </ToggleButtonGroup>
                 <TextField
+                    id="add-stream-field"
                     label={getLabelText()}
                     placeholder={getPlaceHolderText()}
                     value={addStreamFieldValue}

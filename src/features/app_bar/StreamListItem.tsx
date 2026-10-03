@@ -66,7 +66,10 @@ const StreamListItem = ({ stream, channelChatIsSelected, oneStreamOpen }: Stream
                             {...listeners}
                             sx={{ padding: 0.5 }}
                         >
-                            <Tooltip title="Move stream (hold and drag)">
+                            <Tooltip
+                                placement="right"
+                                title="Move stream (hold and drag)"
+                            >
                                 <SwapHorizIcon fontSize="medium" />
                             </Tooltip>
                         </IconButton>
@@ -76,18 +79,14 @@ const StreamListItem = ({ stream, channelChatIsSelected, oneStreamOpen }: Stream
                         sx={{ opacity: channelChatIsSelected ? 1 : 0.3, padding: 0.5 }}
                         onClick={handleSelectChatChannel}
                     >
-                        <Tooltip title="Show chat">
-                            <CommentIcon fontSize="medium" />
-                        </Tooltip>
+                        <CommentIcon fontSize="medium" />
                     </IconButton>
                     <IconButton
                         size="large"
                         sx={{ padding: 0.5 }}
                         onClick={handleRemoveStream}
                     >
-                        <Tooltip title="Close stream">
-                            <CloseIcon fontSize="medium" />
-                        </Tooltip>
+                        <CloseIcon fontSize="medium" />
                     </IconButton>
                 </Box>
             </Box>

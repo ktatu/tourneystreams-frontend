@@ -3,16 +3,20 @@ import { Stack, Toolbar } from "@mui/material"
 import { useState } from "react"
 import Alert from "./Alert"
 import { removeAlert, useAlertState } from "./commons/alertState"
+import { useStreamsState } from "./commons/streamsState"
 import AppBar from "./features/app_bar/AppBar"
 import Drawer from "./features/drawer/Drawer"
 import { DrawerContent } from "./features/drawer/DrawerContentSwitch"
-import Streams from "./features/main_content/MainContent"
+import Streams from "./features/stream_display/MainContent"
+import useYoutubeiFrameApi from "./hooks/useYoutubeiFrameApi"
 import Welcome from "./Welcome"
 
 const App = () => {
     const [drawerContent, setDrawerContent] = useState(DrawerContent.None)
-    const firstTimeVisitor = isIfFirstTimeVisitor()
     const { message: alertMessage, severity: alertSeverity } = useAlertState()
+    const { streams } = useStreamsState()
+
+    useYoutubeiFrameApi().loadYoutubeIframeApi()
 
     const DRAWER_WIDTH = "25vw"
 
@@ -36,24 +40,26 @@ const App = () => {
                 drawerWidth={DRAWER_WIDTH}
                 handleDrawerClose={() => setDrawerContent(DrawerContent.None)}
             />
-            <Stack
-                height="100%"
-                sx={{
-                    marginLeft: drawerContent === DrawerContent.None ? 0 : DRAWER_WIDTH,
-                    zIndex: (theme) => theme.zIndex.drawer + 2, // this being higher than other elements helps preventing chrome from blocking autoplay
-                    transition: (theme) =>
-                        theme.transitions.create("margin-left", {
-                            easing: theme.transitions.easing.sharp,
-                            duration:
-                                drawerContent === DrawerContent.None
-                                    ? theme.transitions.duration.leavingScreen
-                                    : theme.transitions.duration.enteringScreen,
-                        }),
-                }}
-            >
-                <Streams />
-                {firstTimeVisitor && <Welcome />}
-            </Stack>
+            {streams.length > 0 && (
+                <Stack
+                    height="100%"
+                    sx={{
+                        marginLeft: drawerContent === DrawerContent.None ? 0 : DRAWER_WIDTH,
+                        zIndex: (theme) => theme.zIndex.drawer + 2, // this being higher than other elements helps preventing chrome from blocking autoplay
+                        transition: (theme) =>
+                            theme.transitions.create("margin-left", {
+                                easing: theme.transitions.easing.sharp,
+                                duration:
+                                    drawerContent === DrawerContent.None
+                                        ? theme.transitions.duration.leavingScreen
+                                        : theme.transitions.duration.enteringScreen,
+                            }),
+                    }}
+                >
+                    <Streams />
+                </Stack>
+            )}
+            {streams.length === 0 && <Welcome />}
             <Alert
                 handleClose={handleCloseAlert}
                 message={alertMessage}
@@ -62,17 +68,6 @@ const App = () => {
             />
         </Stack>
     )
-}
-
-const isIfFirstTimeVisitor = () => {
-    const hasVisitedSiteBefore = localStorage.getItem("hasVisitedSiteBefore")
-
-    if (!hasVisitedSiteBefore) {
-        localStorage.setItem("hasVisitedSiteBefore", "true")
-        return true
-    }
-
-    return false
 }
 
 export default App

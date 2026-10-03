@@ -5,7 +5,7 @@ import SiteGuideSkeleton from "./features/site_guide/SiteGuideSkeleton"
 const SiteGuide = lazy(() => import("./features/site_guide/SiteGuide"))
 
 const Welcome = () => {
-    const [showSiteGuide, setShowSiteGuide] = useState(true)
+    const [showSiteGuide, setShowSiteGuide] = useState(false)
 
     return (
         <Box

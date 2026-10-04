@@ -12,11 +12,7 @@
         "@fontsource/roboto": "^4.5.8",
         "@mui/icons-material": "^5.11.0",
         "@mui/material": "^5.11.2",
-        "@testing-library/jest-dom": "^5.16.5",
-        "@testing-library/react": "^13.4.0",
-        "@testing-library/user-event": "^13.5.0",
         "axios": "^1.2.2",
-        "dotenv": "^16.3.1",
         "lodash.orderby": "^4.6.0",
         "lodash.round": "^4.0.4",
         "query-string": "^8.1.0",
@@ -26,7 +22,6 @@
         "react-player": "^2.12.0",
         "react-query": "^3.39.3",
         "react-scripts": "5.0.1",
-        "react-window": "^1.8.8",
         "typescript": "^4.9.4",
         "valtio": "^1.11.2"
     },
@@ -65,14 +60,12 @@
         "@types/query-string": "^6.3.0",
         "@types/react": "^18.0.29",
         "@types/react-dom": "^18.0.11",
-        "@types/react-window": "^1.8.5",
         "@types/youtube": "^0.3.0",
         "@typescript-eslint/eslint-plugin": "^5.47.1",
         "@typescript-eslint/parser": "^5.47.1",
         "eslint": "^8.30.0",
         "eslint-plugin-react": "^7.31.11",
         "eslint-plugin-valtio": "^0.6.2",
-        "jest": "^27.5.1",
         "json-server": "^0.17.1"
     }
 }

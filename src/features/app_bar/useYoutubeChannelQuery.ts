@@ -1,19 +1,17 @@
+import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
-import { useQuery } from "react-query"
 import { BACKEND_BASE_URL } from "../../envConfig"
 import { StreamSource } from "../../types"
 
 const useYoutubeChannelQuery = (streamId: string, streamSource: StreamSource) => {
-    const queryResult = useQuery<string>(
-        ["youtubeChannel", streamId],
-        () => queryYoutubeChannel(streamId),
-        {
-            retry: 1,
-            cacheTime: Infinity,
-            staleTime: Infinity,
-            enabled: streamSource === "youtube",
-        },
-    )
+    const queryResult = useQuery<string>({
+        queryKey: ["youtubeChannel", streamId],
+        queryFn: () => queryYoutubeChannel(streamId),
+        retry: 1,
+        gcTime: Infinity,
+        staleTime: Infinity,
+        enabled: streamSource === "youtube",
+    })
 
     return queryResult
 }

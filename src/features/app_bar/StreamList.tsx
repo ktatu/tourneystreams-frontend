@@ -47,17 +47,19 @@ const StreamList = () => {
     return (
         <Box
             ref={slideContainerRef}
-            minHeight="50px"
-            minWidth="800px"
-            overflow="hidden"
-            position="relative"
-        >
+            sx={{
+                minHeight: "50px",
+                minWidth: "800px",
+                overflow: "hidden",
+                position: "relative"
+            }}>
             <Box
-                display="flex"
-                height="50px"
-                position="absolute"
-                width="700px"
-            >
+                sx={{
+                    display: "flex",
+                    height: "50px",
+                    position: "absolute",
+                    width: "700px"
+                }}>
                 <DragAndDropWrapper
                     movementAxis={MovementAxis.Horizontal}
                     sortableItems={sortedStreams.map((stream) => stream.id)}
@@ -71,9 +73,10 @@ const StreamList = () => {
                         onExited={() => setShowMenuButton(true)}
                     >
                         <Box
-                            display="flex"
-                            gap={2}
-                        >
+                            sx={{
+                                display: "flex",
+                                gap: 2
+                            }}>
                             {sortedStreams.map((stream, index) => {
                                 const channelChatIsSelected = stream.id === selectedChat?.id
 
@@ -91,11 +94,12 @@ const StreamList = () => {
                 </DragAndDropWrapper>
             </Box>
             <Box
-                display="flex"
-                height="50px"
-                position="absolute"
-                width="200px"
-            >
+                sx={{
+                    display: "flex",
+                    height: "50px",
+                    position: "absolute",
+                    width: "200px"
+                }}>
                 <Slide
                     appear={false}
                     container={slideContainerRef.current}
@@ -105,9 +109,10 @@ const StreamList = () => {
                     onExited={() => setShowHorizontalList(true)}
                 >
                     <Box
-                        alignItems="center"
-                        display="flex"
-                    >
+                        sx={{
+                            alignItems: "center",
+                            display: "flex"
+                        }}>
                         <Button
                             endIcon={<KeyboardArrowDownIcon />}
                             variant="contained"

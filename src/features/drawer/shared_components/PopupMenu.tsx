@@ -8,11 +8,11 @@ import React, { forwardRef, useImperativeHandle, useState } from "react"
 type ButtonProps = IconButtonProps | TextAndIconButtonProps | TextButtonProps
 
 type IconButtonProps = {
-    buttonIcon: JSX.Element
+    buttonIcon: React.JSX.Element
 }
 
 type TextAndIconButtonProps = {
-    buttonIcon: JSX.Element
+    buttonIcon: React.JSX.Element
     buttonText: string
 }
 
@@ -22,7 +22,7 @@ type TextButtonProps = {
 
 type PopupMenuProps = {
     buttonProps: ButtonProps
-    children: JSX.Element
+    children: React.JSX.Element
 }
 
 interface MouseEventHandler {
@@ -74,7 +74,7 @@ const OpenMenuButton = ({
 }: {
     buttonProps: ButtonProps
     handleClick: MouseEventHandler
-}): JSX.Element => {
+}): React.JSX.Element => {
     if (isTextAndIconButtonProps(buttonProps)) {
         return (
             <Button
@@ -86,10 +86,11 @@ const OpenMenuButton = ({
                 onClick={handleClick}
             >
                 <Box
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                    whiteSpace="nowrap"
-                >
+                    sx={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap"
+                    }}>
                     {buttonProps.buttonText}
                 </Box>
             </Button>

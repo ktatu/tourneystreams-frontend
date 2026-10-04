@@ -16,15 +16,18 @@ const GuideStepper = ({
 }: StepperProps) => {
     return (
         <Stack
-            alignItems="center"
             spacing={5}
+            sx={{
+                alignItems: "center"
+            }}
         >
             <Stack
-                alignItems="center"
                 direction="row"
-                justifyContent="center"
                 spacing={5}
-            >
+                sx={{
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}>
                 <Button
                     disabled={currentStep === 0}
                     size="large"

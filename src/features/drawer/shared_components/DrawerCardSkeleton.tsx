@@ -20,7 +20,9 @@ const DrawerCardSkeleton = ({ count, gap }: PlaceholderSkeletonProps) => {
     return (
         <Stack
             direction="column"
-            gap={gap}
+            sx={{
+                gap: gap
+            }}
         >
             {skeletons.map((skeleton, index) => (
                 <div key={index}>{skeleton}</div>

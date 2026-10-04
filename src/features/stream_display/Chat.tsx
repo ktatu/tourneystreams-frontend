@@ -17,10 +17,11 @@ const Chat = () => {
 
     return (
         <Box
-            height="100%"
-            position="relative"
-            width="350px"
-        >
+            sx={{
+                height: "100%",
+                position: "relative",
+                width: "350px"
+            }}>
             <iframe
                 height="100%"
                 src={chatUrl}

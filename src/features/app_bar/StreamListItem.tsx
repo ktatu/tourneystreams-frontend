@@ -47,19 +47,24 @@ const StreamListItem = ({ stream, channelChatIsSelected, oneStreamOpen }: Stream
             {...attributes}
         >
             <Box
-                alignItems="center"
-                display="flex"
-                height="100%"
-                paddingLeft={1}
-                paddingRight={1}
-                width="100%"
-            >
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    height: "100%",
+                    paddingLeft: 1,
+                    paddingRight: 1,
+                    width: "100%"
+                }}>
                 <StreamName
                     streamId={stream.id}
                     streamSource={stream.streamSource}
                 />
-                <Box flexGrow={1} />
-                <Box display="flex">
+                <Box sx={{
+                    flexGrow: 1
+                }} />
+                <Box sx={{
+                    display: "flex"
+                }}>
                     {!oneStreamOpen && (
                         <IconButton
                             size="large"

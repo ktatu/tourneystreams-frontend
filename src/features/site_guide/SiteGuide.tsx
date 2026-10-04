@@ -49,10 +49,11 @@ const SiteGuide = ({ setShowSiteGuide }: SiteGuideProps) => {
 
     return (
         <Stack
-            justifyContent="center"
-            paddingTop={5}
             spacing={10}
-        >
+            sx={{
+                justifyContent: "center",
+                paddingTop: 5
+            }}>
             <Stack
                 direction="row"
                 spacing={5}

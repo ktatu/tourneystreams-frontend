@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 
 interface StreamCardThumbnailProps {
     streamName: string
-    overlay: JSX.Element
+    overlay: React.JSX.Element
     thumbnailWidth: number
 }
 
@@ -27,13 +27,14 @@ const StreamCardThumbnail = ({ streamName, thumbnailWidth, overlay }: StreamCard
     if (thumbnailLoadError) {
         return (
             <Box
-                alignItems="center"
-                display="flex"
-                gap={0.5}
-                height={THUMBNAIL_HEIGHT}
-                justifyContent="center"
-                width={thumbnailWidth}
-            >
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    gap: 0.5,
+                    height: THUMBNAIL_HEIGHT,
+                    justifyContent: "center",
+                    width: thumbnailWidth
+                }}>
                 <TvIcon fontSize="large" />
                 <Typography
                     sx={{ userSelect: "none" }}

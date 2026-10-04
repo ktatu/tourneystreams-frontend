@@ -13,7 +13,7 @@ export enum MovementAxis {
 }
 
 interface DragAndDropWrapperProps {
-    children: JSX.Element
+    children: React.JSX.Element
     movementAxis: MovementAxis
     sortableItems: Array<string>
 }

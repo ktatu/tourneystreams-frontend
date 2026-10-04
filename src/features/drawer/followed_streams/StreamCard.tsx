@@ -55,24 +55,27 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                 }}
             >
                 <Box
-                    display="flex"
-                    flexDirection="row"
-                >
+                    sx={{
+                        display: "flex",
+                        flexDirection: "row"
+                    }}>
                     <Box
-                        alignItems="flex-start"
-                        display="flex"
-                        flex={1}
-                        flexDirection="column"
-                        gap={1}
-                        minWidth={0}
-                        position="relative"
-                    >
+                        sx={{
+                            alignItems: "flex-start",
+                            display: "flex",
+                            flex: 1,
+                            flexDirection: "column",
+                            gap: 1,
+                            minWidth: 0,
+                            position: "relative"
+                        }}>
                         <Stack
-                            alignItems="center"
                             direction="row"
-                            minWidth={0}
                             spacing={1}
-                        >
+                            sx={{
+                                alignItems: "center",
+                                minWidth: 0
+                            }}>
                             <Box
                                 component="img"
                                 src={followedStream.profileImageUrl}
@@ -85,10 +88,11 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                                 target="_blank"
                             >
                                 <Typography
-                                    paddingRight={3}
-                                    position="relative"
                                     variant="h6"
-                                >
+                                    sx={{
+                                        paddingRight: 3,
+                                        position: "relative"
+                                    }}>
                                     {followedStream.broadcastName}
                                     <OpenInNewIcon
                                         color="primary"
@@ -104,9 +108,10 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                         </Stack>
                         {hideThumbnail && (
                             <Typography
-                                color="text.secondary"
-                                fontSize={12}
-                            >
+                                sx={{
+                                    color: "text.secondary",
+                                    fontSize: 12
+                                }}>
                                 {followedStream.category},{" "}
                                 {parseViewerCount(followedStream.viewerCount)}
                             </Typography>
@@ -114,13 +119,14 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                         <Typography>{followedStream.title}</Typography>
                     </Box>
                     <Box
-                        alignItems="center"
-                        alignSelf="center"
-                        display="flex"
-                        flexShrink={0}
-                        justifyContent="center"
-                        width="20%"
-                    >
+                        sx={{
+                            alignItems: "center",
+                            alignSelf: "center",
+                            display: "flex",
+                            flexShrink: 0,
+                            justifyContent: "center",
+                            width: "20%"
+                        }}>
                         {streamIsPlaying ? (
                             <Tooltip title="Close stream">
                                 <IconButton

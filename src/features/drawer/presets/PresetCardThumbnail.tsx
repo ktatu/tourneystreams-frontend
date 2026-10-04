@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 interface PresetCardThumbnailProps {
     thumbnailWidth: number
     streamName: string
-    overlay: JSX.Element
+    overlay: React.JSX.Element
 }
 
 const PresetCardThumbnail = ({ thumbnailWidth, streamName, overlay }: PresetCardThumbnailProps) => {
@@ -27,13 +27,14 @@ const PresetCardThumbnail = ({ thumbnailWidth, streamName, overlay }: PresetCard
     if (thumbnailLoadError) {
         return (
             <Box
-                alignItems="center"
-                display="flex"
-                gap={0.5}
-                height={THUMBNAIL_HEIGHT}
-                justifyContent="center"
-                width={thumbnailWidth}
-            >
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    gap: 0.5,
+                    height: THUMBNAIL_HEIGHT,
+                    justifyContent: "center",
+                    width: thumbnailWidth
+                }}>
                 <TvIcon fontSize="large" />
                 <Typography
                     sx={{ userSelect: "none" }}

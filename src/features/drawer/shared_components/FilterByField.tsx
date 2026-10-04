@@ -43,13 +43,16 @@ const FilterByField = <T extends string>({
     return (
         <TextField
             autoComplete="off"
-            InputLabelProps={{ shrink: true }}
             label={`Filter by: ${filterType}`}
             sx={{ maxWidth: "200px" }}
             value={filterValue}
-            InputProps={{
-                endAdornment: (
-                    <Box display="flex">
+            slotProps={{
+                inputLabel: { shrink: true },
+                input: {
+                    endAdornment: (
+                    <Box sx={{
+                        display: "flex"
+                    }}>
                         {filterValue ? (
                             <IconButton
                                 sx={{
@@ -77,7 +80,8 @@ const FilterByField = <T extends string>({
                             </MenuList>
                         </PopupMenu>
                     </Box>
-                ),
+                    ),
+                },
             }}
             onChange={handleFilterChange}
         />

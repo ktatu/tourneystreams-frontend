@@ -1,4 +1,4 @@
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import { fetch } from "../../../../commons/authRequests"
 import { Preset, TwitchChannel } from "../../../../types"
 import PresetStorage from "../PresetsLocalStorage"
@@ -19,9 +19,11 @@ const usePresets = () => {
         presetsWithLiveStreams: Array<Preset>
         totalNumOfViewers: number
         totalNumOfStreams: number
-    }>("presets", getPresets, {
+    }>({
+        queryKey: ["presets"],
+        queryFn: getPresets,
         retry: 1,
-        cacheTime: Infinity,
+        gcTime: Infinity,
         staleTime: 100000,
         enabled: initialPresetsToShow.length !== 0,
     })

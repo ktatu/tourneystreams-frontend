@@ -26,10 +26,11 @@ const App = () => {
 
     return (
         <Stack
-            bgcolor="black"
-            height="100vh"
-            width="100vw"
-        >
+            sx={{
+                bgcolor: "black",
+                height: "100vh",
+                width: "100vw"
+            }}>
             <AppBar
                 drawerContentType={drawerContent}
                 setDrawerContentType={setDrawerContent}
@@ -42,10 +43,13 @@ const App = () => {
             />
             {streams.length > 0 && (
                 <Stack
-                    height="100%"
                     sx={{
+                        height: "100%",
                         marginLeft: drawerContent === DrawerContent.None ? 0 : DRAWER_WIDTH,
-                        zIndex: (theme) => theme.zIndex.drawer + 2, // this being higher than other elements helps preventing chrome from blocking autoplay
+
+                        // this being higher than other elements helps preventing chrome from blocking autoplay
+                        zIndex: (theme) => theme.zIndex.drawer + 2,
+
                         transition: (theme) =>
                             theme.transitions.create("margin-left", {
                                 easing: theme.transitions.easing.sharp,
@@ -53,9 +57,8 @@ const App = () => {
                                     drawerContent === DrawerContent.None
                                         ? theme.transitions.duration.leavingScreen
                                         : theme.transitions.duration.enteringScreen,
-                            }),
-                    }}
-                >
+                            })
+                    }}>
                     <Streams />
                 </Stack>
             )}

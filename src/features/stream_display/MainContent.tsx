@@ -1,4 +1,4 @@
-import { Unstable_Grid2 as Grid } from "@mui/material"
+import { Grid } from "@mui/material"
 import Chat from "./Chat"
 import VideoPlayers from "./VideoPlayers"
 
@@ -6,12 +6,12 @@ const Streams = () => {
     return (
         <Grid
             container
-            height="100%"
+            sx={{ height: "100%" }}
         >
-            <Grid xs>
+            <Grid size="grow">
                 <VideoPlayers />
             </Grid>
-            <Grid xs="auto">
+            <Grid size="auto">
                 <Chat />
             </Grid>
         </Grid>

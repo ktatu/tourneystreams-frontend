@@ -18,10 +18,11 @@ const CheckboxOption = ({ optionName, optionDescription }: CheckboxOptionProps) 
 
     return (
         <Box
-            alignItems="center"
-            display="flex"
-            gap={0.5}
-        >
+            sx={{
+                alignItems: "center",
+                display: "flex",
+                gap: 0.5
+            }}>
             <Checkbox
                 checked={optionVal}
                 onChange={handleOptionValChange}

@@ -7,7 +7,7 @@ import {
     ToggleButtonGroup,
     Toolbar,
 } from "@mui/material"
-import { ReactComponent as TwitchLogo } from "../../assets/TwitchLogo.svg"
+import TwitchLogo from "../../assets/TwitchLogo.svg?react"
 import { DrawerContent } from "../drawer/DrawerContentSwitch"
 import StreamSection from "./StreamSection"
 
@@ -29,7 +29,9 @@ const AppBar = ({ drawerContentType, setDrawerContentType }: AppBarProps) => {
     }
 
     return (
-        <Box flexGrow={1}>
+        <Box sx={{
+            flexGrow: 1
+        }}>
             <MuiAppBar
                 position="fixed"
                 sx={{
@@ -39,9 +41,10 @@ const AppBar = ({ drawerContentType, setDrawerContentType }: AppBarProps) => {
             >
                 <Toolbar>
                     <Box
-                        display="flex"
-                        gap={10}
-                    >
+                        sx={{
+                            display: "flex",
+                            gap: 10
+                        }}>
                         <ToggleButtonGroup
                             exclusive
                             value={drawerContentType}

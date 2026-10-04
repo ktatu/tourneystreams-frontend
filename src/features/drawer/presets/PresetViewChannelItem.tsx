@@ -14,23 +14,29 @@ const PresetViewChannelItem = ({ channel, handleRemoveChannel }: PresetViewChann
             variant="outlined"
         >
             <Box
-                alignItems="center"
-                display="flex"
-                height="100%"
-                paddingLeft={1}
-                paddingRight={1}
-                width="100%"
-            >
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    height: "100%",
+                    paddingLeft: 1,
+                    paddingRight: 1,
+                    width: "100%"
+                }}>
                 <Typography
-                    marginTop={0.5}
-                    overflow="hidden"
-                    sx={{ userSelect: "none" }}
                     variant="button"
-                >
+                    sx={{
+                        marginTop: 0.5,
+                        overflow: "hidden",
+                        userSelect: "none"
+                    }}>
                     {channel}
                 </Typography>
-                <Box flexGrow={1} />
-                <Box display="flex">
+                <Box sx={{
+                    flexGrow: 1
+                }} />
+                <Box sx={{
+                    display: "flex"
+                }}>
                     <IconButton
                         size="large"
                         sx={{ padding: 0.5 }}

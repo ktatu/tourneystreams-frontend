@@ -47,7 +47,9 @@ const Presets = ({ handleDrawerClose }: PresetsProps) => {
                     />
                 )}
                 {presetContentView === PresetContentView.PresetsList && (
-                    <Box marginTop={10}>
+                    <Box sx={{
+                        marginTop: 10
+                    }}>
                         <PresetsList handleChangeToPresetUpdate={handleChangeToPresetUpdate} />
                     </Box>
                 )}

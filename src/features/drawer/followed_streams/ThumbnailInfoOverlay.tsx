@@ -11,23 +11,25 @@ const ThumbnailInfoOverlay = ({
     return (
         <>
             <Box
-                bgcolor="rgba(0, 0, 0, 0.4)"
-                left={0}
-                padding={0.5}
-                position="absolute"
-                sx={{ borderBottomRightRadius: "5px" }}
-                top={0}
-            >
+                sx={{
+                    bgcolor: "rgba(0, 0, 0, 0.4)",
+                    left: 0,
+                    padding: 0.5,
+                    position: "absolute",
+                    top: 0,
+                    borderBottomRightRadius: "5px"
+                }}>
                 <div style={{ userSelect: "none" }}>{category}</div>
             </Box>
             <Box
-                bgcolor="rgba(0, 0, 0, 0.4)"
-                left={0}
-                padding={0.5}
-                position="absolute"
-                sx={{ borderTopRightRadius: "5px" }}
-                top={178}
-            >
+                sx={{
+                    bgcolor: "rgba(0, 0, 0, 0.4)",
+                    left: 0,
+                    padding: 0.5,
+                    position: "absolute",
+                    top: 178,
+                    borderTopRightRadius: "5px"
+                }}>
                 <div style={{ userSelect: "none" }}>{parseViewerCount(viewerCount)}</div>
             </Box>
         </>

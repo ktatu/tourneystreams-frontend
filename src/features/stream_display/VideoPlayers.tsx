@@ -13,23 +13,25 @@ const VideoPlayers = () => {
 
     return (
         <Box
-            display="flex"
-            flexDirection="row"
-            flexWrap="wrap"
-            height="100%"
-            overflow="auto"
-        >
+            sx={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                height: "100%",
+                overflow: "auto"
+            }}>
             {streams.map((stream) => {
                 const { width, height } = getVideoDimensions(streams.length, stream.displayPosition)
 
                 return (
                     <Box
                         key={`${stream.id}-${stream.displayPosition}`}
-                        height={`${height}%`}
-                        order={stream.displayPosition}
-                        overflow="hidden"
-                        width={`${width}%`}
-                    >
+                        sx={{
+                            height: `${height}%`,
+                            order: stream.displayPosition,
+                            overflow: "hidden",
+                            width: `${width}%`
+                        }}>
                         {stream.streamSource === "twitch" ? (
                             <TwitchPlayer id={stream.id} />
                         ) : (

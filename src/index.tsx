@@ -1,9 +1,9 @@
 // AI-generated addition by Claude Sonnet 5.5 (GitHub Copilot): added optional msw mocking startup before rendering the app.
 import { ThemeProvider } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { StrictMode } from "react"
 import ReactDOM from "react-dom/client"
-import { QueryClient, QueryClientProvider } from "react-query"
 import App from "./App"
 import "./index.css"
 import theme from "./theme"
@@ -16,12 +16,12 @@ import "@fontsource/roboto/700.css"
 const queryClient = new QueryClient()
 
 const enableMocking = async () => {
-    if (process.env.REACT_APP_USE_MOCKS !== "true" || process.env.NODE_ENV === "production") {
+    if (import.meta.env.VITE_USE_MOCKS !== "true" || import.meta.env.PROD) {
         return
     }
 
     const { worker } = await import("./mocks/browser")
-    await worker.start({ onUnhandledRequest: "bypass" })
+    await worker.start({ onUnhandledFrame: "bypass" })
 }
 
 enableMocking().then(() => {
@@ -34,6 +34,6 @@ enableMocking().then(() => {
                     <App />
                 </ThemeProvider>
             </QueryClientProvider>
-        </StrictMode>
+        </StrictMode>,
     )
 })

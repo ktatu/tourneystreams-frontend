@@ -23,15 +23,18 @@ const FollowedStreamsList = ({ followedStreams }: FollowedStreamsProps) => {
     return (
         <Stack
             direction="column"
-            gap={1}
+            sx={{
+                gap: 1
+            }}
         >
             <Box
-                alignItems="center"
-                display="flex"
-                gap={3}
-                paddingBottom={5}
-                paddingTop={2}
-            >
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    gap: 3,
+                    paddingBottom: 5,
+                    paddingTop: 2
+                }}>
                 <SortBySelect
                     setSortValue={setSortValue}
                     sortValue={sortValue}
@@ -56,7 +59,9 @@ const FollowedStreamsList = ({ followedStreams }: FollowedStreamsProps) => {
             </Box>
             <Stack
                 direction="column"
-                gap={3}
+                sx={{
+                    gap: 3
+                }}
             >
                 {streams.map((stream) => (
                     <StreamCard

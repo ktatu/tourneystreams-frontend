@@ -12,8 +12,10 @@ export interface GuideText {
 const TextDisplay = ({ text }: { text: GuideText }) => {
     return (
         <Stack
-            flexWrap="wrap"
             spacing={0.5}
+            sx={{
+                flexWrap: "wrap"
+            }}
         >
             <Typography variant="h3">{text.title}</Typography>
             {text.description.map((descr, index) => {

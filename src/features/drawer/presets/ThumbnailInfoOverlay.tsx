@@ -9,23 +9,25 @@ const ThumbnailInfoOverlay = ({ broadcastName, presetName }: ThumbnailInfoOverla
     return (
         <>
             <Box
-                bgcolor="rgba(0, 0, 0, 0.8)"
-                left={0}
-                padding={0.5}
-                position="absolute"
-                sx={{ borderBottomRightRadius: "5px" }}
-                top={0}
-            >
+                sx={{
+                    bgcolor: "rgba(0, 0, 0, 0.8)",
+                    left: 0,
+                    padding: 0.5,
+                    position: "absolute",
+                    top: 0,
+                    borderBottomRightRadius: "5px"
+                }}>
                 <Typography variant="h5">{presetName}</Typography>
             </Box>
             <Box
-                bgcolor="rgba(0, 0, 0, 0.4)"
-                left={0}
-                padding={0.5}
-                position="absolute"
-                sx={{ borderTopRightRadius: "5px" }}
-                top={178}
-            >
+                sx={{
+                    bgcolor: "rgba(0, 0, 0, 0.4)",
+                    left: 0,
+                    padding: 0.5,
+                    position: "absolute",
+                    top: 178,
+                    borderTopRightRadius: "5px"
+                }}>
                 <div style={{ userSelect: "none" }}>{broadcastName}</div>
             </Box>
         </>

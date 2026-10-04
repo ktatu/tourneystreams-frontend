@@ -92,10 +92,11 @@ const PresetForm = ({
             sx={{ width: "100%" }}
         >
             <Stack
-                padding={2}
                 spacing={3}
-                width="100%"
-            >
+                sx={{
+                    padding: 2,
+                    width: "100%"
+                }}>
                 <Typography variant="h5">{viewTitle}</Typography>
                 <TextField
                     error={Boolean(errors.presetName)}
@@ -126,12 +127,14 @@ const PresetForm = ({
                         placeholder="Channel name"
                         sx={{ width: "50%" }}
                         variant="standard"
-                        InputProps={{
-                            endAdornment: (
-                                <IconButton type="submit">
-                                    <AddCircleIcon color="primary" />
-                                </IconButton>
-                            ),
+                        slotProps={{
+                            input: {
+                                endAdornment: (
+                                    <IconButton type="submit">
+                                        <AddCircleIcon color="primary" />
+                                    </IconButton>
+                                ),
+                            },
                         }}
                         {...register("channelName", {
                             required: "Channel name is required",
@@ -153,7 +156,9 @@ const PresetForm = ({
                         })}
                     />
                 </form>
-                <Stack width="50%">
+                <Stack sx={{
+                    width: "50%"
+                }}>
                     {channels &&
                         channels.map((channel, index) => (
                             <PresetViewChannelItem
@@ -164,12 +169,13 @@ const PresetForm = ({
                         ))}
                 </Stack>
                 <Stack
-                    alignItems="center"
                     direction="row"
-                    justifyContent="flex-end"
                     spacing={2}
-                    width="100%"
-                >
+                    sx={{
+                        alignItems: "center",
+                        justifyContent: "flex-end",
+                        width: "100%"
+                    }}>
                     <Typography
                         color="secondary"
                         variant="body1"

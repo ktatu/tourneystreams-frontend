@@ -14,7 +14,7 @@ These instructions are for the frontend only. For backend, read its README.
 
 ### AI Notice
 
-The project contains AI generated content. I've been using auto model on Copilot, which mainly has been defaulting to claude sonnet models. Use cases include CSS animations, code refactoring and creating helper functions. Files with AI generated content include a description of AI use and model at the start of the file
+The project contains AI generated code. Files with AI generated code include a description of AI use and model at the start of the file. I've been using auto model on Copilot, which has mainly been defaulting to Claude Sonnet models 4.5 and 5.5. The biggest AI use case has been migrating the frontend from create-react-app to Vite, and upgrading the project's core dependencies alongside the migration. This is why most modules in the frontend include an AI notice, as the AI was tasked with fixing breaking changes. Other use cases have included CSS animations, code refactoring and creating helper functions.
 
 ### Known issues
 

@@ -127,3 +127,4 @@
 28.9 5h Frontend feature: Presets
 29.9 4h Frontend feature Presets
 2.10 6h Frontend feature: Site guide
+3.10 4h Frontend bugfixausta, migraatio CRA:sta Viteen

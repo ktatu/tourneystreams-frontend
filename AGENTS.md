@@ -4,7 +4,7 @@
 
 ## Project shape
 
-- This is a React 18 TypeScript frontend using Material UI, React Query, Valtio, and `react-scripts`.
+- This is a React 18 TypeScript frontend using Material UI, React Query, Valtio, and Vite.
 - Application startup is in `src/index.tsx`; the root application and shared theme/configuration live in `src/`.
 - Feature modules are organized under `src/features/`, with common state, validation, and hooks under `src/commons/` and `src/hooks/`.
 - Treat `src/` as the source of truth. `build/` is compiled production output and should not be edited by hand.
@@ -19,7 +19,6 @@
 
 - `npm start` starts the development server.
 - `npm run build` creates the production build in `build/`.
-- `npm test` runs the test suite.
 - `npm run lint` runs ESLint across TypeScript and TSX source files.
 
 Run the narrowest relevant check after a change, then run `npm run build` for TypeScript or React changes. Do not treat generated build output as a source edit.

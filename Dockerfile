@@ -1,8 +1,8 @@
-FROM node:18.16.1-alpine as build-stage
+FROM node:22-alpine as build-stage
 
 WORKDIR /usr/src/app
 
-ENV REACT_APP_BACKEND_URL_PROD=https://tourneystreams.onrender.com/api
+ENV VITE_BACKEND_URL_PROD=https://tourneystreams.onrender.com/api
 
 COPY . .
 

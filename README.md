@@ -14,7 +14,7 @@ These instructions are for the frontend only. For backend, read its README.
 
 ### AI Notice
 
-The project contains AI generated content, made using Claude Sonnet 4.5. Use cases include CSS animations, code refactoring and creating helper functions. Files with AI generated content include a description of AI use at the start of the file
+The project contains AI generated content. I've been using auto model on Copilot, which mainly has been defaulting to claude sonnet models. Use cases include CSS animations, code refactoring and creating helper functions. Files with AI generated content include a description of AI use and model at the start of the file
 
 ### Known issues
 
@@ -28,3 +28,5 @@ The project contains AI generated content, made using Claude Sonnet 4.5. Use cas
 - More visual feedback to users, e.g., alert user when they attempt to add a typoed Twitch stream via the app bar
 - Grid display for swapping positions of streams (both preset and opened livestreams)
 - Esports tournaments streams (see the note at the start of README)
+- Supporting more than 9 streams with pagination
+- Custom player controls (mute all, remove all)

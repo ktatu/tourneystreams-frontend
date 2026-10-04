@@ -50,36 +50,38 @@ const FilterByField = <T extends string>({
                 inputLabel: { shrink: true },
                 input: {
                     endAdornment: (
-                    <Box sx={{
-                        display: "flex"
-                    }}>
-                        {filterValue ? (
-                            <IconButton
-                                sx={{
-                                    visibility: filterValue ? "visible" : "hidden",
-                                }}
-                                onClick={() => setFilterValue("")}
-                            >
-                                <CloseIcon />
-                            </IconButton>
-                        ) : null}
-                        <PopupMenu
-                            ref={popupMenuRef}
-                            buttonProps={{ buttonIcon: <ArrowDropDownIcon /> }}
+                        <Box
+                            sx={{
+                                display: "flex",
+                            }}
                         >
-                            <MenuList>
-                                {filterOptions.map((option) => (
-                                    <MenuItem
-                                        key={option.value}
-                                        selected={filterType === option.value}
-                                        onClick={() => handleFilterTypeChange(option.value)}
-                                    >
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </MenuList>
-                        </PopupMenu>
-                    </Box>
+                            {filterValue ? (
+                                <IconButton
+                                    sx={{
+                                        visibility: filterValue ? "visible" : "hidden",
+                                    }}
+                                    onClick={() => setFilterValue("")}
+                                >
+                                    <CloseIcon />
+                                </IconButton>
+                            ) : null}
+                            <PopupMenu
+                                ref={popupMenuRef}
+                                buttonProps={{ buttonIcon: <ArrowDropDownIcon /> }}
+                            >
+                                <MenuList>
+                                    {filterOptions.map((option) => (
+                                        <MenuItem
+                                            key={option.value}
+                                            selected={filterType === option.value}
+                                            onClick={() => handleFilterTypeChange(option.value)}
+                                        >
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </MenuList>
+                            </PopupMenu>
+                        </Box>
                     ),
                 },
             }}

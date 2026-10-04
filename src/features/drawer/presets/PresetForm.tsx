@@ -95,8 +95,9 @@ const PresetForm = ({
                 spacing={3}
                 sx={{
                     padding: 2,
-                    width: "100%"
-                }}>
+                    width: "100%",
+                }}
+            >
                 <Typography variant="h5">{viewTitle}</Typography>
                 <TextField
                     error={Boolean(errors.presetName)}
@@ -156,9 +157,11 @@ const PresetForm = ({
                         })}
                     />
                 </form>
-                <Stack sx={{
-                    width: "50%"
-                }}>
+                <Stack
+                    sx={{
+                        width: "50%",
+                    }}
+                >
                     {channels &&
                         channels.map((channel, index) => (
                             <PresetViewChannelItem
@@ -174,8 +177,9 @@ const PresetForm = ({
                     sx={{
                         alignItems: "center",
                         justifyContent: "flex-end",
-                        width: "100%"
-                    }}>
+                        width: "100%",
+                    }}
+                >
                     <Typography
                         color="secondary"
                         variant="body1"

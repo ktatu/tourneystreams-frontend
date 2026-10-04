@@ -61,8 +61,9 @@ const Drawer = ({ drawerContent, drawerWidth, handleDrawerClose }: TourneyDrawer
                 id="scroll-container"
                 sx={{
                     height: "100%",
-                    overflow: "auto"
-                }}>
+                    overflow: "auto",
+                }}
+            >
                 <Box id="scroll-to-top-anchor" />
                 <DrawerContentSwitch
                     contentType={drawerContent}
@@ -75,9 +76,10 @@ const Drawer = ({ drawerContent, drawerWidth, handleDrawerClose }: TourneyDrawer
                             height: "50px",
                             left: `calc(${drawerWidth} - 5vw)`,
                             position: "fixed",
-                            width: "50px"
+                            width: "50px",
                         }}
-                        onClick={handleScrollToTop}>
+                        onClick={handleScrollToTop}
+                    >
                         <Fab color="primary">
                             <KeyboardArrowUpIcon />
                         </Fab>

@@ -1,4 +1,3 @@
-// AI-generated fix by GitHub Copilot (Claude Sonnet 4.5): wrapped Snackbar in a Portal so it always escapes ancestor stacking contexts (e.g. the Drawer), matching Menu/Dialog/Popover behavior.
 import { Alert as MuiAlert, Snackbar } from "@mui/material"
 
 type severity = "success" | "error"

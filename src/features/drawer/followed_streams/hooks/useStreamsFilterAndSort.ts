@@ -3,16 +3,16 @@ import { useState } from "react"
 import { streamsState } from "../../../../commons/streamsState"
 import { TwitchStream } from "../../../../types"
 
-export type FilterBy = "category" | "channel name" | "title"
+export type FilterBy = "category" | "channelName" | "title"
 export type SortBy = "viewerCount" | "category"
 
 const useStreamsFilterAndSort = (followedStreams: Array<TwitchStream>) => {
-    const [filterType, setFilterType] = useState<FilterBy>("channel name")
+    const [filterType, setFilterType] = useState<FilterBy>("channelName")
     const [filterValue, setFilterValue] = useState("")
     const [sortValue, setSortValue] = useState<SortBy>("viewerCount")
 
     const filteredStreams = followedStreams.filter((followedStream) => {
-        if (filterType === "channel name") {
+        if (filterType === "channelName") {
             return (
                 followedStream.broadcastName.toLowerCase().includes(filterValue.toLowerCase()) ||
                 followedStream.loginName.toLowerCase().includes(filterValue.toLowerCase())

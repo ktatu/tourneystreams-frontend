@@ -13,13 +13,6 @@ const presetStorage = PresetStorage.instance
 
 const usePresets = () => {
     const initialPresetsToShow = presetStorage.getStoredPresets()
-    /*
-    const placeholderData = {
-        presetsWithLiveStreams: [] as Array<Preset>,
-        presetsWithNoLiveStreams: initialPresetsToShow,
-        totalNumOfStreams: 0,
-        totalNumOfViewers: 0,
-    }*/
 
     const queryResult = useQuery<{
         presetsWithNoLiveStreams: Array<Preset>

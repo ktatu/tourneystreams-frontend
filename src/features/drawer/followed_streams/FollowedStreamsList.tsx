@@ -50,7 +50,7 @@ const FollowedStreamsList = ({ followedStreams }: FollowedStreamsProps) => {
                         { label: "title", value: "title" },
                     ]}
                     setFilterType={(filterBy) =>
-                        setFilterType(filterBy === "channelName" ? "channel name" : filterBy)
+                        setFilterType(filterBy === "channelName" ? "channelName" : filterBy)
                     }
                 />
             </Box>

@@ -1,3 +1,4 @@
+// AI-assisted by GitHub Copilot (Claude Sonnet 5.5): fixed stored preset validation
 import { Preset } from "../../../types"
 
 class PresetLocalStorage {
@@ -91,13 +92,13 @@ const isPreset = (preset: unknown): preset is Preset => {
         return false
     }
 
-    preset.channels.forEach((channel) => {
-        if (!("name" in channel) || typeof channel !== "string") {
-            return false
-        }
-    })
-
-    return true
+    return preset.channels.every(
+        (channel: unknown) =>
+            typeof channel === "object" &&
+            channel !== null &&
+            "name" in channel &&
+            typeof channel.name === "string",
+    )
 }
 
 export default PresetLocalStorage

@@ -1,5 +1,6 @@
 import { proxy, subscribe, useSnapshot } from "valtio"
 import { Stream, StreamSource } from "../types"
+import { addAlert } from "./alertState"
 import searchParams from "./searchParams"
 
 interface StreamsState {
@@ -8,6 +9,8 @@ interface StreamsState {
     readonly identifiers: Array<string>
     readonly sortedStreams: Array<Stream>
 }
+
+const MAX_STREAMS = 9
 
 const streamSearchParams = searchParams("streams")
 
@@ -19,14 +22,21 @@ const parseStreamFromParam = (param: string) => {
     return { id, streamSource }
 }
 
-const initialStreams = streamSearchParams.getAll().map((param, index) => {
-    const { id, streamSource } = parseStreamFromParam(param)
-    return { id, streamSource, displayPosition: index }
-})
+const initialStreams = () => {
+    const streamsFromParams = streamSearchParams.getAll()
+    if (streamsFromParams.length > 9) {
+        addAlert(`Cannot add more than ${MAX_STREAMS} streams`, "error")
+    }
+
+    return streamsFromParams.slice(0, MAX_STREAMS - 1).map((param, index) => {
+        const { id, streamSource } = parseStreamFromParam(param)
+        return { id, streamSource, displayPosition: index }
+    })
+}
 
 export const streamsState = proxy<StreamsState>({
     selectedChat: null,
-    streams: initialStreams,
+    streams: initialStreams(),
     get identifiers() {
         return this.streams.map((stream: Stream) => stream.id)
     },
@@ -40,7 +50,8 @@ export const streamsState = proxy<StreamsState>({
 export const useStreamsState = () => useSnapshot(streamsState)
 
 export const addStream = (id: string, streamSource: StreamSource) => {
-    if (streamsState.identifiers.includes(id)) {
+    if (streamsState.identifiers.includes(id) || streamsState.identifiers.length >= 9) {
+        addAlert(`Cannot add more than ${MAX_STREAMS} streams`, "error")
         return
     }
 
@@ -52,18 +63,8 @@ export const addStream = (id: string, streamSource: StreamSource) => {
 }
 
 export const addStreamList = (streams: Array<{ id: string; streamSource: StreamSource }>) => {
-    const duplicatesRemoved = streams.filter(
-        (stream) => !streamsState.identifiers.includes(stream.id),
-    )
-
-    let firstDisplayIndex = streamsState.identifiers.length + 1
-    const displayPositionsAdded = duplicatesRemoved.map((stream) => {
-        const newStream: Stream = { ...stream, displayPosition: firstDisplayIndex }
-        firstDisplayIndex++
-        return newStream
-    })
-
-    streamsState.streams.push(...displayPositionsAdded)
+    // The changes are batched so this doesnt cause multiple rerenders
+    streams.forEach((stream) => addStream(stream.id, stream.streamSource))
 }
 
 export const removeStream = (id: string) => {

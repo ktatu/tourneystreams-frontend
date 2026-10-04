@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced removed MUI props with slotProps, moved MUI system props into sx, as part of the Vite/dependency migration.
 // AI-generated refactor by GitHub Copilot (Claude Sonnet 4.5): made FilterByField generic and driven by a filterOptions list instead of the hardcoded FilterBy type.
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import CloseIcon from "@mui/icons-material/Close"

@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced removed MUI props with slotProps, moved MUI system props into sx, as part of the Vite/dependency migration.
 // AI-assisted by GitHub Copilot (Claude Sonnet 5.5): text field state and validation moved to react-hook-form.
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { IconButton, Paper, Stack, TextField, Typography } from "@mui/material"

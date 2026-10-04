@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Cancel, PlayCircle } from "@mui/icons-material"
 import OpenInNewIcon from "@mui/icons-material/OpenInNew"
 import {

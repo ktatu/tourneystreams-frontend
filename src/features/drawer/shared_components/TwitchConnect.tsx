@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import LaunchIcon from "@mui/icons-material/Launch"
 import { Box, Button, Typography } from "@mui/material"
 import { BACKEND_BASE_URL } from "../../../envConfig"

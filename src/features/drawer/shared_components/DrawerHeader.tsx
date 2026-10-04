@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced JSX.Element with React.JSX.Element, moved MUI system props into sx, as part of the Vite/dependency migration.
 import ArrowBackIcon from "@mui/icons-material/ArrowBack"
 import { Box, IconButton, Typography } from "@mui/material"
 import "../Drawer.css"

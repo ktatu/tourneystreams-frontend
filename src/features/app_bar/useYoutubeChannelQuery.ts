@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): switched to TanStack Query v5 syntax, as part of the Vite/dependency migration.
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { BACKEND_BASE_URL } from "../../envConfig"

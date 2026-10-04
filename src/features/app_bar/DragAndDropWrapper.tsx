@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced JSX.Element with React.JSX.Element, as part of the Vite/dependency migration.
 import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core"
 import {
     restrictToHorizontalAxis,

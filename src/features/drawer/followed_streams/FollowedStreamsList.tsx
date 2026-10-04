@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box, Stack } from "@mui/material"
 import { TwitchStream } from "../../../types"
 import FilterByField from "../shared_components/FilterByField"

@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced JSX.Element with React.JSX.Element, moved MUI system props into sx, as part of the Vite/dependency migration.
 /* eslint-disable react/display-name */
 import { Button } from "@mui/material"
 import Box from "@mui/material/Box"

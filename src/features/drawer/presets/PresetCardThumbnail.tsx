@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced JSX.Element with React.JSX.Element, moved MUI system props into sx, as part of the Vite/dependency migration.
 import TvIcon from "@mui/icons-material/Tv"
 import { Box, CardMedia, Skeleton, Typography } from "@mui/material"
 import { useEffect, useState } from "react"

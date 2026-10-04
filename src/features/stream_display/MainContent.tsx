@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): switched to the MUI 9 Grid size prop, moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Grid } from "@mui/material"
 import Chat from "./Chat"
 import VideoPlayers from "./VideoPlayers"

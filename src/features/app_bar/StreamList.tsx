@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import { Box, Button, Menu, Slide, Stack } from "@mui/material"
 import { MouseEventHandler, useEffect, useLayoutEffect, useRef, useState } from "react"

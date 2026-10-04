@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced removed MUI props with slotProps, moved MUI system props into sx, as part of the Vite/dependency migration.
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 import { Box, Fab, Fade, Drawer as MuiDrawer, useScrollTrigger, useTheme } from "@mui/material"
 import { useEffect, useState } from "react"

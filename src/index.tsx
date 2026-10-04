@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): switched to import.meta.env, switched to TanStack Query v5 syntax, renamed the msw start option, as part of the Vite/dependency migration.
 // AI-generated addition by Claude Sonnet 5.5 (GitHub Copilot): added optional msw mocking startup before rendering the app.
 import { ThemeProvider } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"

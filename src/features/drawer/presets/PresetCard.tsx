@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 // AI-generated addition by GitHub Copilot (Claude Sonnet 4.5): added a theme-colored pulsing halo animation around the LiveTvIcon.
 import { keyframes } from "@emotion/react"
 import { Cancel, PlayCircle } from "@mui/icons-material"

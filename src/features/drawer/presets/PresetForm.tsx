@@ -1,7 +1,9 @@
+// AI-assisted by GitHub Copilot (Claude Sonnet 5.5): text field state and validation moved to react-hook-form.
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { IconButton, Paper, Stack, TextField, Typography } from "@mui/material"
 import { useTheme } from "@mui/material/styles"
 import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
 import AddPreset from "./AddPreset"
 import { PresetContentView } from "./Presets"
 import PresetViewChannelItem from "./PresetViewChannelItem"
@@ -20,6 +22,15 @@ interface PresetFormProps {
     setPresetContentView: React.Dispatch<React.SetStateAction<PresetContentView>>
 }
 
+interface PresetFormValues {
+    presetName: string
+    channelName: string
+}
+
+const MAX_CHANNEL_NAME_LENGTH = 25
+const MIN_CHANNEL_NAME_LENGTH = 4
+const MAX_PRESET_NAME_LENGTH = 30
+
 const PresetForm = ({
     viewTitle,
     initialChannels,
@@ -27,10 +38,22 @@ const PresetForm = ({
     formType,
     setPresetContentView,
 }: PresetFormProps) => {
-    const [channelTextField, setChannelTextField] = useState("")
     const [channels, setChannels] = useState(initialChannels)
-    const [presetName, setPresetName] = useState(initialPresetName)
     const [errorMessage, setErrorMessage] = useState("")
+    const {
+        register,
+        watch,
+        trigger,
+        getValues,
+        resetField,
+        formState: { errors },
+    } = useForm<PresetFormValues>({
+        mode: "onChange",
+        defaultValues: { presetName: initialPresetName, channelName: "" },
+    })
+
+    // Children disable their save button on an empty name, so invalid names are passed as empty
+    const presetName = errors.presetName ? "" : watch("presetName").trim()
 
     const theme = useTheme()
 
@@ -46,13 +69,16 @@ const PresetForm = ({
         return () => clearTimeout(id)
     }, [errorMessage])
 
-    const handleAddChannel = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleAddChannel = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const channelToLower = channelTextField.toLocaleLowerCase()
-        if (!channels.includes(channelToLower)) {
-            setChannels(channels.concat(channelToLower))
-            setChannelTextField("")
+        // Only the channel field is validated here so a bad preset name doesn't block adding channels
+        if (!(await trigger("channelName"))) {
+            return
         }
+
+        const channelToLower = getValues("channelName").trim().toLocaleLowerCase()
+        setChannels(channels.concat(channelToLower))
+        resetField("channelName", { defaultValue: "" })
     }
 
     const handleRemoveChannel = (channelToRemove: string) => {
@@ -72,8 +98,9 @@ const PresetForm = ({
             >
                 <Typography variant="h5">{viewTitle}</Typography>
                 <TextField
+                    error={Boolean(errors.presetName)}
+                    helperText={errors.presetName?.message}
                     placeholder="Preset name"
-                    value={presetName}
                     variant="standard"
                     sx={{
                         "& .MuiInputBase-input": {
@@ -82,16 +109,22 @@ const PresetForm = ({
                         width: "50%",
                     }}
                     onFocus={(event) => event.target.select()}
-                    onChange={(event) => {
-                        setPresetName(event.target.value)
-                    }}
+                    {...register("presetName", {
+                        required: "Preset name is required",
+                        maxLength: {
+                            value: MAX_PRESET_NAME_LENGTH,
+                            message: `Preset name can be at most ${MAX_PRESET_NAME_LENGTH} characters`,
+                        },
+                        validate: (value) => value.trim() !== "" || "Preset name is required",
+                    })}
                 />
                 <form onSubmit={handleAddChannel}>
                     {/* using form because it handles the option of user adding new channels by pressing enter */}
                     <TextField
+                        error={Boolean(errors.channelName)}
+                        helperText={errors.channelName?.message}
                         placeholder="Channel name"
                         sx={{ width: "50%" }}
-                        value={channelTextField}
                         variant="standard"
                         InputProps={{
                             endAdornment: (
@@ -100,9 +133,24 @@ const PresetForm = ({
                                 </IconButton>
                             ),
                         }}
-                        onChange={(event) => {
-                            setChannelTextField(event.target.value)
-                        }}
+                        {...register("channelName", {
+                            required: "Channel name is required",
+                            maxLength: {
+                                value: MAX_CHANNEL_NAME_LENGTH,
+                                message: `Channel name can be at most ${MAX_CHANNEL_NAME_LENGTH} characters`,
+                            },
+                            minLength: {
+                                value: MIN_CHANNEL_NAME_LENGTH,
+                                message: `Channel name has to be at least ${MIN_CHANNEL_NAME_LENGTH} characters`,
+                            },
+                            pattern: {
+                                value: /^\w+$/,
+                                message: "Only letters, numbers and underscores are allowed",
+                            },
+                            validate: (value) =>
+                                !channels.includes(value.toLocaleLowerCase()) ||
+                                "Channel is already added",
+                        })}
                     />
                 </form>
                 <Stack width="50%">

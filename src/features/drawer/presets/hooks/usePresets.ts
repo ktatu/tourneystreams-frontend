@@ -1,4 +1,5 @@
-import { useQuery } from "react-query"
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): switched to TanStack Query v5 syntax, as part of the Vite/dependency migration.
+import { useQuery } from "@tanstack/react-query"
 import { fetch } from "../../../../commons/authRequests"
 import { Preset, TwitchChannel } from "../../../../types"
 import PresetStorage from "../PresetsLocalStorage"
@@ -19,9 +20,11 @@ const usePresets = () => {
         presetsWithLiveStreams: Array<Preset>
         totalNumOfViewers: number
         totalNumOfStreams: number
-    }>("presets", getPresets, {
+    }>({
+        queryKey: ["presets"],
+        queryFn: getPresets,
         retry: 1,
-        cacheTime: Infinity,
+        gcTime: Infinity,
         staleTime: 100000,
         enabled: initialPresetsToShow.length !== 0,
     })

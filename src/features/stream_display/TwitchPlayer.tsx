@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box, CircularProgress } from "@mui/material"
 import { useState } from "react"
 import ReactTwitchPlayer from "react-player/twitch"
@@ -20,24 +21,26 @@ const TwitchPlayer = ({ id }: VideoPlayerProps) => {
 
     return (
         <Box
-            alignItems="center"
-            display="flex"
-            height="100%"
-            justifyContent="center"
-            padding="1px" // seems to prevent player pausing on chrome in some situations
-            position="relative"
-            width="100%"
-        >
+            sx={{
+                alignItems: "center",
+                display: "flex",
+                height: "100%",
+                justifyContent: "center",
+                padding: "1px",
+                position: "relative",
+                width: "100%"
+            }}>
             {!playerReady && (
                 <Box
-                    alignItems="center"
-                    bgcolor="black"
-                    display="flex"
-                    height="100%"
-                    justifyContent="center"
-                    position="absolute"
-                    width="100%"
-                >
+                    sx={{
+                        alignItems: "center",
+                        bgcolor: "black",
+                        display: "flex",
+                        height: "100%",
+                        justifyContent: "center",
+                        position: "absolute",
+                        width: "100%"
+                    }}>
                     <CircularProgress size="10%" />
                 </Box>
             )}

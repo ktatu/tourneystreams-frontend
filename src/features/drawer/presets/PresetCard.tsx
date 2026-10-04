@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 // AI-generated addition by GitHub Copilot (Claude Sonnet 4.5): added a theme-colored pulsing halo animation around the LiveTvIcon.
 import { keyframes } from "@emotion/react"
 import { Cancel, PlayCircle } from "@mui/icons-material"
@@ -84,18 +85,23 @@ const PresetCard = ({ preset, handleChangeToPresetUpdate }: PresetCardProps) => 
                     }
                 />
             )}
-            <Box padding={0.5}>
+            <Box sx={{
+                padding: 0.5
+            }}>
                 <Stack spacing={3}>
                     {hideThumbnail && <Typography variant="h5">{preset.name}</Typography>}
                     <Stack
-                        alignItems="center"
                         direction="row"
-                        justifyContent="space-between"
-                    >
+                        sx={{
+                            alignItems: "center",
+                            justifyContent: "space-between"
+                        }}>
                         <Stack
-                            alignItems="flex-start"
                             direction="row"
                             spacing={2}
+                            sx={{
+                                alignItems: "flex-start"
+                            }}
                         >
                             <Tooltip title={`${numOfChannelsLive} channels live`}>
                                 <Stack
@@ -103,16 +109,19 @@ const PresetCard = ({ preset, handleChangeToPresetUpdate }: PresetCardProps) => 
                                     spacing={0.5}
                                 >
                                     <Typography
-                                        paddingTop={0.2}
                                         variant="body1"
+                                        sx={{
+                                            paddingTop: 0.2
+                                        }}
                                     >
                                         {channelsWithStreamsLive.length}/{preset.channels.length}
                                     </Typography>
                                     <Box
-                                        borderRadius="50%"
-                                        display="flex"
-                                        sx={{ animation: `${pulse} 2s ease-out infinite` }}
-                                    >
+                                        sx={{
+                                            borderRadius: "50%",
+                                            display: "flex",
+                                            animation: `${pulse} 2s ease-out infinite`
+                                        }}>
                                         <LiveTvIcon
                                             color="secondary"
                                             fontSize="medium"
@@ -121,8 +130,10 @@ const PresetCard = ({ preset, handleChangeToPresetUpdate }: PresetCardProps) => 
                                 </Stack>
                             </Tooltip>
                             <Typography
-                                paddingTop={0.2}
                                 variant="body1"
+                                sx={{
+                                    paddingTop: 0.2
+                                }}
                             >
                                 {totalViewersInStreams} viewers
                             </Typography>

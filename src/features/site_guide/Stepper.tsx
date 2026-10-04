@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material"
 import { Button, Stack, Typography } from "@mui/material"
 
@@ -16,15 +17,18 @@ const GuideStepper = ({
 }: StepperProps) => {
     return (
         <Stack
-            alignItems="center"
             spacing={5}
+            sx={{
+                alignItems: "center"
+            }}
         >
             <Stack
-                alignItems="center"
                 direction="row"
-                justifyContent="center"
                 spacing={5}
-            >
+                sx={{
+                    alignItems: "center",
+                    justifyContent: "center"
+                }}>
                 <Button
                     disabled={currentStep === 0}
                     size="large"

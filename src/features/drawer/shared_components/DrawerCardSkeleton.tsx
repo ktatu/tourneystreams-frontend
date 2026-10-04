@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Skeleton, Stack } from "@mui/material"
 
 const WIDTH = 350
@@ -20,7 +21,9 @@ const DrawerCardSkeleton = ({ count, gap }: PlaceholderSkeletonProps) => {
     return (
         <Stack
             direction="column"
-            gap={gap}
+            sx={{
+                gap: gap
+            }}
         >
             {skeletons.map((skeleton, index) => (
                 <div key={index}>{skeleton}</div>

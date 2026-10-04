@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
 import CloseIcon from "@mui/icons-material/Close"
@@ -47,19 +48,24 @@ const StreamListItem = ({ stream, channelChatIsSelected, oneStreamOpen }: Stream
             {...attributes}
         >
             <Box
-                alignItems="center"
-                display="flex"
-                height="100%"
-                paddingLeft={1}
-                paddingRight={1}
-                width="100%"
-            >
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    height: "100%",
+                    paddingLeft: 1,
+                    paddingRight: 1,
+                    width: "100%"
+                }}>
                 <StreamName
                     streamId={stream.id}
                     streamSource={stream.streamSource}
                 />
-                <Box flexGrow={1} />
-                <Box display="flex">
+                <Box sx={{
+                    flexGrow: 1
+                }} />
+                <Box sx={{
+                    display: "flex"
+                }}>
                     {!oneStreamOpen && (
                         <IconButton
                             size="large"

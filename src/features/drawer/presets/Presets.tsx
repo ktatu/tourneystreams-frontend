@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box, Button, Typography } from "@mui/material"
 import { useState } from "react"
 import { Preset } from "../../../types"
@@ -47,7 +48,9 @@ const Presets = ({ handleDrawerClose }: PresetsProps) => {
                     />
                 )}
                 {presetContentView === PresetContentView.PresetsList && (
-                    <Box marginTop={10}>
+                    <Box sx={{
+                        marginTop: 10
+                    }}>
                         <PresetsList handleChangeToPresetUpdate={handleChangeToPresetUpdate} />
                     </Box>
                 )}

@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box, Button, Typography } from "@mui/material"
 import { lazy, Suspense, useState } from "react"
 import SiteGuideSkeleton from "./features/site_guide/SiteGuideSkeleton"
@@ -9,13 +10,14 @@ const Welcome = () => {
 
     return (
         <Box
-            alignItems="center"
-            display="flex"
-            flexDirection="column"
-            gap={3}
-            height="100%"
-            paddingTop={5}
-        >
+            sx={{
+                alignItems: "center",
+                display: "flex",
+                flexDirection: "column",
+                gap: 3,
+                height: "100%",
+                paddingTop: 5
+            }}>
             {!showSiteGuide && (
                 <>
                     <Typography variant="h3">Welcome to Tourneystreams!</Typography>

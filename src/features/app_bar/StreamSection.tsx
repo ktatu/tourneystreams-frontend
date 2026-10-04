@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): changed the SVG import to the ?react form, moved MUI system props into sx, as part of the Vite/dependency migration.
 import {
     Box,
     Button,
@@ -8,7 +9,7 @@ import {
     Typography,
 } from "@mui/material"
 import { useState } from "react"
-import { ReactComponent as TwitchLogo } from "../../assets/TwitchLogo.svg"
+import TwitchLogo from "../../assets/TwitchLogo.svg?react"
 import YouTubeLogo from "../../assets/YouTubeLogo.png"
 import { addAlert } from "../../commons/alertState"
 import { addStream } from "../../commons/streamsState"
@@ -73,15 +74,17 @@ const StreamSection = () => {
 
     return (
         <Box
-            alignItems="center"
-            display="flex"
-            gap={1}
-        >
+            sx={{
+                alignItems: "center",
+                display: "flex",
+                gap: 1
+            }}>
             <Box
-                alignItems="stretch"
-                display="flex"
-                gap={0}
-            >
+                sx={{
+                    alignItems: "stretch",
+                    display: "flex",
+                    gap: 0
+                }}>
                 <ToggleButtonGroup
                     exclusive
                     value={streamSource}
@@ -119,7 +122,9 @@ const StreamSection = () => {
             >
                 <Typography variant="h4">+</Typography>
             </Button>
-            <Box marginLeft={10}>
+            <Box sx={{
+                marginLeft: 10
+            }}>
                 <StreamList />
             </Box>
         </Box>

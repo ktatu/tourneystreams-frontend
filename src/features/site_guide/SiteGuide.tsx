@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Divider, Stack } from "@mui/material"
 import { useState } from "react"
 import ReactPlayer from "react-player"
@@ -49,10 +50,11 @@ const SiteGuide = ({ setShowSiteGuide }: SiteGuideProps) => {
 
     return (
         <Stack
-            justifyContent="center"
-            paddingTop={5}
             spacing={10}
-        >
+            sx={{
+                justifyContent: "center",
+                paddingTop: 5
+            }}>
             <Stack
                 direction="row"
                 spacing={5}

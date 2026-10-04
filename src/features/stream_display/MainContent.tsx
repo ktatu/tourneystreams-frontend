@@ -1,4 +1,5 @@
-import { Unstable_Grid2 as Grid } from "@mui/material"
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): switched to the MUI 9 Grid size prop, moved MUI system props into sx, as part of the Vite/dependency migration.
+import { Grid } from "@mui/material"
 import Chat from "./Chat"
 import VideoPlayers from "./VideoPlayers"
 
@@ -6,12 +7,12 @@ const Streams = () => {
     return (
         <Grid
             container
-            height="100%"
+            sx={{ height: "100%" }}
         >
-            <Grid xs>
+            <Grid size="grow">
                 <VideoPlayers />
             </Grid>
-            <Grid xs="auto">
+            <Grid size="auto">
                 <Chat />
             </Grid>
         </Grid>

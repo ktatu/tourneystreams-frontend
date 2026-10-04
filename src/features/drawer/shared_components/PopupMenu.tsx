@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced JSX.Element with React.JSX.Element, moved MUI system props into sx, as part of the Vite/dependency migration.
 /* eslint-disable react/display-name */
 import { Button } from "@mui/material"
 import Box from "@mui/material/Box"
@@ -8,11 +9,11 @@ import React, { forwardRef, useImperativeHandle, useState } from "react"
 type ButtonProps = IconButtonProps | TextAndIconButtonProps | TextButtonProps
 
 type IconButtonProps = {
-    buttonIcon: JSX.Element
+    buttonIcon: React.JSX.Element
 }
 
 type TextAndIconButtonProps = {
-    buttonIcon: JSX.Element
+    buttonIcon: React.JSX.Element
     buttonText: string
 }
 
@@ -22,7 +23,7 @@ type TextButtonProps = {
 
 type PopupMenuProps = {
     buttonProps: ButtonProps
-    children: JSX.Element
+    children: React.JSX.Element
 }
 
 interface MouseEventHandler {
@@ -74,7 +75,7 @@ const OpenMenuButton = ({
 }: {
     buttonProps: ButtonProps
     handleClick: MouseEventHandler
-}): JSX.Element => {
+}): React.JSX.Element => {
     if (isTextAndIconButtonProps(buttonProps)) {
         return (
             <Button
@@ -86,10 +87,11 @@ const OpenMenuButton = ({
                 onClick={handleClick}
             >
                 <Box
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                    whiteSpace="nowrap"
-                >
+                    sx={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap"
+                    }}>
                     {buttonProps.buttonText}
                 </Box>
             </Button>

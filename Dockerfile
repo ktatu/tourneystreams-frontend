@@ -1,8 +1,9 @@
-FROM node:18.16.1-alpine as build-stage
+# AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): updated the Node version and env variable name for the Vite migration.
+FROM node:22-alpine as build-stage
 
 WORKDIR /usr/src/app
 
-ENV REACT_APP_BACKEND_URL_PROD=https://tourneystreams.onrender.com/api
+ENV VITE_BACKEND_URL_PROD=https://tourneystreams.onrender.com/api
 
 COPY . .
 

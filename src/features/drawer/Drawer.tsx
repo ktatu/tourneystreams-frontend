@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced removed MUI props with slotProps, moved MUI system props into sx, as part of the Vite/dependency migration.
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 import { Box, Fab, Fade, Drawer as MuiDrawer, useScrollTrigger, useTheme } from "@mui/material"
 import { useEffect, useState } from "react"
@@ -47,18 +48,22 @@ const Drawer = ({ drawerContent, drawerWidth, handleDrawerClose }: TourneyDrawer
             anchor="left"
             open={drawerContent !== DrawerContent.None}
             variant="persistent"
-            PaperProps={{
-                sx: {
-                    width: drawerWidth,
-                    height: "100%",
-                    paddingTop: `${drawerPaddingTop}px`,
+            slotProps={{
+                paper: {
+                    sx: {
+                        width: drawerWidth,
+                        height: "100%",
+                        paddingTop: `${drawerPaddingTop}px`,
+                    },
                 },
             }}
         >
             <Box
-                height="100%"
                 id="scroll-container"
-                overflow="auto"
+                sx={{
+                    height: "100%",
+                    overflow: "auto",
+                }}
             >
                 <Box id="scroll-to-top-anchor" />
                 <DrawerContentSwitch
@@ -67,11 +72,13 @@ const Drawer = ({ drawerContent, drawerWidth, handleDrawerClose }: TourneyDrawer
                 />
                 <Fade in={scrollTrigger}>
                     <Box
-                        bottom="5vh"
-                        height="50px"
-                        left={`calc(${drawerWidth} - 5vw)`}
-                        position="fixed"
-                        width="50px"
+                        sx={{
+                            bottom: "5vh",
+                            height: "50px",
+                            left: `calc(${drawerWidth} - 5vw)`,
+                            position: "fixed",
+                            width: "50px",
+                        }}
                         onClick={handleScrollToTop}
                     >
                         <Fab color="primary">

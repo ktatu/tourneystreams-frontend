@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Stack, Typography } from "@mui/material"
 
 type PlainText = { plainText: string }
@@ -12,8 +13,10 @@ export interface GuideText {
 const TextDisplay = ({ text }: { text: GuideText }) => {
     return (
         <Stack
-            flexWrap="wrap"
             spacing={0.5}
+            sx={{
+                flexWrap: "wrap"
+            }}
         >
             <Typography variant="h3">{text.title}</Typography>
             {text.description.map((descr, index) => {

@@ -1,11 +1,14 @@
-import { useQuery } from "react-query"
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): switched to TanStack Query v5 syntax, as part of the Vite/dependency migration.
+import { useQuery } from "@tanstack/react-query"
 import { fetch } from "../../../../commons/authRequests"
 import { TwitchStream } from "../../../../types"
 
 const useFollowedStreamsQuery = () => {
-    const queryResult = useQuery<Array<TwitchStream>>("followedStreams", queryFollowedStreams, {
+    const queryResult = useQuery<Array<TwitchStream>>({
+        queryKey: ["followedStreams"],
+        queryFn: queryFollowedStreams,
         retry: 1,
-        cacheTime: 1000 * 100,
+        gcTime: 1000 * 100,
         staleTime: 1000 * 10 * 2,
     })
 

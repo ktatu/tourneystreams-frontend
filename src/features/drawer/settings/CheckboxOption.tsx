@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box, Checkbox, Typography } from "@mui/material"
 import { useState } from "react"
 
@@ -18,10 +19,11 @@ const CheckboxOption = ({ optionName, optionDescription }: CheckboxOptionProps) 
 
     return (
         <Box
-            alignItems="center"
-            display="flex"
-            gap={0.5}
-        >
+            sx={{
+                alignItems: "center",
+                display: "flex",
+                gap: 0.5
+            }}>
             <Checkbox
                 checked={optionVal}
                 onChange={handleOptionValChange}

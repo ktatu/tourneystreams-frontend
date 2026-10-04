@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): set moduleResolution to bundler and removed ignoreDeprecations for the Vite/TypeScript 5.9 migration.
 {
     "compilerOptions": {
         "target": "es5",
@@ -10,13 +11,12 @@
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
         "module": "esnext",
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "types": ["node", "youtube"],
-        "ignoreDeprecations": "6.0"
+        "types": ["node", "youtube"]
     },
     "include": ["src", "custom.d.ts"]
 }

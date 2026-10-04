@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box } from "@mui/material"
 import { useStreamsState } from "../../commons/streamsState"
 import useYoutubeiFrameApi from "../../hooks/useYoutubeiFrameApi"
@@ -13,23 +14,25 @@ const VideoPlayers = () => {
 
     return (
         <Box
-            display="flex"
-            flexDirection="row"
-            flexWrap="wrap"
-            height="100%"
-            overflow="auto"
-        >
+            sx={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                height: "100%",
+                overflow: "auto"
+            }}>
             {streams.map((stream) => {
                 const { width, height } = getVideoDimensions(streams.length, stream.displayPosition)
 
                 return (
                     <Box
                         key={`${stream.id}-${stream.displayPosition}`}
-                        height={`${height}%`}
-                        order={stream.displayPosition}
-                        overflow="hidden"
-                        width={`${width}%`}
-                    >
+                        sx={{
+                            height: `${height}%`,
+                            order: stream.displayPosition,
+                            overflow: "hidden",
+                            width: `${width}%`
+                        }}>
                         {stream.streamSource === "twitch" ? (
                             <TwitchPlayer id={stream.id} />
                         ) : (

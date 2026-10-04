@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box, Stack } from "@mui/material"
 import { TwitchStream } from "../../../types"
 import FilterByField from "../shared_components/FilterByField"
@@ -23,15 +24,18 @@ const FollowedStreamsList = ({ followedStreams }: FollowedStreamsProps) => {
     return (
         <Stack
             direction="column"
-            gap={1}
+            sx={{
+                gap: 1
+            }}
         >
             <Box
-                alignItems="center"
-                display="flex"
-                gap={3}
-                paddingBottom={5}
-                paddingTop={2}
-            >
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    gap: 3,
+                    paddingBottom: 5,
+                    paddingTop: 2
+                }}>
                 <SortBySelect
                     setSortValue={setSortValue}
                     sortValue={sortValue}
@@ -56,7 +60,9 @@ const FollowedStreamsList = ({ followedStreams }: FollowedStreamsProps) => {
             </Box>
             <Stack
                 direction="column"
-                gap={3}
+                sx={{
+                    gap: 3
+                }}
             >
                 {streams.map((stream) => (
                     <StreamCard

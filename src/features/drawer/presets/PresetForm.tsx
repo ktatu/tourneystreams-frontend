@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced removed MUI props with slotProps, moved MUI system props into sx, as part of the Vite/dependency migration.
 // AI-assisted by GitHub Copilot (Claude Sonnet 5.5): text field state and validation moved to react-hook-form.
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { IconButton, Paper, Stack, TextField, Typography } from "@mui/material"
@@ -92,9 +93,11 @@ const PresetForm = ({
             sx={{ width: "100%" }}
         >
             <Stack
-                padding={2}
                 spacing={3}
-                width="100%"
+                sx={{
+                    padding: 2,
+                    width: "100%",
+                }}
             >
                 <Typography variant="h5">{viewTitle}</Typography>
                 <TextField
@@ -126,12 +129,14 @@ const PresetForm = ({
                         placeholder="Channel name"
                         sx={{ width: "50%" }}
                         variant="standard"
-                        InputProps={{
-                            endAdornment: (
-                                <IconButton type="submit">
-                                    <AddCircleIcon color="primary" />
-                                </IconButton>
-                            ),
+                        slotProps={{
+                            input: {
+                                endAdornment: (
+                                    <IconButton type="submit">
+                                        <AddCircleIcon color="primary" />
+                                    </IconButton>
+                                ),
+                            },
                         }}
                         {...register("channelName", {
                             required: "Channel name is required",
@@ -153,7 +158,11 @@ const PresetForm = ({
                         })}
                     />
                 </form>
-                <Stack width="50%">
+                <Stack
+                    sx={{
+                        width: "50%",
+                    }}
+                >
                     {channels &&
                         channels.map((channel, index) => (
                             <PresetViewChannelItem
@@ -164,11 +173,13 @@ const PresetForm = ({
                         ))}
                 </Stack>
                 <Stack
-                    alignItems="center"
                     direction="row"
-                    justifyContent="flex-end"
                     spacing={2}
-                    width="100%"
+                    sx={{
+                        alignItems: "center",
+                        justifyContent: "flex-end",
+                        width: "100%",
+                    }}
                 >
                     <Typography
                         color="secondary"

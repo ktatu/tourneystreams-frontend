@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced JSX.Element with React.JSX.Element, moved MUI system props into sx, as part of the Vite/dependency migration.
 import TvIcon from "@mui/icons-material/Tv"
 import { Box, CardMedia, Skeleton, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
@@ -5,7 +6,7 @@ import { useEffect, useState } from "react"
 interface PresetCardThumbnailProps {
     thumbnailWidth: number
     streamName: string
-    overlay: JSX.Element
+    overlay: React.JSX.Element
 }
 
 const PresetCardThumbnail = ({ thumbnailWidth, streamName, overlay }: PresetCardThumbnailProps) => {
@@ -27,13 +28,14 @@ const PresetCardThumbnail = ({ thumbnailWidth, streamName, overlay }: PresetCard
     if (thumbnailLoadError) {
         return (
             <Box
-                alignItems="center"
-                display="flex"
-                gap={0.5}
-                height={THUMBNAIL_HEIGHT}
-                justifyContent="center"
-                width={thumbnailWidth}
-            >
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    gap: 0.5,
+                    height: THUMBNAIL_HEIGHT,
+                    justifyContent: "center",
+                    width: thumbnailWidth
+                }}>
                 <TvIcon fontSize="large" />
                 <Typography
                     sx={{ userSelect: "none" }}

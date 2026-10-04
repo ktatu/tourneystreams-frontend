@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box, Stack, Typography } from "@mui/material"
 import DrawerContainer from "../shared_components/DrawerContainer"
 import DrawerHeader from "../shared_components/DrawerHeader"
@@ -16,10 +17,11 @@ const Settings = ({ handleDrawerClose }: SettingsProps) => {
                     title="Settings"
                 />
                 <Box
-                    display="flex"
-                    flexDirection="column"
-                    gap={3}
-                >
+                    sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 3
+                    }}>
                     <Stack>
                         <Typography variant="h5">Twitch</Typography>
                         <CheckboxOption

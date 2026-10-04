@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import CloseIcon from "@mui/icons-material/Close"
 import { Box, IconButton, Paper, Tooltip, Typography } from "@mui/material"
 import { memo } from "react"
@@ -14,23 +15,29 @@ const PresetViewChannelItem = ({ channel, handleRemoveChannel }: PresetViewChann
             variant="outlined"
         >
             <Box
-                alignItems="center"
-                display="flex"
-                height="100%"
-                paddingLeft={1}
-                paddingRight={1}
-                width="100%"
-            >
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    height: "100%",
+                    paddingLeft: 1,
+                    paddingRight: 1,
+                    width: "100%"
+                }}>
                 <Typography
-                    marginTop={0.5}
-                    overflow="hidden"
-                    sx={{ userSelect: "none" }}
                     variant="button"
-                >
+                    sx={{
+                        marginTop: 0.5,
+                        overflow: "hidden",
+                        userSelect: "none"
+                    }}>
                     {channel}
                 </Typography>
-                <Box flexGrow={1} />
-                <Box display="flex">
+                <Box sx={{
+                    flexGrow: 1
+                }} />
+                <Box sx={{
+                    display: "flex"
+                }}>
                     <IconButton
                         size="large"
                         sx={{ padding: 0.5 }}

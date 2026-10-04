@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Edit } from "@mui/icons-material"
 import { Button, Stack, Typography } from "@mui/material"
 import { AxiosError } from "axios"
@@ -40,7 +41,9 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
                 {isFetched && presetsWithLiveStreams.length === 0 && (
                     <Typography variant="h5">No livestreams currently</Typography>
                 )}
-                <Stack gap={3}>
+                <Stack sx={{
+                    gap: 3
+                }}>
                     {presetsWithLiveStreams.map((preset, index) => (
                         <PresetCard
                             key={index}
@@ -50,14 +53,18 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
                     ))}
                 </Stack>
                 <Stack
-                    paddingTop={5}
                     spacing={1}
+                    sx={{
+                        paddingTop: 5
+                    }}
                 >
                     {presetsWithNoLiveStreams.map((preset, index) => (
                         <Stack
                             key={index}
-                            alignItems="center"
                             direction="row"
+                            sx={{
+                                alignItems: "center"
+                            }}
                         >
                             <Button
                                 fullWidth

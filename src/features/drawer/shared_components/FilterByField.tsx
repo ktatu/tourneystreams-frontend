@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): replaced removed MUI props with slotProps, moved MUI system props into sx, as part of the Vite/dependency migration.
 // AI-generated refactor by GitHub Copilot (Claude Sonnet 4.5): made FilterByField generic and driven by a filterOptions list instead of the hardcoded FilterBy type.
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import CloseIcon from "@mui/icons-material/Close"
@@ -43,41 +44,47 @@ const FilterByField = <T extends string>({
     return (
         <TextField
             autoComplete="off"
-            InputLabelProps={{ shrink: true }}
             label={`Filter by: ${filterType}`}
             sx={{ maxWidth: "200px" }}
             value={filterValue}
-            InputProps={{
-                endAdornment: (
-                    <Box display="flex">
-                        {filterValue ? (
-                            <IconButton
-                                sx={{
-                                    visibility: filterValue ? "visible" : "hidden",
-                                }}
-                                onClick={() => setFilterValue("")}
-                            >
-                                <CloseIcon />
-                            </IconButton>
-                        ) : null}
-                        <PopupMenu
-                            ref={popupMenuRef}
-                            buttonProps={{ buttonIcon: <ArrowDropDownIcon /> }}
+            slotProps={{
+                inputLabel: { shrink: true },
+                input: {
+                    endAdornment: (
+                        <Box
+                            sx={{
+                                display: "flex",
+                            }}
                         >
-                            <MenuList>
-                                {filterOptions.map((option) => (
-                                    <MenuItem
-                                        key={option.value}
-                                        selected={filterType === option.value}
-                                        onClick={() => handleFilterTypeChange(option.value)}
-                                    >
-                                        {option.label}
-                                    </MenuItem>
-                                ))}
-                            </MenuList>
-                        </PopupMenu>
-                    </Box>
-                ),
+                            {filterValue ? (
+                                <IconButton
+                                    sx={{
+                                        visibility: filterValue ? "visible" : "hidden",
+                                    }}
+                                    onClick={() => setFilterValue("")}
+                                >
+                                    <CloseIcon />
+                                </IconButton>
+                            ) : null}
+                            <PopupMenu
+                                ref={popupMenuRef}
+                                buttonProps={{ buttonIcon: <ArrowDropDownIcon /> }}
+                            >
+                                <MenuList>
+                                    {filterOptions.map((option) => (
+                                        <MenuItem
+                                            key={option.value}
+                                            selected={filterType === option.value}
+                                            onClick={() => handleFilterTypeChange(option.value)}
+                                        >
+                                            {option.label}
+                                        </MenuItem>
+                                    ))}
+                                </MenuList>
+                            </PopupMenu>
+                        </Box>
+                    ),
+                },
             }}
             onChange={handleFilterChange}
         />

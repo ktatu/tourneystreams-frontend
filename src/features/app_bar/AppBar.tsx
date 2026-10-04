@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): changed the SVG import to the ?react form, moved MUI system props into sx, as part of the Vite/dependency migration.
 import SettingsIcon from "@mui/icons-material/Settings"
 import {
     Box,
@@ -7,7 +8,7 @@ import {
     ToggleButtonGroup,
     Toolbar,
 } from "@mui/material"
-import { ReactComponent as TwitchLogo } from "../../assets/TwitchLogo.svg"
+import TwitchLogo from "../../assets/TwitchLogo.svg?react"
 import { DrawerContent } from "../drawer/DrawerContentSwitch"
 import StreamSection from "./StreamSection"
 
@@ -29,7 +30,9 @@ const AppBar = ({ drawerContentType, setDrawerContentType }: AppBarProps) => {
     }
 
     return (
-        <Box flexGrow={1}>
+        <Box sx={{
+            flexGrow: 1
+        }}>
             <MuiAppBar
                 position="fixed"
                 sx={{
@@ -39,9 +42,10 @@ const AppBar = ({ drawerContentType, setDrawerContentType }: AppBarProps) => {
             >
                 <Toolbar>
                     <Box
-                        display="flex"
-                        gap={10}
-                    >
+                        sx={{
+                            display: "flex",
+                            gap: 10
+                        }}>
                         <ToggleButtonGroup
                             exclusive
                             value={drawerContentType}

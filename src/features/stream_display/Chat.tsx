@@ -1,3 +1,4 @@
+// AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box } from "@mui/material"
 import { useStreamsState } from "../../commons/streamsState"
 
@@ -17,10 +18,11 @@ const Chat = () => {
 
     return (
         <Box
-            height="100%"
-            position="relative"
-            width="350px"
-        >
+            sx={{
+                height: "100%",
+                position: "relative",
+                width: "350px"
+            }}>
             <iframe
                 height="100%"
                 src={chatUrl}

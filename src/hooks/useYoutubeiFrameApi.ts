@@ -1,11 +1,16 @@
-import { useState } from "react"
+import { useCallback, useState } from "react"
 
 // https://developers.google.com/youtube/iframe_api_reference
 const useYoutubeiFrameApi = () => {
     const [youtubeApiReady, setYoutubeApiReady] = useState(Boolean(window.YT))
 
-    const loadYoutubeIframeApi = () => {
+    const loadYoutubeIframeApi = useCallback(() => {
         if (window.YT) {
+            setYoutubeApiReady(true)
+            return
+        }
+
+        if (document.querySelector("script[src='https://www.youtube.com/iframe_api']")) {
             return
         }
 
@@ -16,7 +21,7 @@ const useYoutubeiFrameApi = () => {
         window.onYouTubeIframeAPIReady = () => {
             setYoutubeApiReady(true)
         }
-    }
+    }, [])
 
     return {
         loadYoutubeIframeApi,
@@ -25,5 +30,3 @@ const useYoutubeiFrameApi = () => {
 }
 
 export default useYoutubeiFrameApi
-
-// vaihdetaan singleton classiin joka tekee saman asian. otetaan appissa kutsutaan static loadia, playerissä get isLoaded

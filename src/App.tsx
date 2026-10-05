@@ -5,19 +5,17 @@ import { useState } from "react"
 import Alert from "./Alert"
 import { removeAlert, useAlertState } from "./commons/alertState"
 import { useStreamsState } from "./commons/streamsState"
+import CookiesBanner from "./CookiesBanner"
 import AppBar from "./features/app_bar/AppBar"
 import Drawer from "./features/drawer/Drawer"
 import { DrawerContent } from "./features/drawer/DrawerContentSwitch"
 import Streams from "./features/stream_display/MainContent"
-import useYoutubeiFrameApi from "./hooks/useYoutubeiFrameApi"
 import Welcome from "./Welcome"
 
 const App = () => {
     const [drawerContent, setDrawerContent] = useState(DrawerContent.None)
     const { message: alertMessage, severity: alertSeverity } = useAlertState()
     const { streams } = useStreamsState()
-
-    useYoutubeiFrameApi().loadYoutubeIframeApi()
 
     const DRAWER_WIDTH = "25vw"
 
@@ -30,8 +28,9 @@ const App = () => {
             sx={{
                 bgcolor: "black",
                 height: "100vh",
-                width: "100vw"
-            }}>
+                width: "100vw",
+            }}
+        >
             <AppBar
                 drawerContentType={drawerContent}
                 setDrawerContentType={setDrawerContent}
@@ -58,8 +57,9 @@ const App = () => {
                                     drawerContent === DrawerContent.None
                                         ? theme.transitions.duration.leavingScreen
                                         : theme.transitions.duration.enteringScreen,
-                            })
-                    }}>
+                            }),
+                    }}
+                >
                     <Streams />
                 </Stack>
             )}
@@ -70,6 +70,7 @@ const App = () => {
                 open={Boolean(alertMessage)}
                 severity={alertSeverity}
             />
+            <CookiesBanner />
         </Stack>
     )
 }

@@ -1,8 +1,9 @@
 // AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
-import { Box, CircularProgress } from "@mui/material"
+import { Box, CircularProgress, Typography } from "@mui/material"
 import { useState } from "react"
 import ReactTwitchPlayer from "react-player/twitch"
 import { removeStream } from "../../commons/streamsState"
+import { useCookiesConsent } from "../../CookiesConsent"
 
 export interface VideoPlayerProps {
     id: string
@@ -10,6 +11,7 @@ export interface VideoPlayerProps {
 
 const TwitchPlayer = ({ id }: VideoPlayerProps) => {
     const [playerReady, setPlayerReady] = useState(false)
+    const cookieChoice = useCookiesConsent("twitch")
 
     const handleCloseStream = () => {
         const autoCloseEndedStream = localStorage.getItem("autocloseEndedStreams") === "true"
@@ -17,6 +19,24 @@ const TwitchPlayer = ({ id }: VideoPlayerProps) => {
         if (autoCloseEndedStream) {
             removeStream(id)
         }
+    }
+
+    if (cookieChoice !== "accept") {
+        return (
+            <Box
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    height: "100%",
+                    justifyContent: "center",
+                    padding: "1px",
+                    position: "relative",
+                    width: "100%",
+                }}
+            >
+                <Typography variant="h5">Allow Twitch cookies to show this stream</Typography>
+            </Box>
+        )
     }
 
     return (
@@ -28,8 +48,9 @@ const TwitchPlayer = ({ id }: VideoPlayerProps) => {
                 justifyContent: "center",
                 padding: "1px",
                 position: "relative",
-                width: "100%"
-            }}>
+                width: "100%",
+            }}
+        >
             {!playerReady && (
                 <Box
                     sx={{
@@ -39,8 +60,9 @@ const TwitchPlayer = ({ id }: VideoPlayerProps) => {
                         height: "100%",
                         justifyContent: "center",
                         position: "absolute",
-                        width: "100%"
-                    }}>
+                        width: "100%",
+                    }}
+                >
                     <CircularProgress size="10%" />
                 </Box>
             )}

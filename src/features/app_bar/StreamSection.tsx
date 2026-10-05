@@ -77,14 +77,16 @@ const StreamSection = () => {
             sx={{
                 alignItems: "center",
                 display: "flex",
-                gap: 1
-            }}>
+                gap: 1,
+            }}
+        >
             <Box
                 sx={{
                     alignItems: "stretch",
                     display: "flex",
-                    gap: 0
-                }}>
+                    gap: 0,
+                }}
+            >
                 <ToggleButtonGroup
                     exclusive
                     value={streamSource}
@@ -122,9 +124,11 @@ const StreamSection = () => {
             >
                 <Typography variant="h4">+</Typography>
             </Button>
-            <Box sx={{
-                marginLeft: 10
-            }}>
+            <Box
+                sx={{
+                    marginLeft: 10,
+                }}
+            >
                 <StreamList />
             </Box>
         </Box>

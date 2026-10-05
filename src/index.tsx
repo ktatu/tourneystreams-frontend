@@ -13,6 +13,12 @@ import "@fontsource/roboto/300.css"
 import "@fontsource/roboto/400.css"
 import "@fontsource/roboto/500.css"
 import "@fontsource/roboto/700.css"
+import { wakeupServer } from "./commons/authRequests"
+
+// waking up backend, it spins down when no traffic
+if (import.meta.env.PROD) {
+    wakeupServer()
+}
 
 const queryClient = new QueryClient()
 

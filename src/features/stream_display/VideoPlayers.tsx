@@ -1,6 +1,8 @@
 // AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box } from "@mui/material"
+import { useEffect } from "react"
 import { useStreamsState } from "../../commons/streamsState"
+import { useCookiesConsent } from "../../CookiesConsent"
 import useYoutubeiFrameApi from "../../hooks/useYoutubeiFrameApi"
 import TwitchPlayer from "./TwitchPlayer"
 import getVideoDimensions from "./videoDimensions"
@@ -9,8 +11,13 @@ import YoutubePlayer from "./YoutubePlayer"
 const VideoPlayers = () => {
     const { streams } = useStreamsState()
     const { loadYoutubeIframeApi, youtubeApiReady } = useYoutubeiFrameApi()
+    const youtubeChoice = useCookiesConsent("youtube")
 
-    loadYoutubeIframeApi()
+    useEffect(() => {
+        if (youtubeChoice === "accept") {
+            loadYoutubeIframeApi()
+        }
+    }, [loadYoutubeIframeApi, youtubeChoice])
 
     return (
         <Box
@@ -19,8 +26,9 @@ const VideoPlayers = () => {
                 flexDirection: "row",
                 flexWrap: "wrap",
                 height: "100%",
-                overflow: "auto"
-            }}>
+                overflow: "auto",
+            }}
+        >
             {streams.map((stream) => {
                 const { width, height } = getVideoDimensions(streams.length, stream.displayPosition)
 
@@ -31,8 +39,9 @@ const VideoPlayers = () => {
                             height: `${height}%`,
                             order: stream.displayPosition,
                             overflow: "hidden",
-                            width: `${width}%`
-                        }}>
+                            width: `${width}%`,
+                        }}
+                    >
                         {stream.streamSource === "twitch" ? (
                             <TwitchPlayer id={stream.id} />
                         ) : (

@@ -1,8 +1,9 @@
 // AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
-import { Box, CircularProgress } from "@mui/material"
+import { Box, CircularProgress, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { addAlert } from "../../commons/alertState"
 import { removeStream } from "../../commons/streamsState"
+import { useCookiesConsent } from "../../CookiesConsent"
 
 interface YoutubePlayerProps {
     id: string
@@ -11,9 +12,10 @@ interface YoutubePlayerProps {
 
 const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
     const [playerReady, setPlayerReady] = useState(false)
+    const cookieChoice = useCookiesConsent("youtube")
 
     useEffect(() => {
-        if (!youtubeApiReady) {
+        if (!youtubeApiReady || cookieChoice !== "accept") {
             return
         }
 
@@ -28,11 +30,12 @@ const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
                     event.target.playVideo()
                 },
             },
+            playerVars: {},
         })
-    }, [youtubeApiReady])
+    }, [cookieChoice, youtubeApiReady])
 
     useEffect(() => {
-        if (playerReady) {
+        if (playerReady || cookieChoice !== "accept") {
             return
         }
 
@@ -42,7 +45,25 @@ const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
         }, 5000)
 
         return () => clearTimeout(timeoutId)
-    }, [playerReady])
+    }, [cookieChoice, playerReady])
+
+    if (cookieChoice !== "accept") {
+        return (
+            <Box
+                sx={{
+                    alignItems: "center",
+                    display: "flex",
+                    height: "100%",
+                    justifyContent: "center",
+                    padding: "1px",
+                    position: "relative",
+                    width: "100%",
+                }}
+            >
+                <Typography variant="h5">Allow YouTube cookies to show this stream</Typography>
+            </Box>
+        )
+    }
 
     return (
         <Box
@@ -53,8 +74,9 @@ const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
                 justifyContent: "center",
                 padding: "1px",
                 position: "relative",
-                width: "100%"
-            }}>
+                width: "100%",
+            }}
+        >
             {!playerReady && (
                 <Box
                     sx={{
@@ -64,8 +86,9 @@ const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
                         height: "100%",
                         justifyContent: "center",
                         position: "absolute",
-                        width: "100%"
-                    }}>
+                        width: "100%",
+                    }}
+                >
                     <CircularProgress size="10%" />
                 </Box>
             )}

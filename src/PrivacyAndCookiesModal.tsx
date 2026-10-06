@@ -20,7 +20,7 @@ const dialogText: Array<{ header: string; text: string[] }> = [
         header: "Handling of personal data",
         text: [
             "What we store: your Twitch user ID and the authentication tokens Twitch provides when you connect your account.",
-            "Why: Tourneystreams server Twitch-provided tokens to make authenticated requests to Twitch on your behalf. Twitch-related functionalities that require communication with Twitch servers (e.g. showing the list of followed streams) cannot be provided without these tokens.",
+            "Why: Tourneystreams uses server Twitch-provided tokens to make authenticated requests to Twitch on your behalf. Twitch-related functionalities that require communication with Twitch servers (e.g. showing the list of followed streams) cannot be performed without these tokens.",
             "Legal basis: legitimate interest in letting you use site functionalities which rely on communicating with Twitch servers. Tourneystreams server stores only data required for these functionalities.",
             "Retention: the data is deleted 10 days after your last action that required authentication. Every action that requires authentication refreshes this 10-day duration.",
             "Recipients: Tourneystreams uses Render to host its backend and Redis Cloud to host its database, both in Germany. These providers host the service and database used to process your Twitch user ID and tokens.",
@@ -44,7 +44,7 @@ const dialogText: Array<{ header: string; text: string[] }> = [
     {
         header: "Your rights",
         text: [
-            "You have the right to access, correct, or erase your personal data, restrict or object to its processing, and receive data you provided. You may contact the email below regarding these rights. You are able to perform automated deletion of all of your data (meaning Twitch user id, Twitch tokens and local user settings) from the settings tab, in the top-left.",
+            "You have the right to access, correct, or erase your personal data, restrict or object to its processing, and receive data you provided. You may contact the email below regarding these rights.",
             "A complaint can be filed to the Finnish Office of the Data Protection Ombudsman (tietosuoja.fi).",
         ],
     },

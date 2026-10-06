@@ -20,8 +20,9 @@ const Settings = ({ handleDrawerClose }: SettingsProps) => {
                     sx={{
                         display: "flex",
                         flexDirection: "column",
-                        gap: 3
-                    }}>
+                        gap: 3,
+                    }}
+                >
                     <Stack>
                         <Typography variant="h5">Twitch</Typography>
                         <CheckboxOption

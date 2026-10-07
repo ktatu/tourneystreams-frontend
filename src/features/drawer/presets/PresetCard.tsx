@@ -12,7 +12,7 @@ import theme from "../../../theme"
 import { Preset, StreamSource } from "../../../types"
 import PresetCardThumbnail from "./PresetCardThumbnail"
 import ThumbnailInfoOverlay from "./ThumbnailInfoOverlay"
-import { sumViewerCount } from "./hooks/usePresets"
+import { sumViewerCount } from "./usePresets"
 
 const pulse = keyframes`
     0% {
@@ -85,22 +85,25 @@ const PresetCard = ({ preset, handleChangeToPresetUpdate }: PresetCardProps) => 
                     }
                 />
             )}
-            <Box sx={{
-                padding: 0.5
-            }}>
+            <Box
+                sx={{
+                    padding: 0.5,
+                }}
+            >
                 <Stack spacing={3}>
                     {hideThumbnail && <Typography variant="h5">{preset.name}</Typography>}
                     <Stack
                         direction="row"
                         sx={{
                             alignItems: "center",
-                            justifyContent: "space-between"
-                        }}>
+                            justifyContent: "space-between",
+                        }}
+                    >
                         <Stack
                             direction="row"
                             spacing={2}
                             sx={{
-                                alignItems: "flex-start"
+                                alignItems: "flex-start",
                             }}
                         >
                             <Tooltip title={`${numOfChannelsLive} channels live`}>
@@ -111,7 +114,7 @@ const PresetCard = ({ preset, handleChangeToPresetUpdate }: PresetCardProps) => 
                                     <Typography
                                         variant="body1"
                                         sx={{
-                                            paddingTop: 0.2
+                                            paddingTop: 0.2,
                                         }}
                                     >
                                         {channelsWithStreamsLive.length}/{preset.channels.length}
@@ -120,8 +123,9 @@ const PresetCard = ({ preset, handleChangeToPresetUpdate }: PresetCardProps) => 
                                         sx={{
                                             borderRadius: "50%",
                                             display: "flex",
-                                            animation: `${pulse} 2s ease-out infinite`
-                                        }}>
+                                            animation: `${pulse} 2s ease-out infinite`,
+                                        }}
+                                    >
                                         <LiveTvIcon
                                             color="secondary"
                                             fontSize="medium"
@@ -132,7 +136,7 @@ const PresetCard = ({ preset, handleChangeToPresetUpdate }: PresetCardProps) => 
                             <Typography
                                 variant="body1"
                                 sx={{
-                                    paddingTop: 0.2
+                                    paddingTop: 0.2,
                                 }}
                             >
                                 {totalViewersInStreams} viewers

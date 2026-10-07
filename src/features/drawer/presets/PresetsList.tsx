@@ -6,7 +6,7 @@ import { Preset } from "../../../types"
 import DrawerCardSkeleton from "../shared_components/DrawerCardSkeleton"
 import TwitchConnect from "../shared_components/TwitchConnect"
 import PresetCard from "./PresetCard"
-import usePresets from "./hooks/usePresets"
+import usePresets from "./usePresets"
 
 interface PresetsListProps {
     handleChangeToPresetUpdate: (preset: Preset) => void
@@ -41,9 +41,11 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
                 {isFetched && presetsWithLiveStreams.length === 0 && (
                     <Typography variant="h5">No livestreams currently</Typography>
                 )}
-                <Stack sx={{
-                    gap: 3
-                }}>
+                <Stack
+                    sx={{
+                        gap: 3,
+                    }}
+                >
                     {presetsWithLiveStreams.map((preset, index) => (
                         <PresetCard
                             key={index}
@@ -55,7 +57,7 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
                 <Stack
                     spacing={1}
                     sx={{
-                        paddingTop: 5
+                        paddingTop: 5,
                     }}
                 >
                     {presetsWithNoLiveStreams.map((preset, index) => (
@@ -63,7 +65,7 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
                             key={index}
                             direction="row"
                             sx={{
-                                alignItems: "center"
+                                alignItems: "center",
                             }}
                         >
                             <Button

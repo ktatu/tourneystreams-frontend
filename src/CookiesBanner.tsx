@@ -72,8 +72,8 @@ const CookiesBanner = () => {
                     >
                         We use an essential cookies for authenticating in Twitch-related
                         functionalities. By connecting your Twitch account to Tourneystreams you
-                        consent to its their. Twitch and YouTube streams are third-party content and
-                        are shown only if you allow their cookies.
+                        consent to their use. Opening Twitch and YouTube streams will load their
+                        cookies; you must consent to receiving them in order to watch streams.
                     </Typography>
                 </Box>
                 <Stack

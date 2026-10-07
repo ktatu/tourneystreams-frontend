@@ -2,9 +2,9 @@ import { Button, Paper, Popper, Stack, Typography } from "@mui/material"
 import { useState } from "react"
 import { addAlert } from "../../../commons/alertState"
 import { TwitchChannel } from "../../../types"
-import usePresets from "./hooks/usePresets"
 import { PresetContentView } from "./Presets"
 import PresetStorage from "./PresetsLocalStorage"
+import usePresets from "./usePresets"
 
 const presetStorage = PresetStorage.instance
 

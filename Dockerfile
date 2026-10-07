@@ -11,6 +11,6 @@ RUN npm ci
 
 RUN npm run build
 
-FROM node:18.16.1-alpine
+FROM node:24.21.0-alpine
 
 COPY --from=build-stage /usr/src/app/build /usr/src/app/build

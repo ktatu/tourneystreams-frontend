@@ -1,9 +1,9 @@
 import { Button } from "@mui/material"
 import { addAlert } from "../../../commons/alertState"
 import { TwitchChannel } from "../../../types"
-import usePresets from "./hooks/usePresets"
 import { PresetContentView } from "./Presets"
 import PresetStorage from "./PresetsLocalStorage"
+import usePresets from "./usePresets"
 
 const presetStorage = PresetStorage.instance
 

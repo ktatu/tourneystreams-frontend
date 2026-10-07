@@ -1,8 +1,8 @@
 // AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): switched to TanStack Query v5 syntax, as part of the Vite/dependency migration.
 import { useQuery } from "@tanstack/react-query"
-import { get } from "../../../../commons/authRequests"
-import { Preset, TwitchChannel } from "../../../../types"
-import PresetStorage from "../PresetsLocalStorage"
+import { get } from "../../../commons/requests"
+import { Preset, TwitchChannel } from "../../../types"
+import PresetStorage from "./PresetsLocalStorage"
 
 interface StreamQuery {
     loginName: string

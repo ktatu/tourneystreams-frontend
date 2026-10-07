@@ -83,17 +83,3 @@ const TwitchPlayer = ({ id }: VideoPlayerProps) => {
 }
 
 export default TwitchPlayer
-/*
-        <ReactTwitchPlayer
-            key={id}
-            muted
-            controls={false}
-            height="100%"
-            id={`${id}-player`}
-            playing={true}
-            url={`https://www.twitch.tv/${id}`}
-            width="100%"
-            onEnded={handleCloseStream}
-            onReady={handlePlayerReady}
-        />
-*/

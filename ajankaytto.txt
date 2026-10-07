@@ -129,3 +129,4 @@
 2.10 6h Frontend feature: Site guide
 3.10 4h Frontend bugfixausta, migraatio CRA:sta Viteen
 5.10 4h Enhancing oauth2 security, reading up on data privacy
+6.10 5h Writing privacy policy, docs, and general project cleanup

@@ -1,9 +1,10 @@
 // AI-generated module by Claude Sonnet 5.5 (GitHub Copilot): msw request handlers for running without the backend.
 import { HttpResponse, http } from "msw"
 import { BACKEND_BASE_URL } from "../envConfig"
-import { TwitchStream } from "../types"
+import PresetLocalStorage from "../features/drawer/presets/PresetsLocalStorage"
+import { Preset, TwitchChannel, TwitchStream } from "../types"
 
-const followedStreams: Array<TwitchStream> = [
+const mockStreams: Array<TwitchStream> = [
     {
         category: "Apex Legends",
         title: "Ranked grind",
@@ -86,19 +87,49 @@ const followedStreams: Array<TwitchStream> = [
     },
 ]
 
+const presetStorage = PresetLocalStorage.instance
+
+export const initializeMockPresets = () => {
+    const MOCK1_NAME = "Mock 1"
+    const MOCK2_NAME = "Mock 2"
+
+    presetStorage.deletePreset(MOCK1_NAME)
+    presetStorage.deletePreset(MOCK2_NAME)
+
+    const mock1: Preset = createMockPreset(MOCK1_NAME, mockStreams.slice(0, mockStreams.length / 2))
+    const mock2: Preset = createMockPreset(
+        MOCK2_NAME,
+        mockStreams.slice(mockStreams.length / 2, mockStreams.length),
+    )
+
+    presetStorage.savePreset(mock1)
+    presetStorage.savePreset(mock2)
+}
+
+const createMockPreset = (name: string, streams: Array<TwitchStream>) => {
+    const preset: Preset = {
+        name,
+        channels: streams.map((stream) => {
+            const channel: TwitchChannel = {
+                name: stream.loginName,
+                stream: {
+                    broadcastName: stream.broadcastName,
+                    viewerCount: stream.viewerCount.toString(),
+                },
+            }
+            return channel
+        }),
+    }
+
+    return preset
+}
+
 export const handlers = [
-    http.get(`${BACKEND_BASE_URL}/twitch`, () => HttpResponse.json({ streams: followedStreams })),
+    http.get(`${BACKEND_BASE_URL}/twitch`, () => HttpResponse.json({ streams: mockStreams })),
 
-    http.get(`${BACKEND_BASE_URL}/twitch/streams`, ({ request }) => {
-        const channels = new URL(request.url).searchParams.getAll("channels")
-        const streams = channels.map((channel, index) => ({
-            loginName: channel,
-            broadcastName: `Mock broadcast of ${channel}`,
-            viewerCount: String(100 * (index + 1)),
-        }))
-
-        return HttpResponse.json({ streams })
-    }),
+    http.get(`${BACKEND_BASE_URL}/twitch/streams`, () =>
+        HttpResponse.json({ streams: mockStreams }),
+    ),
 
     http.get(`${BACKEND_BASE_URL}/youtube/channelname/:streamId`, ({ params }) =>
         HttpResponse.json({ channel: `Mock YouTube channel ${params.streamId}` }),

@@ -14,6 +14,7 @@ import "@fontsource/roboto/400.css"
 import "@fontsource/roboto/500.css"
 import "@fontsource/roboto/700.css"
 import { wakeupServer } from "./commons/requests"
+import { initializeMockPresets } from "./mocks/handlers"
 
 // waking up backend, it spins down when no traffic
 if (import.meta.env.PROD) {
@@ -26,6 +27,8 @@ const enableMocking = async () => {
     if (import.meta.env.VITE_USE_MOCKS !== "true" || import.meta.env.PROD) {
         return
     }
+
+    initializeMockPresets()
 
     const { worker } = await import("./mocks/browser")
     await worker.start({ onUnhandledFrame: "bypass" })

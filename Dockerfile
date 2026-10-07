@@ -1,5 +1,5 @@
 # AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): updated the Node version and env variable name for the Vite migration.
-FROM node:22-alpine as build-stage
+FROM node:24-alpine as build-stage
 
 WORKDIR /usr/src/app
 
@@ -11,6 +11,6 @@ RUN npm ci
 
 RUN npm run build
 
-FROM node:24.21.0-alpine
+FROM node:24-alpine
 
 COPY --from=build-stage /usr/src/app/build /usr/src/app/build

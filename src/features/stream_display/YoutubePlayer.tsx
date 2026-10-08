@@ -19,19 +19,33 @@ const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
             return
         }
 
-        new window.YT.Player(id, {
-            videoId: id,
-            height: "100%",
-            width: "100%",
-            events: {
-                onReady: (event) => {
-                    setPlayerReady(true)
-                    event.target.mute()
-                    event.target.playVideo()
+        try {
+            new window.YT.Player(id, {
+                videoId: id,
+                height: "100%",
+                width: "100%",
+                events: {
+                    onReady: (event) => {
+                        setPlayerReady(true)
+                        event.target.mute()
+                        event.target.playVideo()
+                    },
+                    onError: (event) => {
+                        setPlayerReady(false)
+                        event.target.stopVideo()
+                        addAlert(`Unexpected error in playing YT: ${event.data}`, "error")
+                    },
                 },
-            },
-            playerVars: {},
-        })
+                playerVars: { enablejsapi: 1 },
+            })
+        } catch (error: unknown) {
+            let msg = ""
+            if (error instanceof Error) {
+                msg = error.message
+            }
+
+            addAlert(`Unable to load YouTube player. ${msg}`, "error")
+        }
     }, [cookieChoice, youtubeApiReady])
 
     useEffect(() => {

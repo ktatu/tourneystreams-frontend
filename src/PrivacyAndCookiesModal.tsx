@@ -24,13 +24,13 @@ const dialogText: Array<{ header: string; text: string[] }> = [
             "Legal basis: legitimate interest in letting you use site functionalities which rely on communicating with Twitch servers. Tourneystreams server stores only data required for these functionalities.",
             "Retention: the data is deleted 10 days after your last action that required authentication. Every action that requires authentication refreshes this 10-day duration.",
             "Recipients: Tourneystreams uses Render to host its backend and Redis Cloud to host its database, both in Germany. These providers host the service and database used to process your Twitch user ID and tokens.",
-            "Providing data is voluntary. You can still watch streams (if required cookies are consented to, see below), but functionalities that depend on Twitch will be unavailable.",
+            "Providing data is voluntary. You can still watch streams (if required cookies are consented to, see below), but functionalities that depend on Twitch authentication will be unavailable.",
         ],
     },
     {
         header: "Cookies",
         text: [
-            "Two secure, strictly necessary cookies are used. One is used once during Twitch authorization process, in order to enhance security. The other authenticates you with Tourneystreams server. It expires after 10 days.",
+            "Two secure, strictly necessary cookies are used by Tourneystreams. One during Twitch authorization process, in order to enhance security. The other authenticates you with Tourneystreams server. It expires after 10 days.",
             "Watching streams requires allowing cookies from Twitch and / or YouTube. These services set their own cookies and process your data according to their own privacy policies.",
             "Tourneystreams does not use analytics or advertising cookies. Your cookie choices are stored in your browser's local storage until you clear it.",
         ],
@@ -135,7 +135,7 @@ const PrivacyAndCookiesModal = ({ open, onClose }: PrivacyAndCookiesModalProps) 
                     gutterBottom
                     variant="h6"
                 >
-                    Manage optional cookies
+                    Manage third-party cookies
                 </Typography>
                 <Stack>
                     <FormControlLabel

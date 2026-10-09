@@ -1,4 +1,4 @@
-Over 300 hours by oct. 6th.
+Over 300 hours by 6.10.2026
 
 ## 2022
 

@@ -3,7 +3,7 @@ FROM node:24-alpine as build-stage
 
 WORKDIR /usr/src/app
 
-ENV VITE_BACKEND_URL_PROD=https://tourneystreams.onrender.com/api
+ENV VITE_BACKEND_URL=https://tourneystreams.onrender.com/api
 
 COPY . .
 

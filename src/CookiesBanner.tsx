@@ -70,9 +70,9 @@ const CookiesBanner = () => {
                         color="text.secondary"
                         variant="body2"
                     >
-                        We use an essential cookies for authenticating in Twitch-related
+                        We use an essential cookie for authenticating and providing Twitch-related
                         functionalities. By connecting your Twitch account to Tourneystreams you
-                        consent to their use. Opening Twitch and YouTube streams will load their
+                        consent to its use. Opening Twitch and YouTube streams will load their
                         cookies; you must consent to receiving them in order to watch streams.
                     </Typography>
                 </Box>
@@ -85,7 +85,7 @@ const CookiesBanner = () => {
                         variant="outlined"
                         onClick={() => saveAll("reject")}
                     >
-                        Reject all
+                        Reject optional
                     </Button>
                     <Button
                         color="primary"

@@ -7,10 +7,12 @@ import { useCookiesConsent } from "../../CookiesConsent"
 
 export interface VideoPlayerProps {
     id: string
+    playing: boolean
 }
 
-const TwitchPlayer = ({ id }: VideoPlayerProps) => {
-    const [playerReady, setPlayerReady] = useState(false)
+const TwitchPlayer = ({ id, playing }: VideoPlayerProps) => {
+    const [playerReady, setPlayerReady] = useState(true)
+
     const cookieChoice = useCookiesConsent("twitch")
 
     const handleCloseStream = () => {
@@ -68,11 +70,12 @@ const TwitchPlayer = ({ id }: VideoPlayerProps) => {
             )}
             <ReactTwitchPlayer
                 key={id}
-                muted
                 controls={false}
                 height="100%"
                 id={`${id}-player`}
-                playing={true}
+                muted={false}
+                playing={playing}
+                stopOnUnmount={true}
                 url={`https://www.twitch.tv/${id}`}
                 width="100%"
                 onEnded={handleCloseStream}

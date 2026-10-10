@@ -10,7 +10,7 @@ interface StreamsState {
     readonly sortedStreams: Array<Stream>
 }
 
-const MAX_STREAMS = 9
+const MAX_STREAMS = 100
 
 const streamSearchParams = searchParams("streams")
 
@@ -24,7 +24,7 @@ const parseStreamFromParam = (param: string) => {
 
 const initialStreams = () => {
     const streamsFromParams = streamSearchParams.getAll()
-    if (streamsFromParams.length > 9) {
+    if (streamsFromParams.length > MAX_STREAMS) {
         addAlert(`Cannot add more than ${MAX_STREAMS} streams`, "error")
     }
 
@@ -50,7 +50,7 @@ export const streamsState = proxy<StreamsState>({
 export const useStreamsState = () => useSnapshot(streamsState)
 
 export const addStream = (id: string, streamSource: StreamSource) => {
-    if (streamsState.identifiers.includes(id) || streamsState.identifiers.length >= 9) {
+    if (streamsState.identifiers.includes(id) || streamsState.identifiers.length >= MAX_STREAMS) {
         addAlert(`Cannot add more than ${MAX_STREAMS} streams`, "error")
         return
     }

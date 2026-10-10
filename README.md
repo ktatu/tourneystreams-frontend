@@ -33,10 +33,11 @@ The project contains AI generated code. Files with AI generated code include a d
 
 ### Known issues
 
-- Streams sometimes not autoplaying in Chrome
 - Streams pausing when the user interacts with some page elements in Chrome
+- Twitch streams pausing when going fullscreen
 - Site doesn't adjust well to rarer viewport dimensions
-- Browsers that put elements on top of (e.g. Opera) video players will cause streams to pause. This is seemingly unfixable: browser does it automatically, while it is against Twitch's embed requirements. See: 1.3 in [https://dev.twitch.tv/docs/embed/](Embedded Experiences Requirements)
+- Browsers that put elements on top of (e.g. Opera) video players will cause streams to pause.
+    - Seemingly unfixable: browser does it automatically, while it is against Twitch's embed requirements. See: 1.3 in [Embedded experiences requirements](https://dev.twitch.tv/docs/embed/)
 
 ### Planned features / improvements
 

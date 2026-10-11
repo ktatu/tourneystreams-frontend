@@ -13,6 +13,7 @@ import { Preset, StreamSource } from "../../../types"
 import PresetCardThumbnail from "./PresetCardThumbnail"
 import ThumbnailInfoOverlay from "./ThumbnailInfoOverlay"
 import { sumViewerCount } from "./usePresets"
+import UserSettings from "../settings/UserSettings"
 
 const pulse = keyframes`
     0% {
@@ -38,7 +39,7 @@ const PresetCard = ({ preset, handleChangeToPresetUpdate }: PresetCardProps) => 
         presetsThatArePlaying.includes(preset.name),
     )
 
-    const hideThumbnail = localStorage.getItem("hideStreamThumbnails") === "true"
+    const hideThumbnail = UserSettings.get("hideStreamThumbnails")
     const STREAMCARD_WIDTH = 375
 
     const channelsWithStreamsLive = preset.channels.filter((preset) => preset.stream !== undefined)

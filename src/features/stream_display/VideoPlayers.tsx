@@ -8,9 +8,10 @@ import TwitchPlayer from "./TwitchPlayer"
 import useYoutubeiFrameApi from "./useYoutubeiFrameApi"
 import getVideoDimensions from "./videoDimensions"
 import YoutubePlayer from "./YoutubePlayer"
+import UserSettings from "../drawer/settings/UserSettings"
 
 // page just means a single screen of streams
-const MAX_STREAMS_PER_PAGE = 1
+const MAX_STREAMS_PER_PAGE = UserSettings.get("maxStreams")
 
 const VideoPlayers = () => {
     const [openPage, setOpenPage] = useState(0)

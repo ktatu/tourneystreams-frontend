@@ -73,7 +73,7 @@ const TwitchPlayer = ({ id, playing }: VideoPlayerProps) => {
                 controls={false}
                 height="100%"
                 id={`${id}-player`}
-                muted={false}
+                muted={true}
                 playing={playing}
                 stopOnUnmount={true}
                 url={`https://www.twitch.tv/${id}`}

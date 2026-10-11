@@ -16,12 +16,13 @@ import { addStream, removeStream, useStreamsState } from "../../../commons/strea
 import { StreamSource, TwitchStream } from "../../../types"
 import StreamCardThumbnail from "./StreamCardThumbnail"
 import ThumbnailInfoOverlay, { parseViewerCount } from "./ThumbnailInfoOverlay"
+import UserSettings from "../settings/UserSettings"
 
 const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
     const [streamIsPlaying, setStreamIsPlaying] = useState(false)
     const { identifiers: channels } = useStreamsState()
 
-    const hideThumbnail = localStorage.getItem("hideStreamThumbnails") === "true"
+    const hideThumbnail = UserSettings.get("hideStreamThumbnails")
     const STREAMCARD_WIDTH = 375
 
     const handleAddStream = () => {
@@ -58,8 +59,9 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                 <Box
                     sx={{
                         display: "flex",
-                        flexDirection: "row"
-                    }}>
+                        flexDirection: "row",
+                    }}
+                >
                     <Box
                         sx={{
                             alignItems: "flex-start",
@@ -68,15 +70,17 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                             flexDirection: "column",
                             gap: 1,
                             minWidth: 0,
-                            position: "relative"
-                        }}>
+                            position: "relative",
+                        }}
+                    >
                         <Stack
                             direction="row"
                             spacing={1}
                             sx={{
                                 alignItems: "center",
-                                minWidth: 0
-                            }}>
+                                minWidth: 0,
+                            }}
+                        >
                             <Box
                                 component="img"
                                 src={followedStream.profileImageUrl}
@@ -92,8 +96,9 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                                     variant="h6"
                                     sx={{
                                         paddingRight: 3,
-                                        position: "relative"
-                                    }}>
+                                        position: "relative",
+                                    }}
+                                >
                                     {followedStream.broadcastName}
                                     <OpenInNewIcon
                                         color="primary"
@@ -111,8 +116,9 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                             <Typography
                                 sx={{
                                     color: "text.secondary",
-                                    fontSize: 12
-                                }}>
+                                    fontSize: 12,
+                                }}
+                            >
                                 {followedStream.category},{" "}
                                 {parseViewerCount(followedStream.viewerCount)}
                             </Typography>
@@ -126,8 +132,9 @@ const StreamCard = ({ followedStream }: { followedStream: TwitchStream }) => {
                             display: "flex",
                             flexShrink: 0,
                             justifyContent: "center",
-                            width: "20%"
-                        }}>
+                            width: "20%",
+                        }}
+                    >
                         {streamIsPlaying ? (
                             <Tooltip title="Close stream">
                                 <IconButton

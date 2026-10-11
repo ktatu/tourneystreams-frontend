@@ -42,15 +42,17 @@ const Presets = ({ handleDrawerClose }: PresetsProps) => {
                     <PresetForm
                         formType={PresetFormType.Add}
                         initialChannels={[]}
-                        initialPresetName="New preset"
+                        initialPresetName="Preset name"
                         setPresetContentView={setPresetContentView}
                         viewTitle="Add preset"
                     />
                 )}
                 {presetContentView === PresetContentView.PresetsList && (
-                    <Box sx={{
-                        marginTop: 10
-                    }}>
+                    <Box
+                        sx={{
+                            marginTop: 10,
+                        }}
+                    >
                         <PresetsList handleChangeToPresetUpdate={handleChangeToPresetUpdate} />
                     </Box>
                 )}

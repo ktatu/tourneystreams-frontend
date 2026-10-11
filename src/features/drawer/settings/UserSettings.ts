@@ -1,7 +1,7 @@
 export type UserSetting = "maxStreams" | "autocloseEndedStreams" | "hideStreamThumbnails"
 
 class UserSettings {
-    private static DEFAULT_MAX_STREAMS = "9"
+    private static DEFAULT_MAX_STREAMS = "6"
     private static DEFAULT_AUTO_CLOSE_ENDED_STREAMS = "true"
     private static DEFAULT_HIDE_STREAM_THUMBNAILS = "false"
 

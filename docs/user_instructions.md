@@ -38,8 +38,12 @@ Presets is another convenience tool, allowing you to make groups of Twitch strea
 Every open stream shows as an item in the app bar.
 
 - When you have more than one stream open, you can change the display positions of streams by dragging an item from the pointing arrows icon.
-- The comment icon open's the stream's chat. If you are logged into Twitch / YouTube, then you should be able to send messages.
+- The comment icon opens the stream's chat. If you are logged into Twitch / YouTube, then you should be able to send messages.
 
 ## Settings
 
-The settings tab opens from the top-left gear-icon. The possibly non-obvious setting is "hide stream thumbnails". It simply means that the preview images of streams aren't shown in the Followed and Presets tabs, which condenses the list.
+The settings tab opens from the top-left gear icon.
+
+- "Hide stream thumbnails": the preview images of streams aren't shown in the Followed and Presets tabs, thus giving the user a condensed list.
+- "Close ended streams": close streams that are currently offline.
+- "Max number of streams on screen": how many streams the app tries to fit into one page, before it makes a new one. Adjusting this can have high performance benefits. Each stream takes up significant amount of memory, and the players are slow to load.

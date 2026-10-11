@@ -4,6 +4,8 @@
 
 ## https://tourneystreams.com
 
+The site may feel slow initially. The backend spins down when there's no traffic, and takes a minute or so to boot up.
+
 ### [Use of time documentation](https://github.com/ktatu/tourneystreams-frontend/blob/main/docs/useoftime.md)
 
 The app exists to make watching and switching between multiple livestreams a convenient experience. The two major livestreaming platforms, Twitch and YouTube, have no native support for this.

@@ -4,11 +4,11 @@
 
 ## https://tourneystreams.com
 
-### [Use of time documentation](https://github.com/ktatu/tourneystreams-frontend/docs/useoftime.md)
+### [Use of time documentation](https://github.com/ktatu/tourneystreams-frontend/blob/main/docs/useoftime.md)
 
 The app exists to make watching and switching between multiple livestreams a convenient experience. The two major livestreaming platforms, Twitch and YouTube, have no native support for this.
 
-The app's landing page has a brief site guide. It's probably enough to get you started if Twitch as a platform is already familiar to you. If not, check out user instructions.
+The app's landing page has a brief site guide. It's probably enough to get you started if Twitch as a platform is already familiar to you. If not, check out [user instructions.](https://github.com/ktatu/tourneystreams-frontend/blob/main/docs/user_instructions.md)
 
 ## Local development
 
@@ -36,8 +36,8 @@ The project contains AI generated code. Files with AI generated code include a d
 - Streams pausing when the user interacts with some page elements in Chrome
 - Twitch streams pausing when going fullscreen
 - Site doesn't adjust well to rarer viewport dimensions
-- Browsers that put elements on top of (e.g. Opera) video players will cause streams to pause.
-    - Seemingly unfixable: browser does it automatically, while it is against Twitch's embed requirements. See: 1.3 in [Embedded experiences requirements](https://dev.twitch.tv/docs/embed/)
+- Browsers that put elements on top of (e.g. Opera) video players seem to cause streams to pause.
+    - Possibly unfixable: browser does it automatically, while it is against Twitch's embed requirements. See: 1.3 in [Embedded experiences requirements](https://dev.twitch.tv/docs/embed/)
 
 ### Planned features / improvements
 

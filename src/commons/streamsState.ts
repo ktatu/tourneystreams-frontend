@@ -28,7 +28,7 @@ const initialStreams = () => {
         addAlert(`Cannot add more than ${MAX_STREAMS} streams`, "error")
     }
 
-    return streamsFromParams.slice(0, MAX_STREAMS - 1).map((param, index) => {
+    return streamsFromParams.slice(0, MAX_STREAMS).map((param, index) => {
         const { id, streamSource } = parseStreamFromParam(param)
         return { id, streamSource, displayPosition: index }
     })
@@ -49,6 +49,12 @@ export const streamsState = proxy<StreamsState>({
 
 export const useStreamsState = () => useSnapshot(streamsState)
 
+/*
+Separate variable: streams length cannot be used for new indices, because that doesnt account for removed streams
+And why removing streams doesnt cause changes in display positions: that would force streams to rerender
+*/
+let newStreamIndex = streamsState.streams.length
+
 export const addStream = (id: string, streamSource: StreamSource) => {
     if (streamsState.identifiers.includes(id) || streamsState.identifiers.length >= MAX_STREAMS) {
         addAlert(`Cannot add more than ${MAX_STREAMS} streams`, "error")
@@ -58,8 +64,10 @@ export const addStream = (id: string, streamSource: StreamSource) => {
     streamsState.streams.push({
         id,
         streamSource,
-        displayPosition: streamsState.streams.length,
+        displayPosition: newStreamIndex,
     })
+
+    newStreamIndex++
 }
 
 export const addStreamList = (streams: Array<{ id: string; streamSource: StreamSource }>) => {

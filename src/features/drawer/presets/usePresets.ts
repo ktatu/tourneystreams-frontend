@@ -148,7 +148,7 @@ const sortPresetsByViewerCount = (presets: Array<Preset>) =>
         const presetAViewerCountTotal = presetA.channels.reduce(sumViewerCount, 0)
         const presetBViewerCountTotal = presetB.channels.reduce(sumViewerCount, 0)
 
-        return presetAViewerCountTotal > presetBViewerCountTotal ? 1 : -1
+        return presetAViewerCountTotal > presetBViewerCountTotal ? -1 : 1
     })
 
 const sortPresetsAlphabetically = (presets: Array<Preset>) =>

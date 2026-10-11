@@ -29,16 +29,6 @@ class PresetLocalStorage {
         const savedPresets = this.getStoredPresets()
         newPreset.name = newPreset.name.toLocaleLowerCase()
 
-        if (
-            newPreset.channels.find(
-                (channel) => channel.name.length < 4 || channel.name.length > 25,
-            )
-        ) {
-            throw new Error("Channels between 4 and 25 characters")
-        }
-        if (newPreset.name.length > 30) {
-            throw new Error("Preset name max length 30")
-        }
         if (savedPresets && savedPresets.map((preset) => preset.name).includes(newPreset.name)) {
             throw new Error("Preset name already in use")
         }
@@ -48,8 +38,15 @@ class PresetLocalStorage {
     }
 
     updatePreset(updatedPreset: Preset, nameOfPresetToUpdate: string) {
-        this.deletePreset(nameOfPresetToUpdate)
-        this.savePreset(updatedPreset)
+        const oldName = nameOfPresetToUpdate.toLocaleLowerCase()
+        updatedPreset.name = updatedPreset.name.toLocaleLowerCase()
+
+        const otherPresets = this.getStoredPresets().filter((preset) => preset.name !== oldName)
+        if (otherPresets.some((preset) => preset.name === updatedPreset.name)) {
+            throw new Error("Preset name already in use")
+        }
+
+        localStorage.setItem("presets", JSON.stringify(otherPresets.concat(updatedPreset)))
     }
 
     deletePreset = (name: string) => {

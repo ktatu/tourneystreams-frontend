@@ -15,7 +15,7 @@ const Settings = ({ handleDrawerClose }: SettingsProps) => {
 
     const handleMaxStreamsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValAsInt = parseInt(event.target.value)
-        if (newValAsInt === 0 || newValAsInt > 9) {
+        if (isNaN(newValAsInt) || newValAsInt === 0 || newValAsInt > 9) {
             return
         }
 
@@ -38,6 +38,9 @@ const Settings = ({ handleDrawerClose }: SettingsProps) => {
                     }}
                 >
                     <Stack spacing={2}>
+                        <Typography variant="body1">
+                            Changes require a page refresh to take effect
+                        </Typography>
                         <Stack>
                             <Typography variant="h5">Twitch</Typography>
                             <CheckboxSetting
@@ -52,7 +55,6 @@ const Settings = ({ handleDrawerClose }: SettingsProps) => {
                         <Stack spacing={1}>
                             <Typography variant="h5">General</Typography>
                             <TextField
-                                helperText="Requires page refresh after change"
                                 label="Max number of streams on screen"
                                 sx={{ maxWidth: "50%" }}
                                 type="number"

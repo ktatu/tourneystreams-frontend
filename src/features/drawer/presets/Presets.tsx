@@ -72,9 +72,6 @@ const Presets = ({ handleDrawerClose }: PresetsProps) => {
     )
 }
 
-/*
- */
-
 interface OpenAddPresetFormButtonProps {
     presetContent: PresetContentView
     setPresetContentView: React.Dispatch<React.SetStateAction<PresetContentView>>

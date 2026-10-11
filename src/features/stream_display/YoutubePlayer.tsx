@@ -1,6 +1,6 @@
 // AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Box, CircularProgress, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { addAlert } from "../../commons/alertState"
 import { removeStream } from "../../commons/streamsState"
 import { useCookiesConsent } from "../../CookiesConsent"
@@ -13,6 +13,7 @@ interface YoutubePlayerProps {
 const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
     const [playerReady, setPlayerReady] = useState(false)
     const cookieChoice = useCookiesConsent("youtube")
+    const playerRef = useRef<YT.Player | null>(null)
 
     useEffect(() => {
         if (!youtubeApiReady || cookieChoice !== "accept") {
@@ -20,7 +21,7 @@ const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
         }
 
         try {
-            new window.YT.Player(id, {
+            playerRef.current = new window.YT.Player(id, {
                 videoId: id,
                 height: "100%",
                 width: "100%",
@@ -46,7 +47,13 @@ const YoutubePlayer = ({ id, youtubeApiReady }: YoutubePlayerProps) => {
 
             addAlert(`Unable to load YouTube player. ${msg}`, "error")
         }
-    }, [cookieChoice, youtubeApiReady])
+
+        return () => {
+            if (playerRef.current) {
+                playerRef.current.destroy()
+            }
+        }
+    }, [cookieChoice, id, youtubeApiReady])
 
     useEffect(() => {
         if (playerReady || cookieChoice !== "accept") {

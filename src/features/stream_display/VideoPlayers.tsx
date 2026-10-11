@@ -97,11 +97,8 @@ const VideoPage = ({
             }}
         >
             {pageOpen &&
-                streams.map((stream) => {
-                    const { width, height } = getVideoDimensions(
-                        streams.length,
-                        stream.displayPosition,
-                    )
+                streams.map((stream, index) => {
+                    const { width, height } = getVideoDimensions(streams.length, index)
 
                     return (
                         <Box

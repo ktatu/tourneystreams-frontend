@@ -1,12 +1,11 @@
 import { Alert as MuiAlert, Snackbar } from "@mui/material"
-
-type severity = "success" | "error"
+import { Severity } from "./commons/alertState"
 
 interface AlertProps {
     message: string
     open: boolean
     handleClose: () => void
-    severity: severity
+    severity: Severity
 }
 
 const Alert = ({ message, open, handleClose, severity }: AlertProps) => {

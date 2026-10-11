@@ -1,10 +1,10 @@
 import { proxy, useSnapshot } from "valtio"
 
-export type severity = "success" | "error"
+export type Severity = "success" | "error" | "info"
 
 interface AlertState {
     message: string
-    severity: severity
+    severity: Severity
 }
 
 const alertState = proxy<AlertState>({
@@ -12,7 +12,7 @@ const alertState = proxy<AlertState>({
     severity: "success",
 })
 
-export const addAlert = (message: string, severity: severity) => {
+export const addAlert = (message: string, severity: Severity) => {
     alertState.message = message
     alertState.severity = severity
 }

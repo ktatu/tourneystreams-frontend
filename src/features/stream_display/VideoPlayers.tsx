@@ -34,20 +34,22 @@ const VideoPlayers = () => {
     }
 
     const streamsAsPages = useMemo(() => {
-        return streams.reduce((pageArray: Array<Array<Stream>>, currStream, currIndex) => {
-            if (currIndex % MAX_STREAMS_PER_PAGE === 0) {
-                const newStreamPage: Array<Stream> = []
+        return streams
+            .toSorted((streamA, streamB) => streamA.displayPosition - streamB.displayPosition)
+            .reduce((pageArray: Array<Array<Stream>>, currStream, currIndex) => {
+                if (currIndex % MAX_STREAMS_PER_PAGE === 0) {
+                    const newStreamPage: Array<Stream> = []
 
-                newStreamPage.push(currStream)
-                pageArray.push(newStreamPage)
-            } else {
-                const pageWithRoom = pageArray[pageArray.length - 1]
+                    newStreamPage.push(currStream)
+                    pageArray.push(newStreamPage)
+                } else {
+                    const pageWithSpareRoom = pageArray[pageArray.length - 1]
 
-                pageWithRoom.push(currStream)
-            }
+                    pageWithSpareRoom.push(currStream)
+                }
 
-            return pageArray
-        }, [])
+                return pageArray
+            }, [])
     }, [streams])
 
     return (

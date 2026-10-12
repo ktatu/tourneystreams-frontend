@@ -16,11 +16,7 @@ const TwitchConnectError = ({ error }: { error: Error }) => {
                         gap: 1,
                     }}
                 >
-                    <Box
-                        sx={{
-                            flex: 1,
-                        }}
-                    >
+                    <Box>
                         <Button
                             endIcon={<LaunchIcon />}
                             href={`${BACKEND_BASE_URL}/twitch/auth${window.location.search}`}
@@ -36,7 +32,11 @@ const TwitchConnectError = ({ error }: { error: Error }) => {
         if (error.status && error.status >= 500) {
             return <Typography variant="h6">Unexpected server error. Try again later</Typography>
         }
-        if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {
+        if (
+            error.code === "ECONNABORTED" ||
+            error.code === "ETIMEDOUT" ||
+            error.code === "ERR_NETWORK"
+        ) {
             return <Typography variant="h6">Unable to reach the server. Try again later</Typography>
         }
     }

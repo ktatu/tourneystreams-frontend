@@ -7,7 +7,7 @@ export const get = async <T>(endpoint: string, params?: AxiosRequestConfig["para
     const res = await axiosClient.get<T>(`${BACKEND_BASE_URL}/${endpoint}`, {
         params,
         withCredentials: true,
-        timeout: 10000
+        timeout: 100000
     })
     return res
 }

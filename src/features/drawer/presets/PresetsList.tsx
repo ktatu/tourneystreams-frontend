@@ -37,7 +37,7 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
         return (
             <Stack spacing={1}>
                 {isFetched && presetsWithLiveStreams.length === 0 && (
-                    <Typography variant="h5">No livestreams currently</Typography>
+                    <Typography variant="h5">No presets with livestreams currently</Typography>
                 )}
                 <Stack
                     sx={{

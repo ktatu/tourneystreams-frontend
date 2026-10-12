@@ -9,11 +9,16 @@ const DrawerContainer = ({ children }: DrawerContainerProps) => {
     return (
         <Box
             sx={{
+                boxSizing: "border-box",
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "100%",
                 paddingBottom: 4,
                 paddingLeft: 3,
                 paddingRight: 3,
-                paddingTop: 3
-            }}>
+                paddingTop: 3,
+            }}
+        >
             {children}
         </Box>
     )

@@ -13,7 +13,7 @@ import {
 } from "@mui/material"
 import { useEffect, useState } from "react"
 
-import CookiesConsent, { useCookiesConsent } from "./CookiesConsent"
+import CookiesConsent, { useCookiesConsent } from "../../../CookiesConsent"
 
 const dialogText: Array<{ header: string; text: string[] }> = [
     {

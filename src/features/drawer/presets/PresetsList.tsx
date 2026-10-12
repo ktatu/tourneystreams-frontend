@@ -12,7 +12,7 @@ interface PresetsListProps {
 }
 
 const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
-    const { data, error, isFetched, isLoading } = usePresets()
+    const { data, error, isFetched, isLoading, isEnabled } = usePresets()
 
     if (isLoading) {
         return (
@@ -27,12 +27,8 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
         return <TwitchConnectError error={error} />
     }
 
-    if (data) {
+    if (data && isEnabled) {
         const { presetsWithNoLiveStreams, presetsWithLiveStreams } = data
-
-        if (presetsWithLiveStreams.length + presetsWithNoLiveStreams.length === 0) {
-            return <Typography variant="h5">No presets added yet</Typography>
-        }
 
         return (
             <Stack spacing={1}>
@@ -81,6 +77,8 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
             </Stack>
         )
     }
+
+    return <Typography variant="h5">No presets added yet</Typography>
 }
 
 export default PresetsList

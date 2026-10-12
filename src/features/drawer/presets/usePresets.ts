@@ -13,7 +13,7 @@ interface StreamQuery {
 const presetStorage = PresetStorage.instance
 
 const usePresets = () => {
-    const initialPresetsToShow = presetStorage.getStoredPresets()
+    const presetsFromStorage = presetStorage.getStoredPresets()
 
     const queryResult = useQuery<{
         presetsWithNoLiveStreams: Array<Preset>
@@ -22,19 +22,17 @@ const usePresets = () => {
         totalNumOfStreams: number
     }>({
         queryKey: ["presets"],
-        queryFn: getPresets,
+        queryFn: () => getPresets(presetStorage.getStoredPresets()),
         retry: 1,
         gcTime: Infinity,
         staleTime: 100000,
-        enabled: initialPresetsToShow.length !== 0,
+        enabled: presetsFromStorage.length !== 0,
     })
 
     return queryResult
 }
 
-const getPresets = async () => {
-    const locallyStoredPresets = presetStorage.getStoredPresets()
-
+const getPresets = async (locallyStoredPresets: Array<Preset>) => {
     if (locallyStoredPresets.length === 0) {
         return {
             presetsWithLiveStreams: [],

@@ -4,7 +4,7 @@ import { Button, Stack, Typography } from "@mui/material"
 import { AxiosError } from "axios"
 import { Preset } from "../../../types"
 import DrawerCardSkeleton from "../shared_components/DrawerCardSkeleton"
-import TwitchConnectError from "../shared_components/TwitchConnect"
+import TwitchConnectError from "../shared_components/TwitchConnectError"
 import PresetCard from "./PresetCard"
 import usePresets from "./usePresets"
 

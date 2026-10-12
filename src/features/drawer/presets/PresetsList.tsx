@@ -1,7 +1,6 @@
 // AI-assisted by Claude Sonnet 5.5 (GitHub Copilot): moved MUI system props into sx, as part of the Vite/dependency migration.
 import { Edit } from "@mui/icons-material"
 import { Button, Stack, Typography } from "@mui/material"
-import { AxiosError } from "axios"
 import { Preset } from "../../../types"
 import DrawerCardSkeleton from "../shared_components/DrawerCardSkeleton"
 import TwitchConnectError from "../shared_components/TwitchConnectError"
@@ -25,14 +24,15 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
     }
 
     if (error) {
-        if (error instanceof AxiosError) {
-            return <TwitchConnectError error={error} />
-        }
-        return <Typography variant="h5">Unexpected error, try again later</Typography>
+        return <TwitchConnectError error={error} />
     }
 
     if (data) {
         const { presetsWithNoLiveStreams, presetsWithLiveStreams } = data
+
+        if (presetsWithLiveStreams.length + presetsWithNoLiveStreams.length === 0) {
+            return <Typography variant="h5">No presets added yet</Typography>
+        }
 
         return (
             <Stack spacing={1}>
@@ -81,8 +81,6 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
             </Stack>
         )
     }
-
-    return <Typography variant="h5">No presets added yet</Typography>
 }
 
 export default PresetsList

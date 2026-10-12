@@ -4,7 +4,7 @@ import { Button, Stack, Typography } from "@mui/material"
 import { AxiosError } from "axios"
 import { Preset } from "../../../types"
 import DrawerCardSkeleton from "../shared_components/DrawerCardSkeleton"
-import TwitchConnect from "../shared_components/TwitchConnect"
+import TwitchConnectError from "../shared_components/TwitchConnect"
 import PresetCard from "./PresetCard"
 import usePresets from "./usePresets"
 
@@ -26,9 +26,7 @@ const PresetsList = ({ handleChangeToPresetUpdate }: PresetsListProps) => {
 
     if (error) {
         if (error instanceof AxiosError) {
-            return (
-                <TwitchConnect message="Connect your Twitch account to see which presets have livestreams" />
-            )
+            return <TwitchConnectError error={error} />
         }
         return <Typography variant="h5">Unexpected error, try again later</Typography>
     }

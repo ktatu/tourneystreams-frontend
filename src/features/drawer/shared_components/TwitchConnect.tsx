@@ -2,31 +2,46 @@
 import LaunchIcon from "@mui/icons-material/Launch"
 import { Box, Button, Typography } from "@mui/material"
 import { BACKEND_BASE_URL } from "../../../envConfig"
+import { AxiosError } from "axios"
 
-const TwitchConnect = ({ message }: { message: string }) => {
-    return (
-        <Box
-            sx={{
-                alignItems: "center",
-                display: "flex",
-                flexDirection: "row",
-                gap: 1
-            }}>
-            <Box sx={{
-                flex: 1
-            }}>
-                {" "}
-                <Button
-                    endIcon={<LaunchIcon />}
-                    href={`${BACKEND_BASE_URL}/twitch/auth${window.location.search}`}
-                    variant="outlined"
+const TwitchConnectError = ({ error }: { error: Error }) => {
+    if (error instanceof AxiosError) {
+        if (error.status === 401) {
+            return (
+                <Box
+                    sx={{
+                        alignItems: "center",
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: 1,
+                    }}
                 >
-                    Connect
-                </Button>
-            </Box>
-            <Typography>{message}</Typography>
-        </Box>
-    )
+                    <Box
+                        sx={{
+                            flex: 1,
+                        }}
+                    >
+                        <Button
+                            endIcon={<LaunchIcon />}
+                            href={`${BACKEND_BASE_URL}/twitch/auth${window.location.search}`}
+                            variant="outlined"
+                        >
+                            Connect
+                        </Button>
+                    </Box>
+                    <Typography>Twitch connection required</Typography>
+                </Box>
+            )
+        }
+        if (error.status && error.status >= 500) {
+            return <Typography variant="h6">Unexpected server error. Try again later</Typography>
+        }
+        if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {
+            return <Typography variant="h6">Unable to reach the server. Try again later</Typography>
+        }
+    }
+
+    return <Typography variant="h6">Unexpected error. Try again later</Typography>
 }
 
-export default TwitchConnect
+export default TwitchConnectError

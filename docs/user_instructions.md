@@ -17,6 +17,7 @@ Any Twitch or YouTube streams can be added from the app bar.
 
 <video src="../src/assets/siteguide_videos/step2_followed.mp4" controls width="800"></video>
 https://github.com/ktatu/tourneystreams-frontend/blob/main/src/assets/siteguide_videos/step2_followed.mp4
+[![step2](https://img.youtube.com/vi/AhPraFuZyIM/0.jpg)](https://www.youtube.com/watch?v=AhPraFuZyIM)
 
 This is where you can see a list of Twitch channels you follow that are currently streaming.
 

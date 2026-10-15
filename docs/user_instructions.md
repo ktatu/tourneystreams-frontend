@@ -24,6 +24,8 @@ If you haven't connected your Twitch account to Tourneystreams before or your au
 - If you have connected to Tourneystreams before and not removed that connection, clicking the button will simply re-authenticate you and redirect you to the page.
 - If you haven't connected before, you will see the screen below, asking you to authorize Tourneystreams. The page will also state what the app will gain access to, which in this case is the list of the channels you follow.
 
+<img src="./auth_twitch.png" />
+
 ## Presets
 
 [![step3](https://img.youtube.com/vi/5EzCNuaEiL4/0.jpg)](https://www.youtube.com/watch?v=5EzCNuaEiL4)

@@ -1,6 +1,6 @@
 # User instructions
 
-This document will go over the features of the app, and how to use them.
+This document explains the user features of the app. Click the images to see the instructional videos.
 
 ## Adding (any) streams
 

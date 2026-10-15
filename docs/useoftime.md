@@ -1,4 +1,4 @@
-Over 300 hours by 6.10.2026
+Over 300 hours
 
 ## 2022
 
@@ -127,3 +127,4 @@ Over 300 hours by 6.10.2026
 | 3 Oct  |     4 | Frontend bug fixes and migration from CRA to Vite                   |
 | 5 Oct  |     4 | Improved OAuth 2.0 security and studied data privacy                |
 | 6 Oct  |     5 | Wrote the privacy policy and documentation; general project cleanup |
+| 16 Oct |     2 | More documentation                                                  |

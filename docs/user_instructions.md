@@ -4,7 +4,7 @@ This document will go over the features of the app, and how to use them.
 
 ## Adding (any) streams
 
-<video src="https://raw.githubusercontent.com/ktatu/tourneystreams-frontend/src/assets/siteguide_videos/step1_addstreams.mp4" controls width="800"></video>
+[![step1](https://img.youtube.com/vi/eao9xPunDac/0.jpg)](https://www.youtube.com/watch?v=eao9xPunDac)
 
 Any Twitch or YouTube streams can be added from the app bar.
 
@@ -15,8 +15,6 @@ Any Twitch or YouTube streams can be added from the app bar.
 
 ## Followed streams
 
-<video src="../src/assets/siteguide_videos/step2_followed.mp4" controls width="800"></video>
-https://github.com/ktatu/tourneystreams-frontend/blob/main/src/assets/siteguide_videos/step2_followed.mp4
 [![step2](https://img.youtube.com/vi/AhPraFuZyIM/0.jpg)](https://www.youtube.com/watch?v=AhPraFuZyIM)
 
 This is where you can see a list of Twitch channels you follow that are currently streaming.
@@ -28,7 +26,7 @@ If you haven't connected your Twitch account to Tourneystreams before or your au
 
 ## Presets
 
-https://github.com/ktatu/tourneystreams-frontend/blob/main/src/assets/siteguide_videos/step3_presets.mp4
+[![step3](https://img.youtube.com/vi/5EzCNuaEiL4/0.jpg)](https://www.youtube.com/watch?v=5EzCNuaEiL4)
 
 Presets is another convenience tool, allowing you to make groups of Twitch streamers, that you can open at once.
 

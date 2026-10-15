@@ -4,7 +4,7 @@ This document will go over the features of the app, and how to use them.
 
 ## Adding (any) streams
 
-https://github.com/ktatu/tourneystreams-frontend/blob/main/src/assets/siteguide_videos/step1_addstreams.mp4
+<video src="https://raw.githubusercontent.com/ktatu/tourneystreams-frontend/src/assets/siteguide_videos/step1_addstreams.mp4" controls width="800"></video>
 
 Any Twitch or YouTube streams can be added from the app bar.
 
@@ -15,6 +15,7 @@ Any Twitch or YouTube streams can be added from the app bar.
 
 ## Followed streams
 
+<video src="../src/assets/siteguide_videos/step2_followed.mp4" controls width="800"></video>
 https://github.com/ktatu/tourneystreams-frontend/blob/main/src/assets/siteguide_videos/step2_followed.mp4
 
 This is where you can see a list of Twitch channels you follow that are currently streaming.
